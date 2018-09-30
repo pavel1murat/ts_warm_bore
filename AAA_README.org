@@ -1,0 +1,13 @@
+# ts_warm_bore/AAA_README.org
+
+* histograms saved to murat/hist/mu2e/ts_warm_bore/
+
+* directory: file:./
+
+* subdirectories:
+
+  711_0000: default geometry
+  711_0001: "worst case"
+  711_9999: example of huge offsets
+
+  fcl, geom - for tests, templates...

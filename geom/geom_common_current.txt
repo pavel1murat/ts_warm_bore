@@ -1,0 +1,10 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_common_current.txt"
+#include "ts_inner_bore/geom/TransportSolenoid_v05.txt"
+
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:
