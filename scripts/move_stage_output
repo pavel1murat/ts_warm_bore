@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+project=$1 # ts_inner_bore
+   dsid=$2 # 711_0001
+  stage=$3 # s2
+  jobid=$4 # 
+   doit=$5
+  
+  if [ ".$doit" == "." ] ; then prefix="echo "; else prefix="" ; fi
+
+ input_dir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_$stage/outstage/$jobid
+output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage
+
+for stream in crv mubeam truncated ; do
+    for f in $input_dir/00/*/sim.murat.TS-$stream.*.art ; do 
+	${prefix} cp $f $output_dir/$stream/.  
+    done
+done
+
+for f in $input_dir/00/*/nts.murat.*.root ; do 
+    ${prefix} cp $f $output_dir/hist/. 
+done
+
+for f in $input_dir/00/*/log.*.log ; do 
+    ${prefix} cp $f $output_dir/log/.  
+done

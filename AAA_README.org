@@ -1,8 +1,69 @@
-# ts_warm_bore/AAA_README.org
-
-* histograms saved to murat/hist/mu2e/ts_warm_bore/
+# ts_inner_bore/AAA_README.org
 
 * directory: file:./
+
+* 711_000: default geometry
+
+* 711_001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
+
+* WORK LOG
+#
+
+olddir=$PWD
+
+generate_fcl --description=s1 --dsconf=711_0000 --events=20000 --njobs=250 --embed ts_inner_bore/711_0000/PS_711_0000.fcl --run=1
+mv seeds.murat.s1.711_0000.*.txt 000/.
+mv 000 /mu2e/app/users/murat/fcl/ts_inner_bore_711_0000.s1.250_20000
+
+cd /mu2e/app/users/murat/fcl/ts_inner_bore_711_0000.s1.250_20000
+tar -cjf ../ts_inner_bore_711_0000.s1.250_20000.tbz *.fcl
+cd $olddir
+
+generate_fcl --description=s1 --dsconf=711_0001 --events=20000 --njobs=250 --embed ts_inner_bore/711_0001/PS_711_0001.fcl --run=1
+mv seeds.murat.s1.711_0001.*.txt 000/.
+mv 000 /mu2e/app/users/murat/fcl/ts_inner_bore_711_0001.s1.250_20000
+
+cd /mu2e/app/users/murat/fcl/ts_inner_bore_711_0001.s1.250_20000
+tar -cjf ../ts_inner_bore_711_0001.s1.250_20000.tbz *.fcl
+cd $olddir
+
+generate_fcl --description=s2 --dsconf=711_1000 --merge=10 --embed ts_inner_bore/711_0000/TS_711_0000.fcl --inputs=catalogs/ts_inner_bore/711_1000/s1/ts_inner_bore.711_1000_s1.mubeam.art
+mv seeds.murat.s2.711_1000.*.txt 000/.
+mv 000 /mu2e/app/users/murat/fcl/ts_inner_bore_711_1000.s2
+cd /mu2e/app/users/murat/fcl/ts_inner_bore_711_1000.s2
+tar -cjf ../ts_inner_bore_711_1000.s2.tbz *.fcl
+
+generate_fcl --description=s2 --dsconf=711_1001 --merge=10 --embed ts_inner_bore/711_0000/TS_711_0000.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_inner_bore/711_1001/s1/ts_inner_bore.711_1001_s1.mubeam.art
+mv seeds.murat.s2.711_1001.*.txt 000/.
+mv 000 /mu2e/app/users/murat/fcl/ts_inner_bore_711_1001.s2
+cd /mu2e/app/users/murat/fcl/ts_inner_bore_711_1001.s2
+tar -cjf ../ts_inner_bore_711_1001.s2.tbz *.fcl
+
+
+project=ts_inner_bore
+dsid=711_1000
+stage=s2
+mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/$project.code.tbz --fcllist=/pnfs/mu2e/resilient/users/murat/${project}_$dsid.$stage.tbz --dsconf=$project --wfproject=${project}_${dsid}_${stage} --expected-lifetime=3h
+
+
+
+
+generate_fcl --description=ts_inner_bore --dsconf=711_1000_s1_mubeam --merge=1000 --embed Stntuple/test/g4s1_mubeam_stn.fcl \
+             --inputs=catalogs/ts_inner_bore/711_1000/s1/ts_inner_bore.711_1000_s1.mubeam.art
+
+generate_fcl --description=ts_inner_bore --dsconf=711_1001_s1_mubeam --merge=1000 --embed Stntuple/test/g4s1_mubeam_stn.fcl \
+             --inputs=catalogs/ts_inner_bore/711_1001/s1/ts_inner_bore.711_1001_s1.mubeam.art
+
+
+
+generate_fcl --description=s3 --dsconf=711_0001 --merge=10 --embed ts_inner_bore/711_0001/DS_711_0001.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_inner_bore/711_0001/s2/ts_inner_bore.711_0001_s2.mubeam
+generate_fcl --description=s3 --dsconf=711_0000 --merge=10 --embed ts_inner_bore/711_0000/DS_711_0000.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_inner_bore/711_0000/s2/ts_inner_bore.711_0000_s2.mubeam
+
+generate_fcl --description=s3 --dsconf=711_1000 --merge=5 --embed ts_inner_bore/711_0000/DS_711_0000.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_inner_bore/711_1000/s2/ts_inner_bore.711_1000_s2.mubeam.art
+generate_fcl --description=s3 --dsconf=711_1001 --merge=5 --embed ts_inner_bore/711_0001/DS_711_0001.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_inner_bore/711_1001/s2/ts_inner_bore.711_1001_s2.mubeam.art
+
+generate_fcl --description=ts_warm_bore --dsconf=711_1000_s3_tgtstops --merge=1000 --embed Stntuple/test/g4s3_tgtstops_stn.fcl  --inputs=catalogs/ts_warm_bore/711_1000/s3/ts_warm_bore.711_1000_s3.tgtstops.art
+
 
 * subdirectories:
 

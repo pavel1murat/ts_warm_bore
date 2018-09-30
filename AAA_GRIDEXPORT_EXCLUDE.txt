@@ -1,0 +1,12 @@
+lib/libmu2e_Sandbox_*.so
+lib/libmu2e_TrkDiag_*.so
+lib/libmu2e_Print_*.so
+lib/libmu2e_Analyses_Read*.so
+lib/libmu2e_Analyses_Print*.so
+lib/libmu2e_CutAndCountAnalysis_*.so
+lib/libmu2e_DAQ*.so
+lib/libmu2e_EventDisplay_*.so
+lib/libmu2e_EventMixing_*.so
+lib/libmu2e_HelloWorld_*.so
+lib/libmurat*.so
+results/*

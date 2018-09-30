@@ -1,0 +1,24 @@
+#!/bin/bash 
+
+project=ts_warm_bore # $1 # ts_warm_bore
+   dsid=$1 # 711_0001
+  stage=$2
+  jobid=$3
+   doit=$4
+
+
+prefix="echo "
+if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_${stage}/outstage/$jobid
+
+
+#------------------------------------------------------------------------------
+# 1. copy log files
+#------------------------------------------------------------------------------
+outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/log
+if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
+
+for f in `ls $topdir/*/*/*.log` ; do 
+    ${prefix}cp $f $outputdir/.
+done

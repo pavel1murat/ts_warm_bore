@@ -1,0 +1,28 @@
+#!/bin/bash 
+
+project=ts_warm_bore # $1 # ts_inner_bore
+   dsid=$1 # 711_0001
+  stage=$2
+  jobid=$3
+ stream=$4
+   doit=$5
+
+
+prefix="echo "
+if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_${stage}/outstage/$jobid
+outputdir=$CATALOG_DIR/$project/$dsid/$stage
+if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
+#------------------------------------------------------------------------------
+# catalog - so far, only .art files
+#------------------------------------------------------------------------------
+catalog_fn=$project.${dsid}_${stage}.$stream.art
+echo topdir=$topdir
+ls $topdir/*/*/*.art | grep -i $stream >| $outputdir/$catalog_fn 
+
+nfiles=`cat $outputdir/$catalog_fn | wc -l`
+
+cat $outputdir/$catalog_fn 
+
+echo nfiles = $nfiles
