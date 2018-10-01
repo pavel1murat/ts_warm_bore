@@ -1,0 +1,40 @@
+#!/bin/bash 
+
+        project=ts_warm_bore # $1 # ts_inner_bore
+           dsid=$1 # 711_0001
+    input_stage=$2
+   input_stream=$3
+        jobtype=$4  # 'stn' , for example
+           doit=$5
+
+if [ ".$doit" == "." ] ; then prefix='echo ' ; else prefix=''  ; fi
+
+setup mu2etools
+setup mu2efiletools
+setup mu2egrid 
+
+dsconf=${dsid}_${input_stage}_${input_stream}
+inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+
+if [ -d 000 ] ; then 
+    tmp_stub=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
+    echo directory 000 already exists, move it to 000.$tmp_stub
+    mv 000 000.$tmp_stub
+fi
+
+generate_fcl --description=$project --dsconf=$dsconf --merge=1000 \
+             --embed Stntuple/test/g4s3_tgtstops_stn.fcl  \
+             --inputs=$inputs
+
+mv seeds.$USER.$project.${dsconf}.*.txt 000/.
+
+#------------------------------------------------------------------------------
+# make sure we're nor overwriting the existing directory
+#------------------------------------------------------------------------------
+dir=$project/tmp_fcl/$dsid.${input_stage}_$input_stream.$jobtype
+
+if [ -d $dir ] ; then 
+    echo ERROR: directory $dir already exists !
+else
+    ${prefix}mv 000 $dir
+fi

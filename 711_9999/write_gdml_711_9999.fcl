@@ -30,7 +30,7 @@ physics : {
 	g4run: { @table::g4run
 	    debug  : { @table::g4run.debug 
 		writeGDML    : true 
-		GDMLFileName : "mu2e_geometry_ts_inner_bore_711_9999.gdml"
+		GDMLFileName : "mu2e_geometry_ts_warm_bore_711_9999.gdml"
 	    }
 	}
     }
@@ -51,4 +51,4 @@ physics.producers.g4run.physics.physicsListName : "Minimal"
 #
 # template for changing the geometry file, if needed
 # services.GeometryService.inputFile: "Mu2eG4/geom/geom_common_current.txt"
-services.GeometryService.inputFile: "ts_inner_bore/711_9999/geom_711_9999.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_9999/geom_711_9999.txt"

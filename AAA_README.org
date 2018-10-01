@@ -1,10 +1,25 @@
 # ts_inner_bore/AAA_README.org
 
+  *subdirectories:*
+
+  711_0000: default geometry
+  711_0001: "worst case"
+  711_1000: default geometry, used to generate a 5M dataset
+  711_1001: "worst case", used to generate a 5M dataset
+
+  711_9999: example of huge offsets
+
+  fcl, geom - for tests, templates...
+
+  tmp_code: stores tarballs
+  tmp_fcl : stores FCL files produced with generate_fcl
+
 * directory: file:./
 
-* 711_000: default geometry
+* generating a tarball: gridexport -E ../grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+* 711_0000: default geometry
 
-* 711_001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
+* 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 
 * WORK LOG
 #
@@ -65,10 +80,4 @@ generate_fcl --description=s3 --dsconf=711_1001 --merge=5 --embed ts_inner_bore/
 generate_fcl --description=ts_warm_bore --dsconf=711_1000_s3_tgtstops --merge=1000 --embed Stntuple/test/g4s3_tgtstops_stn.fcl  --inputs=catalogs/ts_warm_bore/711_1000/s3/ts_warm_bore.711_1000_s3.tgtstops.art
 
 
-* subdirectories:
 
-  711_0000: default geometry
-  711_0001: "worst case"
-  711_9999: example of huge offsets
-
-  fcl, geom - for tests, templates...

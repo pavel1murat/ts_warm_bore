@@ -14,15 +14,18 @@ if [ ".$doit" != "." ] ; then prefix="" ; fi
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_${stage}/outstage/$jobid
 outputdir=$CATALOG_DIR/$project/$dsid/$stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
+echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 # catalog - so far, only .art files
 #------------------------------------------------------------------------------
 catalog_fn=$project.${dsid}_${stage}.$stream.art
 echo topdir=$topdir
-ls $topdir/*/*/*.art | grep -i $stream >| $outputdir/$catalog_fn 
 
-nfiles=`cat $outputdir/$catalog_fn | wc -l`
+${prefix}ls  $topdir/*/*/*.art | grep -i $stream >| $outputdir/$catalog_fn
 
-cat $outputdir/$catalog_fn 
+${prefix}cat $outputdir/$catalog_fn 
 
-echo nfiles = $nfiles
+if [ ".$doit" != "." ] ; then 
+    nfiles=`cat $outputdir/$catalog_fn | wc -l`
+    echo nfiles = $nfiles
+fi

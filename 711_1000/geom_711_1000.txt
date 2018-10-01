@@ -1,7 +1,6 @@
 // -*- mode: c++ -*-
 // 
 #include "Mu2eG4/geom/geom_common_current.txt"
-#include "ts_warm_bore/geom/TransportSolenoid_v05_711_9999.txt"
 
 //
 // This tells emacs to view this file in c++ mode.

@@ -19,6 +19,6 @@ topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_${stage}/outst
 outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/log
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 
-for f in `ls $topdir/*/*/*.log` ; do 
+for f in `ls $topdir/*/*/*.log*` ; do 
     ${prefix}cp $f $outputdir/.
 done
