@@ -1,0 +1,5 @@
+#
+#include "JobConfig/beam/TS.fcl"
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_0002/geom_711_0002.txt"
