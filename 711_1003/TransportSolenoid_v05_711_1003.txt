@@ -2,6 +2,8 @@
 //2018-09-25 P.Murat: version=5: study impact of the TS inner bore misalignment
 //                               TS collimator holes are displaced
 //
+// 711_1003: make Pbar absorber wider to match the size of the TS1 collimator hole 
+//
 // collimator displacements here are the measured ones
 //-----------------------------------------------------------------------------
 int    ts.version        = 5;
@@ -128,14 +130,14 @@ double pbar.support.holeDisp = 90.0 ; // mm
 // Pbar absorber in front of TS1 entrance
 bool   pbar.coll1In.build = true;
 double pbar.coll1In.halfLength = 0.125;
-double pbar.coll1In.rOut = 160.0;
+double pbar.coll1In.rOut       = 200.; // *DEFAULT* : 160.0;
 double pbar.coll1In.offset = -140.02;       // distance to the TS1 entrance on +z.  It is implemented as distance to COL1, which shifted 40 mm, so shifted this as well.
 string pbar.coll1In.material1Name = "G4_Al";
 double pbar.coll1In.rOutRecord = 200.0;
 // Support structure for the upstream Pbar window in front of TS1 entrance
 int    pbar.coll1In.Version = 2; // 1 for just the window. 2 adds supports
-double pbar.coll1In.supportRIn = 158.75;    // support dimensions also apply
-double pbar.coll1In.supportROut = 174.625; // to frames
+double pbar.coll1In.supportRIn  = 198.75;  // *DEFAULT*: 158.75;    // support dimensions also apply
+double pbar.coll1In.supportROut = 214.645; // *DEFAULT*: 174.625; // to frames
 double pbar.coll1In.supportHLen = 3.175;
 string pbar.coll1In.supportMaterialName = "StainlessSteel";
 double pbar.coll1In.supportOffsetZ = 12.5;
@@ -144,13 +146,13 @@ double pbar.coll1In.frameOffsetZ = 3.695;
 vector<double> pbar.coll1In.tabDims = { 20.4, 11., 9.2};// {25.4,12.7,6.35};
 string pbar.coll1In.tabMaterialName = "StainlessSteel";
 double pbar.coll1In.tabOffsetZ = 7.25; // from support ring
-double pbar.coll1In.tabOffsetR = 186.0; // from center of ring/window
+double pbar.coll1In.tabOffsetR = 226.; // *DEFAULT* : 186.0; // from center of ring/window
 vector<double> pbar.coll1In.pegInnerRadii = {0,0,0,0,0,0,0};
 vector<double> pbar.coll1In.pegOuterRadii = {4.5,6.35,6.35,3.175,3.175,6.35,6.35};
 vector<double> pbar.coll1In.pegZPlanes = {0,1,2,2,10.7,10.7,12.7};
 string pbar.coll1In.pegMaterialName = "StainlessSteel";
 double pbar.coll1In.pegOffsetZ = 19.65;
-double pbar.coll1In.pegRadialPosition = 166.7; // midway between inner and
+double pbar.coll1In.pegRadialPosition = 206.7; // *DEFAULT: 166.7; // midway between inner and
 // outer radii of frame/support
 
 
