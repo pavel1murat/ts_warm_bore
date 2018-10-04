@@ -1,3 +1,10 @@
+grid_export
+.git
+.git/*
+Sandbox
+RootAnalyzer
+TestTools
+UtilityModules
 lib/libmu2e_Sandbox_*.so
 lib/libmu2e_TrkDiag_*.so
 lib/libmu2e_Print_*.so
@@ -9,4 +16,13 @@ lib/libmu2e_EventDisplay_*.so
 lib/libmu2e_EventMixing_*.so
 lib/libmu2e_HelloWorld_*.so
 lib/libmurat*.so
+gridexport
+gridexport/*
+results
 results/*
+ts_warm_bore/.git
+ts_warm_bore/tmp_code
+ts_warm_bore/tmp_fcl
+Stntuple/.git
+murat
+catalogs

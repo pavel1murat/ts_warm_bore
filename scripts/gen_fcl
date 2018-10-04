@@ -7,14 +7,14 @@
         jobtype=$4  # 'stn' , for example
            doit=$5
 
-if [ ".$doit" == "." ] ; then prefix='echo ' ; else prefix=''  ; fi
+prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
 setup mu2etools
 setup mu2efiletools
 setup mu2egrid 
 
 dsconf=${dsid}_${input_stage}_${input_stream}
-inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+inputs=""
 
 if [ -d 000 ] ; then 
     tmp_stub=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
@@ -22,12 +22,103 @@ if [ -d 000 ] ; then
     mv 000 000.$tmp_stub
 fi
 
-generate_fcl --description=$project --dsconf=$dsconf --merge=1000 \
-             --embed Stntuple/test/g4s3_tgtstops_stn.fcl  \
-             --inputs=$inputs
+template_fcl="undefined"
+       merge=0
 
-mv seeds.$USER.$project.${dsconf}.*.txt 000/.
+if [ $input_stage == "s3" ] ; then
 
+    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+
+    if [ $jobtype == "stn" ] ; then
+	merge=1000
+	if [ $input_stream == "tgtstops" ] ; then
+	    template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
+	else
+	    if [ $input_stream == "ootstops" ] ; then
+		template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
+	    else
+		if [ $input_stream == "beam" ] ; then
+		    template_fcl=Stntuple/test/g4s3_mothers_stn.fcl
+		else 
+		    if [ $input_stream == "crv" ] ; then
+			template_fcl=Stntuple/test/g4s3_crv_stn.fcl
+		    else
+			if [ $input_stream == "truncated" ] ; then
+			    template_fcl=Stntuple/test/g4s3_truncated_stn.fcl
+			else
+			    echo WRONG INPUT STREAM: s3 $input_stream
+			fi
+		    fi
+		fi
+	    fi
+	fi 
+    else
+	echo ERROR: UNKNOWN job type: $jobtype for s2 $input_stream
+    fi
+else 
+    if [ $input_stage == "s2" ] ; then
+
+	inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+
+	if [ $jobtype == "s3" ] ; then
+	    merge=5
+	    if [ $input_stream == "mubeam" ] ; then
+		template_fcl=ts_warm_bore/$dsid/DS_$dsid.fcl
+	    else
+		echo UNKNOWN INPUT STREAM: s2 $input_stream
+	    fi
+	else
+	    echo ERROR: UNKNOWN job type: $jobtype for s2 $input_stream
+	fi
+    else 
+	if [ $input_stage == "s1" ] ; then # stntupling s1 stage or s2
+
+	    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+
+	    if [ $jobtype == "stn" ] ; then
+		template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
+		merge=1000
+	    else
+		if [ $jobtype == "s2" ] ; then
+		    template_fcl=${project}/$dsid/TS_$dsid.fcl
+		else
+		    echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+		fi
+	    fi
+	else
+	    if [ $input_stage == "gen" ] ; then # s1 stage
+		if [ $jobtype == "s1" ] ; then
+		    template_fcl=ts_warm_bore/$dsid/PS_$dsid.fcl
+		else
+		    if [ $jobtype == "stn" ] ; then
+			template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
+		    else
+			echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+		    fi
+		fi
+	    else
+		echo input_stage = $input_stage, DONT KNOW WHAT DO TO
+	    fi
+	fi
+	
+    fi
+fi
+
+if [ $template_fcl == "undefined" ] ; then exit -1 ; fi
+#------------------------------------------------------------------------------
+# now generate fcl, creates '000' subdirectory
+#------------------------------------------------------------------------------
+cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
+
+if [ ".$inputs" != "." ] ; then
+    cmd=$cmd" --merge=$merge  --inputs=$inputs"
+else
+    cmd=$cmd" --events=20000 --njobs=250  --run=1"
+fi
+
+$prefix$cmd
+
+${prefix}mv seeds.$USER.$project.${dsconf}.*.txt 000/.
 #------------------------------------------------------------------------------
 # make sure we're nor overwriting the existing directory
 #------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ project=ts_warm_bore # $1 # ts_warm_bore
 prefix="echo "
 if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_${stage}/outstage/$jobid
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}_${stage}/outstage/$jobid
 
 
 #------------------------------------------------------------------------------
