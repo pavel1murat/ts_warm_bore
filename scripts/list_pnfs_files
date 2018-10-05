@@ -1,31 +1,49 @@
 #!/bin/bash 
 
 project=ts_warm_bore # $1 # ts_inner_bore
-   dsid=$1 # 711_0001
-  stage=$2
-  jobid=$3
- stream=$4
-   doit=$5
+        dsid=$1 # 711_0001
+ input_stage=$2 # s1
+input_stream=$3  # mubeam
+output_stage=$4
+output_stream=$5
+    job_type=$6
+       jobid=$7
+        doit=$8
 
 
 prefix="echo "
 if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}_${stage}/outstage/$jobid
-outputdir=$CATALOG_DIR/$project/$dsid/$stage
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_stream}.$output_stage/outstage/$jobid
+echo topdir=$topdir
+
+outputdir=$CATALOG_DIR/$project/$dsid/$output_stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 # catalog - so far, only .art files
 #------------------------------------------------------------------------------
-catalog_fn=$project.${dsid}_${stage}.$stream.art
-echo topdir=$topdir
+catalog_fn=$outputdir/$project.${dsid}_${output_stage}.$output_stream.art
+echo catalog_fn=$catalog_fn
 
-${prefix}ls  $topdir/*/*/*.art | grep -i $stream >| $outputdir/$catalog_fn
+if [ -f $catalog_fn ] ; then 
+    echo $catalog_fn already exists, BAIL OUT
+    exit -1
+fi
 
-${prefix}cat $outputdir/$catalog_fn 
+touch  $catalog_fn
+
+for f in `ls  $topdir/*/*/*.art` ; do
+    base=`basename $f`; 
+#    echo file:$f  base:$base
+    if [ ."`echo $base | grep -i $output_stream`" != "." ] ; then 
+	echo $f >> $catalog_fn
+    fi 
+done
+
+${prefix}cat $catalog_fn 
 
 if [ ".$doit" != "." ] ; then 
-    nfiles=`cat $outputdir/$catalog_fn | wc -l`
+    nfiles=`cat $catalog_fn | wc -l`
     echo nfiles = $nfiles
 fi

@@ -4,7 +4,7 @@
            dsid=$1 # 711_0001
     input_stage=$2
    input_stream=$3
-        jobtype=$4  # 'stn' , for example
+        jobtype=$4  # 'stn' or 's3' , for example
            doit=$5
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
@@ -61,7 +61,7 @@ else
 	inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
 
 	if [ $jobtype == "s3" ] ; then
-	    merge=5
+	    merge=2
 	    if [ $input_stream == "mubeam" ] ; then
 		template_fcl=ts_warm_bore/$dsid/DS_$dsid.fcl
 	    else
@@ -81,6 +81,7 @@ else
 	    else
 		if [ $jobtype == "s2" ] ; then
 		    template_fcl=${project}/$dsid/TS_$dsid.fcl
+		    merge=25
 		else
 		    echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
 		fi
