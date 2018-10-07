@@ -6,13 +6,13 @@
   input_stage=$2 # s1
 input_dataset=$3
     job_stage=$4  # s1 s2 s3
-      jobtype=$4  # sim ... stn
-        jobid=$5
-         doit=$6
+      jobtype=$5  # sim ... stn
+        jobid=$6
+         doit=$7
 
 prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_dataset}.${jobtype}/outstage/$jobid
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_dataset}.${job_stage}/outstage/$jobid
 
 
 #------------------------------------------------------------------------------

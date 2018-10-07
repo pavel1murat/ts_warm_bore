@@ -2,9 +2,10 @@
 
         project=ts_warm_bore # $1 # ts_inner_bore
            dsid=$1 # 711_0001
-    input_stage=$2
-   input_stream=$3
-        jobtype=$4  # 'stn' or 's3' , for example
+    input_stage=$2 # s1 ... or gen
+   input_stream=$3 # if gen, "250_20000' means 'njobs_neventsPerJob'
+   output_stage=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
+        jobtype=$5  # 'stn' or 'sim' , for example
            doit=$5
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
@@ -15,6 +16,8 @@ setup mu2egrid
 
 dsconf=${dsid}_${input_stage}_${input_stream}
 inputs=""
+njobs=xxx
+nevents_per_job=xxx
 
 if [ -d 000 ] ; then 
     tmp_stub=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
@@ -68,7 +71,16 @@ else
 		echo UNKNOWN INPUT STREAM: s2 $input_stream
 	    fi
 	else
-	    echo ERROR: UNKNOWN job type: $jobtype for s2 $input_stream
+	    if [ $jobtype == "stn" ] ; then
+		merge=1000
+		if [ $input_stream == "mubeam" ] ; then
+		    template_fcl=Stntuple/test/g4s2_mubeam_stn.fcl
+		else
+		    echo WRONG INPUT STREAM: s3 $input_stream
+		fi
+	    else
+		echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage and input_stream=$input_stream
+	    fi
 	fi
     else 
 	if [ $input_stage == "s1" ] ; then # stntupling s1 stage or s2
@@ -90,6 +102,8 @@ else
 	    if [ $input_stage == "gen" ] ; then # s1 stage
 		if [ $jobtype == "s1" ] ; then
 		    template_fcl=ts_warm_bore/$dsid/PS_$dsid.fcl
+		    njobs=`echo $input_stream | awk -F _ '{print $1}'`
+		    nevents_per_job=`echo $input_stream | awk -F _ '{print $2}'`
 		else
 		    if [ $jobtype == "stn" ] ; then
 			template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
@@ -114,7 +128,7 @@ cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
 if [ ".$inputs" != "." ] ; then
     cmd=$cmd" --merge=$merge  --inputs=$inputs"
 else
-    cmd=$cmd" --events=20000 --njobs=250  --run=1"
+    cmd=$cmd" --events=$nevents_per_job --njobs=$njobs  --run=1"
 fi
 
 $prefix$cmd
@@ -129,4 +143,6 @@ if [ -d $dir ] ; then
     echo ERROR: directory $dir already exists !
 else
     ${prefix}mv 000 $dir
+    cd $dir
+    tar -cjf ../${project}_$dsid.${input_stage}_${input_stream}.$output_stage.tbz *.fcl
 fi

@@ -6,12 +6,11 @@ project=ts_warm_bore # $1 # ts_inner_bore
 input_stream=$3  # mubeam
 output_stage=$4
 output_stream=$5
-    job_type=$6
-       jobid=$7
-        doit=$8
+       jobid=$6
+        doit=$7
 
 
-prefix="echo "
+prefix="echo executing: "
 if [ ".$doit" != "." ] ; then prefix="" ; fi
 
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_stream}.$output_stage/outstage/$jobid
@@ -31,14 +30,11 @@ if [ -f $catalog_fn ] ; then
     exit -1
 fi
 
-touch  $catalog_fn
+${prefix}touch $catalog_fn
 
-for f in `ls  $topdir/*/*/*.art` ; do
+for f in `ls $topdir/*/*/*.*.*-${output_stream}.*.*.art` ; do
     base=`basename $f`; 
-#    echo file:$f  base:$base
-    if [ ."`echo $base | grep -i $output_stream`" != "." ] ; then 
-	echo $f >> $catalog_fn
-    fi 
+    echo $f >> $catalog_fn
 done
 
 ${prefix}cat $catalog_fn 
