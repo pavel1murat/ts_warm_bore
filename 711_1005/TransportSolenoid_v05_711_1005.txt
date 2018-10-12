@@ -4,10 +4,10 @@
 //
 // collimator displacements here are the measured ones
 //-----------------------------------------------------------------------------
-int    ts.version        = 5;
+int    ts.version  = 5;
 
 double ts.par[0]   = -0.38616; // rotation angle of the TS1 collimator hole in XY  [degrees]
-double ts.par[1]   = -35.7811; // X-offset of the TS1  collimator hole [mm]
+double ts.par[1]   =  0.0;     // -35.7811; // X-offset of the TS1  collimator hole [mm]
 
 double ts.par[10]  =  0.;      // rotation angle of the TS3U collimator hole in XY [degrees]
 double ts.par[11]  =  0.;      // X-offset of the TS3U collimator hole [mm]
@@ -16,7 +16,7 @@ double ts.par[20]  =  0. ;     // rotation angle of the TS3D collimator hole in 
 double ts.par[21]  =  0.;      // X-offset of the TS3D collimator hole [mm]
 
 double ts.par[30]  = -0.20583; // rotation angle of the TS5 collimator hole in XY  [degrees]
-double ts.par[31]  =  18.9131; // X-offset of the TS5  collimator hole [mm]
+double ts.par[31]  =  0.0;     // 18.9131; // X-offset of the TS5  collimator hole [mm]
 
 // A geometric rendering of the TS, cyrostats+coils, vacuum
 double ts.rVac           =  250.; //
