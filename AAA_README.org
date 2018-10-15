@@ -2,14 +2,13 @@
 
   *subdirectories:*
 
-  711_1000: default geometry
-  711_1001: "worst case"
+  711_1000: default geometry, used to generate a 5M dataset
+  711_1001: "worst case"    , used to generate a 5M dataset
   711_1003: non-round TS5 collimator hole
   711_1004: maximized TS1 and TS5 collimator holes, also increased radius of the pbar window
   711_1005: "mitigated" geometry: offsets compensated, only angles left
-  711_1006: default beamline, new target
-  711_1000: default geometry, used to generate a 5M dataset
-  711_1001: "worst case"    , used to generate a 5M dataset
+  711_1006: default beamline, new target with 3 fins
+  711_1007: default beamline, old target with r=5mm
 
   711_9999: example of huge offsets
 
