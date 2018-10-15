@@ -5,15 +5,33 @@ Sandbox
 RootAnalyzer
 TestTools
 UtilityModules
-lib/libmu2e_Analyses_Read*.so
+lib/libmu2e_Analyses_Calo*.so
 lib/libmu2e_Analyses_Print*.so
+lib/libmu2e_Analyses_PtrTest*.so
+lib/libmu2e_Analyses_Read*.so
+lib/libmu2e_Analyses_SimParticleAnalyzer*.so
+lib/libmu2e_Analyses_SimParticleCheck*.so
+# need libmu2e_Analyses_SimParticleDaughterSelector_module.sog
+lib/libmu2e_Analyses_SimParticleDumper*.so
+lib/libmu2e_Analyses_StepPoint*.so
+lib/libmu2e_Analyses_StoppedParticlesDumper*.so
+# keep  libmu2e_Analyses_StoppedParticlesFinder_module.so
+lib/libmu2e_Analyses_StoppedParticlesPrinter*.so
+lib/libmu2e_Analyses_Summary*.so
+lib/libmu2e_Analyses_TrackSummary*.so
+lib/libmu2e_Analyses_TSTrackAna*.so
+lib/libmu2e_Analyses_TSig*.so
+lib/libmu2e_Analyses_TTVirtDebug*.so
+lib/libmu2e_Analyses_View*.so
+lib/libmu2e_CalPatRec_DeltaFinder2*.so
+lib/libmu2e_CalPatRec_PrefetchData_module*.so
 lib/libmu2e_CutAndCountAnalysis_*.so
 lib/libmu2e_DAQ*.so
 lib/libmu2e_EventDisplay_*.so
 lib/libmu2e_EventMixing_*.so
 lib/libmu2e_HelloWorld_*.so
 lib/libmu2e_ParticleID_*.so
-lib/libmu2e_Print_*.so
+# need this one lib/libmu2e_Print_*.so
 lib/libmu2e_Sandbox_*.so
 lib/libmu2e_TrkHitReco_*.so
 lib/libmu2e_TrkDiag_*.so

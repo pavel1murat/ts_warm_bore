@@ -32,9 +32,18 @@ fi
 
 ${prefix}touch $catalog_fn
 
-for f in `ls $topdir/*/*/*.*.*-${output_stream}.*.*.art` ; do
-    base=`basename $f`; 
-    echo $f >> $catalog_fn
+echo list dir="$topdir/*/*/*"
+
+# ls $topdir/*/*/*.art
+
+for f in `ls $topdir/*/*/*.art` ; do
+    base=`basename $f` ;
+    os=`echo $base | awk -F . '{print $3}'`
+#    echo base=$base os=$os
+    if [ ."`echo $os | grep -i $output_stream`" != "." ] ; then
+#	echo os=$os output_stream=$output_stream  adding file to catalog
+	echo $f >> $catalog_fn
+    fi
 done
 
 ${prefix}cat $catalog_fn 

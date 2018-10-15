@@ -123,3 +123,45 @@ mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.711_1004.t
 
 ts_warm_bore/scripts/gen_fcl 711_1004 s1 mubeam s1 stn
 murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1004.s1_mubeam.stn/cnf.murat.ts_warm_bore.711_1004_s1_mubeam.000001_00000000.fcl
+
+ts_warm_bore/scripts/copy_log_files 711_1004 s2 mubeam s3 sim 12042538 .
+
+ts_warm_bore/scripts/gen_fcl 711_1004 s3 ootstops s3 stn .
+ts_warm_bore/scripts/gen_fcl 711_1004 s3 tgtstops s3 stn .
+ts_warm_bore/scripts/gen_fcl 711_1004 s3 crv s3 stn .
+ts_warm_bore/scripts/gen_fcl 711_1004 s3 beam s3 stn .
+ts_warm_bore/scripts/gen_fcl 711_1004 s3 truncated s3 stn .
+
+for stream in beam crv ootstops tgtstops truncated ; do 
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1004.s3_$stream.stn/cnf.murat.ts_warm_bore.711_1004_s3_$stream.000001_00000000.fcl
+done
+
+<2018-10-12 Fri>
+
+ts_warm_bore/scripts/gen_fcl 711_1005 gen 250_20000 s1 sim .
+ts_warm_bore/scripts/gen_fcl 711_1006 gen 250_20000 s1 sim .
+cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_1006.tbz /pnfs/mu2e/resilient/users/murat/.
+
+<2018-10-13 Sat>
+
+mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.711_1006.tbz --fcllist=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.711_1005.gen_250_20000.s1.tbz --dsconf=ts_warm_bore_711_1005_gen_250_20000_s1 --wfproject=ts_warm_bore.711_1005.gen_250_20000.s1 --expected-lifetime=8h
+
+mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.711_1006.tbz --fcllist=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.711_1006.gen_250_20000.s1.tbz --dsconf=ts_warm_bore_711_1006_gen_250_20000_s1 --wfproject=ts_warm_bore.711_1006.gen_250_20000.s1 --expected-lifetime=8h 
+
+ts_warm_bore/scripts/copy_log_files 711_1005 gen 250_20000 s1 sim 12244282 .
+ts_warm_bore/scripts/copy_log_files 711_1006 gen 250_20000 s1 sim 12244287 .
+
+ts_warm_bore/scripts/gen_fcl 711_1005 s1 mubeam s2 sim .
+
+<2018-10-14 Sun>
+
+ts_warm_bore/scripts/copy_log_files  711_1006 gen 250_20000 s1 sim    12269299 .
+ts_warm_bore/scripts/list_pnfs_files 711_1006 gen 250_20000 s1 mubeam 12269299 .
+
+ts_warm_bore/scripts/copy_log_files 711_1005 s1 mubeam s2 sim 12309121 .
+ts_warm_bore/scripts/copy_log_files 711_1006 s1 mubeam s2 sim 12309083 .
+
+ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 mubeam    12309083 .
+ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 crv       12309083 .
+ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 truncated 12309083 .
+
