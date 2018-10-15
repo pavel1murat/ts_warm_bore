@@ -1,0 +1,12 @@
+// -*- mode: c++ -*-
+//-----------------------------------------------------------------------------
+// default geometry + production target with increased radius
+//-----------------------------------------------------------------------------
+#include "Mu2eG4/geom/geom_common_current.txt"
+
+double targetPS_rOut              =      5.0; // mm
+
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:
