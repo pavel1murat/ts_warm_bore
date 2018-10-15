@@ -2,7 +2,7 @@
 
         project=ts_warm_bore # $1 # ts_inner_bore
            dsid=$1 # 711_0001
-    input_stage=$2 # s1 ... or gen
+    input_stage=$2 # s1 s2 s3 or gen
    input_stream=$3 # if gen, "250_20000' means 'njobs_neventsPerJob'
    output_stage=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
         jobtype=$5  # 'stn' or 'sim' , for example
