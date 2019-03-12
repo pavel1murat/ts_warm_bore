@@ -1,18 +1,18 @@
 #!/bin/bash 
 
-        project=ts_warm_bore # $1 # ts_inner_bore
-           dsid=$1 # 711_0001
-    input_stage=$2 # s1 ... or gen
-   input_stream=$3 # if gen, "250_20000' means 'njobs_neventsPerJob'
-          stage=$4 # 
-        jobtype=$5  # 'stn' or 'sim' , for example
-           doit=$5
+        project=$1 # ts_warm_bore # $1 # ts_inner_bore
+           dsid=$2 # 711_0001
+    input_stage=$3 # s1 ... or gen
+   input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
+          stage=$5 # s1 ...
+        jobtype=$6 # 'stn' or 'sim' , for example
+           doit=$7
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
 setup mu2etools
 setup mu2efiletools
-setup mu2egrid 
+setup mu2egrid       v6_01_00
 
 dsconf=${dsid}_${input_stage}_${input_stream}
 inputs=""
@@ -95,6 +95,8 @@ if [ $template_fcl == "undefined" ] ; then exit -1 ; fi
 # now generate fcl, creates '000' subdirectory
 #------------------------------------------------------------------------------
 cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
+
+echo cmd=$cmd
 
 if [ ".$inputs" != "." ] ; then
     cmd=$cmd" --merge=$merge  --inputs=$inputs"

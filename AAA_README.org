@@ -10,6 +10,12 @@
   711_1006: default beamline, new target with 3 fins
   711_1007: default beamline, old target with r=5mm
 
+  711_1011: default beamline, beam down by 1 mm
+  711_1012: default beamline, beam down by 2 mm
+  711_1013: default beamline, beam down by 3 mm
+  711_1014: default beamline, beam down by 4 mm
+  711_1015: default beamline, beam down by 5 mm
+
   711_9999: example of huge offsets
 
   fcl, geom - for tests, templates...
