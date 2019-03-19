@@ -35,8 +35,128 @@
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 
 * WORK LOG
-#
+ <2019-03-16 Sat>
 
+ pnfs_scratch=/pnfs/mu2e/scratch/users/murat/workflow;
+ od=/grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore
+
+ ls $pnfs_scratch/ts_warm_bore.711_1021.s2_mubeam.s3/outstage/17198986/00/*/*.art | grep DS-TGTstops >| $od/711_1021/s3/ts_warm_bore.711_1021_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1011.s2_mubeam.s3/outstage/17040813/00/*/*.art | grep DS-TGTstops >| $od/711_1011/s3/ts_warm_bore.711_1011_s3.tgtstops.art
+ ts_warm_bore/scripts/copy_log_files 711_1011 s2 mubeam s3 sim 17040813                                                                                                                                                                  
+ ls $pnfs_scratch/ts_warm_bore.711_1012.s2_mubeam.s3/outstage/17039568/00/*/*.art | grep DS-TGTstops >| $od/711_1012/s3/ts_warm_bore.711_1012_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039568/00/*/*.art | grep DS-TGTstops >| $od/711_1013/s3/ts_warm_bore.711_1013_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039491/00/*/*.art | grep DS-TGTstops >| $od/711_1013/s3/ts_warm_bore.711_1013_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1014.s2_mubeam.s3/outstage/17040933/00/*/*.art | grep DS-TGTstops >| $od/711_1014/s3/ts_warm_bore.711_1014_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1015.s2_mubeam.s3/outstage/17056270/00/*/*.art | grep DS-TGTstops >| $od/711_1015/s3/ts_warm_bore.711_1015_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1021.s2_mubeam.s3/outstage/17198986/00/*/*.art | grep DS-TGTstops >| $od/711_1021/s3/ts_warm_bore.711_1021_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1022.s2_mubeam.s3/outstage/17039439/00/*/*.art | grep DS-TGTstops >| $od/711_1022/s3/ts_warm_bore.711_1022_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1023.s2_mubeam.s3/outstage/17085512/00/*/*.art | grep DS-TGTstops >| $od/711_1023/s3/ts_warm_bore.711_1023_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1024.s2_mubeam.s3/outstage/17056405/00/*/*.art | grep DS-TGTstops >| $od/711_1024/s3/ts_warm_bore.711_1024_s3.tgtstops.art
+ ls $pnfs_scratch/ts_warm_bore.711_1025.s2_mubeam.s3/outstage/17056321/00/*/*.art | grep DS-TGTstops >| $od/711_1025/s3/ts_warm_bore.711_1025_s3.tgtstops.art
+
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1011 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1012 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1013 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1014 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1015 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1021 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1022 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1023 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1024 s3 tgtstops s3 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1025 s3 tgtstops s3 stn .
+
+ dsid=711_1011; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1012; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1013; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1014; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1015; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1021; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1022; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1023; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1024; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+ dsid=711_1025; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s3_tgtstops.stn/cnf.murat.ts_warm_bore.${dsid}_s3_tgtstops_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3/tgtstops_stn &
+
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1011 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1012 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1013 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1014 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1015 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1021 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1022 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1023 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1024 s1 mubeam s1 stn .
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1025 s1 mubeam s1 stn .
+
+ dsid=711_1011; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s1_mubeam.stn/cnf.murat.ts_warm_bore.${dsid}_s1_mubeam_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s1/mubeam_stn &
+ dsid=711_1012; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s1_mubeam.stn/cnf.murat.ts_warm_bore.${dsid}_s1_mubeam_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s1/mubeam_stn &
+ dsid=711_1013; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s1_mubeam.stn/cnf.murat.ts_warm_bore.${dsid}_s1_mubeam_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s1/mubeam_stn &
+ dsid=711_1014; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s1_mubeam.stn/cnf.murat.ts_warm_bore.${dsid}_s1_mubeam_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s1/mubeam_stn &
+ dsid=711_1015; murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/$dsid.s1_mubeam.stn/cnf.murat.ts_warm_bore.${dsid}_s1_mubeam_stn.000001_00000000.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s1/mubeam_stn &
+
+ stnana("file","/mu2e/data/users/murat/datasets/ts_warm_bore/711_1014/s2/mubeam_stn/nts.USER.PROJECT.g4s2_mubeam.000001.stn","","",
+ "spmc_ana(2)/save=ts_warm_bore.711_1014_s2_mubeam_stn.spmc_ana.hist")
+
+ <2019-03-14 Thu>
+
+ 1. *17039491 : rerunning locally section 0*: ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039491/00/00000 
+
+
+ <2019-03-13 Wed>
+
+ *DSID=1012*
+
+ ts_warm_bore/scripts/check_output ts_warm_bore.711_1012.gen_250_20000.s1 17161220
+ ls /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1012.gen_250_20000.s1/outstage/17161220/00/*/*.art | grep mubeam | grep -v json
+ ts_warm_bore/scripts/copy_log_files 711_1012 gen 250_20000 s1 sim 17161220 .
+
+ *after that, go to  file:/grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/ and do what's needed* 
+
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1012 s1 mubeam  s2 sim .
+
+ *validation* 
+ murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1012.s1_mubeam.sim/cnf.murat.ts_warm_bore.711_1012_s1_mubeam_sim.000001_00000000.fcl -n 500 &
+
+ *submit* 
+
+ *DSID=1011: handle output of stage 1 and submit stage 2 simulation*
+
+ murat/scripts/check_grid_output ts_warm_bore.711_1011.gen_250_20000.s1 17161389
+ ts_warm_bore/scripts/copy_log_files 711_1011 gen 250_20000 s1 sim      17161389 .
+ ls /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1011.gen_250_20000.s1/outstage/17161389/00/*/*.art | grep mubeam | grep -v json  \
+ >| /grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/711_1011/s1/ts_warm_bore.711_1011_s1.mubeam.art
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1011 s1 mubeam  s2 sim .
+ ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1011 s1 mubeam s2 sim .
+
+ *DSID=1021: handle output of stage 1 and submit stage 2 simulation*
+ murat/scripts/check_grid_output     ts_warm_bore.711_1021.gen_250_20000.s1 17162101
+ ts_warm_bore/scripts/copy_log_files              711_1021 gen 250_20000 s1 sim      17162101 .
+ ls /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1021.gen_250_20000.s1/outstage/17162101/00/*/*.art | grep mubeam | grep -v json \
+ >|  /grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/711_1021/s1/ts_warm_bore.711_1021_s1.mubeam.art
+ ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1021 s1 mubeam  s2 sim .
+ ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1021 s1 mubeam s2 sim .
+
+ *DSID=1022: handle output of stage 1 and submit stage 2 simulation*
+ dsid=711_1022
+ jobid=17162102
+ murat/scripts/check_grid_output     ts_warm_bore.$dsid.gen_250_20000.s1 $jobid >| \
+ /grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/$dsid/s1/ts_warm_bore.711_${dsid}_s1.check_grid_output.log
+ ts_warm_bore/scripts/copy_log_files              $dsid gen 250_20000 s1 sim      $jobid  .
+ ls /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.$dsid.gen_250_20000.s1/outstage/$jobid/00/*/*.art | grep mubeam | grep -v json \
+ >| /grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/$dsid/s1/ts_warm_bore.${dsid}_s1.mubeam.art
+ ts_warm_bore/scripts/gen_fcl         ts_warm_bore $dsid s1 mubeam s2 sim .
+ ts_warm_bore/scripts/submit_grid_job ts_warm_bore $dsid s1 mubeam s2 sim .
+
+ 
+ *DSID=1024* source ts_warm_bore/scripts/from_s1_to_s2 ts_warm_bore 711_1024 17162107
+ *DSID=1025* source ts_warm_bore/scripts/from_s1_to_s2 ts_warm_bore 711_1025 17162108
+
+
+ <2019-03-12 Tue> 
+ setup gridexport
+ gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+ 
+
+#--------------------------------------------------------------------------------------------
 olddir=$PWD
 
 generate_fcl --description=s1 --dsconf=711_0000 --events=20000 --njobs=250 --embed ts_warm_bore/711_0000/PS_711_0000.fcl --run=1

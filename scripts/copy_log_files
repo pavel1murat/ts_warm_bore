@@ -3,7 +3,7 @@
       project=ts_warm_bore # $1 # ts_warm_bore
 
          dsid=$1 # 711_0001
-  input_stage=$2 # s1
+  input_stage=$2 # gen, .... s1
 input_dataset=$3
     job_stage=$4  # s1 s2 s3
       jobtype=$5  # sim ... stn
@@ -18,10 +18,10 @@ topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}
 # 1. copy log files and print number of events in output streams
 #------------------------------------------------------------------------------
 outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$job_stage/log
-if [ ! -d $outputdir ] ; then  ${prefix}mkdir -p $outputdir ; fi
+if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 
 for f in `ls $topdir/*/*/log.*.log` ; do 
-    ${prefix}cp $f $outputdir/.
+    cp $f $outputdir/.
 done
 #------------------------------------------------------------------------------
 # check if the jobs finished successfully

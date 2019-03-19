@@ -1,0 +1,9 @@
+# -*- mode: tcl -*-
+###############################################################################
+# default geometry, the beam moved down by 1 mm
+###############################################################################
+#include "JobConfig/beam/PS.fcl"
+
+physics.producers.generate.inputfile            : "ts_warm_bore/711_1022/genconfig_PrimaryProtons_711_1022.txt"
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile              : "ts_warm_bore/711_1022/geom_711_1022.txt"

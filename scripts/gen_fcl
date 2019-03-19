@@ -4,7 +4,7 @@
            dsid=$2 # 711_0001
     input_stage=$3 # s1 ... or gen
    input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
-          stage=$5 # s1 ...
+   output_stage=$5 # s1, s2, or s3 ...
         jobtype=$6 # 'stn' or 'sim' , for example
            doit=$7
 
@@ -14,10 +14,10 @@ setup mu2etools
 setup mu2efiletools
 setup mu2egrid       v6_01_00
 
-dsconf=${dsid}_${input_stage}_${input_stream}
+dsconf=${dsid}_${input_stage}_${input_stream}_${jobtype}
 inputs=""
-njobs=xxx
-nevents_per_job=xxx
+njobs=xxxx
+nevents_per_job=xxxxx
 
 if [ -d 000 ] ; then 
     tmp_stub=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
@@ -47,6 +47,7 @@ if [ $input_stage == "s3" ] ; then
 elif [ $input_stage == "s2" ] ; then
 
     inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+    echo S2: inputs:$inputs
 
     if [ $jobtype == "sim" ] ; then
 	merge=2
@@ -119,16 +120,16 @@ else
     cd $dir
 #------------------------------------------------------------------------------
 # need to replace: 'MU2EGRIDDSOWNER' --> "$USER"
-#                  'MU2EGRIDDSCONF'  --> ${dsid}_${input_stage}_${input_stream}_${stage}_${jobtype}
+#                  'MU2EGRIDDSCONF'  --> ${dsid}_${input_stage}_${input_stream}_${jobtype}
 #------------------------------------------------------------------------------
-    dsconf=${dsid}_${input_stage}_${input_stream}_${stage}_${jobtype}
+    dsconf=${dsid}_${input_stage}_${input_stream}_${jobtype}
     for f in `ls *.fcl` ; do 
 	f1=$f.tmp
 	cat $f | sed "s/xxx_xxxx/$project/" | sed "s/MU2EGRIDDSOWNER/$USER/" | sed "s/MU2EGRIDDSCONF/$dsconf/">| $f1
 	mv $f1 $f
     done
 
-    tarfile=../${project}.$dsid.${input_stage}_${input_stream}.$stage.$jobtype.fcl.tbz
+    tarfile=../${project}.$dsid.${input_stage}_${input_stream}.${jobtype}.fcl.tbz
     tar -cjf $tarfile *.fcl
 #------------------------------------------------------------------------------
 # move fcl files for the simulation jobs to PNFS

@@ -1,0 +1,28 @@
+#!/bin/bash
+# probably, can source
+
+     project=$1 # ts_warm_bore
+        dsid=$2 # 711_1011
+       jobid=$3
+#  input_stage=$3 # s1
+# input_stream=$4 # gen
+# output_stage=$5 # s2
+#     job_type=$6 # sim , stn
+#        jobid=$7 # 17161389
+# 
+
+# step 1: check grid output
+
+nev_per_segment=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '{print $6}'`
+      nsegments=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '{print $7}'`
+
+echo $nev_per_segment  $nsegments
+
+
+ murat/scripts/check_grid_output     $project.$dsid.gen_250_20000.s1 $jobid >| \
+ /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.check_grid_output.log
+ ts_warm_bore/scripts/copy_log_files              $dsid gen 250_20000 s1 sim      $jobid  .
+ ls /pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.gen_250_20000.s1/outstage/$jobid/00/*/*.art  \
+     | grep mubeam | grep -v json >| /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.mubeam.art
+ $project/scripts/gen_fcl         $project $dsid s1 mubeam s2 sim .
+ $project/scripts/submit_grid_job $project $dsid s1 mubeam s2 sim .

@@ -1,24 +1,31 @@
 #!/bin/bash 
-
-        project=ts_warm_bore # $1 # ts_inner_bore
-           dsid=$1 # 711_0001
-    input_stage=$2 # s1 s2 s3 or gen
-   input_stream=$3 # if gen, "250_20000' means 'njobs_neventsPerJob'
-   output_stage=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
-        jobtype=$5  # 'stn' or 'sim' , for example
-           doit=$5
+#------------------------------------------------------------------------------
+# one thing for sure: for different projects the grid submission is slightly different
+# - the code tarball naming may follow different rules
+# by default, use dcache
+#------------------------------------------------------------------------------
+        project=$1 # ts_warm_bore
+           dsid=$2 # 711_0001
+    input_stage=$3 # s1 s2 s3 or gen
+   input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
+   output_stage=$5 # s1 , s2 or s3
+        jobtype=$6 # 'stn' or 'sim' , for example
+           doit=$7
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
 setup mu2etools
 setup mu2efiletools
-setup mu2egrid 
+setup mu2egrid        v6_01_00
 
 dsconf=${dsid}_${input_stage}_${input_stream}
 
-code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.$dsid.tbz
- fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.$output_stage.tbz
+code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
+ fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.${jobtype}.fcl.tbz
 dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_${output_stage}
 work_project=${project}.${dsid}.${input_stage}_${input_stream}.${output_stage}
 
-mu2eprodsys --code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=8h
+parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=8h"
+if [ ".$doit" != ".ifdh" ] ; then parameters=$parameters" --xrootd" ; fi
+
+$prefix mu2eprodsys $parameters

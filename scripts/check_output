@@ -1,0 +1,58 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# assume that the output has been copied over to some directory
+#------------------------------------------------------------------------------
+
+       dir=$1
+nsubmitted=$2
+     order=$3
+
+n_staging_failures=0
+nfailed=0
+ntotal=0
+nsuccess=0
+nsections=0
+ngen=0
+
+list_of_subjobs=`ls $stage_dir`
+
+
+for i in `seq 0 $(($nsubmitted-1))` ; do 
+#    echo $i
+    stub=`printf "%08i" $i`
+#------------------------------------------------------------------------------
+# skip directories corresponding to non-completed sections like '00015.wuue'
+# now they contain just one .log file per subdirectory
+#------------------------------------------------------------------------------
+    logfile=`ls $dir/*.log | grep $stub` ;
+    if [ ."$logfile" != "." ] ; then 
+
+	x=`cat $logfile | grep "mu2egrid exit status"`; 
+	if [ ."$x" == "." ] ; then
+#------------------------------------------------------------------------------
+# no return code - assume staging failure
+#------------------------------------------------------------------------------
+	    n_staging_failures=$((n_staging_failures+1))
+	else
+	    rc=`echo $x | awk '{print $4}'`
+	    host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
+	    y=`cat $logfile | grep "TrigReport Events total"`
+	    ng=`cat $logfile | grep "GenEventCount total:" | awk '{print $3}'`
+	    ngen=$((ngen+ng))
+	    
+	    printf " %10s : section was running on %-40s , mu2egrid exit status: %3i $y\n" $stub $d $host $rc
+	    
+	    if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
+	fi
+	nsections=$((nsections+1))
+    else
+	printf " %10s : GRID ERROR, job not completed\n" $d
+    fi
+    ntotal=$((ntotal+1))
+done
+
+echo "----------------------------------------------------------"
+echo output of $ntotal sections checked : total of $nsections sections completed \; $nsuccess sections completed successfully \; \
+    $n_staging_failures sections had staging failures \; \
+    $nfailed sections had the mu2e job failed  \; \
+    total generated events: $ngen
