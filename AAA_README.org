@@ -28,7 +28,7 @@
   <2018-10-04 Thu> why Dave calls stage3 mothers bin ?
 
 * directory: file:./
-
+* <2019-06-23 Sun> last tarball in tmp_code was called:  ts_warm_bore.code.711_1025.tbz, delete it to save space
 * generating a tarball: gridexport -E ../grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
 * 711_0000: default geometry
 
