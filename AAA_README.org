@@ -35,6 +35,13 @@
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 
 * WORK LOG
+
+  <2019-08-24 Sat> 
+
+generate_fcl --description=s1 --dsconf=711_1008 --events=20000 --njobs=250 --embed ts_warm_bore/711_1008/PS_711_1008.fcl --run=1
+
+
+
  <2019-03-16 Sat>
 
  pnfs_scratch=/pnfs/mu2e/scratch/users/murat/workflow;
