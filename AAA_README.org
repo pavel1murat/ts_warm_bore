@@ -10,6 +10,7 @@
   711_1006: default beamline, new target with 3 fins
   711_1007: default beamline, old target with r=5mm
   711_1008: default beamline, magnetic field: TSu coils 14 and 15 swapped 
+  711_1009: TS1 hole R = 130mm
 
   711_1011: default beamline, beam down by 1 mm
   711_1012: default beamline, beam down by 2 mm
