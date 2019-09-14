@@ -3,7 +3,7 @@
         project=$1 # ts_warm_bore # $1 # ts_inner_bore
            dsid=$2 # 711_0001
     input_stage=$3 # s1 ... or gen
-   input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
+   input_stream=$4 # 'mubeam', or if 'gen', '250_20000' means 'njobs_neventsPerJob'
    output_stage=$5 # s1, s2, or s3 ...
         jobtype=$6 # 'stn' or 'sim' , for example
            doit=$7
@@ -12,9 +12,9 @@ prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
 setup mu2etools
 setup mu2efiletools
-setup mu2egrid       v6_01_00
+setup mu2egrid
 
-dsconf=${dsid}_${input_stage}_${input_stream}_${jobtype}
+dsconf=${dsid}_${input_stage}_${input_stream}_${output_stage}_${jobtype}
 inputs=""
 njobs=xxxx
 nevents_per_job=xxxxx
@@ -30,23 +30,23 @@ template_fcl="undefined"
 
 if [ $input_stage == "s3" ] ; then
 
-    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}.${input_stage}_$input_stream.art.files
 
     if [ $jobtype == "stn" ] ; then
 	merge=1000
-	if   [ $input_stream == "tgtstops"  ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
-	elif [ $input_stream == "ootstops"  ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
+	if   [ $input_stream == "tgtstop"   ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
+	elif [ $input_stream == "ootstop"   ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
 	elif [ $input_stream == "beam"      ] ; then template_fcl=Stntuple/test/g4s3_mothers_stn.fcl
 	elif [ $input_stream == "crv"       ] ; then template_fcl=Stntuple/test/g4s3_crv_stn.fcl
 	elif [ $input_stream == "truncated" ] ; then template_fcl=Stntuple/test/g4s3_truncated_stn.fcl
 	else                                         echo WRONG INPUT STREAM: s3 $input_stream
 	fi
     else
-	echo ERROR: UNKNOWN job type: $jobtype for s2 $input_stream
+	echo ERROR: UNKNOWN job type: $jobtype for s3 $input_stream
     fi
 elif [ $input_stage == "s2" ] ; then
 
-    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}.${input_stage}_${input_stream}.art.files
     echo S2: inputs:$inputs
 
     if [ $jobtype == "sim" ] ; then
@@ -64,7 +64,7 @@ elif [ $input_stage == "s2" ] ; then
     fi
 elif [ $input_stage == "s1" ] ; then # stntupling s1 stage or s2
 
-    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}_${input_stage}.$input_stream.art
+    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}.${input_stage}_${input_stream}.art.files
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
@@ -99,19 +99,17 @@ cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
 
 echo cmd=$cmd
 
-if [ ".$inputs" != "." ] ; then
-    cmd=$cmd" --merge=$merge  --inputs=$inputs"
-else
-    cmd=$cmd" --events=$nevents_per_job --njobs=$njobs  --run=1"
+if [ ".$inputs" != "." ] ; then cmd=$cmd" --merge=$merge  --inputs=$inputs"
+else                            cmd=$cmd" --events=$nevents_per_job --njobs=$njobs  --run=1"
 fi
 
 $prefix$cmd
 
 ${prefix}mv seeds.$USER.$project.${dsconf}.*.txt 000/.
 #------------------------------------------------------------------------------
-# make sure we're nor overwriting the existing directory
+# make sure we're not overwriting the existing directory
 #------------------------------------------------------------------------------
-dir=$project/tmp_fcl/$dsid.${input_stage}_$input_stream.$jobtype
+dir=$project/tmp_fcl/$dsid.${input_stage}_$input_stream.${output_stage}_$jobtype
 
 if [ -d $dir ] ; then 
     echo ERROR: directory $dir already exists !
@@ -129,12 +127,14 @@ else
 	mv $f1 $f
     done
 
-    tarfile=../${project}.$dsid.${input_stage}_${input_stream}.${jobtype}.fcl.tbz
-    tar -cjf $tarfile *.fcl
+    tarfile=${project}.$dsid.${input_stage}_${input_stream}.${output_stage}_${jobtype}.fcl.tbz
+    tdir=..
+    tar -cjf $tdir/$tarfile *.fcl
 #------------------------------------------------------------------------------
 # move fcl files for the simulation jobs to PNFS
 #------------------------------------------------------------------------------
     if [ $jobtype == "sim" ] ; then
-	cp $tarfile /pnfs/mu2e/resilient/users/murat/.
+	echo CMD: cp $tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
+	cp $tdir/$tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
     fi
 fi

@@ -1,14 +1,15 @@
 #!/usr/bin/bash
 
-project=$1 # ts_inner_bore
+project=$1 # ts_warm_bore
    dsid=$2 # 711_0001
-  stage=$3 # s2
+ istage=$3 # gen_250_20000
+ ostage=$3 # s1_sim
   jobid=$4 # 
    doit=$5
   
   if [ ".$doit" == "." ] ; then prefix="echo "; else prefix="" ; fi
 
- input_dir=/pnfs/mu2e/scratch/users/murat/workflow/${project}_${dsid}_$stage/outstage/$jobid
+ input_dir=/pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.$istage.$ostage/outstage/$jobid
 output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage
 
 for stream in crv mubeam truncated ; do

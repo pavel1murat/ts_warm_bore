@@ -5,7 +5,7 @@
 
        dir=$1
 nsubmitted=$2
-     order=$3
+   ninputs=$3
 
 n_staging_failures=0
 nfailed=0
@@ -19,12 +19,13 @@ list_of_subjobs=`ls $stage_dir`
 
 for i in `seq 0 $(($nsubmitted-1))` ; do 
 #    echo $i
-    stub=`printf "%08i" $i`
+    stub=`printf "%08i" $(($i*$ninputs))`
 #------------------------------------------------------------------------------
 # skip directories corresponding to non-completed sections like '00015.wuue'
 # now they contain just one .log file per subdirectory
 #------------------------------------------------------------------------------
     logfile=`ls $dir/*.log | grep $stub` ;
+#    echo i,logfile= $i $logfile
     if [ ."$logfile" != "." ] ; then 
 
 	x=`cat $logfile | grep "mu2egrid exit status"`; 

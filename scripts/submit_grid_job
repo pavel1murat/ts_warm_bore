@@ -16,14 +16,14 @@ prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
 setup mu2etools
 setup mu2efiletools
-setup mu2egrid        v6_01_00
+setup mu2egrid 
 
 dsconf=${dsid}_${input_stage}_${input_stream}
 
 code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
- fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.${jobtype}.fcl.tbz
-dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_${output_stage}
-work_project=${project}.${dsid}.${input_stage}_${input_stream}.${output_stage}
+ fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.${output_stage}_${jobtype}.fcl.tbz
+dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_${output_stage}_${jobtype}
+work_project=${project}.${dsid}.${input_stage}_${input_stream}.${output_stage}_${jobtype}
 
 parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=8h"
 if [ ".$doit" != ".ifdh" ] ; then parameters=$parameters" --xrootd" ; fi

@@ -12,7 +12,7 @@ input_dataset=$3
 
 prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_dataset}.${job_stage}/outstage/$jobid
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_dataset}.${job_stage}_${jobtype}/outstage/$jobid
 
 #------------------------------------------------------------------------------
 # 1. copy log files and print number of events in output streams

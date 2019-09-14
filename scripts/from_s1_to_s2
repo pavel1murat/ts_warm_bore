@@ -21,8 +21,11 @@ echo $nev_per_segment  $nsegments
 
  murat/scripts/check_grid_output     $project.$dsid.gen_250_20000.s1 $jobid >| \
  /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.check_grid_output.log
+
  ts_warm_bore/scripts/copy_log_files              $dsid gen 250_20000 s1 sim      $jobid  .
+
  ls /pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.gen_250_20000.s1/outstage/$jobid/00/*/*.art  \
-     | grep mubeam | grep -v json >| /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.mubeam.art
+     | grep mubeam | grep -v json >| /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.mubeam.art.files
+
  $project/scripts/gen_fcl         $project $dsid s1 mubeam s2 sim .
  $project/scripts/submit_grid_job $project $dsid s1 mubeam s2 sim .
