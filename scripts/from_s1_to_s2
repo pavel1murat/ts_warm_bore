@@ -2,8 +2,8 @@
 # probably, can source
 
      project=$1 # ts_warm_bore
-        dsid=$2 # 711_1011
-       jobid=$3
+        dsid=$2 # 711_1010
+
 #  input_stage=$3 # s1
 # input_stream=$4 # gen
 # output_stage=$5 # s2
@@ -18,14 +18,18 @@ nev_per_segment=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '
 
 echo $nev_per_segment  $nsegments
 
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk '{print $10}'`
 
- murat/scripts/check_grid_output     $project.$dsid.gen_250_20000.s1 $jobid >| \
- /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.check_grid_output.log
+   odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1
+logfile=$odir/$project.${dsid}.gen_250_20000_s1_sim.check_grid_output.log
 
- ts_warm_bore/scripts/copy_log_files              $dsid gen 250_20000 s1 sim      $jobid  .
+$project/scripts/check_grid_output $project $dsid gen 250_20000 s1_sim  >| $logfile
 
- ls /pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.gen_250_20000.s1/outstage/$jobid/00/*/*.art  \
-     | grep mubeam | grep -v json >| /grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1/$project.${dsid}_s1.mubeam.art.files
+$project/scripts/copy_log_files    $project $dsid gen 250_20000 s1 sim  $jobid  .
 
- $project/scripts/gen_fcl         $project $dsid s1 mubeam s2 sim .
- $project/scripts/submit_grid_job $project $dsid s1 mubeam s2 sim .
+$project/scripts/list_pnfs_files   $project $dsid gen 250_20000 s1_sim mubeam .
+
+$project/scripts/gen_fcl           $project $dsid s1 mubeam s2 sim .
+
+$project/scripts/submit_grid_job   $project $dsid s1 mubeam s2_sim .

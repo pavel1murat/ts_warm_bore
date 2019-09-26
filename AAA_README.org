@@ -36,7 +36,44 @@
 
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 
-* WORK LOG
+* *WORK LOG*
+
+  <2019-09-24 Tue>
+  
+  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1010 gen 250_20000 s1 sim .
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1010 gen 250_20000 s1 sim .
+
+  <2019-09-22 Sun>
+
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim tgtstop 23548622 .
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim ootstop 23548622 .
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim crv 23548622 .
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim truncated 23548622 .
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim mothers 23548622 .
+  ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim beam 23548622 .
+
+
+  <2019-09-17 Tue> 
+
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 s1 mubeam s2 sim .
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1009 s1 mubeam s2 sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 s1 mubeam s2 stn .
+  
+  
+
+  <2019-09-15 Sun>
+
+  setup gridexport
+  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 gen 2_200 s1 sim .
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1009 gen 250_20000 s1 sim .
+
+  <2019-09-14 Sat>
+
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 gen 250_20000 s1 sim .
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1009.gen_250_20000.s1_sim/cnf.murat.ts_warm_bore.711_1009_gen_250_20000_s1_sim.000001_00000000.fcl -n 1000 &
 
   <2019-08-24 Sat> 
 
@@ -51,7 +88,7 @@ generate_fcl --description=s1 --dsconf=711_1008 --events=20000 --njobs=250 --emb
 
  ls $pnfs_scratch/ts_warm_bore.711_1021.s2_mubeam.s3/outstage/17198986/00/*/*.art | grep DS-TGTstops >| $od/711_1021/s3/ts_warm_bore.711_1021_s3.tgtstops.art
  ls $pnfs_scratch/ts_warm_bore.711_1011.s2_mubeam.s3/outstage/17040813/00/*/*.art | grep DS-TGTstops >| $od/711_1011/s3/ts_warm_bore.711_1011_s3.tgtstops.art
- ts_warm_bore/scripts/copy_log_files 711_1011 s2 mubeam s3 sim 17040813                                                                                                                                                                  
+ ts_warm_bore/scripts/copy_log_files 711_1011 s2 mubeam s3 sim 17040813  
  ls $pnfs_scratch/ts_warm_bore.711_1012.s2_mubeam.s3/outstage/17039568/00/*/*.art | grep DS-TGTstops >| $od/711_1012/s3/ts_warm_bore.711_1012_s3.tgtstops.art
  ls $pnfs_scratch/ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039568/00/*/*.art | grep DS-TGTstops >| $od/711_1013/s3/ts_warm_bore.711_1013_s3.tgtstops.art
  ls $pnfs_scratch/ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039491/00/*/*.art | grep DS-TGTstops >| $od/711_1013/s3/ts_warm_bore.711_1013_s3.tgtstops.art

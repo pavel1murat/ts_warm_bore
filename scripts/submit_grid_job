@@ -8,9 +8,8 @@
            dsid=$2 # 711_0001
     input_stage=$3 # s1 s2 s3 or gen
    input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
-   output_stage=$5 # s1 , s2 or s3
-        jobtype=$6 # 'stn' or 'sim' , for example
-           doit=$7
+       job_type=$5 # 's1_sim' or 's1_stn' , for example
+           doit=$6
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
@@ -21,9 +20,9 @@ setup mu2egrid
 dsconf=${dsid}_${input_stage}_${input_stream}
 
 code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
- fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.${output_stage}_${jobtype}.fcl.tbz
-dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_${output_stage}_${jobtype}
-work_project=${project}.${dsid}.${input_stage}_${input_stream}.${output_stage}_${jobtype}
+ fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.${input_stage}_${input_stream}.$job_type.fcl.tbz
+dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_$job_type
+work_project=${project}.${dsid}.${input_stage}_${input_stream}.$job_type
 
 parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=8h"
 if [ ".$doit" != ".ifdh" ] ; then parameters=$parameters" --xrootd" ; fi

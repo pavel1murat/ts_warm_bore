@@ -1,35 +1,28 @@
 #!/bin/bash
 # probably, can source
 
-      project=$1 ; echo project:$project   # ts_warm_bore
-         dsid=$2 ; echo dsid:$dsid  # 711_1011
-  input_stage=$3 ; echo input_stage:$input_stage   # s1
- input_stream=$4 ; echo input_stream:$input_stream   # mubeam
-     job_type=$5 ; echo job_type:$job_type   # sim , stn
- output_stage=$6 ; echo output_stage:$output_stage   # s2
-output_stream=$7 ; echo output_stream:$output_stream   # mubeam
-        jobid=$8 ; echo jobid:$jobid  
+     project=$1 # ts_warm_bore
+        dsid=$2 # 711_1010
 
-# step 1: check grid output
+#  input_stage=$3 # s1
+# input_stream=$4 # gen
+# output_stage=$5 # s2
+#     job_type=$6 # sim , stn
+#        jobid=$7 # 17161389
+# 
 
-nev_per_segment=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '{print $6}'`
-      nsegments=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '{print $7}'`
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | grep s1 | awk -v istage=s1 '{if ($2 == istage)print $10}'`
 
-echo $nev_per_segment  $nsegments
+   odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s2
+logfile=$odir/$project.${dsid}.s1_mubeam_s2_sim.check_grid_output.log
 
-check_grid_output_log=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s2/$project.${dsid}_s2.check_grid_output.log
-murat/scripts/check_grid_output  $project.$dsid.${input_stage}_${input_stream}.${output_stage} $jobid >| $check_grid_output_log
- 
-ts_warm_bore/scripts/copy_log_files              $dsid $input_stage $input_stream $output_stage $job_type $jobid  .
+$project/scripts/check_grid_output $project $dsid s1  mubeam  s2_sim  >| $logfile
 
-                pnfs_dir=/pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.${input_stage}_${input_stream}.$output_stage/outstage/$jobid
-output_stream_file_list=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/$output_stage/$project.${dsid}_${output_stage}.$output_stream.art
+$project/scripts/copy_log_files    $project $dsid s1  mubeam  s2_sim  .
 
-echo pnfs_dir:$pnfs_dir
-echo output_stream_file_list:$output_stream_file_list
+$project/scripts/list_pnfs_files   $project $dsid s1  mubeam  s2_sim mubeam .
 
-ls $pnfs_dir/00/*/*.art | grep TS-mubeam | grep -v json >| $output_stream_file_list
+$project/scripts/gen_fcl           $project $dsid s2  mubeam  s3 sim .
 
-$project/scripts/gen_fcl         $project $dsid $output_stage $output_stream s3 sim .
-$project/scripts/submit_grid_job $project $dsid $output_stage $output_stream s3 sim .
-
+$project/scripts/submit_grid_job   $project $dsid s2  mubeam  s3_sim .

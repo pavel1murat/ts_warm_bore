@@ -1,5 +1,8 @@
 #!/bin/bash 
-
+#-----------------------------------------------------------------------------------------------
+# CATALOG_DIR needs to be defined, normally, points to /grid/fermiapp/mu2e/users/murat/catalogs
+# defined in my ~/.bashrc
+#-----------------------------------------------------------------------------------------------
         project=$1 # ts_warm_bore # $1 # ts_inner_bore
            dsid=$2 # 711_0001
     input_stage=$3 # s1 ... or gen

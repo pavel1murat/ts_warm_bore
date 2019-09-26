@@ -1,23 +1,27 @@
 #!/bin/bash 
 
-      project=ts_warm_bore # $1 # ts_warm_bore
-
-         dsid=$1 # 711_0001
-  input_stage=$2 # gen, .... s1
-input_dataset=$3
-    job_stage=$4  # s1 s2 s3
-      jobtype=$5  # sim ... stn
-        jobid=$6
-         doit=$7
+      project=$1  # ts_warm_bore
+         dsid=$2  # 711_0001
+       istage=$3  # gen, .... s1
+      istream=$4  # mubeam or 250_20000
+     job_type=$5  # s1_sim s2_sim s3_sim
+         doit=$6
 
 prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_dataset}.${job_stage}_${jobtype}/outstage/$jobid
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+       job_stage=`echo $job_type | awk -F _ '{print $1}'`
 
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.${job_type}/outstage/$grid_jobid
+echo topdir=$topdir
 #------------------------------------------------------------------------------
 # 1. copy log files and print number of events in output streams
 #------------------------------------------------------------------------------
 outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$job_stage/log
+echo outputdir=$outputdir
+# exit
+
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 
 for f in `ls $topdir/*/*/log.*.log` ; do 
@@ -33,9 +37,9 @@ for f in `ls $outputdir/*.log` ; do
     fi; 
 done
 
-if   [ $job_stage == "s3" ] ; then output_streams="mothers crv tgtstop ootstop truncated"
-elif [ $job_stage == "s1" ] ; then output_streams="mubeam truncated dsregion extmonbeam extmonregion"
-elif [ $job_stage == "s2" ] ; then output_streams="mubeam truncated crv"
+if   [ $job_type == "s3_sim" ] ; then output_streams="mothers crv tgtstop ootstop truncated"
+elif [ $job_type == "s1_sim" ] ; then output_streams="mubeam truncated dsregion extmonbeam extmonregion"
+elif [ $job_type == "s2_sim" ] ; then output_streams="mubeam truncated crv"
 fi
 
 for stream in $output_streams ; do

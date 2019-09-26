@@ -1,29 +1,31 @@
 #!/bin/bash 
 
-      project=ts_warm_bore # this one is fixed
-         dsid=$1 # 711_0001
-  input_stage=$2 # gen
- input_stream=$3 # 250_20000
- output_stage=$4 # s2
-   output_job=$5
+      project=$1 # ts_warm_bore # this one is fixed
+         dsid=$2 # 711_0001
+       istage=$3 # gen
+      istream=$4 # 250_20000
+     job_type=$5 # s1_sim or s1_stn etc
 output_stream=$6 # mubeam
-        jobid=$7
          doit=$7
 
+prefix="echo executing: " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-prefix="echo executing: "
-if [ ".$doit" != "." ] ; then prefix="" ; fi
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+       job_stage=`echo $job_type | awk -F _ '{print $1}'`
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${input_stage}_${input_stream}.${output_stage}_$output_job/outstage/$jobid
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.$job_type/outstage/$grid_jobid
 echo topdir=$topdir
 
-outputdir=$CATALOG_DIR/$project/$dsid/$output_stage
+outputdir=$CATALOG_DIR/$project/$dsid/$job_stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 # catalog - so far, only .art files
 #------------------------------------------------------------------------------
-catalog_fn=$outputdir/$project.${dsid}.${output_stage}_$output_stream.art.files
+if [ $job_stage == "s1" ] ; 
+
+catalog_fn=$outputdir/$project.${dsid}.${job_stage}_$output_stream.art.files
 echo catalog_fn=$catalog_fn
 
 if [ -f $catalog_fn ] ; then 

@@ -1,27 +1,42 @@
 #!/usr/bin/bash
-
+#------------------------------------------------------------------------------
+# copy output of the job to the permanent storage
+#------------------------------------------------------------------------------
 project=$1 # ts_warm_bore
    dsid=$2 # 711_0001
  istage=$3 # gen_250_20000
- ostage=$3 # s1_sim
-  jobid=$4 # 
-   doit=$5
+ ostage=$4 # s1_sim
+  jobid=$5 # 
+   doit=$6
   
   if [ ".$doit" == "." ] ; then prefix="echo "; else prefix="" ; fi
 
  input_dir=/pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.$istage.$ostage/outstage/$jobid
-output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage
+
+s=`echo $ostage | awk -F _ '{print $1}'`
+output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$s
+
+if [ ! -d $output_dir ] ; then mkdir -p $output_dir ; fi
 
 for stream in crv mubeam truncated ; do
-    for f in $input_dir/00/*/sim.murat.TS-$stream.*.art ; do 
-	${prefix} cp $f $output_dir/$stream/.  
+    od=$output_dir/$stream;
+    if [ ! -d $od ] ; then mkdir -p $od ; fi
+
+    for f in $input_dir/00/*/sim.murat.PS-$stream.*.art ; do 
+	${prefix} cp $f $od/.  
     done
 done
 
+od=$output_dir/hist
+if [ ! -d $od ] ; then mkdir -p $od ; fi
+
 for f in $input_dir/00/*/nts.murat.*.root ; do 
-    ${prefix} cp $f $output_dir/hist/. 
+    ${prefix} cp $f $od/. 
 done
 
+od=$output_dir/log
+if [ ! -d $od ] ; then mkdir -p $od ; fi
+
 for f in $input_dir/00/*/log.*.log ; do 
-    ${prefix} cp $f $output_dir/log/.  
+    ${prefix} cp $f $od/. 
 done

@@ -5,15 +5,29 @@
 # 711_1011 ... 711_1015: DY = -1, -2, -3, -4, -5 mm
 # 711_1021 ... 711_1025: DY = +1, +2, +3, +4, +5 mm
 #
-# version  DSID  full_dataset_name   ninpf_per_seg  nev_per_file  nev_per_seg      nseg  grid_job_id  time/event
-#-------------------------------------------------------------------------------------------------------------------------------
-711_1011    s1     PS_simulation          0         20000            20000         250    17040813       2
-711_1012    s1     PS_simulation          0         20000            20000         250    17039568       2
-711_1013    s1     PS_simulation          0         20000            20000         250    17039491       2
-711_1014    s1     PS_simulation          0         20000            20000         250    17040933       2
-711_1015    s1     PS_simulation          0         20000            20000         250    17056270       2
-711_1021    s1     PS_simulation          0         20000            20000         250    17198986       2
-711_1022    s1     PS_simulation          0         20000            20000         250    17039439       2
-711_1023    s1     PS_simulation          0         20000            20000         250    17085512       2
-711_1024    s1     PS_simulation          0         20000            20000         250    17056405       2
-711_1025    s1     PS_simulation          0         20000            20000         250    17056321       2
+# 711_1030 : default geometry, statistics of 711_1000 doubled
+# 711_1031 : default geometry, no TS1 collar
+# 711_1032 : TS1 with Rin=120mm , no collar
+#
+# DSID    istage istream   job_type   full_dsname  nif_per_s  nev_per_f  nev_per_seg nseg grid_job_id time/event(opt)
+#--------------------------------------------------------------------------------------------------------------------
+711_1009    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  24029339     2
+711_1009    s1    mubeam     s2_sim TS_simulation        0       20000      500000     10  23532637     0.02 
+711_1010    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  24497122     2
+711_1010    s1    mubeam     s2_sim TS_simulation        0       20000      500000     10  24534991     0.02
+711_1010    s2    mubeam     s3_sim DS_simulation        0       20000     1000000      5  24557645     0.02
+#			            
+711_1011    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17040813     2
+711_1012    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17039568     2
+711_1013    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17039491     2
+711_1014    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17040933     2
+711_1015    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17056270     2
+711_1021    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17198986     2
+711_1022    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17039439     2
+711_1023    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17085512     2
+711_1024    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17056405     2
+711_1025    gen   250_20000  s1_sim PS_simulation        0       20000       20000    250  17056321     2
+#
+711_1030    gen   500_20000  s1_sim PS_simulation        0       20000       20000    500               1
+711_1031    gen   500_20000  s1_sim PS_simulation        0       20000       20000    500               1
+711_1032    gen   500_20000  s1_sim PS_simulation        0       20000       20000    500               1

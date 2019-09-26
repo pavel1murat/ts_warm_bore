@@ -5,7 +5,7 @@
 
        dir=$1
 nsubmitted=$2
-   ninputs=$3
+   ninputs=$3   # number of input files per job section, to deduce the file name
 
 n_staging_failures=0
 nfailed=0

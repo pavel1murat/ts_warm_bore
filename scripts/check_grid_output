@@ -1,0 +1,81 @@
+#!/bin/bash
+
+     project=$1   # ts_warm_bore
+        dsid=$2   # 711_1010
+      istage=$3   # s1 or gen
+     istream=$4   # mubeam or 250_20000
+    job_type=$5   # s1_sim or s2_stn
+       order=$6
+
+aaa_project_file=$project/AAA_PROJECT.txt
+  nsubm_sections=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print  $9}'`
+      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+
+grid_dsid=$project.$dsid.${istage}_${istream}.${job_type}
+echo grid_dsid=$grid_dsid
+      topdir=/pnfs/mu2e/scratch/users/$USER/workflow/$grid_dsid/outstage
+echo topdir=$topdir
+stage_dir=$topdir/$grid_jobid;
+
+echo ">>> job output directory:" $stage_dir; 
+
+# exit
+
+nsections=0
+n_staging_failures=0
+nfailed=0
+ntotal=0
+nsuccess=0
+
+list_of_subjobs=`ls $stage_dir`
+
+
+for subdir in $list_of_subjobs ; do
+
+    sdir=$stage_dir/$subdir
+    echo ">>> subdirectory        :" $sdir; 
+
+    if [ ".$order" == "." ] ; then list_of_sections=`ls     $sdir`
+    else                           list_of_sections=`ls -tr $sdir`
+    fi
+
+    for d in $list_of_sections ; do 
+#    echo $d
+#------------------------------------------------------------------------------
+# skip directories corresponding to non-completed sections like '00015.wuue'
+# now they contain just one .log file per subdirectory
+#------------------------------------------------------------------------------
+	nf=`echo $d | awk -F . '{print NF}'` 
+	if [ $nf == 1 ] ; then
+	    logfile=`ls $sdir/$d/*.log` ;
+	    x=`cat $logfile | grep "mu2egrid exit status"`; 
+	    if [ ."$x" == "." ] ; then
+#------------------------------------------------------------------------------
+# no return code - assume staging failure
+#------------------------------------------------------------------------------
+		n_staging_failures=$((n_staging_failures+1))
+	    else
+		rc=`echo $x | awk '{print $4}'`
+		host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
+		   y=`cat $logfile | grep "TrigReport Events total"`
+		
+		printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc
+		
+		if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
+	    fi
+	    nsections=$((nsections+1))
+	else
+	    printf " %10s : GRID ERROR, job not completed\n" $d
+	fi
+	ntotal=$((ntotal+1))
+    done
+done
+echo --------------------------------------------
+echo JOB SUMMARY:
+echo --------------------------------------------
+printf "submitted           : %5i sections\n" $nsubm_sections 
+printf "output checked      : %5i sections\n" $ntotal 
+printf "completed           : %5i sections\n" $nsections 
+printf "staging failures    : %5i sections\n" $n_staging_failures 
+printf "completed with rc=0 : %5i sections\n" $nsuccess 
+printf "mu2e job failed     : %5i sections\n" $nfailed  

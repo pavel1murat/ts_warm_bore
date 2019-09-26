@@ -1,0 +1,12 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_common_current.txt"
+#include "ts_warm_bore/711_1010/TransportSolenoid_v05_711_1010.txt"
+
+// uncomment to print virtual detectors
+// int    vd.verbosityLevel = 1;
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:
