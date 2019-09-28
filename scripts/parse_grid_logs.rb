@@ -48,7 +48,7 @@ def run(dsid)
 
 # puts "input_fn=#{input_fn}"
   dir = "/mu2e/data/users/"+ENV["USER"]+"/datasets/"+$project+"/"+$dsid+"/"+$stage ;
-  puts "dir = #{dir}"
+  #  puts "dir = #{dir}"
 #------------------------------------------------------------------------------
 # write ntuple format string
 #------------------------------------------------------------------------------

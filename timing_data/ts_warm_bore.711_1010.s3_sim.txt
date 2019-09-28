@@ -1,0 +1,6 @@
+jobid/I:node_name/C:cpu_id/C:bogomips/F:dsid/C:vmpeak/F:vmhwm/F:tstage/I:totcpu/I:totwall/I:tfull/F:tistn/F:tkffpar/F:tkffdar/F
+    24557645 fnpc4540.fnal.gov   AuthenticAMD  4000.40  711_1010  1924.860   858.284     -1    24686    25045  -1.0000  -1.0000  -1.0000  -1.0000
+    24557645 fnpc8002.fnal.gov   GenuineIntel  4605.77  711_1010  1925.740   854.360     -1    15230    15555  -1.0000  -1.0000  -1.0000  -1.0000
+    24557645 fnpc9005.fnal.gov   GenuineIntel  4799.73  711_1010  1926.150   852.021     -1    12724    12892  -1.0000  -1.0000  -1.0000  -1.0000
+    24557645 fnpc9028.fnal.gov   GenuineIntel  4799.34  711_1010  1925.770   854.086     -1    13529    13654  -1.0000  -1.0000  -1.0000  -1.0000
+    24557645 fnpc9069.fnal.gov   GenuineIntel  4799.34  711_1010  1925.760   848.019     -1    12229    12427  -1.0000  -1.0000  -1.0000  -1.0000

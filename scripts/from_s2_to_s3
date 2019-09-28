@@ -3,26 +3,25 @@
 
      project=$1 # ts_warm_bore
         dsid=$2 # 711_1010
+      istage=$3 # gen
+     istream=$4 # 500_20000
+    job_type=$5 # s1_sim
 
-#  input_stage=$3 # s1
-# input_stream=$4 # gen
-# output_stage=$5 # s2
-#     job_type=$6 # sim , stn
-#        jobid=$7 # 17161389
-# 
+ ostage=`echo $job_type | awk -F _ '{print $1}'`
+jobtype=`echo $job_type | awk -F _ '{print $2}'`
 
-aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | grep s1 | awk -v istage=s1 '{if ($2 == istage)print $10}'`
 
    odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s2
-logfile=$odir/$project.${dsid}.s1_mubeam_s2_sim.check_grid_output.log
+logfile=$odir/$project.${dsid}.${istage}_${istream}_${job_type}.check_grid_output.log
 
-$project/scripts/check_grid_output $project $dsid s1  mubeam  s2_sim  >| $logfile
+$project/scripts/check_grid_output $project $dsid $istage $istream $job_type >| $logfile
 
-$project/scripts/copy_log_files    $project $dsid s1  mubeam  s2_sim  .
+$project/scripts/copy_log_files    $project $dsid $istage $istream $job_type  .
 
-$project/scripts/list_pnfs_files   $project $dsid s1  mubeam  s2_sim mubeam .
+$project/scripts/list_pnfs_files   $project $dsid $istage $istream $job_type mubeam    .
+$project/scripts/list_pnfs_files   $project $dsid $istage $istream $job_type crv       .
+$project/scripts/list_pnfs_files   $project $dsid $istage $istream $job_type truncated .
 
-$project/scripts/gen_fcl           $project $dsid s2  mubeam  s3 sim .
+$project/scripts/gen_fcl           $project $dsid s2  mubeam  s3_sim .
 
 $project/scripts/submit_grid_job   $project $dsid s2  mubeam  s3_sim .

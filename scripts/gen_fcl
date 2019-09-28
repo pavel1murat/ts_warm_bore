@@ -7,11 +7,13 @@
            dsid=$2 # 711_0001
     input_stage=$3 # s1 ... or gen
    input_stream=$4 # 'mubeam', or if 'gen', '250_20000' means 'njobs_neventsPerJob'
-   output_stage=$5 # s1, s2, or s3 ...
-        jobtype=$6 # 'stn' or 'sim' , for example
-           doit=$7
+       job_type=$5 # s1_sim, s2_sim, or s3_stn ...
+           doit=$6
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
+
+output_stage=`echo $job_type | awk -F _ '{print $1}'`
+     jobtype=`echo $job_type | awk -F _ '{print $2}'`
 
 setup mu2etools
 setup mu2efiletools
@@ -37,8 +39,8 @@ if [ $input_stage == "s3" ] ; then
 
     if [ $jobtype == "stn" ] ; then
 	merge=1000
-	if   [ $input_stream == "tgtstop"   ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
-	elif [ $input_stream == "ootstop"   ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
+	if   [ $input_stream == "tgtstops"  ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
+	elif [ $input_stream == "ootstops"  ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
 	elif [ $input_stream == "beam"      ] ; then template_fcl=Stntuple/test/g4s3_mothers_stn.fcl
 	elif [ $input_stream == "crv"       ] ; then template_fcl=Stntuple/test/g4s3_crv_stn.fcl
 	elif [ $input_stream == "truncated" ] ; then template_fcl=Stntuple/test/g4s3_truncated_stn.fcl

@@ -19,17 +19,15 @@ nev_per_segment=`cat ts_warm_bore/AAA_PROJECT.txt | grep $dsid | grep s1 | awk '
 echo $nev_per_segment  $nsegments
 
 aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk '{print $10}'`
+            odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1
+         logfile=$odir/$project.${dsid}.gen_250_20000_s1_sim.check_grid_output.log
 
-   odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1
-logfile=$odir/$project.${dsid}.gen_250_20000_s1_sim.check_grid_output.log
+$project/scripts/check_grid_output $project $dsid gen 500_20000 s1_sim  >| $logfile
 
-$project/scripts/check_grid_output $project $dsid gen 250_20000 s1_sim  >| $logfile
+$project/scripts/copy_log_files    $project $dsid gen 500_20000 s1_sim  .
 
-$project/scripts/copy_log_files    $project $dsid gen 250_20000 s1 sim  $jobid  .
+$project/scripts/list_pnfs_files   $project $dsid gen 500_20000 s1_sim mubeam .
 
-$project/scripts/list_pnfs_files   $project $dsid gen 250_20000 s1_sim mubeam .
+$project/scripts/gen_fcl           $project $dsid s1  mubeam    s2_sim .
 
-$project/scripts/gen_fcl           $project $dsid s1 mubeam s2 sim .
-
-$project/scripts/submit_grid_job   $project $dsid s1 mubeam s2_sim .
+$project/scripts/submit_grid_job   $project $dsid s1  mubeam    s2_sim .

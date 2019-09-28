@@ -1,0 +1,12 @@
+#
+#include "JobConfig/beam/TS.fcl"
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "g4filter"
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "g4filter:VirtualDetectorPSPbarIn" ]
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPV"
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "g4filter:virtualdetector" ]
+
+physics.producers.compressPVmuonBeam.particleInputs : [ "g4filter" ]
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_2000/geom_711_2000.txt"

@@ -18,6 +18,9 @@
   711_1014: default beamline, beam down by 4 mm
   711_1015: default beamline, beam down by 5 mm
 
+  711_2000: run on input PBARs traced down to VDET91
+  see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
+
   711_9999: example of huge offsets
 
   fcl, geom - for tests, templates...
@@ -25,9 +28,15 @@
   tmp_code: stores tarballs
   tmp_fcl : stores FCL files produced with generate_fcl
 
-* *COMMENTS*
+* *COMMENTS*                                                              
 
-  <2018-10-04 Thu> why Dave calls stage3 mothers bin ?
+  *why Dave calls stage3 mothers bin ?*
+
+  *to store stopped mu+*: add to DS*.fcl:
+
+  physics.producers.stoppedMuonFinder.particleTypes     : [ 13 , -13 ]   # both mu- and mu+
+  physics.producers.outOfTargetMuonFinder.particleTypes : [ 13 , -13 ]   # both mu- and mu+
+
 
 * directory: file:./
 * <2019-06-23 Sun> last tarball in tmp_code was called:  ts_warm_bore.code.711_1025.tbz, delete it to save space
@@ -37,6 +46,11 @@
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 
 * *WORK LOG*
+
+  <2019-09-28 Sat> : ntupling - use the final output directory:
+
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1030.s2_mubeam.s3_stn/cnf.murat.ts_warm_bore.711_1030_s2_mubeam_s3_stn.000001_00000000.fcl \
+                                -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_1030/s2/mubeam_stn
 
   <2019-09-24 Tue>
   
