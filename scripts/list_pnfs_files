@@ -17,7 +17,7 @@ aaa_project_file=$project/AAA_PROJECT.txt
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.$job_type/outstage/$grid_jobid
 echo topdir=$topdir
 
-outputdir=$CATALOG_DIR/$project/$dsid/$job_stage
+outputdir=$project/catalogs/$dsid/$job_stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 echo outputdir=$outputdir
 #------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ for sd1 in $list_of_dirs ; do
 # skip subdirectories like 00148.915da673
 #------------------------------------------------------------------------------
 	len_sd2=`echo $sd2 | awk -F '.' '{print NF}'`
-	echo sd2=$sd2   ssd2=$sdd2   len_sd2=$len_sd2
+#	echo sd2=$sd2   ssd2=$sdd2   len_sd2=$len_sd2
 	if [ $len_sd2 == "1" ] ; then
 	    for f in `ls $sdd2/*.art` ; do
 		base=`basename $f` ;
@@ -67,6 +67,7 @@ for sd1 in $list_of_dirs ; do
     done
 done
 
+echo catalog_fn=$catalog_fn
 ${prefix}cat $catalog_fn 
 
 if [ ".$doit" != "." ] ; then 

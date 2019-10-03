@@ -14,10 +14,10 @@ physics.producers.compressPVmuonBeam.particleInputs                     : [ "g4f
 physics.producers.g4run.Mu2eG4CommonCut: {
     type: union
     pars: [ @local::mu2eg4CutDeltaElectrons,
+	    # this plane is 1 mm upstream of the Coll31OutRecord volume
+	    { type  : plane     normal: [ -1, 0, 0 ] point : [ 26., 0, 0 ] write : Coll31OutRecord }
 	    
-#	    { type  : plane     normal: [ -1, 0, 0 ] point : [ 0., 0, 0 ] write : TS3Center },
-	    
-	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
+#	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
 
 #	    { 
 #		type : inVolume
@@ -36,5 +36,5 @@ physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll31OutRecord" ]
 
 physics.outputs : [ mubeamout ]
 
-services.GeometryService.inputFile: "ts_warm_bore/711_2000/geom_711_2000.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2003/geom_711_2003.txt"
 

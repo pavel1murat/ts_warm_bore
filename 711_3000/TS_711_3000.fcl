@@ -1,0 +1,36 @@
+# -*- mode: tcl -*-
+#include "JobConfig/beam/TS.fcl"
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPVmuonBeam"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:mubeam" ]
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
+
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+#	    { 
+#		type  : plane 
+#		normal: [ -1, 0, 0 ] point : [ 0., 0, 0 ] 
+#		write: TS3Center
+#	    },
+	    
+	    { 
+		type : inVolume
+		pars : [TS5Vacuum, DS1Vacuum, DS2Vacuum, DS3Vacuum ]
+		write: DSVacuum
+	    }
+	   ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:DSVacuum" ]
+
+
+services.GeometryService.inputFile: "ts_warm_bore/711_3000/geom_711_3000.txt"

@@ -30,4 +30,5 @@ $project/scripts/list_pnfs_files   $project $dsid gen 500_20000 s1_sim mubeam .
 
 $project/scripts/gen_fcl           $project $dsid s1  mubeam    s2_sim .
 
-$project/scripts/submit_grid_job   $project $dsid s1  mubeam    s2_sim .
+# for pbars, use 15h and ifdh
+$project/scripts/submit_grid_job   $project $dsid s1  mubeam    s2_sim 8h xrootd .

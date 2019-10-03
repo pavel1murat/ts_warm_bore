@@ -9,9 +9,14 @@
     input_stage=$3 # s1 s2 s3 or gen
    input_stream=$4 # if gen, "250_20000' means 'njobs_neventsPerJob'
        job_type=$5 # 's1_sim' or 's1_stn' , for example
-           doit=$6
+           time=$6 # 
+	 xrootd=$7 #
+           doit=$8 # "." or "ifdh"
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
+
+expected_job_time=8h
+if [ $time != "." ] ; then expected_job_time=$time ; fi
 
 setup mu2etools
 setup mu2efiletools
@@ -24,7 +29,7 @@ code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
 dataset_conf=${project}_${dsid}_${input_stage}_${input_stream}_$job_type
 work_project=${project}.${dsid}.${input_stage}_${input_stream}.$job_type
 
-parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=8h"
-if [ ".$doit" != ".ifdh" ] ; then parameters=$parameters" --xrootd" ; fi
+parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=$time"
+if [ $xrootd == "xrootd" ] ; then parameters=$parameters" --xrootd" ; fi
 
 $prefix mu2eprodsys $parameters

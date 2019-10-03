@@ -11,7 +11,7 @@
 jobtype=`echo $job_type | awk -F _ '{print $2}'`
 
 
-   odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s2
+   odir=/mu2e/data/users/murat/subprojects/$project/catalogs/$dsid/s2
 logfile=$odir/$project.${dsid}.${istage}_${istream}_${job_type}.check_grid_output.log
 
 $project/scripts/check_grid_output $project $dsid $istage $istream $job_type >| $logfile

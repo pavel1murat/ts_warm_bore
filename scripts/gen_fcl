@@ -19,7 +19,7 @@ setup mu2etools
 setup mu2efiletools
 setup mu2egrid
 
-dsconf=${dsid}_${input_stage}_${input_stream}_${output_stage}_${jobtype}
+dsconf=${dsid}_${input_stage}_${input_stream}_${job_type}
 inputs=""
 njobs=xxxx
 nevents_per_job=xxxxx
@@ -35,7 +35,7 @@ template_fcl="undefined"
 
 if [ $input_stage == "s3" ] ; then
 
-    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}.${input_stage}_$input_stream.art.files
+    inputs=$project/catalogs/$dsid/$input_stage/$project.${dsid}.${input_stage}_$input_stream.art.files
 
     if [ $jobtype == "stn" ] ; then
 	merge=1000
@@ -69,7 +69,7 @@ elif [ $input_stage == "s2" ] ; then
     fi
 elif [ $input_stage == "s1" ] ; then # stntupling s1 stage or s2
 
-    inputs=$CATALOG_DIR/$project/$dsid/$input_stage/$project.${dsid}.${input_stage}_${input_stream}.art.files
+    inputs=$PWD/$project/catalogs/$dsid/$input_stage/$project.${dsid}.${input_stage}_${input_stream}.art.files
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
@@ -114,11 +114,12 @@ ${prefix}mv seeds.$USER.$project.${dsconf}.*.txt 000/.
 #------------------------------------------------------------------------------
 # make sure we're not overwriting the existing directory
 #------------------------------------------------------------------------------
-dir=$project/tmp_fcl/$dsid.${input_stage}_$input_stream.${output_stage}_$jobtype
+dir=$PWD/$project/tmp_fcl/$dsid.${input_stage}_$input_stream.$job_type
 
 if [ -d $dir ] ; then 
     echo ERROR: directory $dir already exists !
 else
+    echo mv 000 $dir
     ${prefix}mv 000 $dir
     cd $dir
 #------------------------------------------------------------------------------
@@ -132,7 +133,7 @@ else
 	mv $f1 $f
     done
 
-    tarfile=${project}.$dsid.${input_stage}_${input_stream}.${output_stage}_${jobtype}.fcl.tbz
+    tarfile=${project}.$dsid.${input_stage}_${input_stream}.$job_type.fcl.tbz
     tdir=..
     tar -cjf $tdir/$tarfile *.fcl
 #------------------------------------------------------------------------------

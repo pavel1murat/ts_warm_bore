@@ -9,7 +9,7 @@
 # 711_1031 : default geometry, no TS1 collar
 # 711_1032 : TS1 with Rin=120mm , no collar
 #
-# DSID    istage istream   job_type   full_dsname  nif_per_s  nev_per_f  nev_per_seg nseg grid_job_id time/event(opt)
+# DSID    istage istream   job_type   full_dsname  nif_per_s  nev_per_f pot_per_seg   nseg grid_jobid time/event(opt)
 #--------------------------------------------------------------------------------------------------------------------
 711_1009    gen   250_20000  s1_sim  PS_simulation        0       20000       20000    250  24029339     1.1
 711_1009    s1    mubeam     s2_sim  TS_simulation        0       20000      500000     10  23532637     0.02 
@@ -33,5 +33,15 @@
 711_1030    s2    mubeam     s3_sim  TS_Simulation        0       20000     1000000     10  24631706     0.02
 #
 711_1031    gen   500_20000  s1_sim  PS_simulation        0       20000       20000    500  23949908     1.1
+711_1031    s1    mubeam     s2_sim  TS_simulation        0       20000      500000     20  23996610     0.02
+711_1031    s2    mubeam     s3_sim  TS_simulation        0       20000     1000000     10  24669508     0.02
 #
 711_1032    gen   500_20000  s1_sim  PS_simulation        0       20000       20000    500  24640496     1.1
+711_1032    s1    mubeam     s2_sim  TS_simulation        0       20000      500000     20  23996660     0.02
+711_1032    s2    mubeam     s3_sim  TS_simulation        0       20000     1000000     10  24669653     0.02
+
+# 711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100  24842872	 0.02  *failed*
+# 711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100  24843380   0.02  *failed*
+
+711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100  24899282	 0.02
+711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100  24176321     0.02
