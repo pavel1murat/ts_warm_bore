@@ -2,11 +2,17 @@
 // 
 #include "Mu2eG4/geom/geom_common_current.txt"
 
-bool   pbar.coll1Out.build   = false;                             // *DEFAULT* : true;
+bool   pbar.coll1Out.build         = false;                        // *DEFAULT* : true;
 
 double ts.coll1.innerRadius1 = 120.0;                             // *DEFAULT*: 150.0 
 double ts.coll1.innerRadius2 = 120.0;                             // *DEFAULT*: 150.0 
 double ts.coll1.innerRadius3 = 130.0;                             // *DEFAULT*: 160.0 
+
+// Pbar absorber at TS3 center, disk always built, wedge optional plus
+string pbar.Type           = "disk";                              // *DEFAULT* : "wedge"
+double pbar.halfLength     = 0.450;                               // *DEFAULT* : 825.0e-04;
+string pbar.materialName   = "G4_Be";                             // "G4_KAPTON";
+double pbar.diskradius     = 225.0;                               // mm
 
 // uncomment to print virtual detectors
 // int    vd.verbosityLevel = 1;

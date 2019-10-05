@@ -1,0 +1,47 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's through the TS3 PBAR window(+wedge)
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS2
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPVmuonBeam"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll31OutRecord" ]
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 200000
+
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+	    { type  : inVolume 	pars  : [ Coll32InRecord ] write: Coll32InRecord }
+
+	   ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
+
+# write out only the beam - need to redefine the output structure - note the process name ....
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_TS2",
+         "keep *_compressPVmuonBeam_*_TS2"
+      ]    
+}
+
+physics.outputs : [ mubeamout ]
+
+services.GeometryService.inputFile: "ts_warm_bore/711_2001/geom_711_2001.txt"
+

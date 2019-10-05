@@ -1,16 +1,16 @@
 # -*- mode: tcl -*-
 #------------------------------------------------------------------------------
-# trace pbar's through the TS3 PBAR window(+wedge)
+# trace pbar's from TS32in to TS5
 #------------------------------------------------------------------------------
 #include "JobConfig/beam/TS.fcl"
 
-process_name: TS2
+process_name: TS3
 
 physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
 physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPVmuonBeam"
 
-physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll31OutRecord" ]
-physics.producers.g4run.MultiStageParameters. simParticleNumberOffset   : 200000
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll32InRecord" ]
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 300000
 
 physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
 physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
@@ -19,24 +19,31 @@ physics.producers.g4run.Mu2eG4CommonCut: {
     type: union
     pars: [ @local::mu2eg4CutDeltaElectrons,
 	    
-#	    { type  : plane     normal: [ -1, 0, 0 ] point : [ 0., 0, 0 ] write : TS3Center },
-	    
-	    { type  : inVolume 	pars  : [ Coll32InRecord ] write: Coll32InRecord }
+	    {
+		type: inVolume
+		pars: [TS5Vacuum, DS1Vacuum, DS2Vacuum, DS3Vacuum ]
+		write: DSVacuum
+	    }
 
-#	    { 
-#		type : inVolume
-#		pars : [TS5Vacuum, DS1Vacuum, DS2Vacuum, DS3Vacuum ]
-#		write: DSVacuum
-#	    }
 	   ]
 }
 
 physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
 
 
-physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:DSVacuum" ]
 
-# write out only the beam
+# write out only the beam - need to redefine the output structure - note the process name ....
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_TS3",
+         "keep *_compressPVmuonBeam_*_TS3"
+      ]    
+}
 
 physics.outputs : [ mubeamout ]
 

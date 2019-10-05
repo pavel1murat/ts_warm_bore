@@ -1,34 +1,8 @@
 # ts_warm_bore/AAA_README.org
 
-  *subdirectories:*
+  *subdirectories:* : see file:AAA_PROJECT.txt
 
-  711_1000: default geometry, used to generate a 5M dataset
-  711_1001: "worst case"    , used to generate a 5M dataset
-  711_1003: non-round TS5 collimator hole
-  711_1004: maximized TS1 and TS5 collimator holes, also increased radius of the pbar window
-  711_1005: "mitigated" geometry: offsets compensated, only angles left
-  711_1006: default beamline, new target with 3 fins
-  711_1007: default beamline, old target with r=5mm
-  711_1008: default beamline, magnetic field: TSu coils 14 and 15 swapped 
-  711_1009: TS1 hole R = 130mm
-
-  711_1011: default beamline, beam down by 1 mm
-  711_1012: default beamline, beam down by 2 mm
-  711_1013: default beamline, beam down by 3 mm
-  711_1014: default beamline, beam down by 4 mm
-  711_1015: default beamline, beam down by 5 mm
-
-  *pbars*
-  711_2000: run on input PBARs traced down to VDET91 , default geometry
-  711_2001: run on input PBARs traced down to VDET91 , R(TS1) = 12cm
-  711_2002: R(TS1coll = 12cm), no TS3 wedge
-  711_2003: default geometry, a plane limiting tracing instead of a volume (just for debugging)
-
-
-
-  see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
-
-  711_9999: example of huge offsets
+  *pbars* : see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
 
   fcl, geom - for tests, templates...
 
@@ -103,7 +77,34 @@ Art has completed and will exit with status 0.
 * 711_0000: default geometry
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
-* *WORK LOG*                                                                 
+* *WORK LOG*                                                             **   
+  <2019-10-05 Sat>
+  *change gen_fcl call format*
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2000 pbar:vd91:05 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+
+  inputs=/grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art
+  dsid=711_2000
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:01 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:02 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:03 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:04 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:05 $inputs:1 ts1_sim .
+  dsid=711_2001
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:01 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:02 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:03 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:04 $inputs:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91:05 $inputs:1 ts1_sim .
+
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2000 pbar:vd91:02 ts1_sim 20h ifdh .
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2001 pbar:vd91:02 ts1_sim 20h ifdh .
+
+  for f in `ls ts_warm_bore/catalogs/711_1032/s1/*` ; do f1=`echo $f | sed 's/1032/1040/g'`; cp $f $f1 ; done
+  for f in `ls ts_warm_bore/catalogs/711_1032/s1/*` ; do f1=`echo $f | sed 's/1032/1043/g'`; cp $f $f1 ; done
+  for f in `ls ts_warm_bore/catalogs/711_1032/s1/*` ; do f1=`echo $f | sed 's/1032/1045/g'`; cp $f $f1 ; done
+  for f in `ls ts_warm_bore/catalogs/711_1032/s1/*` ; do f1=`echo $f | sed 's/1032/1049/g'`; cp $f $f1 ; done
+
+  
   <2019-09-30 Mon>
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/711_2001/TS_711_2001.fcl \
