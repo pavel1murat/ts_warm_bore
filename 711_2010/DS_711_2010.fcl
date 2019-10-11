@@ -1,0 +1,12 @@
+#include "JobConfig/beam/DS.fcl"
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_2010/geom_711_2010.txt"
+
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 400000
+
+physics.producers.stoppedMuonFinder.particleTypes                       : [ 13, -13, -211, 211, -2212 ]
+physics.producers.stoppedMuonFinder.particleOffsetThreshold             : 400000
+
+physics.producers.outOfTargetMuonFinder.particleTypes                   : [ 13, -13, -211, 211, -2212 ]
+physics.producers.outOfTargetMuonFinder.particleOffsetThreshold         : 400000

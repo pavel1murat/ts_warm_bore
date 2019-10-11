@@ -8,11 +8,11 @@
        order=$6
 
 aaa_project_file=$project/AAA_PROJECT.txt
-  nsubm_sections=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print  $9}'`
-      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+  nsubm_sections=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print  $9}'`
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
 
 grid_dsid=$project.$dsid.${istage}_${istream}.${job_type}
-echo grid_dsid=$grid_dsid
+echo grid_jobid=$grid_jobid  grid_dsid=$grid_dsid
       topdir=/pnfs/mu2e/scratch/users/$USER/workflow/$grid_dsid/outstage
 echo topdir=$topdir
 stage_dir=$topdir/$grid_jobid;

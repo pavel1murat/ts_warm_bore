@@ -5,14 +5,14 @@
        istage=$3 # gen
       istream=$4 # 250_20000
      job_type=$5 # s1_sim or s1_stn etc
-output_stream=$6 # mubeam
-         doit=$7
+         doit=$6
 
 prefix="echo executing: " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
 aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
        job_stage=`echo $job_type | awk -F _ '{print $1}'`
+       fileset=`echo $istream | awk -F _ '{print $2}'`
 
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.$job_type/outstage/$grid_jobid
 echo topdir=$topdir
@@ -23,54 +23,68 @@ echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 # catalog - so far, only .art files
 #------------------------------------------------------------------------------
-# if [ $job_stage == "s1" ] ; 
+streams="none"
 
-catalog_fn=$outputdir/$project.${dsid}.${job_stage}_$output_stream.art.files
-echo catalog_fn=$catalog_fn
+echo job_type=$job_type
 
-if [ -f $catalog_fn ] ; then 
-    echo $catalog_fn already exists, BAIL OUT
-    exit -1
+if   [ $job_type == "s3_sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
+elif [ $job_type == "s1_sim"  ] ; then streams="mubeam truncated dsregion extmonbeam extmonregion"
+elif [ $job_type == "s2_sim"  ] ; then streams="mubeam truncated crv"
+elif [ $job_type == "ts1_sim" ] ; then streams="mubeam truncated crv"
+elif [ $job_type == "ts2_sim" ] ; then streams="mubeam truncated crv"
+elif [ $job_type == "ts3_sim" ] ; then streams="mubeam truncated crv"
 fi
 
-${prefix}touch $catalog_fn
+for stream in $streams ; do
+    catalog_fn=$outputdir/$project.${dsid}.${job_stage}_$stream.art.files
+    if [ ".$fileset" != "." ] ; then catalog_fn=$catalog_fn.$fileset ; fi
 
-list_of_dirs=`ls $topdir`
+    echo catalog_fn=$catalog_fn
 
-echo list_of_dirs=$list_of_dirs
+    if [ -f $catalog_fn ] ; then 
+	echo $catalog_fn already exists, BAIL OUT
+	exit -1
+    fi
 
-# ls $topdir/*/*/*.art
+    ${prefix}touch $catalog_fn
 
-for sd1 in $list_of_dirs ; do
-    sdd1=$topdir/$sd1
-    list_d1=`ls $sdd1`
-    for sd2 in $list_d1 ; do
-	sdd2=$topdir/$sd1/$sd2
-#------------------------------------------------------------------------------
-# skip subdirectories like 00148.915da673
-#------------------------------------------------------------------------------
-	len_sd2=`echo $sd2 | awk -F '.' '{print NF}'`
-#	echo sd2=$sd2   ssd2=$sdd2   len_sd2=$len_sd2
-	if [ $len_sd2 == "1" ] ; then
-	    for f in `ls $sdd2/*.art` ; do
-		base=`basename $f` ;
-		os=`echo $base | awk -F . '{print $3}'`
-		#    echo base=$base os=$os
-		if [ ."`echo $os | grep -i $output_stream`" != "." ] ; then
-		    #	echo os=$os output_stream=$output_stream  adding file to catalog
-		    echo $f >> $catalog_fn
-		fi
-	    done
-	else
-	    echo skipping $sdd2
-	fi
+    list_of_dirs=`ls $topdir`
+
+    echo list_of_dirs=$list_of_dirs
+
+    # ls $topdir/*/*/*.art
+
+    for sd1 in $list_of_dirs ; do
+	sdd1=$topdir/$sd1
+	list_d1=`ls $sdd1`
+	for sd2 in $list_d1 ; do
+	    sdd2=$topdir/$sd1/$sd2
+	    #------------------------------------------------------------------------------
+	    # skip subdirectories like 00148.915da673
+	    #------------------------------------------------------------------------------
+	    len_sd2=`echo $sd2 | awk -F '.' '{print NF}'`
+	    #	echo sd2=$sd2   ssd2=$sdd2   len_sd2=$len_sd2
+	    if [ $len_sd2 == "1" ] ; then
+		for f in `ls $sdd2/* | grep .art | grep -v .art.` ; do
+		    base=`basename $f` ;
+		    os=`echo $base | awk -F . '{print $3}'`
+		    #    echo base=$base os=$os
+		    if [ ."`echo $os | grep -i $stream`" != "." ] ; then
+			#	echo os=$os stream=$stream  adding file to catalog
+			echo $f >> $catalog_fn
+		    fi
+		done
+	    else
+		echo skipping $sdd2
+	    fi
+	done
     done
+
+    echo catalog_fn=$catalog_fn
+    ${prefix}cat $catalog_fn 
+
+    if [ ".$doit" != "." ] ; then 
+	nfiles=`cat $catalog_fn | wc -l`
+	echo nfiles = $nfiles
+    fi
 done
-
-echo catalog_fn=$catalog_fn
-${prefix}cat $catalog_fn 
-
-if [ ".$doit" != "." ] ; then 
-    nfiles=`cat $catalog_fn | wc -l`
-    echo nfiles = $nfiles
-fi

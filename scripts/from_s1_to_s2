@@ -22,6 +22,7 @@ aaa_project_file=$project/AAA_PROJECT.txt
             odir=/grid/fermiapp/mu2e/users/murat/catalogs/$project/$dsid/s1
          logfile=$odir/$project.${dsid}.gen_250_20000_s1_sim.check_grid_output.log
 
+if [ ! -d $odir ] ; then mkdir -p $odir ; fi
 $project/scripts/check_grid_output $project $dsid gen 500_20000 s1_sim  >| $logfile
 
 $project/scripts/copy_log_files    $project $dsid gen 500_20000 s1_sim  .

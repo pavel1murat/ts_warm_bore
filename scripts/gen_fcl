@@ -48,7 +48,15 @@ fi
 template_fcl="undefined"
        merge=0
 
-if [ $stage == "s1" ] ; then 
+if [ $stage == "s0" ] ; then 
+    
+    if [ $jobtype == "stn" ] ; then # stntupling s1 stage or s2
+	template_fcl=Stntuple/test/g4s0_pbar_vd91_stn.fcl
+	merge=10
+    else
+	echo ERROR: UNKNOWN job type: $jobtype for stage=$stage
+    fi
+elif [ $stage == "s1" ] ; then 
     
     if [ $jobtype == "stn" ] ; then # stntupling s1 stage or s2
 	template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
@@ -83,7 +91,7 @@ elif [ $stage == "ts1" ] ; then #
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4_ts1_${input_stream}_stn.fcl
-	merge=1000
+	merge=100
     elif [ $jobtype == "sim" ] ; then                        # pbars, VD91 --> Coll31out
 	template_fcl=${project}/$dsid/TS_$dsid.fcl
 	merge=50
@@ -94,7 +102,7 @@ elif [ $stage == "ts2" ] ; then # stntupling s1 stage or s2
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4_ts2_${input_stream}_stn.fcl
-	merge=1000
+	merge=1
     elif [ $jobtype == "sim" ] ; then                        # pbars, Coll32In --> TS5
 	template_fcl=${project}/$dsid/TS2_$dsid.fcl
 	merge=50
@@ -108,7 +116,7 @@ elif [ $stage == "ts3" ] ; then # stntupling ts3 - use the same FCL as for s2
 	merge=1000
     elif [ $jobtype == "sim" ] ; then                        # pbars, TS5 --> DS
 	template_fcl=${project}/$dsid/TS3_$dsid.fcl
-	merge=50
+	merge=1
     else
 	echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
     fi
@@ -124,7 +132,7 @@ elif [ $stage == "s3" ] ; then
 	else                                         echo WRONG INPUT STREAM: s3 $input_stream
 	fi
     elif [ $jobtype == "sim" ] ; then
-	merge=2
+	merge=1
 	template_fcl=ts_warm_bore/$dsid/DS_$dsid.fcl
     else
 	echo ERROR: UNKNOWN job type: $jobtype for stage=s3
@@ -174,6 +182,18 @@ else
 	cat $f | sed "s/xxx_xxxx/$project/" | sed "s/MU2EGRIDDSOWNER/$USER/" | sed "s/MU2EGRIDDSCONF/$dsconf/">| $f1
 	mv $f1 $f
     done
+
+    if [ $jobtype == "stn" ] ; then
+#------------------------------------------------------------------------------
+# rename STNTUPLE output files to match the input .FCL file name 
+#------------------------------------------------------------------------------
+	for f in `ls *.fcl` ; do 
+	    stn=`basename $f | sed 's/cnf./nts./' | sed 's/.fcl/.stn/'` ; 
+	    #	    echo $stn; 
+	    line="physics.filters.InitStntuple.histFileName : \"$stn\""
+	    echo $line >> $f
+	done
+    fi
 
     tarfile=${project}.$dsid.$istub.$job_type.fcl.tbz
     tdir=..

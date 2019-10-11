@@ -20,10 +20,16 @@ bool   pbar.coll1Out.build         = false;                        // *DEFAULT* 
 // Pbar absorber at TS3 center, disk always built, wedge optional plus
 int pbar.verbosityLevel    = 100.;
 
-string pbar.Type           = "disk";                              // *DEFAULT* : "wedge"
+string pbar.Type           = "wedge";                              // *DEFAULT* : "wedge"
 double pbar.halfLength     = 825.0e-04;                            // 100.0e-3; // 0.06->0.1
 string pbar.materialName   = "G4_Be";                              // "G4_KAPTON";
 double pbar.diskradius     = 225.0;                                // mm
+
+vector<double> pbarwedge.stripHeights = {225, 180, 135, 90, 45, 0};// *DEFAULT* {173, 146, 113, 79, 46, 13}; // mm
+
+double pbarwedge.zOffset =   8.;                                    // *DEFAULT* : 5.1; // mm
+double pbarwedge.y1      = 200.;                                    // *DEFAULT* : 190.; // Do not exceed hole in support 
+double pbarwedge.width   = 300.;                                    // *DEFAULT* : 304.6; // mm (1 foot)
 
 // uncomment to print virtual detectors
 // int    vd.verbosityLevel = 1;

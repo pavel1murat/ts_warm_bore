@@ -1,20 +1,8 @@
 // -*- mode: c++ -*-
 // 
-
-// large wedge - expect no pbars going through
+// default TS1, no TS3 wedge, default TS3 disk
 //
 #include "Mu2eG4/geom/geom_common_current.txt"
-
-
-// TS1 collimator: Rin = 120mm
-
-double ts.coll1.innerRadius1 = 120.0;                              // *DEFAULT*: 150.0 
-double ts.coll1.innerRadius2 = 120.0;                              // *DEFAULT*: 150.0 
-double ts.coll1.innerRadius3 = 130.0;                              // *DEFAULT*: 160.0 
-
-
-// Collar pbar absorber in TS1 collimator near end
-bool   pbar.coll1Out.build         = false;                        // *DEFAULT* : true;
 
 
 // Pbar absorber at TS3 center, disk always built, wedge optional plus

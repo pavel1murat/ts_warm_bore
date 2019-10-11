@@ -1,6 +1,7 @@
 grid_export
 .git
 .git/*
+.sconsign.dblite
 Sandbox
 RootAnalyzer
 TestTools
@@ -12,18 +13,24 @@ lib/libmu2e_Analyses_CRY*.so
 lib/libmu2e_Analyses_Disk*.so
 lib/libmu2e_Analyses_EMF*.so
 lib/libmu2e_Analyses_Hi*.so
+lib/libmu2e_Analyses_KineticFracAnalysis_module.so
+lib/libmu2e_Analyses_materialPropStudy*.so
+lib/libmu2e_Analyses_MTVerification*.so
 lib/libmu2e_Analyses_Mu2eG4*.so
 lib/libmu2e_Analyses_Particle*.so
 lib/libmu2e_Analyses_Pbar*.so
 lib/libmu2e_Analyses_pbar*.so
 lib/libmu2e_Analyses_Pointer*.so
 lib/libmu2e_Analyses_Print*.so
+lib/libmu2e_Analyses_ProtonBunchIntensityAnalyzer*.so
 lib/libmu2e_Analyses_PtrTest*.so
 lib/libmu2e_Analyses_Read*.so
+lib/libmu2e_Analyses_Reflect*.so
+lib/libmu2e_Analyses_RPC*.so
 lib/libmu2e_Analyses_Select*.so
 lib/libmu2e_Analyses_SimParticleAnalyzer*.so
 lib/libmu2e_Analyses_SimParticleCheck*.so
-# need libmu2e_Analyses_SimParticleDaughterSelector_module.sog
+# need libmu2e_Analyses_SimParticleDaughterSelector_module.so
 lib/libmu2e_Analyses_SimParticleDumper*.so
 lib/libmu2e_Analyses_SimParticles*.so
 lib/libmu2e_Analyses_StepPoint*.so

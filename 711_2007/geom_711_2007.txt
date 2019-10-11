@@ -19,7 +19,7 @@ bool   pbar.coll1Out.build         = false;                       // *DEFAULT* :
 
 // Pbar absorber at TS3 center, disk always built, wedge optional plus
 string pbar.Type           = "disk";                              // *DEFAULT* : "wedge"
-double pbar.halfLength     = 0.150;                               // *DEFAULT* : 825.0e-04;      // 100.0e-3; // 0.06->0.1
+double pbar.halfLength     = 0.350;                               // *DEFAULT* : 825.0e-04;      // 100.0e-3; // 0.06->0.1
 string pbar.materialName   = "G4_Be";                             // "G4_KAPTON";
 double pbar.diskradius     = 225.0;                               // mm
 

@@ -10,7 +10,7 @@
 prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
 aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | grep $istage | awk -v istage=$istage '{if ($2 == istage) print $10}'`
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
        job_stage=`echo $job_type | awk -F _ '{print $1}'`
 
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.${job_type}/outstage/$grid_jobid
@@ -34,14 +34,23 @@ for f in `ls $outputdir/*.log` ; do
     x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ; 
     if [ .$x != ."0" ] ; then 
 	echo $f: ERROR ; 
+	mv $f $f.err
     fi; 
 done
 
-if   [ $job_type == "s3_sim" ] ; then output_streams="mothers crv tgtstop ootstop truncated"
-elif [ $job_type == "s1_sim" ] ; then output_streams="mubeam truncated dsregion extmonbeam extmonregion"
-elif [ $job_type == "s2_sim" ] ; then output_streams="mubeam truncated crv"
+if   [ $job_type == "s3_sim"  ] ; then output_streams="mothers crv tgtstop ootstop truncated"
+elif [ $job_type == "s1_sim"  ] ; then output_streams="mubeam truncated dsregion extmonbeam extmonregion"
+elif [ $job_type == "s2_sim"  ] ; then output_streams="mubeam truncated crv"
+elif [ $job_type == "ts1_sim" ] ; then output_streams="mubeam truncated crv"
+elif [ $job_type == "ts2_sim" ] ; then output_streams="mubeam truncated crv"
+elif [ $job_type == "ts3_sim" ] ; then output_streams="mubeam truncated crv"
 fi
 
 for stream in $output_streams ; do
-    cat $outputdir/*.log | grep TrigReport | grep -i $stream | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
+    for f in `ls $outputdir/*.log` ; do 
+	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
+	if [ .$x == ."0" ] ; then 
+	    cat $outputdir/*.log | grep TrigReport | grep -i $stream 
+	fi 
+    done   | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
 done
