@@ -78,6 +78,37 @@ Art has completed and will exit with status 0.
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
 * *WORK LOG*                                **   
+  <2019-10-12 Sat> 
+
+  *stage one muons, trace down to VirtualDetector_Coll1In, write out only muons, generate 10 fcl tarballs*
+
+  dsid=711_1050 ; 
+  rm -rf /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/tmp_fcl/$dsid.gen_1000_50000.s1_sim ;  
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid gen:1000_50000 .  s1_sim . 
+  cd ts_warm_bore/tmp_fcl/711_1050.gen_1000_50000.s1_sim/
+  for i in `seq 0 9` ; 
+  do echo $i ; \
+  tar -cjf ../ts_warm_bore.711_1050.gen_1000_50000_0$i.s1_sim.fcl.tbz cnf.murat.ts_warm_bore.711_1050_gen_1000_50000_s1_sim.000001_00000${i}??.fcl; \
+  done
+
+  dsid=711_1050 ; 
+  rm -rf /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/tmp_fcl/$dsid.gen_500_20000.s1_sim ;  
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid gen:500_20000 .  s1_sim .
+  cd ts_warm_bore/tmp_fcl/711_1050.gen_500_20000.s1_sim/
+  for i in `seq 0 4` ; do echo $i ; \
+  tar -cjf ../ts_warm_bore.711_1050.gen_500_20000_0$i.s1_sim.fcl.tbz cnf.murat.ts_warm_bore.711_1050_gen_500_20000_s1_sim.000001_00000${i}??.fcl; \
+  done
+
+  *remake the code tarball and copy it to /pnfs*
+  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt 
+  mv /mu2e/app/users/murat/tsud_bore_prof/grid_export/tmp.zfEw90bQQI/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bore.code.711_1050.tbz
+  rm /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz ; \
+  cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_1050.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+
+  dsid=711_2030
+  ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid pbar vd91_01 ts1_sim .
+  dsid=711_1050
+  ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 711_1050 gen 500_20000_00 s1_sim mubeam .
 
   <2019-10-11 Fri>
   *replacing the code tarbal*
@@ -86,6 +117,20 @@ Art has completed and will exit with status 0.
   dsid=711_2020
   ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts1 mubeam ts2_sim >| ts_warm_bore/catalogs/$dsid/ts2/ts_warm_bore.$dsid.ts1_mubeam_ts2_sim.check_grid_output.log
   
+
+  *submitting 711_2030 jobs*
+  
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2030 pbar:vd91:01 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2030 pbar:vd91:02 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2030 pbar:vd91:03 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2030 pbar:vd91:04 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2030 pbar:vd91:05 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+
+  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+  mv grid_export/tmp.kA8RtojgIg/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bore.code.711_2030.tbz
+  rm -f /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz ; cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_2030.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2030 pbar:vd91:01 ts1_sim 24h ifdh .
 
   <2019-10-10 Thu>
 

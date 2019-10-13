@@ -2,18 +2,28 @@
 
       project=$1  # ts_warm_bore
          dsid=$2  # 711_0001
-       istage=$3  # gen, .... s1
-      istream=$4  # mubeam or 250_20000
-     job_type=$5  # s1_sim s2_sim s3_sim
-         doit=$6
+     p_istage=$3  # gen:250_20000 .... or s1:mubeam
+   p_job_type=$4  # s1:sim , s2:stn , etc
+         doit=$5
 
 prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
-       job_stage=`echo $job_type | awk -F _ '{print $1}'`
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.${job_type}/outstage/$grid_jobid
+ istage=`echo $p_istage | awk -F : '{print $1}'`
+istream=`echo $p_istage | awk -F : '{print $2}'`
+fileset=`echo $p_istage | awk -F : '{print $3}'`
+
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
+
+       job_stage=`echo $p_job_type | awk -F : '{print $1}'`
+        job_type=`echo $p_job_type | awk -F : '{print $2}'`
+
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+
+
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_stage}_${job_type}/outstage/$grid_jobid
 echo topdir=$topdir
 #------------------------------------------------------------------------------
 # 1. copy log files and print number of events in output streams
@@ -25,32 +35,42 @@ echo outputdir=$outputdir
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 
 for f in `ls $topdir/*/*/log.*.log` ; do 
-    cp $f $outputdir/.
+    cp -vp $f $outputdir/.
 done
 #------------------------------------------------------------------------------
 # check if the jobs finished successfully
 #------------------------------------------------------------------------------
 for f in `ls $outputdir/*.log` ; do 
-    x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ; 
-    if [ .$x != ."0" ] ; then 
-	echo $f: ERROR ; 
-	mv $f $f.err
+    x=`cat $f | grep "mu2egrid exit status"` ; 
+    if [ ".$x" != "." ] ; then 
+	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ; 
+	if [ ".$x" != ."0" ] ; then 
+	    echo $f: ERROR ; 
+	    mv $f $f.err
+	fi
     fi; 
 done
 
-if   [ $job_type == "s3_sim"  ] ; then output_streams="mothers crv tgtstop ootstop truncated"
-elif [ $job_type == "s1_sim"  ] ; then output_streams="mubeam truncated dsregion extmonbeam extmonregion"
-elif [ $job_type == "s2_sim"  ] ; then output_streams="mubeam truncated crv"
-elif [ $job_type == "ts1_sim" ] ; then output_streams="mubeam truncated crv"
-elif [ $job_type == "ts2_sim" ] ; then output_streams="mubeam truncated crv"
-elif [ $job_type == "ts3_sim" ] ; then output_streams="mubeam truncated crv"
+if   [ $p_job_type == "s3:sim"  ] ; then output_streams="mothers crv tgtstop ootstop truncated"
+elif [ $p_job_type == "s1:sim"  ] ; then output_streams="mubeam"
+elif [ $p_job_type == "s2:sim"  ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts1:sim" ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts2:sim" ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts3:sim" ] ; then output_streams="mubeam"
 fi
 
+echo outputdir=$outputdir
 for stream in $output_streams ; do
     for f in `ls $outputdir/*.log` ; do 
-	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
-	if [ .$x == ."0" ] ; then 
-	    cat $outputdir/*.log | grep TrigReport | grep -i $stream 
+	grid=`cat $f | grep "mu2egrid exit status"`
+	if [ ".$grid" != "." ] ; then
+	    x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
+	    if [ .$x == ."0" ] ; then 
+		cat $f | grep TrigReport | grep $stream 
+	    fi
+	else
+	    echo WARNING: file $f doesnt have mu2egrid exit status
+	    cat $f | grep TrigReport | grep $stream 
 	fi 
     done   | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
 done

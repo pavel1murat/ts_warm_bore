@@ -2,16 +2,25 @@
 
      project=$1   # ts_warm_bore
         dsid=$2   # 711_1010
-      istage=$3   # s1 or gen
-     istream=$4   # mubeam or 250_20000
-    job_type=$5   # s1_sim or s2_stn
-       order=$6
+    p_istage=$3   # s1:mubeam  or gen:250_20000:03
+  p_job_type=$4   # s1:sim or s2:stn
+       order=$5
+
+      istage=`echo $p_istage | awk -F : '{print $1}'`
+     istream=`echo $p_istage | awk -F : '{print $2}'`
+     fileset=`echo $p_istage | awk -F : '{print $3}'`
+
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
+
+    job_type=`echo $p_job_type | sed 's/:/_/'`
 
 aaa_project_file=$project/AAA_PROJECT.txt
-  nsubm_sections=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print  $9}'`
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
+  nsubm_sections=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print  $9}'`
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
 
-grid_dsid=$project.$dsid.${istage}_${istream}.${job_type}
+grid_dsid=$project.$dsid.${istage}_${istub}.${job_type}
+
 echo grid_jobid=$grid_jobid  grid_dsid=$grid_dsid
       topdir=/pnfs/mu2e/scratch/users/$USER/workflow/$grid_dsid/outstage
 echo topdir=$topdir
@@ -28,7 +37,6 @@ ntotal=0
 nsuccess=0
 
 list_of_subjobs=`ls $stage_dir`
-
 
 for subdir in $list_of_subjobs ; do
 
@@ -51,9 +59,10 @@ for subdir in $list_of_subjobs ; do
 	    x=`cat $logfile | grep "mu2egrid exit status"`; 
 	    if [ ."$x" == "." ] ; then
 #------------------------------------------------------------------------------
-# no return code - assume staging failure
+# no return code - print warning, but dont assume the staging failure
 #------------------------------------------------------------------------------
-		n_staging_failures=$((n_staging_failures+1))
+		printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host
+		# n_staging_failures=$((n_staging_failures+1))
 	    else
 		rc=`echo $x | awk '{print $4}'`
 		host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;

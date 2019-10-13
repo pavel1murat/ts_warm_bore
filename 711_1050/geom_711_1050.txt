@@ -1,5 +1,6 @@
 // -*- mode: c++ -*-
 // make sure the collar covers 180 deg and goes the full length
+// 711_1050 (muons) and 711_2030 (pbars) geometries are the same
 
 #include "Mu2eG4/geom/geom_common_current.txt"
 
@@ -15,6 +16,7 @@ double pbar.coll1Out.zDiff = 0.5; // margin between end of collar and Coll1
 //double pbar.coll1Out.phiDelta = 140.0;
 double pbar.coll1Out.phiBegin = 180.0;                       // *DEFAULT* : 210.0
 double pbar.coll1Out.phiDelta = 180.0;                       // *DEFAULT* : 120.0
+
 
 int    pbarwedge.nStrips              = 4;                   // *DEFAULT* : 6
 double pbarwedge.width                = 304.6;               // mm (1 foot)

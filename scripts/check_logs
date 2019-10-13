@@ -1,0 +1,53 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# check log files, print number of processed events, number of generated events
+#------------------------------------------------------------------------------
+top=$1
+
+
+#------------------------------------------------------------------------------
+check_logs() {
+    logdir=$1
+    echo ------------------------------------------ logdir=$logdir
+    echo "Check ART exit codes:"
+    grep "Art has completed "      $logdir/*.log 
+    
+    echo "Check GRID exit codes:"
+    grep "mu2egrid exit status"    $logdir/*.log 
+
+    echo "total number of generated events: " `grep "GenEventCount total:"    $logdir/*.log | awk '{n = n+$3} END{print n}'`
+    echo "total number of processed events: " `grep "TrigReport Events total" $logdir/*.log | awk '{n = n+$5} END{print n}'`
+    echo "events in mubeamout output      : " `grep "TrigReport"              $logdir/*.log | grep mubeamout | awk '{n = n+$5} END{print n}'`
+
+    echo "events in tgtstops  output      : " `grep "TrigReport"              $logdir/*.log | grep tgtStopOutput       | awk '{n = n+$5} END{print n}'`
+    echo "events in ootstops  output      : " `grep "TrigReport"              $logdir/*.log | grep ootStopOutput       | awk '{n = n+$5} END{print n}'`
+    echo "events in crv       output      : " `grep "TrigReport"              $logdir/*.log | grep crvOutput           | awk '{n = n+$5} END{print n}'`
+    echo "events in mothers   output      : " `grep "TrigReport"              $logdir/*.log | grep mothersOutput       | awk '{n = n+$5} END{print n}'`
+    echo "events in truncated output      : " `grep "TrigReport"              $logdir/*.log | grep truncatedEvtsOutput | awk '{n = n+$5} END{print n}'`
+}
+
+#------------------------------------------------------------------------------
+lsdir() {
+    ls -al $1 | awk '{if ((substr($0,1,1) == "d") && ($9 != ".") && ($9 != "..")) print $9}'
+}
+
+list_of_dirs=`ls $top`
+
+for d1 in $list_of_dirs ; do
+#    echo d1=$d1
+    list_of_d2=`lsdir $top/$d1 | sort`
+#    echo list_of_d2=$list_of_d2
+    for d2 in $list_of_d2 ; do
+	if [ $d2 == "log" ] ; then
+	    check_logs $top/$d1/$d2
+	else
+	    list_of_d3=`lsdir $top/$d1/$d2 | sort`
+#	    echo list_of_d3=$list_of_d3
+	    for d3 in $list_of_d3 ; do
+		if [ $d3 == "log" ] ; then
+		    check_logs $top/$d1/$d2/$d3
+		fi
+	    done
+	fi
+    done
+done

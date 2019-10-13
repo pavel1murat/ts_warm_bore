@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+count_genevents() {
+    dir=$1
+    pattern=$2
+
+    echo $dir
+
+    if [ ".$pattern" == "." ] ; then files=`ls $dir/*` ; 
+    else                             files=`ls $dir/* | grep $pattern`
+    fi
+
+    for f in $files ; do 
+	cat $f | grep "GenEventCount total:" ; 
+    done | awk '{n += $3} END{print n}'
+}
+
+count_nevents() {
+    dir=$1
+    pattern=$2
+    stream=$3
+
+    echo $dir
+
+    if [ ".$pattern" == "." ] ; then files=`ls $dir/*` ; 
+    else                             files=`ls $dir/* | grep $pattern`
+    fi
+
+    for f in $files ; do 
+	cat $f | grep TrigReport | grep $stream ; 
+    done | awk '{n += $5} END{print n}'
+}
+
+count() {
+    dir=$1
+    pattern=$2
+    stream=$3
+
+    count_nevents   $dir $pattern $stream
+    count_genevents $dir $pattern
+   
+}

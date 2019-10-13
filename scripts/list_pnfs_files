@@ -2,19 +2,26 @@
 
       project=$1 # ts_warm_bore # this one is fixed
          dsid=$2 # 711_0001
-       istage=$3 # gen
-      istream=$4 # 250_20000
-     job_type=$5 # s1_sim or s1_stn etc
-         doit=$6
+     p_istage=$3 # gen:250_20000 ...
+   p_job_type=$4 # s1:sim or s1:stn etc
+         doit=$5
 
 prefix="echo executing: " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
-aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istream=$istream '{if (($2 == istage) && ($3 == istream)) print $10}'`
-       job_stage=`echo $job_type | awk -F _ '{print $1}'`
-       fileset=`echo $istream | awk -F _ '{print $2}'`
+ istage=`echo $p_istage | awk -F : '{print $1}'`
+istream=`echo $p_istage | awk -F : '{print $2}'`
+fileset=`echo $p_istage | awk -F : '{print $3}'`
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istream}.$job_type/outstage/$grid_jobid
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
+
+       job_stage=`echo $p_job_type | awk -F : '{print $1}'`
+        job_type=`echo $p_job_type | awk -F : '{print $2}'`
+
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_stage}_${job_type}/outstage/$grid_jobid
 echo topdir=$topdir
 
 outputdir=$project/catalogs/$dsid/$job_stage
@@ -25,14 +32,14 @@ echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 streams="none"
 
-echo job_type=$job_type
+echo p_job_type=$p_job_type
 
-if   [ $job_type == "s3_sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
-elif [ $job_type == "s1_sim"  ] ; then streams="mubeam truncated dsregion extmonbeam extmonregion"
-elif [ $job_type == "s2_sim"  ] ; then streams="mubeam truncated crv"
-elif [ $job_type == "ts1_sim" ] ; then streams="mubeam truncated crv"
-elif [ $job_type == "ts2_sim" ] ; then streams="mubeam truncated crv"
-elif [ $job_type == "ts3_sim" ] ; then streams="mubeam truncated crv"
+if   [ $p_job_type == "s3:sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
+elif [ $p_job_type == "s1:sim"  ] ; then streams="mubeam"
+elif [ $p_job_type == "s2:sim"  ] ; then streams="mubeam"
+elif [ $p_job_type == "ts1:sim" ] ; then streams="mubeam"
+elif [ $p_job_type == "ts2:sim" ] ; then streams="mubeam"
+elif [ $p_job_type == "ts3:sim" ] ; then streams="mubeam"
 fi
 
 for stream in $streams ; do
@@ -42,8 +49,8 @@ for stream in $streams ; do
     echo catalog_fn=$catalog_fn
 
     if [ -f $catalog_fn ] ; then 
-	echo $catalog_fn already exists, BAIL OUT
-	exit -1
+	echo $catalog_fn already exists, recreate
+	rm -f $catalog_fn
     fi
 
     ${prefix}touch $catalog_fn

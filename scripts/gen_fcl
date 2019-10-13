@@ -7,7 +7,7 @@
            dsid=$2 # 711_0001
             ist=$3 # s1:mubeam ... or gen:250_20000 ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
             ids=$4 # if not ".", then catalog of the input dataset with a list of files in it
-       job_type=$5 # s1_sim, s2_sim, or s3_stn ...
+     p_job_type=$5 # s1:sim, s2:sim, or s3:stn ...
            doit=$6
 
  input_stage=`echo $ist | awk -F : '{print $1}'`;
@@ -26,8 +26,9 @@ fi
 
 emerge=`echo $ids | awk -F : '{print $2}'`;
 
-  stage=`echo $job_type | awk -F _ '{print $1}'`
-jobtype=`echo $job_type | awk -F _ '{print $2}'`
+  stage=`echo $p_job_type | awk -F : '{print $1}'`
+jobtype=`echo $p_job_type | awk -F : '{print $2}'`
+job_type=${stage}_$jobtype
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
@@ -60,12 +61,13 @@ elif [ $stage == "s1" ] ; then
     
     if [ $jobtype == "stn" ] ; then # stntupling s1 stage or s2
 	template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
-	merge=1000
+	merge=100
     elif [ $jobtype == "sim" ] ; then
 	if [ $input_stage == "gen" ] ; then # s1 stage
 	    template_fcl=ts_warm_bore/$dsid/PS_$dsid.fcl
 	    njobs=`echo $input_stream | awk -F _ '{print $1}'`
 	    nevents_per_job=`echo $input_stream | awk -F _ '{print $2}'`
+	    inputs=""
 	else
 	    echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
 	fi
@@ -167,42 +169,46 @@ if [ ".$fileset" != "." ] ; then istub=${istub}_$fileset ; fi
 dir=$PWD/$project/tmp_fcl/$dsid.$istub.$job_type
 
 if [ -d $dir ] ; then 
-    echo ERROR: directory $dir already exists !
-else
-    echo mv 000 $dir
-    ${prefix}mv 000 $dir
-    cd $dir
+    echo WARNING: directory $dir already exists, RECREATE !
+    rm -rf $dir
+fi
+
+echo mv 000 $dir
+${prefix}mv 000 $dir
+cd $dir
 #------------------------------------------------------------------------------
 # need to replace: 'MU2EGRIDDSOWNER' --> "$USER"
 #                  'MU2EGRIDDSCONF'  --> ${dsid}_${input_stage}_${input_stream}_${jobtype}
 #------------------------------------------------------------------------------
-    dsconf=${dsid}_${input_stage}_${input_stream}_${stage}_${jobtype}
-    for f in `ls *.fcl` ; do 
-	f1=$f.tmp
-	cat $f | sed "s/xxx_xxxx/$project/" | sed "s/MU2EGRIDDSOWNER/$USER/" | sed "s/MU2EGRIDDSCONF/$dsconf/">| $f1
-	mv $f1 $f
-    done
+dsconf=${dsid}_${input_stage}_${input_stream}_${stage}_${jobtype}
+for f in `ls *.fcl` ; do 
+    f1=$f.tmp
+    cat $f | sed "s/xxx_xxxx/$project/" | sed "s/MU2EGRIDDSOWNER/$USER/" | sed "s/MU2EGRIDDSCONF/$dsconf/">| $f1
+    mv $f1 $f
+done
 
-    if [ $jobtype == "stn" ] ; then
+if [ $jobtype == "stn" ] ; then
 #------------------------------------------------------------------------------
 # rename STNTUPLE output files to match the input .FCL file name 
 #------------------------------------------------------------------------------
-	for f in `ls *.fcl` ; do 
-	    stn=`basename $f | sed 's/cnf./nts./' | sed 's/.fcl/.stn/'` ; 
-	    #	    echo $stn; 
-	    line="physics.filters.InitStntuple.histFileName : \"$stn\""
-	    echo $line >> $f
-	done
-    fi
+    for f in `ls *.fcl` ; do 
+	stn=`basename $f | sed 's/cnf./nts./' | sed 's/.fcl/.stn/'` ; 
+	#	    echo $stn; 
+	line="physics.filters.InitStntuple.histFileName : \"$stn\""
+	echo $line >> $f
+    done
+fi
 
-    tarfile=${project}.$dsid.$istub.$job_type.fcl.tbz
-    tdir=..
-    tar -cjf $tdir/$tarfile *.fcl
+tarfile=${project}.$dsid.$istub.$job_type.fcl.tbz
+tdir=..
+tar -cjf $tdir/$tarfile *.fcl
 #------------------------------------------------------------------------------
 # move fcl files for the simulation jobs to PNFS
 #------------------------------------------------------------------------------
-    if [ $jobtype == "sim" ] ; then
-	echo CMD: cp $tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
-	cp $tdir/$tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
+if [ $jobtype == "sim" ] ; then
+    echo CMD: cp $tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
+    if [ -f /pnfs/mu2e/resilient/users/murat/$tarfile ] ; then
+	echo WARNING: tarfile /pnfs/mu2e/resilient/users/murat/$tarfile already exists, RECREATE !
     fi
+    cp -f $tdir/$tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
 fi
