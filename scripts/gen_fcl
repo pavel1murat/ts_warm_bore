@@ -79,7 +79,7 @@ elif [ $stage == "s2" ] ; then
     echo S2: inputs:$inputs
 
     if [ $jobtype == "stn" ] ; then
-	merge=1000
+	merge=5
 	if [ $input_stream == "mubeam" ] ; then template_fcl=Stntuple/test/g4s2_mubeam_stn.fcl
 	else                                    echo WRONG INPUT STREAM: s3 $input_stream
 	fi
@@ -115,7 +115,7 @@ elif [ $stage == "ts3" ] ; then # stntupling ts3 - use the same FCL as for s2
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4s2_${input_stream}_stn.fcl
-	merge=1000
+	merge=3
     elif [ $jobtype == "sim" ] ; then                        # pbars, TS5 --> DS
 	template_fcl=${project}/$dsid/TS3_$dsid.fcl
 	merge=1

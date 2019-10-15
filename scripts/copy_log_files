@@ -66,11 +66,11 @@ for stream in $output_streams ; do
 	if [ ".$grid" != "." ] ; then
 	    x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
 	    if [ .$x == ."0" ] ; then 
-		cat $f | grep TrigReport | grep $stream 
+		cat $f | grep TrigReport | grep -i $stream 
 	    fi
 	else
 	    echo WARNING: file $f doesnt have mu2egrid exit status
-	    cat $f | grep TrigReport | grep $stream 
+	    cat $f | grep TrigReport | grep -i $stream 
 	fi 
     done   | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
 done

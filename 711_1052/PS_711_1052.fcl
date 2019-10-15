@@ -1,0 +1,37 @@
+#------------------------------------------------------------------------------
+# trace everything down to VirtualDetector_Coll1_In
+# write out only mubeam
+# next stage needs to use 
+# physics.producers.g4run.MultiStageParameters.genInputHits : [ "muonBeamFilter:Coll1In" ]
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/PS.fcl"
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+	    { type  : inVolume 	pars  : [ VirtualDetector_Coll1_In ] write: Coll1In }
+
+	   ]
+}
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll1In" ]
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+# write out only the beam
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_PS",
+         "keep *_compressPVmuonBeam_*_PS"
+      ]  
+}
+
+physics.trigger_paths : [ trigmubeam ]
+physics.outputs       : [ mubeamout  ]
+
+services.GeometryService.inputFile: "ts_warm_bore/711_1052/geom_711_1052.txt"

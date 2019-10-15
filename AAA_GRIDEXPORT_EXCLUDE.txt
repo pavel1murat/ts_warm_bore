@@ -28,9 +28,11 @@ lib/libmu2e_Analyses_KineticFracAnalysis_module.so
 lib/libmu2e_Analyses_materialPropStudy*.so
 lib/libmu2e_Analyses_MTVerification*.so
 lib/libmu2e_Analyses_Mu2eG4*.so
+lib/libmu2e_Analyses_NeutronCRV_module.so
 lib/libmu2e_Analyses_Particle*.so
 lib/libmu2e_Analyses_Pbar*.so
 lib/libmu2e_Analyses_pbar*.so
+lib/libmu2e_Analyses_PionMomentumAnalyzer_module.so
 lib/libmu2e_Analyses_Pointer*.so
 lib/libmu2e_Analyses_Print*.so
 lib/libmu2e_Analyses_ProtonBunchIntensityAnalyzer*.so
@@ -51,10 +53,12 @@ lib/libmu2e_Analyses_StoppedParticlesPrinter*.so
 lib/libmu2e_Analyses_StoppingTarget*.so
 lib/libmu2e_Analyses_StrawEnergy*.so
 lib/libmu2e_Analyses_Summary*.so
+lib/libmu2e_Analyses_TestKalRepProvenanceHelpers_module.so
 lib/libmu2e_Analyses_TrackSummary*.so
 lib/libmu2e_Analyses_TSTrackAna*.so
 lib/libmu2e_Analyses_TT*.so
 lib/libmu2e_Analyses_View*.so
+lib/libmu2e_BFieldTest_*
 lib/libmu2e_CalPatRec_DeltaFinder2*.so
 lib/libmu2e_CalPatRec_PrefetchData_module*.so
 lib/libmu2e_CutAndCountAnalysis_*.so

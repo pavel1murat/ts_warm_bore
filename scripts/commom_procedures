@@ -28,7 +28,7 @@ count_nevents() {
     fi
 
     for f in $files ; do 
-	cat $f | grep TrigReport | grep $stream ; 
+	cat $f | grep TrigReport | grep -i $stream ; 
     done | awk '{n += $5} END{print n}'
 }
 
@@ -40,4 +40,30 @@ count() {
     count_nevents   $dir $pattern $stream
     count_genevents $dir $pattern
    
+}
+
+
+#------------------------------------------------------------------------------
+# clone project dsid1 dsid2
+#------------------------------------------------------------------------------
+clone() {
+
+    project=$1
+    dsid1=$2
+    dsid2=$3
+
+    if [ ! -d $project/$dsid2 ] ; then mkdir $project/$dsid2 ; fi
+
+    for f in `ls $project/$dsid1/*` ; do f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; cp $f $f1 ; done
+
+    if [ ! -d $project/catalogs/$dsid2 ] ; then mkdir -p $project/catalogs/$dsid2 ; fi
+
+    for d in `ls $project/catalogs/$dsid1` ; do 
+
+	dd1=$project/catalogs/$dsid1/$d
+	dd2=$project/catalogs/$dsid2/$d
+
+	if [ ! -d $dd2 ] ; then mkdir $dd2 ; fi
+	for f in `ls $dd1/*` ; do f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; cp $f $f1 ; done
+    done
 }

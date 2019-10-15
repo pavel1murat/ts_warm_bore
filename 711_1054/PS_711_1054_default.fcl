@@ -1,0 +1,8 @@
+#
+#include "JobConfig/beam/PS.fcl"
+
+# physics.trigger_paths : [ trigmubeam ]
+# physics.outputs       : [ mubeamout  ]
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_1054/geom_711_1054.txt"
