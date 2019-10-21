@@ -1,0 +1,39 @@
+// -*- mode: c++ -*-
+// 711_2060: take out first PBAR window ... make sure the collar covers 180 deg and goes the full length
+// 
+
+#include "Mu2eG4/geom/geom_common_current.txt"
+
+// Pbar absorber in front of TS1 entrance
+bool   pbar.coll1In.build = false;                            // *DEFAULT* : true
+double pbar.coll1In.halfLength = 0.125;
+
+// Collar pbar absorber in TS1 collimator near end
+bool   pbar.coll1Out.build = true;
+string pbar.coll1Out.material1Name = "G4_C";
+double pbar.coll1Out.halfLength = 490.0;                     // *DEFAULT* : 100.0
+double pbar.coll1Out.rIn = 120.0;
+double pbar.coll1Out.z   = -3524.5;                          // *DEFAULT* : -3144.5;
+double pbar.coll1Out.zDiff = 0.5; // margin between end of collar and Coll1    
+// Has always been there, now we keep track of it 
+//double pbar.coll1Out.phiBegin = 200.0; // Old, incorrect values 
+//double pbar.coll1Out.phiDelta = 140.0;
+double pbar.coll1Out.phiBegin = 180.0;                       // *DEFAULT* : 210.0
+double pbar.coll1Out.phiDelta = 180.0;                       // *DEFAULT* : 120.0
+
+int    pbar.verbosityLevel            = 100;                 // *DEFAULT* : 0
+string pbar.materialName              = "G4_Al";             // *DEFAULT* : "G4_Be";// "G4_KAPTON";
+double pbar.halfLength                = 0.125;               // *DEFAULT* : 825.0e-04; // 100.0e-3; // 0.06->0.1
+
+int    pbarwedge.nStrips              = 3;                   // *DEFAULT* : 6
+double pbarwedge.width                = 304.6;               // mm (1 foot)
+double pbarwedge.stripThickness       = 0.05 ;               // *DEFAULT* : 0.127  0.200; 5mm - illustration // mm
+vector<double> pbarwedge.stripHeights = {117, 80, 40};       // *DEFAULT* : {173, 146, 113, 79, 46, 13};  // mm
+
+double pbarwedge.y1  = 197.;                                 // cover the top of the collimator hole
+
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

@@ -1,0 +1,15 @@
+#------------------------------------------------------------------------------
+# start tracing from Coll31In
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/TS.fcl"
+
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+physics.producers.g4run.MultiStageParameters.genInputHits : [ "muonBeamFilter:Coll1In" ]
+
+# write out only the beam
+
+physics.outputs : [ mubeamout ]
+
+services.GeometryService.inputFile: "ts_warm_bore/711_1055/geom_711_1055.txt"

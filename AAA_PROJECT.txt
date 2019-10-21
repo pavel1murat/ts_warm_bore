@@ -1,4 +1,5 @@
-#---------------------------------------------------------------------------------------------------------------------------------------
+# -*- mode:org -*-
+# ---------------------------------------------------------------------------------------------------------------------------------------
 # tsud_warm_bore project definitions
 #
 # 711_1000: default geometry, used to generate a 5M dataset
@@ -19,40 +20,53 @@
 # 711_1021 ... 711_1025: DY = +1, +2, +3, +4, +5 mm
 #
 # 711_1030 : default geometry   , statistics of 711_1000 doubled
-# 711_1031 : default geometry   , no TS1 pbar collar
-# 711_1032 : TS1 with Rin=120mm , no TS1 pbar collar
+# 711_1031 : TS1 win: STND, TS1 coll: Rin=150mm no collar,
+# 711_1032 : TS1 win: STND, TS1 coll: Rin=120mm          , no TS1 pbar collar
+# 711_1033 : TS1 win: STND, TS1 coll: default            , TS3 window: Al 250 um, TS3 wedge: Al 197-37 mm, 4 strips 75 um : 4x75 + 250 (to compare to 711_1000)
 #
-# 711_1040 : TS1 with Rin=120mm , no TS1 collar, no wedge, TS3 pbar window : default , run S2 on 711_1032:S1
-# 711_1043 : TS1 with Rin=120mm , no TS1 collar, no wedge, TS3 pbar window 300 um
-# 711_1045 : TS1 with Rin=120mm , no TS1 collar, no wedge, TS3 pbar window 500 um
-# 711_1049 : TS1 with Rin=120mm , no TS1 collar, no wedge, TS3 pbar window 900 um
-# 711_1050 : TS1 coll with half-cylinder, TS3 optimized for pbars, geometry same as in 711_2030, Stage1 ends at Coll1_In, should be invariant
-# 711_1051 : TS1 coll with half-cylinder, TS3 optimized for pbars, geometry same as in 711_2031  muons
-# 711_1052 : TS1 coll with half-cylinder, TS3 window 300 um, wedge down to 4cm, 4 200 um strips
-# 711_1053 : TS1 coll with half-cylinder, TS3 window 300 um, wedge down to 4cm, 4 100 um strips
-# 711_1054 : default geometry, TS simulation starts from Coll1_In (input from 711_1050 Stage1) - to compare to 711_1030:S2
+# 711_1040 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 165 um Be, TS3 wedge: NONE run S2 on 711_1032:S1
+# 711_1043 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 300 um Be, TS3 wedge: NONE
+# 711_1045 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 500 um Be, TS3 wedge: NONE
+# 711_1049 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 900 um Be, TS3 wedge: NONE
+#
+# 711_1050 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 optimized for pbars, geometry same as in 711_2030, Stage1 ends at Coll1_In, should be invariant
+# 711_1051 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 optimized for pbars, geometry same as in 711_2031  muons
+# 711_1052 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, wedge down to 4cm, 4 200 um strips
+# 711_1053 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, wedge down to 4cm, 4 100 um strips
+#
+# 711_1054 : default geometry, TS simulation starts from Coll1_In (input from 711_1050 Stage1) - to compare to 711_1030:S2 *checked out* !
+#
+# 711_1055 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be down to 8cm, 3 100 um strips, need to go lower
+# 711_1060 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al down to 8 cm, 3 50 um strips, need to go lower
+# 711_1061 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al down to 4 cm, 4 75 um strips
 #
 # 711_2000 - 711_2030 : PBARS, start from VD91
 # -----------------------------------------------
 # 711_2000 : default geometry
-# 711_2001 : TS1coll Rin = 120mm, no collar
-# 711_2002 : TS1coll Rin = 120mm, no collar, no wedge, default disk (165 um)
-# 711_2003 : TS1coll Rin = 120mm, no collar, no wedge, dz disk = 300 um Be
-# 711_2005 : TS1coll Rin = 120mm, no collar, no wedge, dz disk = 500 um Be
-# 711_2007 : TS1coll Rin = 120mm, no collar, no wedge, dz disk = 700 um Be
-# 711_2010 : TS1coll Rin = 120mm, no collar, TS3 wedge extened in Y, expect no pbars through
+# 711_2001 : TS1 win: STND, TS1 coll: Rin=120mm no collar,
+# 711_2002 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: NONE
+# 711_2003 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 300 um Be, TS3 wedge: NONE
+# 711_2005 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 500 um Be, TS3 wedge: NONE
+# 711_2007 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 700 um Be, TS3 wedge: NONE
+# 711_2010 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: (190,-35) mm 5 strips 127 um, expect no pbars through
 #
-# 711_2012 : TS1coll default,  TS3 no wedge, default disk (165 um)
-# 711_2020 : TS1coll default,  TS3 wedge extended in Y (711_2010 with the default TS1)
-# 711_2030 : TS1 coll with half-cylinder, TS3 wedge down to Y=8cm, TS3 window 165 um (forgot)
-# 711_2031 : TS1 coll with half-cylinder, TS3 wedge down to Y=8cm, TS3 window 300 um
-# 711_2032 : TS1 coll with half-cylinder, TS3 wedge down to Y=4cm, TS3 window 300 um, wedge strip 200 um --> 200x4 +300 (too much)
-# 711_2033 : TS1 coll with half-cylinder, TS3 wedge down to Y=4cm, TS3 window 300 um, wedge strip 100 um --> 100x4 +300
+# 711_2012 : TS1 win: STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: NONE
+# 711_2013 : TS1 win: STND, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: down to 4cm, 4  75 um strips .. pbars (to compare to 711_2020)
+#
+# 711_2020 : TS1 win: STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: extended in Y (711_2010 with the default TS1)
+# 711_2030 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 165 um Be, TS3 wedge: Be 197-77 mm, 4 strips 200 um --> 200x4 + 165 (forgot to make thicker)
+# 711_2031 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-77 mm, 3 strips 200 um --> 200x3 + 300
+# 711_2032 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 200 um --> 200x4 + 300 (too much)
+# 711_2033 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 100 um --> 100x4 + 300
+#
+# 711_2055 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be, down to 8cm, 3 100 um strips .. pbars need to go lower
+# 711_2060 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 8cm, 3  50 um strips .. pbars - not enough
+# 711_2061 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  70 um strips .. pbars
 #
 # 711_2099 : default geometry, a plane limiting tracing instead of a volume *just for debugging*
 #
 # DSID    istage   istream   job_type    full_dsname  nif_per_s   nev_per_f pot_per_seg  nseg grid_jobid time/event(opt)
-#-----------------------------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------------------------------
 711_1009    gen   250_20000    s1_sim   PS_simulation        0       20000       20000    250  24029339     1.1    COMPLETED
 711_1009    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     10  23532637     0.02   COMPLETED
 711_1010    gen   250_20000    s1_sim   PS_simulation        0       20000       20000    250  24497122     1.1    COMPLETED
@@ -82,6 +96,8 @@
 711_1032    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  23996660     0.02   COMPLETED
 711_1032    s2    mubeam       s3_sim   TS_simulation        0       20000     1000000     10  24669653     0.02   COMPLETED
 			       
+711_1033    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25737749     0.02   SUBMITTED
+
 711_1040    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  24376976     0.02   COMPLETED
 711_1040    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25172989     0.02   COMPLETED
 711_1043    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25128132     0.02   COMPLETED
@@ -105,9 +121,17 @@
 711_1052    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  25473921     0.02   COMPLETED
 
 711_1053    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24753425     0.02   COMPLETED
-711_1053    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  24790855     0.02   SUBMITTED
+711_1053    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  24790855     0.02   COMPLETED
 
 711_1054    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24783345     0.02   SUBMITTED
+
+711_1060    gen   500_20000_00 s1_sim   PS_simulation        0       20000       20000   1000  331984       1.1    SUBMITTED 
+711_1060    gen   500_20000_01 s1_sim   PS_simulation        0       20000       20000   1000  332140       1.1    SUBMITTED
+711_1060    gen   500_20000_02 s1_sim   PS_simulation        0       20000       20000   1000  339929       1.1    SUBMITTED
+711_1060    gen   500_20000_03 s1_sim   PS_simulation        0       20000       20000   1000  346419       1.1    SUBMITTED
+711_1060    gen   500_20000_04 s1_sim   PS_simulation        0       20000       20000   1000  347592       1.1    SUBMITTED
+
+711_1061    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  416009       0.02   COMPLETED
 
 # 711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100   24842872	    0.02  *failed*
 # 711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100   24843380     0.02  *failed*
@@ -153,6 +177,8 @@
 711_2010    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24445828     0.02
 			       
 711_2012    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25344930     0.02
+
+711_2013    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25746363     0.02   SUBMITTED
 			       
 711_2020    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25361827     0.02
 711_2020    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25419786     0.02
@@ -175,3 +201,14 @@
 
 711_2033    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  24751424     0.02   COMPLETED
 711_2033    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6               0.02   
+
+711_2055    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25498508     0.02   SUBMITTED
+
+711_2060    pbar  vd91_01      ts1_sim  TS_simulation_1      0       20000   100000000    100  25525777     1.1    COMPLETED
+711_2060    pbar  vd91_02      ts1_sim  TS_simulation_1      0       20000   100000000    100  25526449     1.1    COMPLETED
+711_2060    pbar  vd91_03      ts1_sim  TS_simulation_1      0       20000   100000000    100  107433       1.1    COMPLETED  
+711_2060    pbar  vd91_04      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1    
+711_2060    pbar  vd91_05      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1    
+711_2060    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  328708       0.02   
+
+711_2061    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  416031       0.02   COMPLETED

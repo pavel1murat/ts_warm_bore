@@ -54,7 +54,10 @@ clone() {
 
     if [ ! -d $project/$dsid2 ] ; then mkdir $project/$dsid2 ; fi
 
-    for f in `ls $project/$dsid1/*` ; do f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; cp $f $f1 ; done
+    for f in `ls $project/$dsid1/*` ; do 
+	f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
+	cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
+    done
 
     if [ ! -d $project/catalogs/$dsid2 ] ; then mkdir -p $project/catalogs/$dsid2 ; fi
 
@@ -64,6 +67,9 @@ clone() {
 	dd2=$project/catalogs/$dsid2/$d
 
 	if [ ! -d $dd2 ] ; then mkdir $dd2 ; fi
-	for f in `ls $dd1/*` ; do f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; cp $f $f1 ; done
+	for f in `ls $dd1/*` ; do 
+	    f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
+	    cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
+	done
     done
 }

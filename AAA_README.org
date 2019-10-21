@@ -78,6 +78,95 @@ Art has completed and will exit with status 0.
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
 * *WORK LOG*                                **   
+  <2019-10-19 Sat>
+
+
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_2061.ts2_mubeam.ts2_stn/cnf.murat.ts_warm_bore.711_2061_ts2_mubeam_ts2_stn.001000_00031842.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_2061/ts2/mubeam_stn &
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_2061.ts2_mubeam.ts2_stn/cnf.murat.ts_warm_bore.711_2061_ts2_mubeam_ts2_stn.001000_00041925.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_2061/ts2/mubeam_stn &
+  murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_2061.ts2_mubeam.ts2_stn/cnf.murat.ts_warm_bore.711_2061_ts2_mubeam_ts2_stn.001000_00052245.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_2061/ts2/mubeam_stn &
+  dsid=711_1061; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen 500:20000:00 s1:mubeam >| ts_warm_bore/catalogs/$dsid/ts2/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1061; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen 500:20000:00 s1:mubeam >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1061; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen 500_20000:00 s1:mubeam >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1061; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen_500_20000:00 s1:mubeam >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1061; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen_500_20000:00 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen_500_20000:00 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:00 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:01 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:01 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_01_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:00 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_00_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:02 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_02_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:03 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_03_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:04 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_04_s1_sim.check_grid_output.log
+  dsid=711_1060; ts_warm_bore/scripts/copu_log_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:01 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:02 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:03 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:04 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid gen:500_20000:04 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid gen:500_20000:03 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid gen:500_20000:02 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid gen:500_20000:01 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
+  countnt /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 00 mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 00 mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 00_s1_sim mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 01_s1_sim mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 02_s1_sim mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 03_s1_sim mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log 04_s1_sim mubeam
+  count /mu2e/data/users/murat/datasets/ts_warm_bore/711_1060/s1/log . mubeam
+  dsid=711_1061; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid s1:mubeam . s2:sim . 
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1061 s1:mubeam  s2:sim 10h ifdh .
+ 
+
+
+
+
+ *Run,Event:   1000,260847    Rs:     766 : bit:7: pbar P > 100 in the end, p =    106.961 t=    214.736*
+
+ 
+ *Run,Event:   1000,28787     Rs:    1926 : bit:7: pbar P > 100 in the end, p =    101.944 t=    270.114*
+ *Run,Event:   1000,226318    Rs:    1964 : bit:7: pbar P > 100 in the end, p =    130.180 t=    171.912
+ *Run,Event:   1000,69897     Rs:     865 : bit:7: pbar P > 100 in the end, p =    102.753 t=    206.173
+ *Run,Event:   1000,15880     Rs:     868 : bit:7: pbar P > 100 in the end, p =    101.119 t=    220.547
+ *Run,Event:   1000,311473    Rs:    1028 : bit:7: pbar P > 100 in the end, p =    111.660 t=    197.377
+ *Run,Event:   1000,144923    Rs:    1079 : bit:7: pbar P > 100 in the end, p =    102.064 t=    291.964
+ *Run,Event:   1000,95188     Rs:    1179 : bit:7: pbar P > 100 in the end, p =    112.424 t=    192.413
+ *Run,Event:   1000,236974    Rs:    1391 : bit:7: pbar P > 100 in the end, p =    114.637 t=    176.188
+ *Run,Event:   1000,339240    Rs:    1481 : bit:7: pbar P > 100 in the end, p =    109.081 t=    206.363
+ *Run,Event:   1000,30749     Rs:    1558 : bit:7: pbar P > 100 in the end, p =    116.628 t=    173.884
+ *Run,Event:   1000,217138    Rs:    1622 : bit:7: pbar P > 100 in the end, p =    100.513 t=    204.396
+ *Run,Event:   1000,290681    Rs:    1638 : bit:7: pbar P > 100 in the end, p =    117.900 t=    169.151
+ *Run,Event:   1000,329463    Rs:    2328 : bit:7: pbar P > 100 in the end, p =    106.330 t=    190.580
+ *Run,Event:   1000,403649    Rs:    2333 : bit:7: pbar P > 100 in the end, p =    128.211 t=    181.786
+ *Run,Event:   1000,29869     Rs:    2347 : bit:7: pbar P > 100 in the end, p =    117.971 t=    230.558
+ *Run,Event:   1000,144522    Rs:    2360 : bit:7: pbar P > 100 in the end, p =    123.738 t=    168.551
+ *Run,Event:   1000,423092    Rs:    2360 : bit:7: pbar P > 100 in the end, p =    101.186 t=    223.878
+ *Run,Event:   1000,4473      Rs:    2494 : bit:7: pbar P > 100 in the end, p =    116.012 t=    168.772
+ *Run,Event:   1000,99377     Rs:    2558 : bit:7: pbar P > 100 in the end, p =    100.324 t=    224.556
+ *Run,Event:   1000,226276    Rs:    2650 : bit:7: pbar P > 100 in the end, p =    106.339 t=    175.583
+ *Run,Event:   1000,297681    Rs:    2968 : bit:7: pbar P > 100 in the end, p =    104.918 t=    202.644
+ *Run,Event:   1000,464197    Rs:    2994 : bit:7: pbar P > 100 in the end, p =    101.622 t=    208.827
+ *Run,Event:   1000,107763    Rs:    3131 : bit:7: pbar P > 100 in the end, p =    113.256 t=    180.908
+ *Run,Event:   1000,131697    Rs:    3242 : bit:7: pbar P > 100 in the end, p =    116.623 t=    203.069
+
+  <2019-10-16 Wed>
+
+  508  setup mu2efiletools
+  509  setup mu2etools
+  510  setup mu2egrid
+  511  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:01 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
+  512  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:01 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1:sim .
+  513  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:02 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1:sim .
+  514  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:03 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1:sim .
+  515  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:04 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1:sim .
+  516  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2060 pbar:vd91:05 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1:sim .
+
+  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+
+  
+
   <2019-10-12 Sat> 
 
   *stage one muons, trace down to VirtualDetector_Coll1In, write out only muons, generate 10 fcl tarballs*
@@ -787,14 +876,11 @@ stage=s2
 mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/$project.code.tbz --fcllist=/pnfs/mu2e/resilient/users/murat/${project}_$dsid.$stage.tbz --dsconf=$project --wfproject=${project}_${dsid}_${stage} --expected-lifetime=3h
 
 
-
-
 generate_fcl --description=ts_warm_bore --dsconf=711_1000_s1_mubeam --merge=1000 --embed Stntuple/test/g4s1_mubeam_stn.fcl \
              --inputs=catalogs/ts_warm_bore/711_1000/s1/ts_warm_bore.711_1000_s1.mubeam.art
 
 generate_fcl --description=ts_warm_bore --dsconf=711_1001_s1_mubeam --merge=1000 --embed Stntuple/test/g4s1_mubeam_stn.fcl \
              --inputs=catalogs/ts_warm_bore/711_1001/s1/ts_warm_bore.711_1001_s1.mubeam.art
-
 
 
 generate_fcl --description=s3 --dsconf=711_0001 --merge=10 --embed ts_warm_bore/711_0001/DS_711_0001.fcl --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore/711_0001/s2/ts_warm_bore.711_0001_s2.mubeam

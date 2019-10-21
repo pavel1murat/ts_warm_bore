@@ -1,0 +1,62 @@
+# -*- mode:tcl -*-
+#------------------------------------------------------------------------------
+# ts_warm_bore FCL template
+# p1 : generate, simulate, reconstruct, stntuple
+#------------------------------------------------------------------------------
+BEGIN_PROLOG
+  bgHitFiles   : @nil
+  INPUT_MODULE : RootInput  # RootInput or EmptyEvent
+  TRIGGER_PATH : p1
+  PROCESS_NAME : Stnmaker
+END_PROLOG
+
+#include "JobConfig/beam/prolog.fcl"
+#include "Filters/fcl/prolog.fcl"
+
+process_name : @local::PROCESS_NAME
+
+source       : { module_type : @local::INPUT_MODULE   }
+
+outputs: {
+    detectorOutput : {
+        module_type : RootOutput
+        SelectEvents: [] 
+        outputCommands:   [ "keep *_*_*_*",
+                            "drop uintmu2e::PhysicalVolumeInfomvstd::pairs_g4run_*_*"
+			   ]
+        fileName      : "generate_mix_mergePatRec_stnmaker.root"
+    }
+}
+
+
+physics : {
+    producers : {}
+    filters   : { 
+	pbarFilter : { @table::StepPointMCFilter 
+	    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+	    pdgCodes    : [ -2212 ]  # pbar
+	    debugLevel  : 1
+	}
+    }
+#------------------------------------------------------------------------------
+# path configuration
+#------------------------------------------------------------------------------
+    p1            : [ PbarFilter ]
+
+    trigger_paths : [ @local::TRIGGER_PATH ]
+    out           : [     ]
+    end_paths     : [ out ]
+}
+#------------------------------------------------------------------------------
+# uncomment the next 2 lines if you want the DST (.art) file to be written out
+#-----------------------------------------------------------------------------
+# physics.out                               : [ detectorOutput ]
+# outputs.detectorOutput.SelectEvents       : [ @local::TRIGGER_PATH ]
+#------------------------------------------------------------------------------
+# output file names 
+#------------------------------------------------------------------------------
+services.TFileService.fileName            : "nts._USER_.stnmaker.xxx.000001.root"
+outputs.detectorOutput.fileName           : "sim._USER_.stnmaker.xxx.000001.art"
+#------------------------------------------------------------------------------
+# everything below is appended by murat/scripts/submit_mu2e_job
+#------------------------------------------------------------------------------

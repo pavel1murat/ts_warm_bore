@@ -3,10 +3,13 @@
 # one thing for sure: for different projects the grid submission is slightly different
 # - the code tarball naming may follow different rules
 # by default, use dcache
+# examples:
+#           ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2060 pbar:vd91:03 ts1:sim 24h ifdh   .
+#           ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2060 ts1:mubeam   ts2:sim 10h xrootd .
 #------------------------------------------------------------------------------
         project=$1 # ts_warm_bore
          p_dsid=$2 # 711_0001
-            ist=$3 # s1:mubeam[:01] ... or gen:250_20000 ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
+            ist=$3 # s1:mubeam[:01] ... or gen:250_20000:[:01] ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
      p_job_type=$4 # 's1:sim' or 's1:stn' , for example
            time=$5 # 
 	 xrootd=$6 # xrootd or ifdh

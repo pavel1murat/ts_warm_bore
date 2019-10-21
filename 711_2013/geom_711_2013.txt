@@ -1,0 +1,21 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_common_current.txt"
+//------------------------------------------------------------------------------
+// TS1 window and collimator - default, TS3 par window - Al
+//------------------------------------------------------------------------------
+int    pbar.verbosityLevel            = 100;                 // *DEFAULT* : 0
+string pbar.materialName              = "G4_Al";             // *DEFAULT* : "G4_Be";// "G4_KAPTON";
+double pbar.halfLength                = 0.125;               // *DEFAULT* : 825.0e-04; // 100.0e-3; // 0.06->0.1
+
+int    pbarwedge.nStrips              = 4;                   // *DEFAULT* : 6
+double pbarwedge.width                = 304.6;               // mm (1 foot)
+double pbarwedge.stripThickness       = 0.075 ;              // *DEFAULT* : 0.127  0.200; 5mm - illustration // mm
+vector<double> pbarwedge.stripHeights = {157, 120., 80, 40}; // *DEFAULT* : {173, 146, 113, 79, 46, 13};  // mm
+
+double pbarwedge.y1  = 197.;                                 // cover the top of the collimator hole
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

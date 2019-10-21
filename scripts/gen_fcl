@@ -93,7 +93,7 @@ elif [ $stage == "ts1" ] ; then #
     
     if [ $jobtype == "stn" ] ; then
 	template_fcl=Stntuple/test/g4_ts1_${input_stream}_stn.fcl
-	merge=100
+	merge=50
     elif [ $jobtype == "sim" ] ; then                        # pbars, VD91 --> Coll31out
 	template_fcl=${project}/$dsid/TS_$dsid.fcl
 	merge=50
