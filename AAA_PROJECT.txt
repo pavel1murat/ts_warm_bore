@@ -97,6 +97,7 @@
 711_1032    s2    mubeam       s3_sim   TS_simulation        0       20000     1000000     10  24669653     0.02   COMPLETED
 			       
 711_1033    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25737749     0.02   SUBMITTED
+711_1033    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443939       0.02   *SUBMITTED*
 
 711_1040    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  24376976     0.02   COMPLETED
 711_1040    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25172989     0.02   COMPLETED
@@ -132,6 +133,7 @@
 711_1060    gen   500_20000_04 s1_sim   PS_simulation        0       20000       20000   1000  347592       1.1    SUBMITTED
 
 711_1061    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  416009       0.02   COMPLETED
+711_1061    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443987       0.02   *SUBMITTED*
 
 # 711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100   24842872	    0.02  *failed*
 # 711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100   24843380     0.02  *failed*
