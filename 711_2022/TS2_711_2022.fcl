@@ -1,0 +1,68 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's through the TS3 wedge - assume that the thickness of the TS3 window 
+# is predefined
+#------------------------------------------------------------------------------
+#include "Filters/fcl/prolog.fcl"
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS2
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPVmuonBeam"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll31OutRecord" ]
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 200000
+
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+	    { # plane after the TS3 pbar window and 1 mm before the wedge
+		type  : plane normal: [  -1, 0, 0 ] point : [ -3., 0, 0 ] 
+		write : Coll32InRecord
+	    }
+
+	   ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
+
+# write out only the beam - need to redefine the output structure - note the process name ....
+
+physics.outputs : [ mubeamout ]
+
+physics.filters.PbarFilterIn : { @table::StepPointMCFilter 
+    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+    pdgCodes    : [ -2212 ]  # pbar
+    debugLevel  : 0 # 1
+}
+
+physics.filters.PbarFilterOut : { @table::StepPointMCFilter 
+    spmcCollTag : "muonBeamFilter:Coll32InRecord"
+    pdgCodes    : [ -2212 ]  # pbar
+    debugLevel  : 0
+}
+
+physics.trigmubeam : [PbarFilterIn, g4run, g4consistent, muonBeamFilter, PbarFilterOut, compressPVmuonBeam]
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_TS2",
+         "keep *_compressPVmuonBeam_*_TS2"
+      ]    
+}
+
+services.scheduler.wantSummary    : true
+
+services.GeometryService.inputFile: "ts_warm_bore/711_2022/geom_711_2022.txt"
+

@@ -1,0 +1,60 @@
+#  -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# flat range of photons from pion stops to estimate the probability to reconstruct 
+# a e- track per photon
+# notes: 
+# ------
+# 1. use hacked event generator EventGenerators/src/TsudStoppedParticleReactionGun_module.cc to set 
+#    the "muon stop" time at ST to 1000 ns
+# 2. set "muon decay time" to 1ns to have 100% efficiency of the timing selection
+# 3. genId says 'pionCapture', Dave later renamed it to ExternalRPC (code 11)
+#------------------------------------------------------------------------------
+#include "JobConfig/primary/prolog.fcl"
+process_name: flatphoton
+source: { module_type : EmptyEvent }
+
+services: { @table::Services.Sim
+    
+    SeedService            : { @table::automaticSeeds
+	baseSeed         :  0
+	maxUniqueEngines :  100
+    }
+}
+
+physics : { 
+  producers : {
+    generate : { module_type: TsudStoppedParticleReactionGun
+	physics : {	    
+	    pdgId            :  22
+	    genId            : pionCapture
+	    elow             :  70.0
+	    ehi              : 140.0
+	    spectrumVariable : "momentum"
+	    spectrumShape    : "flat"
+	}
+	muonStops            : { @table::mu2e.tgtMuonStops
+	    inputFiles: @local::mergedMuon_tgtStops_mdc2018_1
+	}
+
+	verbosityLevel : 1
+	productionTime  : 1000.
+    }
+    @table::Primary.producers
+  }
+  filters     : { @table::Primary.filters   }
+  analyzers   : { @table::Primary.analyzers }
+  TriggerPath : @local::Primary.TriggerPath
+  EndPath     : @local::Primary.EndPath
+}
+outputs : { 
+  Output :@local::Primary.Output
+}
+#
+# final configuration
+#
+#include "JobConfig/primary/epilog.fcl"
+physics.producers.muonTimeMap.meanLife : 1.
+
+physics.end_paths              : [ EndPath ] # needed 
+services.TFileService.fileName : "nts.owner.flatphoton.version.sequencer.root"
+outputs.Output.fileName        : "dig.owner.flatphoton.version.sequencer.art"

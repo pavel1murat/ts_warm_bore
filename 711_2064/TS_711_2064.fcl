@@ -1,6 +1,7 @@
 # -*- mode: tcl -*-
 #------------------------------------------------------------------------------
 # trace pbar's from VD91 to the from TS3u coll
+# don't trace electrons, photons, protons and neutrons below 50 MeV
 #------------------------------------------------------------------------------
 #include "Filters/fcl/prolog.fcl"
 #include "JobConfig/beam/TS.fcl"
@@ -14,10 +15,17 @@ physics.producers.g4run.MultiStageParameters.genInputHits               : [ "g4f
 physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "g4filter:virtualdetector" ]
 physics.producers.compressPVmuonBeam.particleInputs                     : [ "g4filter" ]
 
+PbarSimulationEnergyCuts: {
+   type: intersection
+   pars: [ { type: kineticEnergy cut: 50.0 }, { type: pdgId pars: [ 11, -11, 22, 2112, 2212 ] }]
+}
+
 physics.producers.g4run.Mu2eG4CommonCut: {
     type: union
     pars: [ @local::mu2eg4CutDeltaElectrons,
 	    
+	    @local::PbarSimulationEnergyCuts,
+
 	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
 
 	   ]
@@ -51,4 +59,4 @@ outputs.mubeamout : { @table::outputs.mubeamout
 }
 
 services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2061/geom_711_2061.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"

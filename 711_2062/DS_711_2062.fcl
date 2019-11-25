@@ -1,0 +1,28 @@
+#include "JobConfig/beam/DS.fcl"
+
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : ""
+
+physics.producers.compressPVTGTStops.volumesInput : ""
+physics.producers.compressPVOOTStops.volumesInput : ""
+physics.producers.compressPVMothers.volumesInput  : ""
+physics.producers.compressPVCRV.volumesInput      : ""
+physics.producers.compressPVFull.volumesInput     : ""
+physics.producers.compressPVFull.particleInputs   : [""]
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_2062/geom_711_2062.txt"
+
+physics.tgtFilter     : [ g4run, g4consistent, stoppedMuonFinder    , tgtStopFilter ]
+physics.ootFilter     : [ g4run, g4consistent, outOfTargetMuonFinder, ootStopFilter ]
+
+physics.trigger_paths : [ tgtFilter, ootFilter ]
+physics.out           : [ tgtStopOutput, ootStopOutput ]
+physics.end_paths     : [ out ]
+
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 400000
+
+physics.producers.stoppedMuonFinder.particleTypes                       : [ 13, -13, -211, 211, -2212 ]
+physics.producers.stoppedMuonFinder.particleOffsetThreshold             : 400000
+
+physics.producers.outOfTargetMuonFinder.particleTypes                   : [ 13, -13, -211, 211, -2212 ]
+physics.producers.outOfTargetMuonFinder.particleOffsetThreshold         : 400000

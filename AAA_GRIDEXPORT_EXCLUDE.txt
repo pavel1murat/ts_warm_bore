@@ -6,6 +6,18 @@ Sandbox
 RootAnalyzer
 TestTools
 UtilityModules
+*.gdml
+gridexport
+gridexport/*
+results
+ts_warm_bore/.git
+ts_warm_bore/catalogs
+ts_warm_bore/tmp_code
+ts_warm_bore/tmp_fcl
+Stntuple/.git
+murat
+catalogs
+#------------------------------------------------------------------------------
 lib/libmu2e_Analyses_Calo*.so
 lib/libmu2e_Analyses_CEL*.so
 # need libmu2e_Analyses_CollectionSizeAnalyzer_module.so
@@ -64,7 +76,13 @@ lib/libmu2e_CalPatRec_PrefetchData_module*.so
 lib/libmu2e_CutAndCountAnalysis_*.so
 lib/libmu2e_DAQ*.so
 lib/libmu2e_EventDisplay_*.so
-lib/libmu2e_EventMixing_*.so
+lib/libmu2e_EventMixing_InspectDataProducts_module.so
+lib/libmu2e_EventMixing_MixBackgroundFrames_module.so
+lib/libmu2e_EventMixing_ProtonBunchIntensityFlat_module.so
+lib/libmu2e_EventMixing_ProtonBunchIntensityLogNormal_module.so
+# this one is needed : lib/libmu2e_EventMixing_ResamplingMixer_module.so
+lib/libmu2e_EventMixing_SummarizeStatusG4_module.so
+# 
 lib/libmu2e_ExtinctionMonitorFNAL_Analyses_*.so
 lib/libmu2e_ExtinctionMonitorFNAL_Reconstruction_*.so
 lib/libmu2e_ExtinctionMonitorFNAL_TruthAlgs_*.so
@@ -76,13 +94,3 @@ lib/libmu2e_TrkHitReco_*.so
 lib/libmu2e_TrkDiag_*.so
 lib/libmu2e_murat*.so
 lib/libmurat*.so
-gridexport
-gridexport/*
-results
-results/*
-ts_warm_bore/.git
-ts_warm_bore/tmp_code
-ts_warm_bore/tmp_fcl
-Stntuple/.git
-murat
-catalogs

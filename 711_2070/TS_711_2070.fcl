@@ -15,14 +15,15 @@ physics.producers.compressPVmuonBeam.particleInputs                     : [ "g4f
 
 PbarSimulationEnergyCuts: {
    type: intersection
-   pars: [ { type: kineticEnergy cut: 50.0 }, { type: pdgId pars: [ 11, -11, 22, -211, 211, 2212 ] }]
+   pars: [ { type: kineticEnergy cut: 100.0 }, { type: pdgId pars: [ 11, -11, 22, 13, -13, -211, 211, 111, 221, 2112, 2212 ] }]
 }
 
 physics.producers.g4run.Mu2eG4CommonCut: {
     type: union
     pars: [ @local::mu2eg4CutDeltaElectrons,
-	    
-	    
+
+	    @local::PbarSimulationEnergyCuts,
+
 	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
 
 	   ]
@@ -47,4 +48,5 @@ outputs.mubeamout : { @table::outputs.mubeamout
 
 physics.outputs : [ mubeamout ]
 
-services.GeometryService.inputFile: "ts_warm_bore/711_2030/geom_711_2030.txt"
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/711_2070/geom_711_2070.txt"

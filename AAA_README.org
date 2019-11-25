@@ -1,5 +1,8 @@
 # ts_warm_bore/AAA_README.org
 
+  *src* : TsudStoppedParticleReactionGun.cc: to generate photons with T0 ~ 1000 ns
+          see file:./fcl/flatphoton.fcl
+
   *subdirectories:* : see file:AAA_PROJECT.txt
 
   *pbars* : see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
@@ -8,6 +11,14 @@
 
   tmp_code: stores tarballs
   tmp_fcl : stores FCL files produced with generate_fcl
+* weighting:
+
+  s0 (sum of all weights) = N(generated)*sigma/(2*Pmax)
+
+  for antiproton x-section by Striganov: use Plab-costh 2D histogram (murat/plot/pbar_xsec_norm.C)
+
+  sigma / (2*Pmax) = s0/N(generated) = 37.95
+
 * *------------------------------------------------------------------------------*
 * directory: file:./
 * *------------------------------------------------------------------------------*
@@ -78,7 +89,42 @@ Art has completed and will exit with status 0.
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
 * *WORK LOG*                                **   
-  <2019-10-19 Sat>
+** <2019-11-24 Sun> gen_fcl samweb prestage-dataset submit_grid_job   
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:01 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:02 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:03 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:04 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+  ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:05 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+
+  murat@mu2egpvm06:/mu2e/app/users/murat/mdc2018>setup mu2egrid
+  murat@mu2egpvm06:/mu2e/app/users/murat/mdc2018>which samweb
+  /cvmfs/fermilab.opensciencegrid.org/products/common/prd/sam_web_client/v3_0/NULL/bin/samweb
+  murat@mu2egpvm06:/mu2e/app/users/murat/mdc2018>samweb prestage-dataset --parallel=10 --defname=sim.mu2e.antiprotons_cs1VD91.170829.art
+
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2064 pbar:vd91:01 ts1:sim 20h ifdh .
+
+** <2019-11-23 Sat> submit_mu2e_job catalog_stntuples stnana                   
+
+  murat/scripts/submit_mu2e_job -c ./ts_warm_bore/fcl/flatphoton.fcl -n 1000000
+
+  Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d 714_0011_s4_simreco -p \.stn \
+                                     -D /mu2e/data/users/murat/datasets/ts_warm_bore/714_0011/read_reco_stn
+
+  stnana("ts_warm_bore","714_0011_s4_simreco","","","track_comp(11,11)/save=ts_warm_bore.714_0011_s4_simreco.track_comp.hist")
+
+** <2019-11-18 Mon> gen_fcl submit_grid_job check_grid_output list_pnfs_files  
+
+  dsid=711_2063; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid ts3:mubeam . s3:sim .
+  ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2063 ts3:mubeam s3:sim 10h xrootd .
+  dsid=711_2063; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts3:mubeam s3:sim >| ts_warm_bore/catalogs/$dsid/s3/ts_warm_bore.$dsid.ts3_mubeam_s3_sim.check_grid_output.log
+  ts_warm_bore/scripts/list_pnfs_files ts_warm_bore $dsid ts3:mubeam s3:sim .
+
+  *go to mdc2018 area (smth is wrong with the fcl files in tsud_bore_prof*
+
+  dsid=711_2063; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid s3:tgtstops . s3:stn .
+  dsid=711_2063; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid s3:ootstops . s3:stn .
+
+** <2019-10-19 Sat> submit_mu2e_job check_grid_output copy_log_files list_pnfs_files countnt count gen_fcl submit_grid_job   
 
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_2061.ts2_mubeam.ts2_stn/cnf.murat.ts_warm_bore.711_2061_ts2_mubeam_ts2_stn.001000_00031842.fcl -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_2061/ts2/mubeam_stn &
@@ -97,7 +143,7 @@ Art has completed and will exit with status 0.
   dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:02 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_02_s1_sim.check_grid_output.log
   dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:03 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_03_s1_sim.check_grid_output.log
   dsid=711_1060; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid gen:500_20000:04 s1:sim >| ts_warm_bore/catalogs/$dsid/s1/ts_warm_bore.$dsid.gen_500_20000_04_s1_sim.check_grid_output.log
-  dsid=711_1060; ts_warm_bore/scripts/copu_log_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
+  dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
   dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:00 s1:sim 
   dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:01 s1:sim 
   dsid=711_1060; ts_warm_bore/scripts/copy_log_files ts_warm_bore $dsid gen:500_20000:02 s1:sim 
@@ -119,9 +165,6 @@ Art has completed and will exit with status 0.
   dsid=711_1061; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid s1:mubeam . s2:sim . 
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1061 s1:mubeam  s2:sim 10h ifdh .
  
-
-
-
 
  *Run,Event:   1000,260847    Rs:     766 : bit:7: pbar P > 100 in the end, p =    106.961 t=    214.736*
 
@@ -151,7 +194,7 @@ Art has completed and will exit with status 0.
  *Run,Event:   1000,107763    Rs:    3131 : bit:7: pbar P > 100 in the end, p =    113.256 t=    180.908
  *Run,Event:   1000,131697    Rs:    3242 : bit:7: pbar P > 100 in the end, p =    116.623 t=    203.069
 
-  <2019-10-16 Wed>
+** <2019-10-16 Wed> gen_fcl     gridexport      
 
   508  setup mu2efiletools
   509  setup mu2etools
@@ -165,9 +208,7 @@ Art has completed and will exit with status 0.
 
   gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
 
-  
-
-  <2019-10-12 Sat> 
+** <2019-10-12 Sat> gen_fcl gridexport list_pnfs_files      
 
   *stage one muons, trace down to VirtualDetector_Coll1In, write out only muons, generate 10 fcl tarballs*
 
@@ -199,7 +240,7 @@ Art has completed and will exit with status 0.
   dsid=711_1050
   ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 711_1050 gen 500_20000_00 s1_sim mubeam .
 
-  <2019-10-11 Fri>
+** <2019-10-11 Fri> check_grid_output gen_fcl     
   *replacing the code tarbal*
   rm -f /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz ; cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_2020.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
 
@@ -221,12 +262,12 @@ Art has completed and will exit with status 0.
 
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2030 pbar:vd91:01 ts1_sim 24h ifdh .
 
-  <2019-10-10 Thu>
+** <2019-10-10 Thu> check_grid_output     
 
   dsid=711_2012; 
   ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts1 mubeam ts2_sim >| ts_warm_bore/catalogs/$dsid/ts2/ts_warm_bore.$dsid.ts1_mubeam_ts2_sim.check_grid_output.log
   
-  <2019-10-09 Wed>
+** <2019-10-09 Wed> gen_fcl submit_mu2e_job debugging   
 
   *ntuple S0 PBAR dataset - partially*
 
@@ -545,7 +586,7 @@ root [31] m_spmc->fVDetBlock->Print()
     3      -1  -2212 antiproton              56  100001  -2212       1      49    825.000    180.248    -12.766  0.00000  0.00000    0.021  265.716  -89.154   15.493  -13.764
     4      -1  -2212 antiproton              56  100001  -2212       1      49     25.020    188.588     -4.161  0.00000  0.00000    0.020  293.884  -89.339   14.935  -13.167
 
-  <2019-10-07 Mon>
+** <2019-10-07 Mon> catalog_stntuples check_grid_output copy_log_files  
 
   Stntuple/scripts/catalog_stntuples -b ts_warm_bore -d 711_2000_ts2_mubeam -D /mu2e/data/users/murat/datasets/ts_warm_bore/711_2000/ts2/mubeam_stn -p 711_2000_ts2_mubeam -n 10000000000
   dsid=711_2005 ; Stntuple/scripts/catalog_stntuples -b ts_warm_bore -d ${dsid}1_ts2_mubeam -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/ts2/mubeam_stn -p ${dsid}_ts2_mubeam -n 10000000000
@@ -568,9 +609,7 @@ root [31] m_spmc->fVDetBlock->Print()
   dsid=711_2007; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts2 mubeam ts3_sim >| ts_warm_bore/catalogs/$dsid/ts3/ts_warm_bore.$dsid.ts2_mubeam_ts3_sim.check_grid_output.log
   dsid=711_2010; ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts2 mubeam ts3_sim >| ts_warm_bore/catalogs/$dsid/ts3/ts_warm_bore.$dsid.ts2_mubeam_ts3_sim.check_grid_output.log
 
-
-  <2019-10-05 Sat>
-  *change gen_fcl call format*
+** <2019-10-05 Sat> *change gen_fcl call format*  gen_fcl  submit_grid_job copy_log_files 
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2000 pbar:vd91:05 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art:1 ts1_sim .
 
   inputs=/grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art
@@ -607,8 +646,7 @@ root [31] m_spmc->fVDetBlock->Print()
 
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2000 ts3:mubeam s3_sim 10h ifdh .
 
-  
-  <2019-09-30 Mon>
+** <2019-09-30 Mon> submit_mu2e_job ... debugging    
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/711_2001/TS_711_2001.fcl \
   -s /pnfs/mu2e/tape/phy-sim/sim/mu2e/antiprotons_cs1VD91/170829/art/5c/b6/sim.mu2e.antiprotons_cs1VD91.170829.001000_00000751.art \
@@ -668,19 +706,18 @@ root [6] m_spmc->fSimpBlock->Print(); m_spmc->fStepPointMCBlock->Print()
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     0      -1     11 e-                      56  100001     11    7546      49  -3877.327      5.180   2929.000  0.00000  0.00000    1.550   80.127   -2.162    2.469    2.792
 
-
-  <2019-09-28 Sat> : ntupling - use the final output directory:
+** <2019-09-28 Sat> ntupling - use the final output directory:     
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1030.s2_mubeam.s3_stn/cnf.murat.ts_warm_bore.711_1030_s2_mubeam_s3_stn.000001_00000000.fcl \
                                 -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_1030/s2/mubeam_stn
 
-  <2019-09-24 Tue>
+** <2019-09-24 Tue> gridexport gen_fcl submit_grid_job
   
   gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1010 gen 250_20000 s1 sim .
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1010 gen 250_20000 s1 sim .
 
-  <2019-09-22 Sun>
+** <2019-09-22 Sun> list_pnfs_files
 
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim tgtstop 23548622 .
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim ootstop 23548622 .
@@ -689,16 +726,13 @@ root [6] m_spmc->fSimpBlock->Print(); m_spmc->fStepPointMCBlock->Print()
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim mothers 23548622 .
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim beam 23548622 .
 
-
-  <2019-09-17 Tue> 
+** <2019-09-17 Tue>  gen_fcl submit_grid_job 
 
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 s1 mubeam s2 sim .
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1009 s1 mubeam s2 sim .
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 s1 mubeam s2 stn .
   
-  
-
-  <2019-09-15 Sun>
+** <2019-09-15 Sun> gridexport gen_fcl submit_grid_job               
 
   setup gridexport
   gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
@@ -706,18 +740,16 @@ root [6] m_spmc->fSimpBlock->Print(); m_spmc->fStepPointMCBlock->Print()
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 gen 2_200 s1 sim .
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1009 gen 250_20000 s1 sim .
 
-  <2019-09-14 Sat>
+** <2019-09-14 Sat> gen_fcl submit_mu2e_job                          
 
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 gen 250_20000 s1 sim .
   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1009.gen_250_20000.s1_sim/cnf.murat.ts_warm_bore.711_1009_gen_250_20000_s1_sim.000001_00000000.fcl -n 1000 &
 
-  <2019-08-24 Sat> 
+** <2019-08-24 Sat> generate_fcl                                     
 
 generate_fcl --description=s1 --dsconf=711_1008 --events=20000 --njobs=250 --embed ts_warm_bore/711_1008/PS_711_1008.fcl --run=1
 
-
-
- <2019-03-16 Sat>
+** <2019-03-16 Sat> gen_fcl submit_mu2e_job                          
 
  pnfs_scratch=/pnfs/mu2e/scratch/users/murat/workflow;
  od=/grid/fermiapp/mu2e/users/murat/catalogs/ts_warm_bore
@@ -778,12 +810,11 @@ generate_fcl --description=s1 --dsconf=711_1008 --events=20000 --njobs=250 --emb
  stnana("file","/mu2e/data/users/murat/datasets/ts_warm_bore/711_1014/s2/mubeam_stn/nts.USER.PROJECT.g4s2_mubeam.000001.stn","","",
  "spmc_ana(2)/save=ts_warm_bore.711_1014_s2_mubeam_stn.spmc_ana.hist")
 
- <2019-03-14 Thu>
+** <2019-03-14 Thu>                                                  
 
  1. *17039491 : rerunning locally section 0*: ts_warm_bore.711_1013.s2_mubeam.s3/outstage/17039491/00/00000 
 
-
- <2019-03-13 Wed>
+** <2019-03-13 Wed> check_output copy_log_files                      
 
  *DSID=1012*
 
@@ -831,9 +862,8 @@ generate_fcl --description=s1 --dsconf=711_1008 --events=20000 --njobs=250 --emb
  
  *DSID=1024* source ts_warm_bore/scripts/from_s1_to_s2 ts_warm_bore 711_1024 17162107
  *DSID=1025* source ts_warm_bore/scripts/from_s1_to_s2 ts_warm_bore 711_1025 17162108
-
-
- <2019-03-12 Tue> 
+ 
+** <2019-03-12 Tue> gridexport generate_fcl mu2eprodsys gen_fcl      
  setup gridexport
  gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
  
@@ -940,13 +970,13 @@ for stream in beam crv ootstops tgtstops truncated ; do
   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1004.s3_$stream.stn/cnf.murat.ts_warm_bore.711_1004_s3_$stream.000001_00000000.fcl
 done
 
-<2018-10-12 Fri>
+** <2018-10-12 Fri> gen_fcl                                          
 
 ts_warm_bore/scripts/gen_fcl 711_1005 gen 250_20000 s1 sim .
 ts_warm_bore/scripts/gen_fcl 711_1006 gen 250_20000 s1 sim .
 cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_1006.tbz /pnfs/mu2e/resilient/users/murat/.
 
-<2018-10-13 Sat>
+** <2018-10-13 Sat> mu2eprodsys copy_log_files                       
 
 mu2eprodsys --code=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.711_1006.tbz --fcllist=/pnfs/mu2e/resilient/users/murat/ts_warm_bore.711_1005.gen_250_20000.s1.tbz --dsconf=ts_warm_bore_711_1005_gen_250_20000_s1 --wfproject=ts_warm_bore.711_1005.gen_250_20000.s1 --expected-lifetime=8h
 
@@ -957,7 +987,7 @@ ts_warm_bore/scripts/copy_log_files 711_1006 gen 250_20000 s1 sim 12244287 .
 
 ts_warm_bore/scripts/gen_fcl 711_1005 s1 mubeam s2 sim .
 
-<2018-10-14 Sun>
+** <2018-10-14 Sun> copy_log_files list_pnfs_files                   
 
 ts_warm_bore/scripts/copy_log_files  711_1006 gen 250_20000 s1 sim    12269299 .
 ts_warm_bore/scripts/list_pnfs_files 711_1006 gen 250_20000 s1 mubeam 12269299 .

@@ -43,29 +43,39 @@
 # 711_2000 - 711_2030 : PBARS, start from VD91
 # -----------------------------------------------
 # 711_2000 : default geometry
-# 711_2001 : TS1 win: STND, TS1 coll: Rin=120mm no collar,
-# 711_2002 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: NONE
-# 711_2003 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 300 um Be, TS3 wedge: NONE
-# 711_2005 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 500 um Be, TS3 wedge: NONE
-# 711_2007 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 700 um Be, TS3 wedge: NONE
-# 711_2010 : TS1 win: STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: (190,-35) mm 5 strips 127 um, expect no pbars through
+# 711_2001 : TS1 win:   STND, TS1 coll: Rin=120mm no collar,
+# 711_2002 : TS1 win:   STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: NONE
+# 711_2003 : TS1 win:   STND, TS1 coll: Rin=120mm no collar, TS3 win: 300 um Be, TS3 wedge: NONE
+# 711_2005 : TS1 win:   STND, TS1 coll: Rin=120mm no collar, TS3 win: 500 um Be, TS3 wedge: NONE
+# 711_2007 : TS1 win:   STND, TS1 coll: Rin=120mm no collar, TS3 win: 700 um Be, TS3 wedge: NONE
+# 711_2010 : TS1 win:   STND, TS1 coll: Rin=120mm no collar, TS3 win: 165 um Be, TS3 wedge: (190,-35) mm 5 strips 127 um, expect no pbars through
 #
-# 711_2012 : TS1 win: STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: NONE
-# 711_2013 : TS1 win: STND, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: down to 4cm, 4  75 um strips .. pbars (to compare to 711_2020)
+# 711_2012 : TS1 win:   STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: NONE
+# 711_2013 : TS1 win:   STND, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: down to 4cm, 4  75 um strips .. pbars (to compare to 711_2020)
 #
-# 711_2020 : TS1 win: STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: extended in Y (711_2010 with the default TS1)
-# 711_2030 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 165 um Be, TS3 wedge: Be 197-77 mm, 4 strips 200 um --> 200x4 + 165 (forgot to make thicker)
-# 711_2031 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-77 mm, 3 strips 200 um --> 200x3 + 300
-# 711_2032 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 200 um --> 200x4 + 300 (too much)
-# 711_2033 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 100 um --> 100x4 + 300
+# 711_2020 : TS1 win:   STND, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: extended in Y (711_2010 with the default TS1)
+# 711_2022 : TS1 win:   STND, TS1 coll: default            , TS3 win: 100 um BE, TS3 wedge: 6 Be strips (197:-3), 65 um of Be added to the 1st strip for resampling
 #
-# 711_2055 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be, down to 8cm, 3 100 um strips .. pbars need to go lower
-# 711_2060 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 8cm, 3  50 um strips .. pbars - not enough
-# 711_2061 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  70 um strips .. pbars
+# 711_2030 : TS1 win:   STND, TS1 coll: half-cylinder      , TS3 win: 165 um Be, TS3 wedge: Be 197-77 mm, 4 strips 200 um --> 200x4 + 165 (forgot to make thicker)
+# 711_2031 : TS1 win:   STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-77 mm, 3 strips 200 um --> 200x3 + 300
+# 711_2032 : TS1 win:   STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 200 um --> 200x4 + 300 (too much)
+# 711_2033 : TS1 win:   STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be 197-37 mm, 4 strips 100 um --> 100x4 + 300
+#
+# 711_2055 : TS1 win:   STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be, down to 8cm, 3 100 um strips .. pbars need to go lower
+# 711_2060 : TS1 win:   NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 8cm, 3  50 um strips .. pbars - not enough
+# 711_2061 : TS1 win:   NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  75 um strips .. pbars
+# 711_2062 : TS1 win:   NONE, TS1 coll: half-cylinder      , TS3 win: 100 um Al, TS3 wedge: Al (197:37) 4 75 um strips, plus (197:-20)x150 um strip added for resampling
+# 711_2063 : TS1 win:   NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  75 um strips .. no pbar filtering for delayed RPC
+# 711_2064 : TS1 win: 100 um, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  75 um strips .. no pbar filtering for delayed RPC use resampling
+#
+# 714_0011 : customized simulation of the external RPC to estimate the probability to reconstruct a e- track per emitted photon
 #
 # 711_2099 : default geometry, a plane limiting tracing instead of a volume *just for debugging*
 #
-# DSID    istage   istream   job_type    full_dsname  nif_per_s   nev_per_f pot_per_seg  nseg grid_jobid time/event(opt)
+#----------------------------------------------------------------------------------------------------------------------------------
+# DSID    istage   istream   job_type    full_dsname     N input   nev_per_f      NPOT   nseg grid_jobid time/event(opt)
+#                                                         files                    per
+#                                                        /segment              segment
 # ---------------------------------------------------------------------------------------------------------------------------------
 711_1009    gen   250_20000    s1_sim   PS_simulation        0       20000       20000    250  24029339     1.1    COMPLETED
 711_1009    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     10  23532637     0.02   COMPLETED
@@ -97,7 +107,7 @@
 711_1032    s2    mubeam       s3_sim   TS_simulation        0       20000     1000000     10  24669653     0.02   COMPLETED
 			       
 711_1033    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25737749     0.02   SUBMITTED
-711_1033    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443939       0.02   *SUBMITTED*
+711_1033    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443939       0.02   SUBMITTED
 
 711_1040    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  24376976     0.02   COMPLETED
 711_1040    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25172989     0.02   COMPLETED
@@ -133,7 +143,7 @@
 711_1060    gen   500_20000_04 s1_sim   PS_simulation        0       20000       20000   1000  347592       1.1    SUBMITTED
 
 711_1061    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  416009       0.02   COMPLETED
-711_1061    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443987       0.02   *SUBMITTED*
+711_1061    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443987       0.02   SUBMITTED
 
 # 711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100   24842872	    0.02  *failed*
 # 711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100   24843380     0.02  *failed*
@@ -180,11 +190,13 @@
 			       
 711_2012    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25344930     0.02
 
-711_2013    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25746363     0.02   SUBMITTED
+711_2013    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25746363     0.02   COMPLETED
 			       
 711_2020    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25361827     0.02
 711_2020    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25419786     0.02
 711_2020    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24709037     0.02
+
+711_2022    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  645754       0.02   SUBMITTED
 			       
 711_2030    pbar  vd91_01      ts1_sim  TS_simulation_1      0       20000   100000000    100  25378573     1.1    COMPLETED
 711_2030    pbar  vd91_02      ts1_sim  TS_simulation_1      0       20000   100000000    100  25378613     1.1    COMPLETED
@@ -206,11 +218,28 @@
 
 711_2055    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25498508     0.02   SUBMITTED
 
-711_2060    pbar  vd91_01      ts1_sim  TS_simulation_1      0       20000   100000000    100  25525777     1.1    COMPLETED
-711_2060    pbar  vd91_02      ts1_sim  TS_simulation_1      0       20000   100000000    100  25526449     1.1    COMPLETED
-711_2060    pbar  vd91_03      ts1_sim  TS_simulation_1      0       20000   100000000    100  107433       1.1    COMPLETED  
-711_2060    pbar  vd91_04      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1    
-711_2060    pbar  vd91_05      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1    
-711_2060    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  328708       0.02   
+711_2060    pbar  vd91_01      ts1_sim  TS                   1       20000   100000000    100  25525777     1.1    COMPLETED
+711_2060    pbar  vd91_02      ts1_sim  TS                   1       20000   100000000    100  25526449     1.1    COMPLETED
+711_2060    pbar  vd91_03      ts1_sim  TS                   1       20000   100000000    100  107433       1.1    COMPLETED  
+711_2060    pbar  vd91_04      ts1_sim  TS                   1       20000   100000000    100               1.1    
+711_2060    pbar  vd91_05      ts1_sim  TS                   1       20000   100000000    100               1.1    
+711_2060    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6  328708       0.02   
 
-711_2061    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  416031       0.02   COMPLETED
+711_2061    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6  416031       0.02   COMPLETED
+711_2061    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6  416031       0.02   COMPLETED
+
+711_2062    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  645195       0.02   COMPLETED
+
+711_2063    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25991388     0.02   COMPLETED
+711_2063    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  774174       0.02   COMPLETED
+711_2063    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  1691034      0.02   COMPLETED
+
+711_2064    pbar  vd91_01      ts1_sim  TS_resample:r        1      360000     4000000    100  26446042     1.1    
+711_2064    pbar  vd91_02      ts1_sim  TS_resample:r        1      360000     4000000    100  26446043     1.1    
+711_2064    pbar  vd91_03      ts1_sim  TS_resample:r        1      360000     4000000    100  26446044     1.1    
+711_2064    pbar  vd91_04      ts1_sim  TS_resample:r        1      360000     4000000    100  26454177     1.1  
+711_2064    pbar  vd91_05      ts1_sim  TS_resample:r        1      360000     4000000    100  26454202     1.1  
+711_2064    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6       0.02   
+
+
+714_0011    gen   flatphoton   s4_sim   DS_simdigi           0     1000000     1000000      1               0.3    COMPLETED

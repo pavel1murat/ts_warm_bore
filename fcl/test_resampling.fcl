@@ -1,0 +1,60 @@
+# -*- mode: tcl -*-
+#include "fcl/minimalMessageService.fcl"
+#include "fcl/standardProducers.fcl"
+#include "fcl/standardServices.fcl"
+
+process_name : TestResampling
+
+source : {
+  module_type  : EmptyEvent
+  firstSubRun  : 1
+  maxEvents    : -1
+}
+
+outputs: {
+    outfile : {
+	module_type    : RootOutput
+	fileName       : "output.art"
+	SelectEvents   : [ p1 ] 
+	outputCommands : [ 'keep *_*_*_*' ]  
+    }
+}
+
+services : { @table::Services.Core 
+    RandomNumberGenerator  : {}
+    SeedService            : @local::automaticSeeds
+}
+
+physics : {
+    filters : {
+	ResamplingMixer : {
+	    module_type  : ResamplingMixer
+
+	    module_type  : ResamplingMixer
+	    fileNames    : [ "/pnfs/mu2e/tape/phy-sim/sim/mu2e/antiprotons_cs1VD91/170829/art/5c/b6/sim.mu2e.antiprotons_cs1VD91.170829.001000_00000751.art" ]
+	    readMode     : "sequential" # "randomNoReplace"
+	    wrapFiles    : true
+
+	 // detail
+	    mu2e: {
+		nSecondaries : 1
+		products: {
+		    genParticleMixer: { mixingMap: [ [ "generate", "" ] ] }
+		    simParticleMixer: { mixingMap: [ [ "g4filter", "" ] ] }
+#		    stepPointMCMixer: { mixingMap: [ [ "muonBeamFilter:virtualdetector", ":" ], ["muonBeamFilter:Coll32InRecord", ":"] ] }
+		    stepPointMCMixer: { mixingMap: [ [ "g4filter:virtualdetector", ":" ], ["g4filter:VirtualDetectorPSPbarIn", ":"] ] }
+		}
+	    }
+	}
+    }
+    p1 : [ ResamplingMixer ]
+    
+    e1 : [ outfile ]
+    
+    trigger_paths  : [ p1 ]
+    end_paths      : [ e1 ]
+}
+
+services.scheduler.wantSummary: true
+services.SeedService.baseSeed          : 0
+services.SeedService.maxUniqueEngines  : 30

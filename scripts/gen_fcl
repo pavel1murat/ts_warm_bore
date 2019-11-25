@@ -5,26 +5,43 @@
 #-----------------------------------------------------------------------------------------------
         project=$1 # ts_warm_bore # $1 # ts_inner_bore
            dsid=$2 # 711_0001
-            ist=$3 # s1:mubeam ... or gen:250_20000 ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
+       p_istage=$3 # s1:mubeam ... or gen:250_20000 ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
             ids=$4 # if not ".", then catalog of the input dataset with a list of files in it
      p_job_type=$5 # s1:sim, s2:sim, or s3:stn ...
            doit=$6
 
- input_stage=`echo $ist | awk -F : '{print $1}'`;
-input_stream=`echo $ist | awk -F : '{print $2}'`;
-     fileset=`echo $ist | awk -F : '{print $3}'`;
+      istage=`echo $p_istage | awk -F : '{print $1}'`;
+     istream=`echo $p_istage | awk -F : '{print $2}'`;
+     fileset=`echo $p_istage | awk -F : '{print $3}'`;
+
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
 fss="files" ; if [ ".$fileset" != "." ] ; then fss=$fss.$fileset ; fi
 
 inputs=""
 if [ $ids != "none" ] ; then
     ds=`echo $ids | awk -F : '{print $1}'`;
-    if [ $ds == "." ] ; then inputs=$project/catalogs/$dsid/$input_stage/$project.${dsid}.${input_stage}_$input_stream.art.$fss
+    if [ $ds == "." ] ; then inputs=$project/catalogs/$dsid/$istage/$project.${dsid}.${istage}_$istream.art.$fss
     else                     inputs=$ds.$fss
     fi
 fi
 
-emerge=`echo $ids | awk -F : '{print $2}'`;
+      njobs="xxxxx"
+nev_per_job="xxxxx"
+ resampling="no"
+
+aaa_project_file=$project/AAA_PROJECT.txt
+              bf=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print  $5}'`
+	base_fcl=`echo $bf | awk -F : '{print $1}'`
+      resampling=`echo $bf | awk -F : '{print $2}'`
+
+          emerge=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print  $6}'`
+     nev_per_job=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print  $8}'`
+#------------------------------------------------------------------------------
+#  comamnd line always takes precedence
+#------------------------------------------------------------------------------
+x=`echo $ids | awk -F : '{print $2}'`; if [ ."$x" != "." ] ; then emerge=$x ; fi
 
   stage=`echo $p_job_type | awk -F : '{print $1}'`
 jobtype=`echo $p_job_type | awk -F : '{print $2}'`
@@ -36,9 +53,7 @@ setup mu2etools
 setup mu2efiletools
 setup mu2egrid
 
-dsconf=${dsid}_${input_stage}_${input_stream}_${job_type}
-njobs=xxxx
-nevents_per_job=xxxxx
+dsconf=${dsid}_${istage}_${istream}_${job_type}
 
 if [ -d 000 ] ; then 
     tmp_stub=`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1`
@@ -60,16 +75,16 @@ if [ $stage == "s0" ] ; then
 elif [ $stage == "s1" ] ; then 
     
     if [ $jobtype == "stn" ] ; then # stntupling s1 stage or s2
-	template_fcl=Stntuple/test/g4s1_${input_stream}_stn.fcl
+	template_fcl=Stntuple/test/g4s1_${istream}_stn.fcl
 	merge=100
     elif [ $jobtype == "sim" ] ; then
-	if [ $input_stage == "gen" ] ; then # s1 stage
+	if [ $istage == "gen" ] ; then # s1 stage
 	    template_fcl=ts_warm_bore/$dsid/PS_$dsid.fcl
-	    njobs=`echo $input_stream | awk -F _ '{print $1}'`
-	    nevents_per_job=`echo $input_stream | awk -F _ '{print $2}'`
+	    njobs=`echo $istream | awk -F _ '{print $1}'`
+	    nev_per_job=`echo $istream | awk -F _ '{print $2}'`
 	    inputs=""
 	else
-	    echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+	    echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
 	fi
     else
 	echo ERROR: UNKNOWN job type: $jobtype for stage=$stage
@@ -80,58 +95,58 @@ elif [ $stage == "s2" ] ; then
 
     if [ $jobtype == "stn" ] ; then
 	merge=5
-	if [ $input_stream == "mubeam" ] ; then template_fcl=Stntuple/test/g4s2_mubeam_stn.fcl
-	else                                    echo WRONG INPUT STREAM: s3 $input_stream
+	if [ $istream == "mubeam" ] ; then template_fcl=Stntuple/test/g4s2_mubeam_stn.fcl
+	else                                    echo WRONG INPUT STREAM: s3 $istream
 	fi
     elif [ $jobtype == "sim" ] ; then
 	template_fcl=${project}/$dsid/TS_$dsid.fcl
 	merge=25
     else
-	echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage and input_stream=$input_stream
+	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage and istream=$istream
     fi
 elif [ $stage == "ts1" ] ; then # 
     
     if [ $jobtype == "stn" ] ; then
-	template_fcl=Stntuple/test/g4_ts1_${input_stream}_stn.fcl
+	template_fcl=Stntuple/test/g4_ts1_${istream}_stn.fcl
 	merge=50
     elif [ $jobtype == "sim" ] ; then                        # pbars, VD91 --> Coll31out
-	template_fcl=${project}/$dsid/TS_$dsid.fcl
+	template_fcl=${project}/$dsid/${base_fcl}_$dsid.fcl
 	merge=50
     else
-	echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
     fi
 elif [ $stage == "ts2" ] ; then # stntupling s1 stage or s2
     
     if [ $jobtype == "stn" ] ; then
-	template_fcl=Stntuple/test/g4_ts2_${input_stream}_stn.fcl
+	template_fcl=Stntuple/test/g4_ts2_${istream}_stn.fcl
 	merge=1
     elif [ $jobtype == "sim" ] ; then                        # pbars, Coll32In --> TS5
 	template_fcl=${project}/$dsid/TS2_$dsid.fcl
 	merge=50
     else
-	echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
     fi
 elif [ $stage == "ts3" ] ; then # stntupling ts3 - use the same FCL as for s2
     
     if [ $jobtype == "stn" ] ; then
-	template_fcl=Stntuple/test/g4s2_${input_stream}_stn.fcl
+	template_fcl=Stntuple/test/g4s2_${istream}_stn.fcl
 	merge=3
     elif [ $jobtype == "sim" ] ; then                        # pbars, TS5 --> DS
 	template_fcl=${project}/$dsid/TS3_$dsid.fcl
 	merge=1
     else
-	echo ERROR: UNKNOWN job type: $jobtype for input_stage=$input_stage
+	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
     fi
 elif [ $stage == "s3" ] ; then
 
     if [ $jobtype == "stn" ] ; then
 	merge=1000
-	if   [ $input_stream == "tgtstops"  ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
-	elif [ $input_stream == "ootstops"  ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
-	elif [ $input_stream == "beam"      ] ; then template_fcl=Stntuple/test/g4s3_mothers_stn.fcl
-	elif [ $input_stream == "crv"       ] ; then template_fcl=Stntuple/test/g4s3_crv_stn.fcl
-	elif [ $input_stream == "truncated" ] ; then template_fcl=Stntuple/test/g4s3_truncated_stn.fcl
-	else                                         echo WRONG INPUT STREAM: s3 $input_stream
+	if   [ $istream == "tgtstops"  ] ; then template_fcl=Stntuple/test/g4s3_tgtstops_stn.fcl
+	elif [ $istream == "ootstops"  ] ; then template_fcl=Stntuple/test/g4s3_ootstops_stn.fcl
+	elif [ $istream == "beam"      ] ; then template_fcl=Stntuple/test/g4s3_mothers_stn.fcl
+	elif [ $istream == "crv"       ] ; then template_fcl=Stntuple/test/g4s3_crv_stn.fcl
+	elif [ $istream == "truncated" ] ; then template_fcl=Stntuple/test/g4s3_truncated_stn.fcl
+	else                                         echo WRONG INPUT STREAM: s3 $istream
 	fi
     elif [ $jobtype == "sim" ] ; then
 	merge=1
@@ -145,14 +160,26 @@ fi
 
 if [ $template_fcl == "undefined" ] ; then exit -1 ; fi
 #------------------------------------------------------------------------------
-# now generate fcl, creates '000' subdirectory
+# form generate_fcl command, generate_fcl creates '000' subdirectory
 #------------------------------------------------------------------------------
 cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
-
+#------------------------------------------------------------------------------
+# if the number of input files per job is not defined on the command line, 
+# use 'merge' defaults fron this script
+#------------------------------------------------------------------------------
 if [ ".$emerge" != "." ] ; then merge=$emerge ; fi
 
-if [ ".$inputs" != "." ] ; then cmd=$cmd" --merge=$merge  --inputs=$inputs"
-else                            cmd=$cmd" --events=$nevents_per_job --njobs=$njobs  --run=1"
+if [ $resampling == "no" ] ; then
+    if [ ".$inputs" != "." ] ; then cmd=$cmd" --merge=$merge        --inputs=$inputs"
+    else                            cmd=$cmd" --events=$nev_per_job --njobs=$njobs  --run-number=1000"
+    fi
+else
+#------------------------------------------------------------------------------
+# do resampling, assume one input file per segment
+#------------------------------------------------------------------------------
+    njobs=`cat $inputs | wc -l`
+    cmd=$cmd" --run-number=1000 --events=$nev_per_job --njobs=$njobs"
+    cmd=$cmd" --auxinput=1:physics.filters.ResamplingMixer.fileNames:$inputs"
 fi
 
 echo cmd=$cmd
@@ -163,7 +190,7 @@ ${prefix}mv seeds.$USER.$project.${dsconf}.*.txt 000/.
 #------------------------------------------------------------------------------
 # make sure we're not overwriting the existing directory
 #------------------------------------------------------------------------------
-istub=${input_stage}_${input_stream}
+istub=${istage}_${istream}
 if [ ".$fileset" != "." ] ; then istub=${istub}_$fileset ; fi
 
 dir=$PWD/$project/tmp_fcl/$dsid.$istub.$job_type
@@ -178,9 +205,9 @@ ${prefix}mv 000 $dir
 cd $dir
 #------------------------------------------------------------------------------
 # need to replace: 'MU2EGRIDDSOWNER' --> "$USER"
-#                  'MU2EGRIDDSCONF'  --> ${dsid}_${input_stage}_${input_stream}_${jobtype}
+#                  'MU2EGRIDDSCONF'  --> ${dsid}_${istage}_${istream}_${jobtype}
 #------------------------------------------------------------------------------
-dsconf=${dsid}_${input_stage}_${input_stream}_${stage}_${jobtype}
+dsconf=${dsid}_${istage}_${istream}_${stage}_${jobtype}
 for f in `ls *.fcl` ; do 
     f1=$f.tmp
     cat $f | sed "s/xxx_xxxx/$project/" | sed "s/MU2EGRIDDSOWNER/$USER/" | sed "s/MU2EGRIDDSCONF/$dsconf/">| $f1

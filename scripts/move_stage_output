@@ -2,27 +2,44 @@
 #------------------------------------------------------------------------------
 # copy output of the job to the permanent storage
 #------------------------------------------------------------------------------
-project=$1 # ts_warm_bore
-   dsid=$2 # 711_0001
- istage=$3 # gen_250_20000
- ostage=$4 # s1_sim
-  jobid=$5 # 
-   doit=$6
+   project=$1 # ts_warm_bore
+      dsid=$2 # 711_0001
+  p_istage=$3 # gen:250_20000
+p_job_type=$4 # s1:sim
+      doit=$5
   
   if [ ".$doit" == "." ] ; then prefix="echo "; else prefix="" ; fi
 
- input_dir=/pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.$istage.$ostage/outstage/$jobid
+ istage=`echo $p_istage | awk -F : '{print $1}'`
+istream=`echo $p_istage | awk -F : '{print $2}'`
+fileset=`echo $p_istage | awk -F : '{print $3}'`
 
-s=`echo $ostage | awk -F _ '{print $1}'`
-output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$s
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
-if [ ! -d $output_dir ] ; then mkdir -p $output_dir ; fi
+       job_stage=`echo $p_job_type | awk -F : '{print $1}'`
+        job_type=`echo $p_job_type | awk -F : '{print $2}'`
 
-for stream in crv mubeam truncated ; do
+aaa_project_file=$project/AAA_PROJECT.txt
+      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+
+ input_dir=/pnfs/mu2e/scratch/users/murat/workflow/$project.$dsid.${istage}_${istub}.${job_stage}_${job_type}/outstage/$grid_jobid
+
+output_dir=/mu2e/data/users/murat/datasets/$project/$dsid/$job_stage
+
+if [ ! -d $output_dir ] ; then $prefix mkdir -p $output_dir ; fi
+
+streams=""
+
+if   [ $job_stage == "s2"  ] ; then streams="mubeam" ; 
+elif [ $job_stage == "ts2" ] ; then streams="mubeam" ; 
+fi
+
+for stream in $streams ; do
     od=$output_dir/$stream;
-    if [ ! -d $od ] ; then mkdir -p $od ; fi
+    if [ ! -d $od ] ; then $prefix mkdir -p $od ; fi
 
-    for f in $input_dir/00/*/sim.murat.PS-$stream.*.art ; do 
+    for f in $input_dir/00/*/sim.murat.*-$stream.*.art ; do 
 	${prefix} cp $f $od/.  
     done
 done
