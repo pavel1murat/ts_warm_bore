@@ -8,6 +8,9 @@
 
 process_name: TS1
 
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/711_2100/geom_711_2100.txt"
+
 PbarSimulationEnergyCuts: {
    type: intersection
    pars: [ { type: kineticEnergy cut: 80.0 }, { type: pdgId pars: [ 11, -11, 13, -13, 22, 2112, 2212 ] }]
@@ -65,15 +68,13 @@ physics.producers.g4run.doWriteLegacyPhysVolumeInfo                     : false
 #------------------------------------------------------------------------------
 physics.filters.ParticleFilter : { @table::StepPointMCFilter 
     spmcCollTag : "muonBeamFilter:Coll31OutRecord"
-    pdgCodes    : [ -2212 ]  # pbar
+    pdgCodes    : [ -2212, -211 ]  # pbars and pi-
     debugLevel  : 1
 }
 
-# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
-
+# physics.trigmubeam   : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
 physics.trigmubeam     : [ResamplingMixer, g4run, g4consistent, muonBeamFilter ] # , compressPVmuonBeam]
-physics.g4StatusFilter : [ResamplingMixer, g4run, "!g4status" ] # , compressPVFull ]
-
+physics.g4StatusFilter : [ResamplingMixer, g4run, "!g4status" ]                  # , compressPVFull ]
 #------------------------------------------------------------------------------
 # write out only the beam, but don't require at least one antiproton to reach the destination volume(s)
 #-----------------------------------------------------------------------------------------
@@ -90,7 +91,4 @@ outputs.mubeamout : { @table::outputs.mubeamout
 			"keep *_compressPVmuonBeam_*_TS1"
 		       ]  
 }
-
-services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
 #------------------------------------------------------------------------------ END

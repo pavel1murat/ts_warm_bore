@@ -1,0 +1,62 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's from VD91 to the from TS3u coll
+# don't trace electrons, photons, protons and neutrons below 50 MeV
+#------------------------------------------------------------------------------
+#include "Filters/fcl/prolog.fcl"
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS1
+
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/711_2100/geom_711_2100.txt"
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "g4filter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPV"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "g4filter:VirtualDetectorPSPbarIn" ]
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "g4filter:virtualdetector" ]
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "g4filter" ]
+
+PbarSimulationEnergyCuts: {
+   type: intersection
+   pars: [ { type: kineticEnergy cut: 50.0 }, { type: pdgId pars: [ 11, -11, 22, 2112, 2212 ] }]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+	    @local::PbarSimulationEnergyCuts,
+
+	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
+
+	   ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll31OutRecord" ]
+
+# write out only the beam, require at least one antiproton to reach the destination volume(s)
+
+physics.outputs                   : [ mubeamout ]
+
+physics.filters.PbarFilter : { @table::StepPointMCFilter 
+    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+    pdgCodes    : [ -2212 ]  # pbar
+    debugLevel  : 1
+}
+
+# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, PbarFilter, compressPVmuonBeam]
+physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, compressPVmuonBeam]
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+    outputCommands:   [ "drop *_*_*_*",
+			"keep mu2e::GenParticles_*_*_*",
+			"keep mu2e::GenEventCount_*_*_*",
+			"keep mu2e::StatusG4_*_*_*",
+			"keep *_muonBeamFilter_*_TS1",
+			"keep *_compressPVmuonBeam_*_TS1"
+		       ]  
+}

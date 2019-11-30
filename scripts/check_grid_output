@@ -14,10 +14,40 @@ istub=${istream};
 if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
     job_type=`echo $p_job_type | sed 's/:/_/'`
+#------------------------------------------------------------------------------
+# get_fcl $project/AAA_PROJECT.txt $dsid $istage $istub $job_type
+#------------------------------------------------------------------------------
+get_job_line() {
+    project_file=$1
+    cat $project_file | grep $2 | awk -v istage=$3 -v istub=$4 -v job_type=$5 '{if (($2 == istage) && ($3 == istub) && ($4 == job_type)) print  $0}'
+}
 
+get_fcl() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $5}' 
+}
+
+get_emerge() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $6}' 
+}
+
+get_nev_per_job() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $8}' 
+}
+
+get_segments() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $9}' 
+}
+
+get_grid_job_id() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $10}' 
+}
+#------------------------------------------------------------------------------
+# end of parsing function definition
+#------------------------------------------------------------------------------
 aaa_project_file=$project/AAA_PROJECT.txt
-  nsubm_sections=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print  $9}'`
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+
+  nsubm_sections=`get_segments    $aaa_project_file $dsid $istage $istub $job_type`
+      grid_jobid=`get_grid_job_id $aaa_project_file $dsid $istage $istub $job_type`
 
 grid_dsid=$project.$dsid.${istage}_${istub}.${job_type}
 

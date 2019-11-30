@@ -16,19 +16,50 @@ fileset=`echo $p_istage | awk -F : '{print $3}'`
 istub=${istream};
 if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
-       job_stage=`echo $p_job_type | awk -F : '{print $1}'`
-        job_type=`echo $p_job_type | awk -F : '{print $2}'`
+           stage=`echo $p_job_type | awk -F : '{print $1}'`
+         jobtype=`echo $p_job_type | awk -F : '{print $2}'`
+        job_type=${stage}_$jobtype
 
+#------------------------------------------------------------------------------
+# get_fcl $project/AAA_PROJECT.txt $dsid $istage $istub $jobtype
+#------------------------------------------------------------------------------
+get_job_line() {
+    project_file=$1
+    cat $project_file | grep $2 | awk -v istage=$3 -v istub=$4 -v job_type=$5 '{if (($2 == istage) && ($3 == istub) && ($4 == job_type)) print  $0}'
+}
+
+get_fcl() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $5}' 
+}
+
+get_emerge() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $6}' 
+}
+
+get_nev_per_job() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $8}' 
+}
+
+get_segments() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $9}' 
+}
+
+get_grid_job_id() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $10}' 
+}
+#------------------------------------------------------------------------------
+# end of parsing function definition
+#------------------------------------------------------------------------------
 aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+      echo EMOE!!! get_grid_job_id $aaa_project_file $dsid $istage $istub $job_type
+      grid_jobid=`get_grid_job_id $aaa_project_file $dsid $istage $istub $job_type`
 
-
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_stage}_${job_type}/outstage/$grid_jobid
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_type}/outstage/$grid_jobid
 echo topdir=$topdir
 #------------------------------------------------------------------------------
 # 1. copy log files and print number of events in output streams
 #------------------------------------------------------------------------------
-outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$job_stage/log
+outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/log
 echo outputdir=$outputdir
 # exit
 

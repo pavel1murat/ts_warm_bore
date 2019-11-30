@@ -15,7 +15,6 @@
 	 xrootd=$6 # xrootd or ifdh
            doit=$7 # "." or ""
 
-
         dsid=`echo $p_dsid | awk -F : '{print $1}'`
         fclt=`echo $p_dsid | awk -F : '{print $2}'`
 
@@ -46,7 +45,7 @@ if [ ".$fclt" != "." ] ; then fcl_tarball=$fclt ; fi
 dataset_conf=${project}_${dsid}_${input_stub}_$job_type
 work_project=${project}.${dsid}.${input_stub}.$job_type
 
-parameters="--code=$code_tarball --fcllist=$fcl_tarball  --dsconf=$dataset_conf  --wfproject=$work_project  --expected-lifetime=$time"
+parameters="--code=$code_tarball --fcllist=$fcl_tarball --dsconf=$dataset_conf --wfproject=$work_project --transfer-all-files --expected-lifetime=$time"
 if [ $xrootd == "xrootd" ] ; then parameters=$parameters" --xrootd" ; fi
 
 $prefix mu2eprodsys $parameters

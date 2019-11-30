@@ -1,0 +1,60 @@
+#  -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# estimate the probability to reconstruct a e- track per antiproton annihilation
+# notes: 
+# ------
+# 1. use hacked event generator EventGenerators/src/TsudStoppedParticleReactionGun_module.cc to set 
+#    the "muon stop" time at ST to 1000 ns
+# 2. set "muon decay time" to 1ns to have 100% efficiency of the timing selection
+# 3. genId : 'pbarFlat' = 39, which is OK
+#------------------------------------------------------------------------------
+#include "JobConfig/primary/prolog.fcl"
+process_name: StoppedPbar
+source: { module_type : EmptyEvent 
+    firstRun : 1000
+}
+
+services: { @table::Services.Sim
+    SeedService          : { @table::automaticSeeds
+	baseSeed         :  0
+	maxUniqueEngines :  100
+    }
+}
+
+physics : { 
+  producers : {
+    generate : { module_type: TsudStoppedParticleReactionGun
+	physics : {	    
+	    pdgId            :  -2212
+	    genId            : pbarFlat
+	    spectrumVariable : "kineticEnergy"
+	    spectrumShape    : "flat"
+	    elow             : 1e-8
+	    ehi              : 2e-8
+	}
+	muonStops            : { @table::mu2e.tgtMuonStops
+	    inputFiles: @local::mergedMuon_tgtStops_mdc2018_1
+	}
+
+	verbosityLevel : 1
+	productionTime  : 1000.
+    }
+    @table::Primary.producers
+  }
+  filters     : { @table::Primary.filters   }
+  analyzers   : { @table::Primary.analyzers }
+  TriggerPath : @local::Primary.TriggerPath
+  EndPath     : @local::Primary.EndPath
+}
+outputs : { 
+  Output :@local::Primary.Output
+}
+#
+# final configuration
+#
+#include "JobConfig/primary/epilog.fcl"
+physics.producers.muonTimeMap.meanLife : 1.
+
+physics.end_paths              : [ EndPath ] # needed 
+services.TFileService.fileName : "nts.owner.flatphoton.version.sequencer.root"
+outputs.Output.fileName        : "dig.owner.flatphoton.version.sequencer.art"

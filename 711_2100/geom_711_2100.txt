@@ -1,0 +1,5 @@
+// -*- mode: c++ -*-
+// 711_2100: default geometry, new generation scheme with resampling
+//           
+
+#include "Mu2eG4/geom/geom_common_current.txt"

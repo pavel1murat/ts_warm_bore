@@ -8,6 +8,9 @@
 
 process_name: TS3
 
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/711_2065/geom_711_2065.txt"
+
 physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
 physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # "compressPVmuonBeam"
 
@@ -71,7 +74,4 @@ outputs.mubeamout : { @table::outputs.mubeamout
          "keep *_compressPVmuonBeam_*_TS3"
       ]    
 }
-
-services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
 

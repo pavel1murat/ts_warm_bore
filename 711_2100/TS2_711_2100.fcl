@@ -39,20 +39,17 @@ physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
 
 physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
 
-physics.filters.ParticleFilter : { @table::StepPointMCFilter 
+physics.filters.PbarFilter : { @table::StepPointMCFilter 
     spmcCollTag : "muonBeamFilter:Coll31OutRecord"
-    pdgCodes    : [ -2212, -211 ]  # pbar and pi-
+    pdgCodes    : [ -2212 ]  # pbar
     debugLevel  : 1
 }
 
-#------------------------------------------------------------------------------
-# don't use particle filtering at stage TS2
-#------------------------------------------------------------------------------
-# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
+# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, PbarFilter, compressPVmuonBeam]
 # physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, compressPVmuonBeam]
 
-physics.trigmubeam     : [ g4run, g4consistent, muonBeamFilter]         # , compressPVmuonBeam ]
-physics.g4StatusFilter : [ g4run, "!g4status" ]                         # , compressPVFull ]
+physics.trigmubeam     : [ g4run, g4consistent, muonBeamFilter]
+physics.g4StatusFilter : [ g4run, "!g4status" ] # , compressPVFull ]
 
 #------------------------------------------------------------------------------
 # write out only the beam - need to redefine the output structure - note the process name ....
@@ -73,5 +70,5 @@ outputs.mubeamout : { @table::outputs.mubeamout
 
 services.scheduler.wantSummary    : true
 
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2100/geom_711_2100.txt"
 

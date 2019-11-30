@@ -15,16 +15,45 @@ fileset=`echo $p_istage | awk -F : '{print $3}'`
 istub=${istream};
 if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
-       job_stage=`echo $p_job_type | awk -F : '{print $1}'`
-        job_type=`echo $p_job_type | awk -F : '{print $2}'`
+          stage=`echo $p_job_type | awk -F : '{print $1}'`
+        jobtype=`echo $p_job_type | awk -F : '{print $2}'`
+       job_type=${stage}_$jobtype
+#------------------------------------------------------------------------------
+# get_fcl $project/AAA_PROJECT.txt $dsid $istage $istub $job_type
+#------------------------------------------------------------------------------
+get_job_line() {
+    project_file=$1
+    cat $project_file | grep $2 | awk -v istage=$3 -v istub=$4 -v job_type=$5 '{if (($2 == istage) && ($3 == istub) && ($4 == job_type)) print  $0}'
+}
 
-aaa_project_file=$project/AAA_PROJECT.txt
-      grid_jobid=`cat $aaa_project_file | grep $dsid | awk -v istage=$istage -v istub=$istub '{if (($2 == istage) && ($3 == istub)) print $10}'`
+get_fcl() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $5}' 
+}
 
-topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_stage}_${job_type}/outstage/$grid_jobid
+get_emerge() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $6}' 
+}
+
+get_nev_per_job() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $8}' 
+}
+
+get_segments() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $9}' 
+}
+
+get_grid_job_id() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $10}' 
+}
+#------------------------------------------------------------------------------
+# end of parsing function definition
+#------------------------------------------------------------------------------
+grid_jobid=`get_grid_job_id $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
+
+topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${stage}_${jobtype}/outstage/$grid_jobid
 echo topdir=$topdir
 
-outputdir=$project/catalogs/$dsid/$job_stage
+outputdir=$project/catalogs/$dsid/$stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 echo outputdir=$outputdir
 #------------------------------------------------------------------------------
@@ -37,13 +66,16 @@ echo p_job_type=$p_job_type
 if   [ $p_job_type == "s3:sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
 elif [ $p_job_type == "s1:sim"  ] ; then streams="mubeam"
 elif [ $p_job_type == "s2:sim"  ] ; then streams="mubeam"
+elif [ $p_job_type == "s4:sim"  ] ; then streams="flatphoton"   # this was a mistake... should've been stoppedpbar
 elif [ $p_job_type == "ts1:sim" ] ; then streams="mubeam"
 elif [ $p_job_type == "ts2:sim" ] ; then streams="mubeam"
 elif [ $p_job_type == "ts3:sim" ] ; then streams="mubeam"
 fi
 
 for stream in $streams ; do
-    catalog_fn=$outputdir/$project.${dsid}.${job_stage}_$stream.art.files
+    fn_stub=${stage}_$stream
+    catalog_fn=$outputdir/$project.${dsid}.$fn_stub.art.files
+
     if [ ".$fileset" != "." ] ; then catalog_fn=$catalog_fn.$fileset ; fi
 
     echo catalog_fn=$catalog_fn

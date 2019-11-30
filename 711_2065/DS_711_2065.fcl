@@ -2,7 +2,7 @@
 #include "JobConfig/beam/DS.fcl"
 
 physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2065/geom_711_2065.txt"
 
 physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 400000
 physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # "compressPVmuonBeam"

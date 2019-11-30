@@ -92,5 +92,5 @@ outputs.mubeamout : { @table::outputs.mubeamout
 }
 
 services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2065/geom_711_2065.txt"
 #------------------------------------------------------------------------------ END

@@ -1,23 +1,26 @@
 # -*- mode: tcl -*-
 #------------------------------------------------------------------------------
-# trace pbar's from TS32in to TS5
+# trace pbar's through the TS3 PBAR window(+wedge), 
 # don't use PbarFilter in physics.trigmubeam for final state study of pbar-induced RPC 
 #------------------------------------------------------------------------------
 #include "Filters/fcl/prolog.fcl"
 #include "JobConfig/beam/TS.fcl"
 
-process_name: TS3
+process_name: TS2
+
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/711_2065/geom_711_2065.txt"
 
 physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
 physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # "compressPVmuonBeam"
 
-physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll32InRecord" ]
-physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 300000
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll31OutRecord" ]
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 200000
 
 physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
 physics.producers.g4run.doWriteLegacyPhysVolumeInfo                     : false
 
-# physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
 
 PbarSimulationEnergyCuts: {
    type: intersection
@@ -30,48 +33,43 @@ physics.producers.g4run.Mu2eG4CommonCut: {
 	    
 	    @local::PbarSimulationEnergyCuts,
 
-	    {
-		type: inVolume
-		pars: [TS5Vacuum, DS1Vacuum, DS2Vacuum, DS3Vacuum ]
-		write: DSVacuum
-	    }
+	    { type  : inVolume 	pars  : [ Coll32InRecord ] write: Coll32InRecord }
 
 	   ]
 }
 
 physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
 
-physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:DSVacuum" ]
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
 
 physics.filters.ParticleFilter : { @table::StepPointMCFilter 
-    spmcCollTag : "muonBeamFilter:Coll32InRecord"
-    pdgCodes    : [ -2212, -211 ]  # pbar's and pi-'s
-    debugLevel  : 0
+    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+    pdgCodes    : [ -2212, -211 ]  # pbar and pi-
+    debugLevel  : 1
 }
-
 #------------------------------------------------------------------------------
-# after the TS3 window/wedge, trace only pbars and pi-'s
+# don't use particle filtering at stage TS2
 #------------------------------------------------------------------------------
 # physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
-physics.trigmubeam     : [ ParticleFilter, g4run, g4consistent, muonBeamFilter]              # , compressPVmuonBeam ]
-physics.g4StatusFilter : [ ParticleFilter, g4run, "!g4status" ]                              # , compressPVFull ]
+# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, compressPVmuonBeam]
 
+physics.trigmubeam     : [ g4run, g4consistent, muonBeamFilter]         # , compressPVmuonBeam ]
+physics.g4StatusFilter : [ g4run, "!g4status" ]                         # , compressPVFull ]
+
+#------------------------------------------------------------------------------
 # write out only the beam - need to redefine the output structure - note the process name ....
-physics.trigger_paths  : [ trigmubeam, g4StatusFilter ]                 # [trigmubeam, trigcrv, g4StatusFilter]
+#------------------------------------------------------------------------------
+physics.trigger_paths  : [ trigmubeam, g4StatusFilter ]
 physics.outputs        : [ mubeamout ]
-physics.end_paths      : [ outputs   ]                                  # , an ]
-
+physics.end_paths      : [ outputs   ] # , an ]
 
 outputs.mubeamout : { @table::outputs.mubeamout 
       outputCommands:   [ "drop *_*_*_*",
          "keep mu2e::GenParticles_*_*_*",
          "keep mu2e::GenEventCount_*_*_*",
          "keep mu2e::StatusG4_*_*_*",
-         "keep *_muonBeamFilter_*_TS3",
-         "keep *_compressPVmuonBeam_*_TS3"
+         "keep *_muonBeamFilter_*_TS2",
+         "keep *_compressPVmuonBeam_*_TS2"
       ]    
 }
-
-services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
 

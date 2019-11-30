@@ -46,15 +46,14 @@ physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:DSVacuum" ]
 physics.filters.ParticleFilter : { @table::StepPointMCFilter 
     spmcCollTag : "muonBeamFilter:Coll32InRecord"
     pdgCodes    : [ -2212, -211 ]  # pbar's and pi-'s
-    debugLevel  : 0
+    debugLevel  : 0 # 1
 }
-
 #------------------------------------------------------------------------------
 # after the TS3 window/wedge, trace only pbars and pi-'s
 #------------------------------------------------------------------------------
 # physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
-physics.trigmubeam     : [ ParticleFilter, g4run, g4consistent, muonBeamFilter]              # , compressPVmuonBeam ]
-physics.g4StatusFilter : [ ParticleFilter, g4run, "!g4status" ]                              # , compressPVFull ]
+physics.trigmubeam     : [ ParticleFilter, g4run, g4consistent, muonBeamFilter ]         # , compressPVmuonBeam]
+physics.g4StatusFilter : [ ParticleFilter, g4run, "!g4status" ]                          # , compressPVFull ]
 
 # write out only the beam - need to redefine the output structure - note the process name ....
 physics.trigger_paths  : [ trigmubeam, g4StatusFilter ]                 # [trigmubeam, trigcrv, g4StatusFilter]
@@ -73,5 +72,5 @@ outputs.mubeamout : { @table::outputs.mubeamout
 }
 
 services.scheduler.wantSummary    : true
-services.GeometryService.inputFile: "ts_warm_bore/711_2064/geom_711_2064.txt"
+services.GeometryService.inputFile: "ts_warm_bore/711_2100/geom_711_2100.txt"
 
