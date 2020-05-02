@@ -1,0 +1,51 @@
+#------------------------------------------------------------------------------
+# output of g4s2 (Stage2 simulation) job 
+# job has 3 output streams : mubeam, crv, truncated
+# 10 jobs 500,000 POT each; X segments failed
+#------------------------------------------------------------------------------
+# :NPOT: 29476000000
+#------------------------------------------------------------------------------
+ local directory  : file:./
+ input            : file:../ts3/ts_warm_bore.760_2200.ts3_mubeam.art.files
+ output location  : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_2200/s3pbar
+ log files        : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_2200/s3pbar/log
+ check_output     : 
+
+                   file:./ts_warm_bore.760_2200.ts3_mubeam_s3_sim.check_grid_output.log  *not present - ran locally*
+
+|---------------+------------------------------------------------------+---+-----------------------|
+| *tgtstop*     | file:ts_warm_bore.760_2200.s3pbar_tgtstops.art.files |   |                       |
+| *ootstop*     | file:ts_warm_bore.760_2200.s3pbar_ootstops.art.files |   |                       |
+|---------------+------------------------------------------------------+---+-----------------------|
+| *tgtstop_stn* | file:ts_warm_bore.760_2200.s3pbar_tgtstops.stn.files |   | STNTUPLE'd s3_tgtstop |
+| *ootstop_stn* | file:ts_warm_bore.760_2200.s3pbar_ootstops.stn.files |   | STNTUPLE'd s3_tgtstop |
+|---------------+------------------------------------------------------+---+-----------------------|
+
+time estimates: 
+
+
+* file content: <TAB> to expand 
+
+murat@mu2ebuild01:/mu2e/app/users/murat/mdc2018>mu2e -c Print/fcl/dumpDataProducts.fcl -s /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1008.s2_mubeam.s3_sim/outstage/23080535/00/00000/sim.murat.DS-OOTstops.ts_warm_bore_711_1008_s2_mubeam_s3_sim.000001_00000000.art
+26-Aug-2019 21:44:20 CDT  Initiating request to open input file "/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1008.s2_mubeam.s3_sim/outstage/23080535/00/00000/sim.murat.DS-OOTstops.ts_warm_bore_711_1008_s2_mubeam_s3_sim.000001_00000000.art"
+26-Aug-2019 21:44:24 CDT  Opened input file "/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1008.s2_mubeam.s3_sim/outstage/23080535/00/00000/sim.murat.DS-OOTstops.ts_warm_bore_711_1008_s2_mubeam_s3_sim.000001_00000000.art"
+Begin processing the 1st record. run: 1 subRun: 0 event: 288 at 26-Aug-2019 21:44:26 CDT
+Found 6 data products in this Event
+Data products: 
+Friendly Class Name   Module Label    Instance Name  Process Name     Product ID
+ mu2e::StepPointMCs  ootStopFilter  virtualdetector            DS   549530107
+ mu2e::GenParticles       generate                             PS  2911578240
+mu2e::SimParticlemv  ootStopFilter                             DS  3324723426
+     mu2e::StatusG4          g4run                             DS  3868635463
+     mu2e::StatusG4          g4run                             TS  4205842999
+     mu2e::StatusG4          g4run                             PS  4256807659
+
+Found 2 data products in this SubRun
+Data products: 
+                     Friendly Class Name        Module Label  Instance Name  Process Name     Product ID
+                     mu2e::GenEventCount          genCounter                           PS  3141257541
+uintmu2e::PhysicalVolumeInfomvstd::pairs  compressPVOOTStops                           DS  3795796734
+
+Found 0 data products in this Run
+26-Aug-2019 21:44:26 CDT  Closed input file "/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.711_1008.s2_mubeam.s3_sim/outstage/23080535/00/00000/sim.murat.DS-OOTstops.ts_warm_bore_711_1008_s2_mubeam_s3_sim.000001_00000000.art"
+Art has completed and will exit with status 0.

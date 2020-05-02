@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 #------------------------------------------------------------------------------
-#  example: 
-#  --------
+# parse log files and create an ascii file with the GRID job timing data 
+# to be processed by ts_warm_bore/scripts/grid_time_ana.C
+#
+# example: 
+# --------
 # ts_warm_bore/scripts/parse_grid_logs.rb -p ts_warm_bore -d 711_1010 -s s1 \
 #       > ts_warm_bore/timing_data/ts_warm_bore.711_1010.s1_sim.txt# parse_grid_logs 
 #------------------------------------------------------------------------------

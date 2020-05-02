@@ -1,4 +1,8 @@
-#!/bin/bash 
+#!/bin/bash
+#------------------------------------------------------------------------------
+# example: ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
+#------------------------------------------------------------------------------
+scriptname="$(basename $0)"
 
       project=$1  # ts_warm_bore
          dsid=$2  # 711_0001
@@ -57,21 +61,25 @@ aaa_project_file=$project/AAA_PROJECT.txt
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${job_type}/outstage/$grid_jobid
 echo topdir=$topdir
 #------------------------------------------------------------------------------
-# 1. copy log files and print number of events in output streams
+# 1. copy log files from PNFS 
 #------------------------------------------------------------------------------
-outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/log
+outputdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage
 echo outputdir=$outputdir
 # exit
 
-if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
+if [ ! -d $outputdir/log ] ; then mkdir -p $outputdir/log ; fi
 
-for f in `ls $topdir/*/*/log.*.log` ; do 
-    cp -vp $f $outputdir/.
-done
+echo .\$doit=.$doit
+if [ ".$doit" != "." ] ; then 
+    # skip log file copy (assume that move_stage_output was ran before
+    for f in `ls $topdir/*/*/log.*.log` ; do 
+	cp -vp $f $outputdir/log/.
+    done
+fi
 #------------------------------------------------------------------------------
 # check if the jobs finished successfully
 #------------------------------------------------------------------------------
-for f in `ls $outputdir/*.log` ; do 
+for f in `ls $outputdir/log/*.log` ; do 
     x=`cat $f | grep "mu2egrid exit status"` ; 
     if [ ".$x" != "." ] ; then 
 	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ; 
@@ -81,30 +89,55 @@ for f in `ls $outputdir/*.log` ; do
 	fi
     fi; 
 done
-
-if   [ $p_job_type == "s3:sim"  ] ; then output_streams="mothers crv tgtstop ootstop truncated"
+#------------------------------------------------------------------------------
+# finally, print number of events in output streams
+#------------------------------------------------------------------------------
+if   [ $p_job_type == "s3:sim"  ] ; then output_streams="mothers crv tgtstops ootstops truncated"
 elif [ $p_job_type == "s1:sim"  ] ; then output_streams="mubeam"
 elif [ $p_job_type == "s2:sim"  ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts1:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts2:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts3:sim" ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts4:sim" ] ; then output_streams="ootstops tgtstops"
 fi
 
 echo outputdir=$outputdir
+
+for f in `ls $outputdir/log/*.log` ; do 
+    grid=`cat $f | grep "mu2egrid exit status"`
+    if [ ".$grid" != "." ] ; then
+	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
+
+	if [ .$x == ."0" ] ; then 
+	    cat $f | grep "TrigReport Events total"
+	fi
+    else
+	echo WARNING: file $f doesnt have mu2egrid exit status
+	cat $f | grep "TrigReport Events total"
+    fi 
+done  | awk '{n+=$5} END{printf "INPUT:            nevents=%10i\n",n}'
+
+
 for stream in $output_streams ; do
-    for f in `ls $outputdir/*.log` ; do 
+    #    echo $scriptname:$LINENO: \$stream = $stream
+
+    output_path=$stream
+    if [ $stream == "mubeam"   ] ; then output_path="mubeamout"     ; fi
+    if [ $stream == "tgtstops" ] ; then output_path="tgtStopOutput" ; fi
+    if [ $stream == "ootstops" ] ; then output_path="ootStopOutput" ; fi
+    
+    for f in `ls $outputdir/log/*.log` ; do 
+	#	echo $scriptname:$LINENO: \$f = $f
+
 	grid=`cat $f | grep "mu2egrid exit status"`
 	if [ ".$grid" != "." ] ; then
 	    x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
-
-	    output_path=$stream
-	    if [ $stream == "mubeam" ] ; then output_path="mubeamout" ; fi
 		
 	    if [ .$x == ."0" ] ; then 
 		cat $f | grep TrigReport | grep -i $output_path
 	    fi
 	else
-	    echo WARNING: file $f doesnt have mu2egrid exit status
+	    # echo WARNING: file $f doesnt have mu2egrid exit status
 	    cat $f | grep TrigReport | grep -i $output_path
 	fi 
     done  | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'

@@ -1,0 +1,28 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace only pions and muons , but not electrons - it is a matter to saving time
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/PS.fcl"
+
+services.GeometryService.inputFile: "ts_warm_bore/760_2200/geom_760_2200.txt"
+
+# physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+// Energy cuts on electrons, positrons, photons, and neutrons.
+
+CutEPPhN : {
+    type : intersection
+    pars : [ { type: kineticEnergy cut: 100.0 },
+             { type: pdgId pars: [ 11, -11, 22, 2112 ] } ]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut : {
+    type : union
+    pars : [
+	    @local::CutEPPhN,
+	    @local::dsRegionCuts,
+	    @local::extMonRegionCuts
+	   ]
+}
+
+physics.outputs: [ mubeamout ]

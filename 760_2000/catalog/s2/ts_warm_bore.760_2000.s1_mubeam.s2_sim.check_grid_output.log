@@ -1,0 +1,12 @@
+#
+     0 : section 00001  was running on murat-31751280-1-fnpc7302.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 123884 passed = 20443 failed = 103441
+     1 : section 00000  was running on murat-31751280-0-fnpc7211.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 129151 passed = 21798 failed = 107353
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :    50 sections
+output checked      :     2 sections
+completed           :     2 sections
+staging failures    :     0 sections
+completed with rc=0 :     2 sections
+mu2e job failed     :     0 sections

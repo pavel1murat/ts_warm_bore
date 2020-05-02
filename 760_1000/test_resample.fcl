@@ -1,0 +1,11 @@
+#
+#include "ts_warm_bore/760_1000/TS1_pbar_resample_760_1000.fcl"
+
+physics.filters.resamplingMixer.fileNames : [
+ "/pnfs/mu2e/tape/phy-sim/sim/mu2e/antiprotons_cs1VD91/170829/art/5c/b6/sim.mu2e.antiprotons_cs1VD91.170829.001000_00000751.art"
+]
+
+source.maxEvents : 500000
+
+# speed up startup
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"

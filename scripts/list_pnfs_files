@@ -1,4 +1,7 @@
 #!/bin/bash 
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
 
       project=$1 # ts_warm_bore # this one is fixed
          dsid=$2 # 711_0001
@@ -45,31 +48,39 @@ get_segments() {
 get_grid_job_id() { 
     get_job_line $1 $2 $3 $4 $5 | awk '{print $10}' 
 }
+
+get_output_streams() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $11}' 
+}
 #------------------------------------------------------------------------------
 # end of parsing function definition
 #------------------------------------------------------------------------------
-grid_jobid=`get_grid_job_id $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
+grid_jobid=`get_grid_job_id    $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
+   streams=`get_output_streams $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
 
 topdir=/pnfs/mu2e/scratch/users/murat/workflow/${project}.${dsid}.${istage}_${istub}.${stage}_${jobtype}/outstage/$grid_jobid
 echo topdir=$topdir
 
-outputdir=$project/catalogs/$dsid/$stage
+# outputdir=$project/catalogs/$dsid/$stage
+outputdir=$project/$dsid/catalog/$stage
 if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
 echo outputdir=$outputdir
 #------------------------------------------------------------------------------
 # catalog - so far, only .art files
 #------------------------------------------------------------------------------
-streams="none"
-
 echo p_job_type=$p_job_type
 
-if   [ $p_job_type == "s3:sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
-elif [ $p_job_type == "s1:sim"  ] ; then streams="mubeam"
-elif [ $p_job_type == "s2:sim"  ] ; then streams="mubeam"
-elif [ $p_job_type == "s4:sim"  ] ; then streams="flatphoton"   # this was a mistake... should've been stoppedpbar
-elif [ $p_job_type == "ts1:sim" ] ; then streams="mubeam"
-elif [ $p_job_type == "ts2:sim" ] ; then streams="mubeam"
-elif [ $p_job_type == "ts3:sim" ] ; then streams="mubeam"
+if [ .${streams:0:1} == ".." ] ; then
+    if   [ $p_job_type == "s3:sim"  ] ; then streams="beam crv tgtstop ootstop truncated"
+    elif [ $p_job_type == "s1:sim"  ] ; then streams="mubeam"
+    elif [ $p_job_type == "s2:sim"  ] ; then streams="mubeam"
+    elif [ $p_job_type == "s4:sim"  ] ; then streams="flatphoton"   # this was a mistake... should've been stoppedpbar
+    elif [ $p_job_type == "ts1:sim" ] ; then streams="mubeam"
+    elif [ $p_job_type == "ts2:sim" ] ; then streams="mubeam"
+    elif [ $p_job_type == "ts3:sim" ] ; then streams="mubeam"
+    fi
+else 
+    streams=`echo $streams | sed 's/,/ /'`
 fi
 
 for stream in $streams ; do

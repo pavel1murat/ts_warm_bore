@@ -1,3 +1,4 @@
+.#*
 grid_export
 .git
 .git/*
@@ -8,10 +9,10 @@ TestTools
 UtilityModules
 *.gdml
 gridexport
-gridexport/*
 results
 ts_warm_bore/.git
 ts_warm_bore/catalogs
+ts_warm_bore/timing_data
 ts_warm_bore/tmp_code
 ts_warm_bore/tmp_fcl
 Stntuple/.git
@@ -71,10 +72,21 @@ lib/libmu2e_Analyses_TSTrackAna*.so
 lib/libmu2e_Analyses_TT*.so
 lib/libmu2e_Analyses_View*.so
 lib/libmu2e_BFieldTest_*
+#
+lib/libmu2e_CaloFilters_*.so
 lib/libmu2e_CalPatRec_DeltaFinder2*.so
 lib/libmu2e_CalPatRec_PrefetchData_module*.so
+#
+lib/libmu2e_CosmicReco_*.so
+#
+lib/libmu2e_CRVAnalysis.so
+#
 lib/libmu2e_CutAndCountAnalysis_*.so
 lib/libmu2e_DAQ*.so
+#
+lib/libmu2e_DbExample*
+lib/libmu2e_DbService_DbServiceTest_module.so
+#
 lib/libmu2e_EventDisplay_*.so
 lib/libmu2e_EventMixing_InspectDataProducts_module.so
 lib/libmu2e_EventMixing_MixBackgroundFrames_module.so
@@ -82,10 +94,20 @@ lib/libmu2e_EventMixing_ProtonBunchIntensityFlat_module.so
 lib/libmu2e_EventMixing_ProtonBunchIntensityLogNormal_module.so
 # this one is needed : lib/libmu2e_EventMixing_ResamplingMixer_module.so
 lib/libmu2e_EventMixing_SummarizeStatusG4_module.so
+#
+lib/libmu2e_EventGenerator_EplusFromStoppedPion_module.so
+lib/libmu2e_EventGenerator_ExtMon*
+lib/libmu2e_EventGenerator_From*
 # 
 lib/libmu2e_ExtinctionMonitorFNAL_Analyses_*.so
 lib/libmu2e_ExtinctionMonitorFNAL_Reconstruction_*.so
 lib/libmu2e_ExtinctionMonitorFNAL_TruthAlgs_*.so
+#
+lib/libmu2e_Filters_FilterStepPointAngleVsTarget_module.so
+lib/libmu2e_Filters_FilterStepPointPDG_module.so
+lib/libmu2e_Filters_FilterStepPointPzVsTarget_module.so
+lib/libmu2e_Filters_SeparateCaloShowerStepsCheck_module.so
+#
 lib/libmu2e_HelloWorld_*.so
 lib/libmu2e_ParticleID_*.so
 # need this one lib/libmu2e_Print_*.so
@@ -93,4 +115,8 @@ lib/libmu2e_Sandbox_*.so
 lib/libmu2e_TrkHitReco_*.so
 lib/libmu2e_TrkDiag_*.so
 lib/libmu2e_murat*.so
+
+lib/libmu2e_Validation*
+
+lib/libStntuple_gui.so
 lib/libmurat*.so

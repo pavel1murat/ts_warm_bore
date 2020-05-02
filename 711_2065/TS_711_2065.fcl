@@ -25,13 +25,11 @@ PbarSimulationEnergyCuts: {
 
 physics.producers.g4run.Mu2eG4CommonCut: {
     type: union
-    pars: [ @local::mu2eg4CutDeltaElectrons,
-	    
-	    @local::PbarSimulationEnergyCuts,
-
-	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
-
-	   ]
+    pars: [ 
+	   @local::mu2eg4CutDeltaElectrons,
+	   @local::PbarSimulationEnergyCuts,
+	   { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
+	  ]
 }
 
 physics.producers.g4run.physics.physicsListName : "QGSP_BERT"

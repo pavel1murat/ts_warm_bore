@@ -19,11 +19,18 @@ if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
 fss="files" ; if [ ".$fileset" != "." ] ; then fss=$fss.$fileset ; fi
 
+#------------------------------------------------------------------------------
+# generation jobs, istage="gen", don't need inputs
+#------------------------------------------------------------------------------
 inputs=""
-if [ $ids != "none" ] ; then
-    ds=`echo $ids | awk -F : '{print $1}'`;
-    if [ $ds == "." ] ; then inputs=$project/catalogs/$dsid/$istage/$project.${dsid}.${istage}_$istream.art.$fss
-    else                     inputs=$ds.$fss
+if [ ."$istage" != ".gen" ] ; then
+    if [ $ids != "." ] ; then
+	ds=`echo $ids | awk -F : '{print $1}'`;
+	if [ $ds == "." ] ; then inputs=$project/$dsid/catalog/$istage/$project.${dsid}.${istage}_$istream.art.$fss
+	else                     inputs=$ds.$fss
+	fi
+    else 
+	inputs=$project/$dsid/catalog/$istage/$project.${dsid}.${istage}_$istream.art.$fss
     fi
 fi
 
@@ -77,7 +84,8 @@ aaa_project_file=$project/AAA_PROJECT.txt
 
 	nsegtot=`echo $segments | awk -F : '{print $1}'`
 max_seg_per_job=`echo $segments | awk -F : '{print $2}'`
-if  [ .$max_seg_per_job == "." ] ; then max_seg_per_job=$nsegtot; fi
+if  [ ".$max_seg_per_job" == "." ] ; then max_seg_per_job=$nsegtot; fi
+echo max_seg_per_job=$max_seg_per_job
 #------------------------------------------------------------------------------
 # after that - the number of jobs
 #------------------------------------------------------------------------------
@@ -107,43 +115,18 @@ fi
 template_fcl="undefined"
 
 if [ $stage == "s0" ] ; then 
-    
     if [ $jobtype == "stn" ] ; then # stntupling s1 stage or s2
 	template_fcl=Stntuple/test/g4s0_pbar_vd91_stn.fcl
     else
 	echo ERROR: UNKNOWN job type: $jobtype for stage=$stage
     fi
 elif [ $stage == "s1" ] ; then 
-    
-    if [ $jobtype == "stn" ] ; then # stntupling s1 stage
-	template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
-	nsegments=$nsegtot
-    elif [ $jobtype == "sim" ] ; then
-	if [ $istage == "gen" ] ; then # s1 stage
-	    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
-	    nsegments=$nsegtot
-	    inputs=""
-	else
-	    echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
-	fi
-    else
-	echo ERROR: UNKNOWN job type: $jobtype for stage=$stage
-    fi
+    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+    nsegments=$nsegtot
 elif [ $stage == "s2" ] ; then
-
-    echo S2: inputs:$inputs
-
-    if [ $jobtype == "stn" ] ; then
-	if [ $istream == "mubeam" ] ; then template_fcl=Stntuple/test/g4s2_mubeam_stn.fcl
-	else                                    echo WRONG INPUT STREAM: s3 $istream
-	fi
-    elif [ $jobtype == "sim" ] ; then
-	template_fcl=${project}/$dsid/TS_$dsid.fcl
-    else
-	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage and istream=$istream
-    fi
+    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+    nsegments=$nsegtot
 elif [ $stage == "s3" ] ; then
-
     if [ $jobtype == "stn" ] ; then
 	if   [ $istream == "tgtstops"  ] ; then template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
 	elif [ $istream == "ootstops"  ] ; then template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
@@ -152,10 +135,9 @@ elif [ $stage == "s3" ] ; then
 	elif [ $istream == "truncated" ] ; then template_fcl=Stntuple/test/g4s3_truncated_stn.fcl
 	else                                         echo WRONG INPUT STREAM: s3 $istream
 	fi
-    elif [ $jobtype == "sim" ] ; then
-	template_fcl=ts_warm_bore/$dsid/DS_$dsid.fcl
     else
-	echo ERROR: UNKNOWN job type: $jobtype for stage=s3
+	template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+	nsegments=$nsegtot
     fi
 elif [ $stage == "s4" ] ; then 
     
@@ -164,13 +146,9 @@ elif [ $stage == "s4" ] ; then
 	else                                    echo WRONG INPUT STREAM: s4 $istream
 	fi
     elif [ $jobtype == "sim" ] ; then
-	if [ $istage == "gen" ] ; then # s4 stage
-	    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
-	    nsegments=$nsegtot
-	    inputs=""
-	else
-	    echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
-	fi
+	template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+	nsegments=$nsegtot
+	inputs=""
     else
 	echo ERROR: UNKNOWN job type: $jobtype for stage=$stage
     fi
@@ -178,18 +156,14 @@ elif [ $stage == "ts1" ] ; then #
     template_fcl=$project/$dsid/${base_fcl}_$dsid.fcl
     nsegments=$nsegtot
 elif [ $stage == "ts2" ] ; then # stntupling s1 stage or s2
-    
-    if [ $jobtype == "stn" ] ; then
-	template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
-	nsegments=$nsegtot
-    elif [ $jobtype == "sim" ] ; then                        # pbars, Coll32In --> TS5
-	template_fcl=${project}/$dsid/${base_fcl}_$dsid.fcl
-	nsegments=$nsegtot
-    else
-	echo ERROR: UNKNOWN job type: $jobtype for istage=$istage
-    fi
+    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+    nsegments=$nsegtot
 elif [ $stage == "ts3" ] ; then # stntupling ts3 - use the same FCL as for s2
     template_fcl=${project}/$dsid/${base_fcl}_$dsid.fcl
+    nsegments=$nsegtot
+elif [ $stage == "ts4" ] ; then 
+    template_fcl=ts_warm_bore/$dsid/${base_fcl}_$dsid.fcl
+    nsegments=$nsegtot
 else
 	echo ERROR: UNKNOWN stage=$stage
 fi
@@ -203,17 +177,18 @@ cmd="generate_fcl --description=$project --dsconf=$dsconf --embed $template_fcl"
 # if the number of input files per job is not defined on the command line, 
 # use 'merge' defaults fron this script
 #------------------------------------------------------------------------------
+echo \$inputs=$inputs \$resampling=$resampling
 if [ $resampling == "no" ] ; then
     if [ ".$inputs" != "." ] ; then cmd=$cmd" --merge=$merge        --inputs=$inputs"
     else                            cmd=$cmd" --events=$nev_per_job --njobs=$nsegments  --run-number=1000"
     fi
 else
 #------------------------------------------------------------------------------
-# do resampling, assume one input file per segment
+# for resampling, assume one input file per segment
 #------------------------------------------------------------------------------
     nserments=`cat $inputs | wc -l`
     cmd=$cmd" --run-number=1000 --events=$nev_per_job --njobs=$nsegments"
-    cmd=$cmd" --auxinput=1:physics.filters.ResamplingMixer.fileNames:$inputs"
+    cmd=$cmd" --auxinput=1:physics.filters.resamplingMixer.fileNames:$inputs"
 fi
 
 echo cmd=$cmd
@@ -230,11 +205,11 @@ if [ ".$fileset" != "." ] ; then istub=${istub}_$fileset ; fi
 dir=$PWD/$project/tmp_fcl/$dsid.$istub.$job_type
 
 if [ -d $dir ] ; then 
-    echo WARNING: directory $dir already exists, RECREATE !
+    echo WARNING: directory $dir already exists, REMOVING and RECREATING !
     rm -rf $dir
 fi
 
-echo mv 000 $dir
+echo     mv 000 $dir
 ${prefix}mv 000 $dir
 cd $dir
 #------------------------------------------------------------------------------
@@ -265,7 +240,7 @@ fi
 #------------------------------------------------------------------------------
 tdir=..
 pid=$$
-# echo \$njobs=$njobs
+echo \$njobs=$njobs
 if [ $njobs -gt 1 ] ; then
     fcl_list=/tmp/list_of_fcl_files.$pid.txt
 
@@ -282,7 +257,7 @@ if [ $njobs -gt 1 ] ; then
 	if [ $jobtype == "sim" ] ; then
 	    echo CMD: cp -f $tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
 	    if [ -f /pnfs/mu2e/resilient/users/murat/$tarfile ] ; then
-		echo WARNING: tarfile /pnfs/mu2e/resilient/users/murat/$tarfile already exists, RECREATE !
+		echo WARNING: tarfile /pnfs/mu2e/resilient/users/murat/$tarfile already exists, OVERWRITING !
 	    fi
 	    cp -f $tdir/$tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
 	fi
@@ -296,7 +271,7 @@ else
     if [ $jobtype == "sim" ] ; then
 	echo CMD: cp -f $tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
 	if [ -f /pnfs/mu2e/resilient/users/murat/$tarfile ] ; then
-	    echo WARNING: tarfile /pnfs/mu2e/resilient/users/murat/$tarfile already exists, RECREATE !
+	    echo WARNING: tarfile /pnfs/mu2e/resilient/users/murat/$tarfile already exists, OVERWRITING !
 	fi
 	cp -f $tdir/$tarfile /pnfs/mu2e/resilient/users/murat/$tarfile
     fi

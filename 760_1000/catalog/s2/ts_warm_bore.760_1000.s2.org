@@ -1,0 +1,50 @@
+#------------------------------------------------------------------------------
+# output of g4s1 (Stage1 simulation) job 
+# job has 4 output streams : mubeam, extmonbeam, extmonregion, dsregion, truncated
+#------------------------------------------------------------------------------
+# :NPOT: 4960000
+#------------------------------------------------------------------------------
+local directory      : file:./
+input                : file:../s1/ts_warm_bore.760_1000.s1_mubeam.art.files
+log files            : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s2/log
+check_grid_output    : file:ts_warm_bore.760_1000.s1_mubeam.s2_sim.check_grid_output.log
+grid_job.output_location : file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.s1_mubeam.s2_sim/outstage/7191143/
+output_location          : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s2
+
+|-----------------+------------------------------------------------------+-----------+----------+--------------------|
+| DSID            | catalog                                              | N(events) | N(files) | comment            |
+|-----------------+------------------------------------------------------+-----------+----------+--------------------|
+| *s1_mubeam*     | file:../s1/ts_warm_bore.760_1000.s1_mubeam.art.files |    291263 |       50 |                    |
+| *s2_mubeam*     | file:ts_warm_bore.760_1000.s2_mubeam.art.files       |     51093 |        2 |                    |
+| *s2_mubeam_stn* | file:ts_warm_bore.760_1000.s2_mubeam.stn.files       |     51093 |          | STNTUPLE of mubeam |
+|-----------------+------------------------------------------------------+-----------+----------+--------------------|
+
+time estimates: 
+
+
+* back to file:../../ts_warm_bore.760_1000.org
+
+* file content: <TAB> to expand 
+
+murat@mu2ebuild01:/mu2e/app/users/murat/tsud_bore_prof>mu2e -c Print/fcl/dumpDataProducts.fcl -s /mu2e/data/users/murat/datasets/ts_warm_bore/711_0000/s1/00000/sim.MU2EGRIDDSOWNER.PS-mubeam.MU2EGRIDDSCONF.000001_00000000.art
+26-Sep-2018 21:06:25 CDT  Initiating request to open input file "/mu2e/data/users/murat/datasets/ts_warm_bore/711_0000/s1/00000/sim.MU2EGRIDDSOWNER.PS-mubeam.MU2EGRIDDSCONF.000001_00000000.art"
+26-Sep-2018 21:06:26 CDT  Opened input file "/mu2e/data/users/murat/datasets/ts_warm_bore/711_0000/s1/00000/sim.MU2EGRIDDSOWNER.PS-mubeam.MU2EGRIDDSCONF.000001_00000000.art"
+Begin processing the 1st record. run: 1 subRun: 0 event: 2 at 26-Sep-2018 21:06:27 CDT
+Found 5 data products in this Event
+Data products:
+Friendly Class Name    Module Label    Instance Name  Process Name     Product ID
+mu2e::SimParticlemv  muonBeamFilter                             PS  1016417441
+ mu2e::StepPointMCs  muonBeamFilter           mubeam            PS  2515686396
+ mu2e::StepPointMCs  muonBeamFilter  virtualdetector            PS  2563904689
+ mu2e::GenParticles        generate                             PS  2911578240
+     mu2e::StatusG4           g4run                             PS  4256807659
+
+Found 2 data products in this SubRun
+Data products:
+                     Friendly Class Name        Module Label  Instance Name  Process Name     Product ID
+uintmu2e::PhysicalVolumeInfomvstd::pairs  compressPVmuonBeam                           PS  1995767128
+                     mu2e::GenEventCount          genCounter                           PS  3141257541
+
+Found 0 data products in this Run
+26-Sep-2018 21:06:27 CDT  Closed input file "/mu2e/data/users/murat/datasets/ts_warm_bore/711_0000/s1/00000/sim.MU2EGRIDDSOWNER.PS-mubeam.MU2EGRIDDSCONF.000001_00000000.art"
+Art has completed and will exit with status 0.

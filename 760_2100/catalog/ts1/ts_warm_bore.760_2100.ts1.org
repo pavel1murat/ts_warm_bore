@@ -1,0 +1,26 @@
+#------------------------------------------------------------------------------
+# output of g4s1 (Stage1 simulation) job for Bob's PBAR sample
+# job has 1 output streams : mubeam, all other are disabled
+# single input file , before resampling, had: 1e8 POT
+#------------------------------------------------------------------------------
+# :NPOT: 
+#------------------------------------------------------------------------------
+ local directory       : file:./
+ input                 : file:
+ log files             : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_2100/ts1/log
+ output_location.disk  : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_2100/ts1/
+ output location.pnfs  : file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_2100.pbar_vd91.ts1_sim/outstage/31676882
+ job_timing            : file:../../../tmp_png/ts_warm_bore.760_2100.pbar_vd91.ts1_sim.totwall.png
+ check_grid_output     : file:./ts_warm_bore.760_2100.pbar_vd91.ts1_sim.check_grid_output.log
+
+|------------------+--------------------------------------------------------+-----------+--------------+------------------+------------------------|
+|                  |                                                        |  N(input) | N(resampled) | effective N(POT) |                        |
+|------------------+--------------------------------------------------------+-----------+--------------+------------------+------------------------|
+| *pbar_vd91*      | file:../pbar/ts_warm_bore.760_2100.pbar_vd91.art.files | 970000000 |              |                  |                        |
+|------------------+--------------------------------------------------------+-----------+--------------+------------------+------------------------|
+| *ts1_mubeam*     | file:ts_warm_bore.760_2100.ts1_mubeam.art.files        |   5319455 |              |                  | 485/485 files          |
+|------------------+--------------------------------------------------------+-----------+--------------+------------------+------------------------|
+| *ts1_mubeam_stn* | file:ts_warm_bore.711_1900.ts1_mubeam.stn.files        |   5319455 |              |                  | STNTUPLE of ts1_mubeam |
+|------------------+--------------------------------------------------------+-----------+--------------+------------------+------------------------|
+
+* back to file:../../ts_warm_bore.760_2100.org

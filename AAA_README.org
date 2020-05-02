@@ -1,16 +1,39 @@
 # ts_warm_bore/AAA_README.org
 
-  *src* : TsudStoppedParticleReactionGun.cc: to generate photons with T0 ~ 1000 ns
-          see file:./fcl/flatphoton.fcl
 
-  *subdirectories:* : see file:AAA_PROJECT.txt
 
-  *pbars* : see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
+  *src* : file:src
 
-  fcl, geom - for tests, templates...
 
-  tmp_code: stores tarballs
-  tmp_fcl : stores FCL files produced with generate_fcl
+  1) file:src/TsudStoppedParticleReactionGun.cc: to generate photons with T0 ~ 1000 ns
+
+     see file:./fcl/flatphoton.fcl
+
+  2) file:src/StepPointMCFilter_module.cc  --> to be placed in Filters
+
+     StepPointMCFilter : {
+       module_type    : StepPointMCFilter
+       spmcCollTag    : "g4run"
+       pdgCodes       : [ ]
+       debugLevel     : 0
+     }
+
+
+     *code change*: file:Mu2eG4/src/PrimaryGeneratorAction.cc
+
+     do not crash in case of unknown ion...
+
+  3) *subdirectories:* : see file:AAA_PROJECT.txt
+
+  4) *pbars* : see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
+
+  5) 
+  fcl, geom : for tests, templates...
+  tmp_code  : stores tarballs
+  tmp_fcl   : stores FCL files produced with generate_fcl
+* *reference numbers*
+  for default geometry, the number of muons in the end of Stage1 is about 1.3% of the number of generated events
+
 * weighting:
 
   s0 (sum of all weights) = N(generated)*sigma/(2*Pmax)
@@ -34,7 +57,7 @@
 * *------------------------------------------------------------------------------*
 * *file firmats* 
 * *------------------------------------------------------------------------------*
-** *stage2 mubeam*            
+* *stage2 mubeam*                                                              
 murat@mu2ebuild01:/mu2e/app/users/murat/tsud_bore_prof>mu2e -c Print/fcl/dumpDataProducts.fcl -s results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-mubeam.version.sequencer.art 
 29-Sep-2019 10:40:06 CDT  Initiating request to open input file "results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-mubeam.version.sequencer.art"
 29-Sep-2019 10:40:07 CDT  Opened input file "results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-mubeam.version.sequencer.art"
@@ -58,7 +81,7 @@ uintmu2e::PhysicalVolumeInfomvstd::pairs  compressPVmuonBeam                    
 Found 0 data products in this Run
 29-Sep-2019 10:40:08 CDT  Closed input file "results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-mubeam.version.sequencer.art"
 Art has completed and will exit with status 0.
-** *stage2 truncated*         
+* *stage2 truncated*                                                           
 murat@mu2ebuild01:/mu2e/app/users/murat/tsud_bore_prof>mu2e -c Print/fcl/dumpDataProducts.fcl -s results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-truncated.version.sequencer.art
 29-Sep-2019 10:43:40 CDT  Initiating request to open input file "results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-truncated.version.sequencer.art"
 29-Sep-2019 10:43:41 CDT  Opened input file "results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-truncated.version.sequencer.art"
@@ -88,8 +111,309 @@ Art has completed and will exit with status 0.
 * 711_0000: default geometry
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
-* *WORK LOG*                                **   
-** <2019-11-25 Mon> check_grid _output copy_log_files list_pnfs_files
+* *WORK LOG*                                ** 
+** <2020-05-01 Fri> **     
+   ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_1200 pbar:vd91  ts1:sim
+   ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_1200 ts1:mubeam ts2:sim
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 ts1:mubeam ts2:sim
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 ts1:mubeam ts2:sim
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1200 ts1:mubeam ts2:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
+
+** <2020-04-29 Wed> **
+   *after a grid job finishes: save output and complete the cataloging*
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2100 gen:50_200000   s1:sim . 
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2100 gen:50_200000   s1:sim . 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2100 gen:50_200000   s1:sim . 
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2200 gen:50_200000   s1:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2200 gen:50_200000   s1:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2200 gen:50_200000   s1:sim .
+   ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_2200 gen:50_200000   s1:sim     # w/o the '.'
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 s3:tgtstops   . s3:stn  .
+   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/760_1000.s3_tgtstops.s3_stn/cnf.murat.ts_warm_bore.760_1000_s3_tgtstops_s3_stn.001000_00000000.fcl &
+
+** <2020-04-28 Tue> **                      
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2100 pbar:vd91    ts1:sim .
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2100 pbar:vd91    ts1:sim .
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2200 pbar:vd91    ts1:sim .
+
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 ts1:mubeam . ts2:sim .
+ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1000 ts1:mubeam   ts2:sim .
+ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1000 ts1:mubeam   ts2:sim 5h xrootd .
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 ts2:mubeam . ts3:sim .
+ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1000 ts2:mubeam   ts3:sim 3h xrootd .
+
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 s1:mubeam  . s2:sim  .
+ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1000 s1:mubeam    s2:sim  3h xrootd .
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1000 s1:mubeam    s2:sim  .
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1000 s1:mubeam    s2:sim  .
+ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1000 s1:mubeam    s2:sim  . 
+
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 s2:mubeam  . s3:sim  .
+
+
+** <2020-04-27 Mon> **                      
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+mv /mu2e/app/users/murat/beamline_prof/grid_export/tmp.uZyAMSKHlb/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bode.code.760_2100.tbz
+cp -f /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_code/ts_warm_bode.code.760_2100.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+
+clone ts_warm_bore 760_2100 760_2200 # and update geometry
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+mv /mu2e/app/users/murat/beamline_prof/grid_export/tmp.cKXuVZdIPG/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bode.code.760_2200.tbz
+cp -f /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_code/ts_warm_bode.code.760_2200.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+
+*used wrong FCL for 2100,redo*
+
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2100 pbar:vd91     . ts1:sim .
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2200 pbar:vd91     . ts1:sim .
+
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 pbar:vd91       ts1:sim .
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 pbar:vd91       ts1:sim
+
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 pbar:vd91       ts1:sim .
+
+** <2020-04-26 Sun> ** check_grid_output move_stage_output                            
+  *now check_grid_output creates the log file by default*
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim .
+ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2000 pbar:vd91       ts1:sim .
+
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2000 ts1:mubeam .    ts2:sim .
+murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/760_2000.ts1_mubeam.ts2_sim/cnf.murat.ts_warm_bore.760_2000_ts1_mubeam_ts2_sim.001000_00000751.fcl &
+
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2000 gen:50_200000   s1:sim .
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2000 s1:mubeam     . s2:sim .
+
+ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1900 pbar:vd91       ts1:sim .
+ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1900 pbar:vd91       ts1:sim .
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1900 pbar:vd91       ts1:sim
+ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_1900 pbar:vd91       ts1:sim    # prints numbers of events
+
+ts_warm_bore/scripts/parse_grid_logs.rb -p ts_warm_bore -d 760_1900 -s ts1 >| ts_warm_bore/timing_data/ts_warm_bore.760_1900.ts1_sim.txt
+
+source ts_warm_bore/common_procedures
+clone ts_warm_bore 760_2100 760_1100
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1100 pbar:vd91     . ts1:sim .
+
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+Making bzipped tar file ... this may take 3 to 5 minutes ... 
+
+Exported bzipped tar file:  /mu2e/app/users/murat/beamline_prof/grid_export/tmp.2KAS6Ym0zy/Code.tar.bz
+mv /mu2e/app/users/murat/beamline_prof/grid_export/tmp.2KAS6Ym0zy/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bode.code.760_1100.tbz
+cp -f /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_code/ts_warm_bode.code.760_1100.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz 
+
+clone ts_warm_bore 760_1100 760_1200  # also copy and modify the geometry file
+ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1200 pbar:vd91     . ts1:sim .
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+Making bzipped tar file ... this may take 3 to 5 minutes ... 
+
+Exported bzipped tar file:  /mu2e/app/users/murat/beamline_prof/grid_export/tmp.AbEkK0IavU/Code.tar.bz
+
+mv /mu2e/app/users/murat/beamline_prof/grid_export/tmp.AbEkK0IavU/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bode.code.760_1200.tbz
+cp -f /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_code/ts_warm_bode.code.760_1200.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+
+** <2020-04-25 Sat> **                                                         
+   *added readParameterSets: false to JobConfig/beam/DS.fcl, JobConfig/beam/TS.fcl, JobConfig/beam/DS_pions.fcl, JobConfig/beam/TS-CRV.fcl*
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+cp -f /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_code/ts_warm_bode.code.760_2000.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+dsid=760_2000; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+dsid=760_2000; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid gen:50_200000 . s1:sim .
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
+dsid=760_1900; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid pbar:vd91 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+
+** <2020-04-22 Wed> ** gridexport                                              
+gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt 
+dsid=760_1000; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid gen:50_200000 . s1:sim .
+ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1000 gen:50_200000 s1:sim >| /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/760_1000/catalog/s1/ts_warm_bore.760_1000.gen_50_200000.s1_sim.check_grid_output.log
+ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1000 gen:50_200000 s1:sim .
+
+** <2020-04-21 Tue> ** check_grid_output move_stage_output     
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid pbar:vd91 ts1:sim  >| ts_warm_bore/catalogs/$dsid/ts1/ts_warm_bore.$dsid.pbar_vd91_ts1_sim.check_grid_output.log
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1000 pbar:vd91 ts1:sim .
+
+** <2020-04-19 Sun> **                                                         
+*** murat@mu2ebuild01:/mu2e/app/users/murat/beamline_prof>ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1000 pbar:vd91 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
+max_seg_per_job=485
+cmd=generate_fcl --description=ts_warm_bore --dsconf=760_1000_pbar_vd91_ts1_sim --embed ts_warm_bore/760_1000/TS_760_1000.fcl --merge=5 --inputs=/grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art.files
+WARNING: directory /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_fcl/760_1000.pbar_vd91.ts1_sim already exists, REMOVING and RECREATING !
+mv 000 /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_fcl/760_1000.pbar_vd91.ts1_sim
+CMD: cp -f ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz
+WARNING: tarfile /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz already exists, OVERWRITING !
+
+** <2020-04-17 Fri> ** validation:
+   hard cutoff: 
+   xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxx
+   soft cutoff:
+   xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+
+** <2020-04-16 Thu> ** merging offline development: compilation successfull    
+
+CONFLICT (content): Merge conflict in Mu2eG4/src/constructVirtualDetectors.cc
+CONFLICT (content): Merge conflict in Mu2eG4/src/constructTS.cc
+** <2019-11-30 Sat> ** *711_2065 pbar events with large arrival times*         
+
+ stnana("ts_warm_bore","711_2065_s3_tgtstops","","","spmc_ana(11)")
+
+*** Run,Event:   1000,3245118   Rs:      22 : bit:11: pbar at ST pe =      0.000 te =    779.796   
+root [7] m_spmc->fSimpBlock->Print()
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   i name                   PDG     ID GenID  ParentID    p0x       p0y       p0z       p0    vol0     v0x        v0y      v0z         t0       p1x       p1y        p1z      p1    vol1     v1x        v1y       v1z        t1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 antiproton           -2212      1    38      -1    95.660  -292.871  3273.389  3287.857   365  3920.546     0.745 -6099.785     0.000   239.737  -151.088  3248.019  3260.357 11042  4037.095  -122.144 -4144.270     6.814
+   1 antiproton           -2212 100001    38       1   239.737  -151.089  3248.019  3260.357   508  4037.094  -122.143 -4144.290     6.814     0.000    -0.000     0.000     0.000   656  4058.760  -134.198 -3802.314     8.006
+   2 antiproton           -2212 100012    -1  100001   -59.442   428.143  1136.719  1216.129   656  4058.760  -134.198 -3802.314     8.006    -0.000     0.000     0.000     0.000   680  4038.170   -48.160 -3610.610     8.976
+   3 antiproton           -2212 100066    -1  100012   -20.555   392.341   595.608   713.514   680  4038.170   -48.160 -3610.610     8.976  -124.925   -37.648    -3.882   130.533   661    24.980   135.328   -53.315   156.074
+   4 antiproton           -2212 200001    -1  100066  -124.925   -37.648    -3.886   130.533   661    25.000   135.334   -53.315   156.073   -40.826    -7.031    10.961    42.852   662   -25.000   121.908   -48.597   158.378
+   5 antiproton           -2212 300001    -1  200001   -40.826    -7.035    10.959    42.852   662   -24.980   121.911   -48.602   158.376    -9.599   -10.279    40.478    42.852   553 -3952.205    48.728  2930.000   586.250
+   6 antiproton           -2212 400001    -1  300001    -9.766   -10.148    40.471    42.852   553 -3951.982    48.992  2929.000   586.173     0.000     0.000     0.000     0.000  2519 -3929.803    39.321  5470.968   779.796
+root [21] m_spmc->fVDetBlock->Print()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Vol   Gen     PDG Particle          Creation   SimID   PPdg  PSimID  StopProc     X          Y          Z     Edep(Tot) Edep(NIO)  Step    Time      Px        Py        Pz
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   91       0  -2212 antiproton              56       1     -1      -1      49   4037.094   -122.143  -4144.290  0.00000  0.00000    0.020    6.814  239.737 -151.089 3248.019
+   91      -1  -2212 antiproton              56  100001  -2212       1      49   4037.105   -122.150  -4144.140  0.00000  0.00000    0.020    6.814  239.740 -151.082 3248.019
+   92      -1  -2212 antiproton              56  100001  -2212       1      49   4037.114   -122.156  -4144.020  0.00000  0.00000    0.020    6.815  239.743 -151.077 3248.019
+    1      -1  -2212 antiproton              56  100001  -2212       1      49   4047.514   -128.536  -4004.000  0.00000  0.00000    0.020    7.303  242.689 -144.993 3248.078
+    2      -1  -2212 antiproton              86  100066  -2212  100012      49   3849.954   -143.238  -3004.020  0.00000  0.00000    0.021   13.279  -18.094  -30.761  125.559
+   98      -1  -2212 antiproton              86  100066  -2212  100012      49   3008.153      3.305   -895.861  0.00000  0.00000    0.021   73.527  -99.572  -28.244   79.539
+    3      -1  -2212 antiproton              86  100066  -2212  100012      49    825.000     66.309      1.429  0.00000  0.00000    0.021  135.732 -123.378    5.269   42.294
+    4      -1  -2212 antiproton              86  100066  -2212  100012      49     25.020    135.340    -53.314  0.00000  0.00000    0.021  156.073 -124.925  -37.648   -3.890
+    5      -1  -2212 antiproton              56  300001  -2212  200001      49    -25.000    121.908    -48.597  0.00000  0.00000    0.021  158.378  -40.826   -7.031   10.961
+    6      -1  -2212 antiproton              56  300001  -2212  200001      49   -824.980    124.820    -39.837  0.00000  0.00000    0.021  219.612  -40.868   -5.871   11.473
+   99      -1  -2212 antiproton              56  300001  -2212  200001      49  -3078.846     91.540    825.139  0.00000  0.00000    0.021  408.222  -30.979  -13.119   26.541
+    7      -1  -2212 antiproton              56  400001  -2212  300001      49  -3952.205     48.728   2930.000  0.00000  0.00000    0.021  586.250   -9.599  -10.279   40.478
+    8      -1  -2212 antiproton              56  400001  -2212  300001      49  -3938.863     16.983   3929.980  0.00000  0.00000    0.021  662.693   11.225    4.638   41.094
+   85      -1  -2212 antiproton              56  400001  -2212  300001      49  -3936.312     21.222   4881.480  0.00000  0.00000    0.021  735.117    8.801    7.377   41.284
+    9      -1  -2212 antiproton              56  400001  -2212  300001      49  -3929.814     37.977   5465.980  0.00000  0.00000    0.021  779.419    0.814   11.113   41.378
+*** Run,Event:   1000,840972    Rs:      33 : bit:11: pbar at ST pe =      0.000 te =   2846.944   
+root [5] m_spmc->fSimpBlock->Print() 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   i name                   PDG     ID GenID  ParentID    p0x       p0y       p0z       p0    vol0     v0x        v0y      v0z         t0       p1x       p1y        p1z      p1    vol1     v1x        v1y       v1z        t1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 antiproton           -2212      1    38      -1   -43.685    50.357  1198.465  1200.318   365  3918.338    -1.704 -6103.416     0.000    22.126   -50.695  1177.017  1178.316 11042  3891.931   -83.538 -4144.270     8.364
+   1 antiproton           -2212 100001    38       1    22.125   -50.695  1177.017  1178.316   508  3891.930   -83.537 -4144.290     8.364     0.000    -0.000     0.000     0.000   680  3922.140  -119.113 -3091.838    12.856
+   2 antiproton           -2212 100003    -1  100001   -25.827    37.809   196.581   201.843   680  3922.140  -119.113 -3091.838    12.856  -114.028   -12.772    29.030   118.356   661    24.980    85.898   -25.569   169.615
+   3 antiproton           -2212 200001    -1  100003  -114.028   -12.775    29.029   118.356   661    25.000    85.900   -25.574   169.615    -9.225     5.623     5.204    11.992   662   -25.000    84.679    -2.465   177.215
+   4 antiproton           -2212 300001    -1  200001    -9.225     5.616     5.212    11.992   662   -24.980    84.666    -2.475   177.209     5.728    -4.456     9.542    11.988   553 -3915.042    54.524  2930.000  2021.114
+   5 antiproton           -2212 400001    -1  300001     5.404    -4.865     9.531    11.988   553 -3915.652    54.975  2929.000  2020.786    -0.000     0.000     0.000     0.000  2520 -3930.260    65.552  5493.174  2846.944
+root [19] m_spmc->fVDetBlock->Print()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Vol   Gen     PDG Particle          Creation   SimID   PPdg  PSimID  StopProc     X          Y          Z     Edep(Tot) Edep(NIO)  Step    Time      Px        Py        Pz
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   91       0  -2212 antiproton              56       1     -1      -1      49   3891.930    -83.537  -4144.290  0.00000  0.00000    0.020    8.364   22.125  -50.695 1177.017
+   91      -1  -2212 antiproton              56  100001  -2212       1      49   3891.933    -83.544  -4144.140  0.00000  0.00000    0.020    8.364   22.129  -50.693 1177.017
+   92      -1  -2212 antiproton              56  100001  -2212       1      49   3891.936    -83.549  -4144.020  0.00000  0.00000    0.020    8.365   22.174  -51.161 1176.883
+    1      -1  -2212 antiproton              56  100001  -2212       1      49   3894.777    -89.483  -4004.000  0.00000  0.00000    0.020    8.963   25.507  -48.560 1176.926
+    2      -1  -2212 antiproton              86  100003  -2212  100001      49   3907.130   -104.438  -3004.020  0.00000  0.00000    0.021   15.245  -24.640   14.085  114.903
+   98      -1  -2212 antiproton              86  100003  -2212  100001      49   3015.938     24.061   -888.077  0.00000  0.00000    0.020   80.273  -95.858  -14.902   67.804
+    3      -1  -2212 antiproton              86  100003  -2212  100001      49    825.000     94.863     22.565  0.00000  0.00000    0.021  147.482 -113.124   27.670   21.106
+    4      -1  -2212 antiproton              86  100003  -2212  100001      49     25.020     85.902    -25.579  0.00000  0.00000    0.021  169.614 -114.028  -12.778   29.027
+    5      -1  -2212 antiproton              56  300001  -2212  200001      49    -25.000     84.679     -2.464  0.00000  0.00000    0.026  177.215   -9.225    5.623    5.204
+    6      -1  -2212 antiproton              56  300001  -2212  200001      49   -824.980     84.942     -7.490  0.00000  0.00000    0.026  444.332   -9.368   -3.326    6.705
+   99      -1  -2212 antiproton              56  300001  -2212  200001      49  -3050.385     71.142    853.600  0.00000  0.00000    0.026 1247.287   -3.270   -5.783    9.981
+    7      -1  -2212 antiproton              56  400001  -2212  300001      49  -3915.042     54.524   2930.000  0.00000  0.00000    0.025  326.114    5.728   -4.456    9.542
+    8      -1  -2212 antiproton              56  400001  -2212  300001      49  -3908.520     75.221   3929.980  0.00000  0.00000    0.025  656.341   -5.086    5.089    9.588
+   85      -1  -2212 antiproton              56  400001  -2212  300001      49  -3918.518     57.875   4881.480  0.00000  0.00000    0.024  960.951    6.707    0.177    9.933
+    9      -1  -2212 antiproton              56  400001  -2212  300001      49  -3930.883     81.396   5465.980  0.00000  0.00000    0.024 1143.565   -3.637   -5.249   10.143
+*** Run,Event:   1000,3476974   Rs:      43 : bit:11: pbar at ST pe =      0.000 te =    763.680   
+root [9] m_spmc->fSimpBlock->Print()
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   i name                   PDG     ID GenID  ParentID    p0x       p0y       p0z       p0    vol0     v0x        v0y      v0z         t0       p1x       p1y        p1z      p1    vol1     v1x        v1y       v1z        t1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 antiproton           -2212      1    38      -1   -76.320  -117.215   458.621   479.477   365  3907.614    -1.323 -6146.826     0.000   -67.367   -50.626   398.406   407.221 11042  3947.102    67.224 -4144.270    17.292
+   1 antiproton           -2212 100001    38       1   -67.369   -50.623   398.406   407.221   508  3947.105    67.227 -4144.290    17.292  -114.331     4.998    36.889   120.239   661    24.980    72.315    54.513   185.051
+   2 antiproton           -2212 200001    -1  100001  -114.331     4.994    36.890   120.239   661    25.000    72.314    54.506   185.050   -43.261    11.346     4.628    44.963   662   -25.000    79.784    66.376   187.364
+   3 antiproton           -2212 300001    -1  200001   -43.261    11.345     4.632    44.963   662   -24.980    79.778    66.375   187.363     5.580     9.077    43.682    44.963   553 -3834.319   -28.769  2930.000   581.060
+   4 antiproton           -2212 400001    -1  300001     5.720     8.969    43.686    44.963   553 -3834.434   -28.986  2929.000   580.988    -0.000     0.000     0.000     0.000  2519 -3842.633    -5.061  5470.971   763.680
+root [23] m_spmc->fVDetBlock->Print()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Vol   Gen     PDG Particle          Creation   SimID   PPdg  PSimID  StopProc     X          Y          Z     Edep(Tot) Edep(NIO)  Step    Time      Px        Py        Pz
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   91       0  -2212 antiproton              56       1     -1      -1      49   3947.105     67.227  -4144.290  0.00000  0.00000    0.020   17.292  -67.369  -50.623  398.406
+   91      -1  -2212 antiproton              56  100001  -2212       1      49   3947.080     67.207  -4144.140  0.00000  0.00000    0.020   17.293  -67.352  -50.645  398.407
+   92      -1  -2212 antiproton              56  100001  -2212       1      49   3947.060     67.192  -4144.020  0.00000  0.00000    0.020   17.294  -67.692  -49.946  398.082
+    1      -1  -2212 antiproton              56  100001  -2212       1      49   3926.304     46.375  -4004.000  0.00000  0.00000    0.020   18.494  -49.750  -67.351  398.164
+    2      -1  -2212 antiproton              56  100001  -2212       1      49   3919.743   -114.793  -3004.020  0.00000  0.00000    0.021   29.455  -25.951  -13.647  116.609
+   98      -1  -2212 antiproton              56  100001  -2212       1      49   3042.734    -13.319   -861.281  0.00000  0.00000    0.020   95.028  -81.943  -25.640   84.175
+    3      -1  -2212 antiproton              56  100001  -2212       1      49    825.000    117.414     89.380  0.00000  0.00000    0.021  163.031 -113.749   38.827    3.308
+    4      -1  -2212 antiproton              56  100001  -2212       1      49     25.020     72.312     54.500  0.00000  0.00000    0.021  185.049 -114.331    4.989   36.890
+    5      -1  -2212 antiproton              56  300001  -2212  200001      49    -25.000     79.784     66.376  0.00000  0.00000    0.021  187.364  -43.261   11.346    4.628
+    6      -1  -2212 antiproton              56  300001  -2212  200001      49   -824.980     72.707     70.868  0.00000  0.00000    0.021  245.158  -43.194    6.569   10.622
+   99      -1  -2212 antiproton              56  300001  -2212  200001      49  -3006.869     49.022    897.117  0.00000  0.00000    0.021  418.051  -38.304   -5.678   22.852
+    7      -1  -2212 antiproton              56  400001  -2212  300001      49  -3834.319    -28.769   2930.000  0.00000  0.00000    0.021  581.060    5.580    9.077   43.682
+    8      -1  -2212 antiproton              56  400001  -2212  300001      49  -3846.768     -4.385   3929.980  0.00000  0.00000    0.021  653.131  -10.342    3.941   43.579
+   85      -1  -2212 antiproton              56  400001  -2212  300001      49  -3837.119     -9.403   4881.480  0.00000  0.00000    0.021  721.475   -7.289    7.403   43.746
+    9      -1  -2212 antiproton              56  400001  -2212  300001      49  -3841.563     -5.403   5465.980  0.00000  0.00000    0.021  763.324   -9.180    3.659   43.863
+*** Run,Event:   1000,3198747   Rs:      86 : bit:11: pbar at ST pe =      0.000 te =    768.718   
+root [11] m_spmc->fSimpBlock->Print()
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   i name                   PDG     ID GenID  ParentID    p0x       p0y       p0z       p0    vol0     v0x        v0y      v0z         t0       p1x       p1y        p1z      p1    vol1     v1x        v1y       v1z        t1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 antiproton           -2212      1    38      -1  -115.109   -15.787   455.865   470.438   365  3917.631     0.275 -6106.423     0.000   -61.719   -27.110   373.496   379.531 11042  3955.732    31.598 -4144.270    17.835
+   1 antiproton           -2212 100001    38       1   -61.720   -27.107   373.496   379.531   508  3955.735    31.600 -4144.290    17.835   -96.931     9.191    51.955   110.361   661    24.980    11.422    -3.002   213.714
+   2 antiproton           -2212 200001    -1  100001   -96.931     9.184    51.956   110.361   661    25.000    11.420    -3.013   213.714   -46.107    15.064    18.339    51.857   662   -25.000    21.210    21.294   216.223
+   3 antiproton           -2212 300001    -1  200001   -46.107    15.059    18.343    51.857   662   -24.980    21.203    21.286   216.222     3.585    21.838    46.897    51.856   553 -3865.436   -82.249  2930.000   589.328
+   4 antiproton           -2212 400001    -1  300001     3.898    21.763    46.907    51.856   553 -3865.493   -82.718  2929.000   589.261    -0.000     0.000     0.000     0.000  2526 -3877.364   -65.137  5626.534   768.718
+root [25] m_spmc->fVDetBlock->Print()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Vol   Gen     PDG Particle          Creation   SimID   PPdg  PSimID  StopProc     X          Y          Z     Edep(Tot) Edep(NIO)  Step    Time      Px        Py        Pz
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   91       0  -2212 antiproton              56       1     -1      -1      49   3955.736     31.600  -4144.290  0.00000  0.00000    0.020   17.835  -61.720  -27.107  373.496
+   91      -1  -2212 antiproton              56  100001  -2212       1      49   3955.711     31.588  -4144.140  0.00000  0.00000    0.020   17.836  -61.710  -27.129  373.496
+   92      -1  -2212 antiproton              56  100001  -2212       1      49   3955.691     31.579  -4144.020  0.00000  0.00000    0.020   17.837  -61.994  -27.377  372.959
+    1      -1  -2212 antiproton              56  100001  -2212       1      49   3934.463     17.782  -4004.000  0.00000  0.00000    0.020   19.105  -50.332  -45.306  372.968
+    2      -1  -2212 antiproton              56  100001  -2212       1      49   3863.792    -88.130  -3004.020  0.00000  0.00000    0.023   31.645  -53.280   -7.736   96.337
+   98      -1  -2212 antiproton              56  100001  -2212       1      49   3065.828    -90.936   -838.186  0.00000  0.00000    0.023  107.886  -40.567   41.258   93.976
+    3      -1  -2212 antiproton              56  100001  -2212       1      49    825.000     24.564     22.639  0.00000  0.00000    0.023  187.653  -95.027   34.933   43.920
+    4      -1  -2212 antiproton              56  100001  -2212       1      49     25.020     11.417     -3.024  0.00000  0.00000    0.023  213.713  -96.931    9.177   51.957
+    5      -1  -2212 antiproton              56  300001  -2212  200001      49    -25.000     21.210     21.294  0.00000  0.00000    0.022  216.223  -46.107   15.064   18.339
+    6      -1  -2212 antiproton              56  300001  -2212  200001      49   -824.980     21.558    -16.390  0.00000  0.00000    0.022  270.186  -46.307  -15.116   17.784
+   99      -1  -2212 antiproton              56  300001  -2212  200001      49  -3041.346    -50.900    862.640  0.00000  0.00000    0.022  434.054  -16.675   -3.976   48.941
+    7      -1  -2212 antiproton              56  400001  -2212  300001      49  -3865.435    -82.249   2930.000  0.00000  0.00000    0.022  589.328    3.585   21.838   46.897
+    8      -1  -2212 antiproton              56  400001  -2212  300001      49  -3876.375    -60.586   3929.980  0.00000  0.00000    0.022  656.536  -12.545   18.042   46.970
+   85      -1  -2212 antiproton              56  400001  -2212  300001      49  -3878.632   -113.715   4881.480  0.00000  0.00000    0.022  719.800   13.934   15.190   47.584
+    9      -1  -2212 antiproton              56  400001  -2212  300001      49  -3882.109   -123.205   5465.980  0.00000  0.00000    0.022  758.246   15.233   12.443   47.981
+*** Run,Event:   1000,2037599   Rs:      94 : bit:11: pbar at ST pe =      0.000 te =   1203.102   
+root [13] m_spmc->fSimpBlock->Print()
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   i name                   PDG     ID GenID  ParentID    p0x       p0y       p0z       p0    vol0     v0x        v0y      v0z         t0       p1x       p1y        p1z      p1    vol1     v1x        v1y       v1z        t1
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0 antiproton           -2212      1    38      -1   -71.776   -76.607   548.438   558.395   365  3922.279    -1.800 -6091.136     0.000   -68.393   -35.989   389.824   397.411 11042  3973.632    63.153 -4144.270    17.088
+   1 antiproton           -2212 100001    38       1   -68.395   -35.986   389.824   397.411   508  3973.636    63.155 -4144.290    17.087   -96.883     1.619    46.878   107.641   661    24.980    14.095    50.821   213.417
+   2 antiproton           -2212 200001    -1  100001   -96.883     1.613    46.879   107.641   661    25.000    14.095    50.811   213.416   -25.141     9.897     7.290    27.985   662   -25.000    22.505    72.675   217.336
+   3 antiproton           -2212 300001    -1  200001   -25.141     9.893     7.295    27.985   662   -24.980    22.497    72.670   217.333    -9.073     8.595    25.038    27.984   553 -3826.353   -19.612  2930.000   890.054
+   4 antiproton           -2212 400001    -1  300001    -8.839     8.814    25.045    27.984   553 -3825.975   -19.939  2929.000   889.929    -0.000     0.000     0.000     0.000  2520 -3831.852   -19.796  5493.178  1203.102
+root [27] m_spmc->fVDetBlock->Print()
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Vol   Gen     PDG Particle          Creation   SimID   PPdg  PSimID  StopProc     X          Y          Z     Edep(Tot) Edep(NIO)  Step    Time      Px        Py        Pz
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   91       0  -2212 antiproton              56       1     -1      -1      49   3973.635     63.155  -4144.290  0.00000  0.00000    0.020   17.087  -68.395  -35.986  389.824
+   91      -1  -2212 antiproton              56  100001  -2212       1      49   3973.610     63.140  -4144.140  0.00000  0.00000    0.020   17.089  -68.382  -36.009  389.824
+   92      -1  -2212 antiproton              56  100001  -2212       1      49   3973.589     63.129  -4144.020  0.00000  0.00000    0.020   17.090  -67.192  -35.146  389.712
+    1      -1  -2212 antiproton              56  100001  -2212       1      49   3951.852     46.985  -4004.000  0.00000  0.00000    0.020   18.311  -53.090  -53.800  389.759
+    2      -1  -2212 antiproton              56  100001  -2212       1      49   3921.683   -102.483  -3004.020  0.00000  0.00000    0.022   29.231  -44.148  -11.989   97.436
+   98      -1  -2212 antiproton              56  100001  -2212       1      49   3108.062    -86.087   -795.952  0.00000  0.00000    0.022  106.744  -45.388   36.963   90.333
+    3      -1  -2212 antiproton              56  100001  -2212       1      49    825.000     21.758     73.177  0.00000  0.00000    0.023  187.418  -95.401   26.137   42.450
+    4      -1  -2212 antiproton              56  100001  -2212       1      49     25.020     14.094     50.801  0.00000  0.00000    0.022  213.415  -96.883    1.607   46.879
+    5      -1  -2212 antiproton              56  300001  -2212  200001      49    -25.000     22.505     72.675  0.00000  0.00000    0.022  217.336  -25.141    9.897    7.290
+    6      -1  -2212 antiproton              56  300001  -2212  200001      49   -824.980     49.452     78.863  0.00000  0.00000    0.022  316.327  -25.667    6.142   -9.307
+   99      -1  -2212 antiproton              56  300001  -2212  200001      49  -3007.758     -2.034    896.228  0.00000  0.00000    0.022  610.904  -17.051  -12.303   18.466
+    7      -1  -2212 antiproton              56  400001  -2212  300001      49  -3826.353    -19.612   2930.000  0.00000  0.00000    0.022  890.054   -9.073    8.595   25.038
+    8      -1  -2212 antiproton              56  400001  -2212  300001      49  -3825.464    -30.681   3929.980  0.00000  0.00000    0.022 1013.365   -2.760   10.970   25.595
+   85      -1  -2212 antiproton              56  400001  -2212  300001      49  -3850.305    -19.543   4881.480  0.00000  0.00000    0.022 1129.270   -9.579   -4.714   25.867
+    9      -1  -2212 antiproton              56  400001  -2212  300001      49  -3823.151    -25.478   5465.980  0.00000  0.00000    0.021 1199.839   -6.790    7.473   26.098
+** <2019-11-25 Mon> check_grid _output copy_log_files list_pnfs_files          
 
    ts_warm_bore/scripts/check_grid_output ts_warm_bore 711_2064 pbar:vd91:01 ts1:sim . > /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/catalogs/711_2064/ts1/ts_warm_bore.711_2064.pbar_vd91_01.ts1_sim.check_grid_output.log
    ts_warm_bore/scripts/check_grid_output ts_warm_bore 711_2064 pbar:vd91:02 ts1:sim . > /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/catalogs/711_2064/ts1/ts_warm_bore.711_2064.pbar_vd91_02.ts1_sim.check_grid_output.log
@@ -109,7 +433,7 @@ Art has completed and will exit with status 0.
    ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 711_2064 pbar:vd91:04 ts1:sim .
    ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 711_2064 pbar:vd91:05 ts1:sim .
 
-** <2019-11-24 Sun> gen_fcl samweb prestage-dataset submit_grid_job   
+** <2019-11-24 Sun> gen_fcl samweb prestage-dataset submit_grid_job            
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:01 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:02 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_2064 pbar:vd91:03 /grid/fermiapp/mu2e/users/murat/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.art ts1:sim .
@@ -214,7 +538,7 @@ Art has completed and will exit with status 0.
  *Run,Event:   1000,107763    Rs:    3131 : bit:7: pbar P > 100 in the end, p =    113.256 t=    180.908
  *Run,Event:   1000,131697    Rs:    3242 : bit:7: pbar P > 100 in the end, p =    116.623 t=    203.069
 
-** <2019-10-16 Wed> gen_fcl     gridexport      
+** <2019-10-16 Wed> gen_fcl     gridexport                                     
 
   508  setup mu2efiletools
   509  setup mu2etools
@@ -228,7 +552,7 @@ Art has completed and will exit with status 0.
 
   gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
 
-** <2019-10-12 Sat> gen_fcl gridexport list_pnfs_files      
+** <2019-10-12 Sat> gen_fcl gridexport list_pnfs_files                         
 
   *stage one muons, trace down to VirtualDetector_Coll1In, write out only muons, generate 10 fcl tarballs*
 
@@ -260,7 +584,7 @@ Art has completed and will exit with status 0.
   dsid=711_1050
   ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 711_1050 gen 500_20000_00 s1_sim mubeam .
 
-** <2019-10-11 Fri> check_grid_output gen_fcl     
+** <2019-10-11 Fri> check_grid_output gen_fcl                                  
   *replacing the code tarbal*
   rm -f /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz ; cp ts_warm_bore/tmp_code/ts_warm_bore.code.711_2020.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
 
@@ -282,12 +606,12 @@ Art has completed and will exit with status 0.
 
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2030 pbar:vd91:01 ts1_sim 24h ifdh .
 
-** <2019-10-10 Thu> check_grid_output     
+** <2019-10-10 Thu> check_grid_output                                          
 
   dsid=711_2012; 
   ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid ts1 mubeam ts2_sim >| ts_warm_bore/catalogs/$dsid/ts2/ts_warm_bore.$dsid.ts1_mubeam_ts2_sim.check_grid_output.log
   
-** <2019-10-09 Wed> gen_fcl submit_mu2e_job debugging   
+** <2019-10-09 Wed> gen_fcl submit_mu2e_job debugging                          
 
   *ntuple S0 PBAR dataset - partially*
 
@@ -606,7 +930,7 @@ root [31] m_spmc->fVDetBlock->Print()
     3      -1  -2212 antiproton              56  100001  -2212       1      49    825.000    180.248    -12.766  0.00000  0.00000    0.021  265.716  -89.154   15.493  -13.764
     4      -1  -2212 antiproton              56  100001  -2212       1      49     25.020    188.588     -4.161  0.00000  0.00000    0.020  293.884  -89.339   14.935  -13.167
 
-** <2019-10-07 Mon> catalog_stntuples check_grid_output copy_log_files  
+** <2019-10-07 Mon> catalog_stntuples check_grid_output copy_log_files         
 
   Stntuple/scripts/catalog_stntuples -b ts_warm_bore -d 711_2000_ts2_mubeam -D /mu2e/data/users/murat/datasets/ts_warm_bore/711_2000/ts2/mubeam_stn -p 711_2000_ts2_mubeam -n 10000000000
   dsid=711_2005 ; Stntuple/scripts/catalog_stntuples -b ts_warm_bore -d ${dsid}1_ts2_mubeam -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/ts2/mubeam_stn -p ${dsid}_ts2_mubeam -n 10000000000
@@ -666,7 +990,7 @@ root [31] m_spmc->fVDetBlock->Print()
 
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2000 ts3:mubeam s3_sim 10h ifdh .
 
-** <2019-09-30 Mon> submit_mu2e_job ... debugging    
+** <2019-09-30 Mon> submit_mu2e_job ... debugging                              
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/711_2001/TS_711_2001.fcl \
   -s /pnfs/mu2e/tape/phy-sim/sim/mu2e/antiprotons_cs1VD91/170829/art/5c/b6/sim.mu2e.antiprotons_cs1VD91.170829.001000_00000751.art \
@@ -726,18 +1050,17 @@ root [6] m_spmc->fSimpBlock->Print(); m_spmc->fStepPointMCBlock->Print()
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     0      -1     11 e-                      56  100001     11    7546      49  -3877.327      5.180   2929.000  0.00000  0.00000    1.550   80.127   -2.162    2.469    2.792
 
-** <2019-09-28 Sat> ntupling - use the final output directory:     
+** <2019-09-28 Sat> ntupling - use the final output directory:                 
 
   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/711_1030.s2_mubeam.s3_stn/cnf.murat.ts_warm_bore.711_1030_s2_mubeam_s3_stn.000001_00000000.fcl \
                                 -o /mu2e/data/users/murat/datasets/ts_warm_bore/711_1030/s2/mubeam_stn
 
-** <2019-09-24 Tue> gridexport gen_fcl submit_grid_job
-  
+** <2019-09-24 Tue> gridexport gen_fcl submit_grid_job                         
   gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1010 gen 250_20000 s1 sim .
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1010 gen 250_20000 s1 sim .
 
-** <2019-09-22 Sun> list_pnfs_files
+** <2019-09-22 Sun> list_pnfs_files                                            
 
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim tgtstop 23548622 .
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim ootstop 23548622 .
@@ -746,7 +1069,7 @@ root [6] m_spmc->fSimpBlock->Print(); m_spmc->fStepPointMCBlock->Print()
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim mothers 23548622 .
   ts_warm_bore/scripts/list_pnfs_files 711_1009 s2 mubeam s3 sim beam 23548622 .
 
-** <2019-09-17 Tue>  gen_fcl submit_grid_job 
+** <2019-09-17 Tue>  gen_fcl submit_grid_job                                   
 
   ts_warm_bore/scripts/gen_fcl ts_warm_bore 711_1009 s1 mubeam s2 sim .
   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_1009 s1 mubeam s2 sim .

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+#------------------------------------------------------------------------------
 count_genevents() {
     dir=$1
     pattern=$2
@@ -16,6 +16,7 @@ count_genevents() {
     done | awk '{n += $3} END{print n}'
 }
 
+#------------------------------------------------------------------------------
 count_nevents() {
     dir=$1
     pattern=$2
@@ -32,6 +33,8 @@ count_nevents() {
     done | awk '{n += $5} END{print n}'
 }
 
+
+#------------------------------------------------------------------------------
 count() {
     dir=$1
     pattern=$2
@@ -44,30 +47,46 @@ count() {
 
 
 #------------------------------------------------------------------------------
-# clone project dsid1 dsid2
+# call signature: clone ts_warm_bore 711_1000 760_1000
 #------------------------------------------------------------------------------
 clone() {
 
     project=$1
-    dsid1=$2
-    dsid2=$3
+      dsid1=$2
+      dsid2=$3
 
     if [ ! -d $project/$dsid2 ] ; then mkdir $project/$dsid2 ; fi
+#------------------------------------------------------------------------------    
+# 1. clone fcl, org, and geom files
+#------------------------------------------------------------------------------ 
+    files=`ls $project/$dsid1/*.fcl`
+    files=$files" "$project/$dsid1/$project.$dsid1.org
+    files=$files" "$project/$dsid1/geom_$dsid1.txt
 
-    for f in `ls $project/$dsid1/*` ; do 
+    for f in $files ; do 
 	f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
 	cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
     done
+#------------------------------------------------------------------------------
+# 2. for catalog subdirectory, clone the structure and .org files, but not 
+#    anything else
+#
+# 2.a make sure the catalog subdirectory exists
+#------------------------------------------------------------------------------
+    cdir1=$project/$dsid1/catalog
+    cdir2=$project/$dsid2/catalog
 
-    if [ ! -d $project/catalogs/$dsid2 ] ; then mkdir -p $project/catalogs/$dsid2 ; fi
+    if [ ! -d $cdir2 ] ; then mkdir -p $cdir2 ; fi
+#------------------------------------------------------------------------------
+# 2.b do the cloning per se
+#------------------------------------------------------------------------------
+    for d in `ls $cdir1` ; do 
 
-    for d in `ls $project/catalogs/$dsid1` ; do 
-
-	dd1=$project/catalogs/$dsid1/$d
-	dd2=$project/catalogs/$dsid2/$d
+	dd1=$cdir1/$d
+	dd2=$cdir2/$d
 
 	if [ ! -d $dd2 ] ; then mkdir $dd2 ; fi
-	for f in `ls $dd1/*` ; do 
+	for f in `ls $dd1/*.org ` ; do 
 	    f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
 	    cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
 	done

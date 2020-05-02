@@ -2,6 +2,8 @@
 # ---------------------------------------------------------------------------------------------------------------------------------------
 # tsud_warm_bore project definitions
 #
+# 711_1xxx: muons, 711_2xxx: pbars/pi- 
+# ------------------------------------
 # 711_1000: default geometry, used to generate a 5M dataset
 # 711_1001: "worst case"    , used to generate a 5M dataset
 # 711_1003: non-round TS5 collimator hole
@@ -20,25 +22,29 @@
 # 711_1021 ... 711_1025: DY = +1, +2, +3, +4, +5 mm
 #
 # 711_1030 : default geometry   , statistics of 711_1000 doubled
-# 711_1031 : TS1 win: STND, TS1 coll: Rin=150mm no collar,
-# 711_1032 : TS1 win: STND, TS1 coll: Rin=120mm          , no TS1 pbar collar
-# 711_1033 : TS1 win: STND, TS1 coll: default            , TS3 window: Al 250 um, TS3 wedge: Al 197-37 mm, 4 strips 75 um : 4x75 + 250 (to compare to 711_1000)
+# 711_1031 : TS1 win: STND, TS1 coll: cylinder Rin=150mm 
+# 711_1032 : TS1 win: STND, TS1 coll: cylinder Rin=120mm
+# 711_1033 : TS1 win: STND, TS1 coll: default              , TS3 window: Al 250 um, TS3 wedge: Al 197-37 mm, 4 strips 75 um : 4x75 + 250 (to compare to 711_1000)
 #
-# 711_1040 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 165 um Be, TS3 wedge: NONE run S2 on 711_1032:S1
-# 711_1043 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 300 um Be, TS3 wedge: NONE
-# 711_1045 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 500 um Be, TS3 wedge: NONE
-# 711_1049 : TS1 win: STND, TS1 coll: Rin=120mm          , TS3 win: 900 um Be, TS3 wedge: NONE
+# 711_1040 : TS1 win: STND, TS1 coll: Rin=120mm            , TS3 win: 165 um Be, TS3 wedge: NONE run S2 on 711_1032:S1
+# 711_1043 : TS1 win: STND, TS1 coll: Rin=120mm            , TS3 win: 300 um Be, TS3 wedge: NONE
+# 711_1045 : TS1 win: STND, TS1 coll: Rin=120mm            , TS3 win: 500 um Be, TS3 wedge: NONE
+# 711_1049 : TS1 win: STND, TS1 coll: Rin=120mm            , TS3 win: 900 um Be, TS3 wedge: NONE
 #
-# 711_1050 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 optimized for pbars, geometry same as in 711_2030, Stage1 ends at Coll1_In, should be invariant
-# 711_1051 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 optimized for pbars, geometry same as in 711_2031  muons
-# 711_1052 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, wedge down to 4cm, 4 200 um strips
-# 711_1053 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, wedge down to 4cm, 4 100 um strips
+# 711_1050 : TS1 win: STND, TS1 coll: half-cylinder        , TS3 optimized for pbars, geometry same as in 711_2030, Stage1 ends at Coll1_In, should be invariant
+# 711_1051 : TS1 win: STND, TS1 coll: half-cylinder        , TS3 optimized for pbars, geometry same as in 711_2031  muons
+# 711_1052 : TS1 win: STND, TS1 coll: half-cylinder        , TS3 win: 300 um Be, wedge down to 4cm, 4 200 um strips
+# 711_1053 : TS1 win: STND, TS1 coll: half-cylinder        , TS3 win: 300 um Be, wedge down to 4cm, 4 100 um strips
 #
 # 711_1054 : default geometry, TS simulation starts from Coll1_In (input from 711_1050 Stage1) - to compare to 711_1030:S2 *checked out* !
 #
-# 711_1055 : TS1 win: STND, TS1 coll: half-cylinder      , TS3 win: 300 um Be, TS3 wedge: Be down to 8cm, 3 100 um strips, need to go lower
-# 711_1060 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al down to 8 cm, 3 50 um strips, need to go lower
-# 711_1061 : TS1 win: NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al down to 4 cm, 4 75 um strips
+# 711_1055 : TS1 win: STND, TS1 coll: half-cylinder        , TS3 win: 300 um Be, TS3 wedge: Be down to 8cm, 3 100 um strips, need to go lower
+# 711_1060 : TS1 win: NONE, TS1 coll: half-cylinder        , TS3 win: 250 um Al, TS3 wedge: Al down to 8 cm, 3 50 um strips, need to go lower
+# 711_1061 : TS1 win: NONE, TS1 coll: half-cylinder        , TS3 win: 250 um Al, TS3 wedge: Al down to 4 cm, 4 75 um strips
+
+# 711_1100 : TS1 win: 250 um, TS1 coll: default            , TS3 win: 165 um Be, TS3 wedge: Be, default 6 strips              50 MeV threshold
+# 711_1101 : TS1 win: 250 um, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 3 127 um strips  50 MeV threshold
+# 711_1102 : TS1 win: 250 um, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 3 127 um strips 100 MeV threshold
 #
 # 711_2000 - 711_2030 : PBARS, start from VD91
 # -----------------------------------------------
@@ -68,7 +74,9 @@
 # 711_2063 : TS1 win:   NONE, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 4  75 um strips .. no pbar filtering for delayed RPC
 # 711_2064 : TS1 win: 100 um, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 6cm, 2 127 um strips .. no pbar filtering for delayed RPC use resampling
 # 711_2065 : TS1 win: 100 um, TS1 coll: half-cylinder      , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 3 127 um strips .. no pbar filtering for delayed RPC use resampling
-# 711_2100 : default geometry, new generation scheme
+#
+# 711_2100 : default geometry, new generation scheme - resampling
+# 711_2101 : TS1 win: 250 um, TS1 coll: default            , TS3 win: 250 um Al, TS3 wedge: Al, down to 4cm, 3 127 um strips .. no pbar filtering for delayed RPC use resampling
 #
 # 714_0011 : customized simulation of the external RPC to estimate the probability to reconstruct a e- track per emitted photon
 #
@@ -79,218 +87,274 @@
 #                                         name           files                    per
 #                                                        /segment              segment
 # ---------------------------------------------------------------------------------------------------------------------------------
-711_1009    gen   250_20000    s1_sim   PS                   0       20000       20000    250  24029339     1.1    COMPLETED
-711_1009    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     10  23532637     0.02   COMPLETED
-711_1010    gen   250_20000    s1_sim   PS                   0       20000       20000    250  24497122     1.1    COMPLETED
-711_1010    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     10  24534991     0.02   COMPLETED
-711_1010    s2    mubeam       s3_sim   DS_simulation        0       20000     1000000      5  24557645     0.02   COMPLETED
-#			              
-711_1011    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17040813     1.1    COMPLETED
-711_1012    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17039568     1.1    COMPLETED
-711_1013    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17039491     1.1    COMPLETED
-711_1014    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17040933     1.1    COMPLETED
-711_1015    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17056270     1.1    COMPLETED
-711_1021    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17198986     1.1    COMPLETED
-711_1022    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17039439     1.1    COMPLETED
-711_1023    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17085512     1.1    COMPLETED
-711_1024    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17056405     1.1    COMPLETED
-711_1025    gen   250_20000    s1_sim   PS                   0       20000       20000    250  17056321     1.1    COMPLETED
-#			       
-711_1030    gen   500_20000    s1_sim   PS                   0       20000       20000    500  24602744     1.1    COMPLETED
-711_1030    s1    mubeam       s2_sim   TS_Simulation        0       20000      500000     20  23948333     0.02   COMPLETED
-711_1030    s2    mubeam       s3_sim   TS_Simulation        0       20000     1000000     10  24631706     0.02   COMPLETED
-#			       
-711_1031    gen   500_20000    s1_sim   PS                   0       20000       20000    500  23949908     1.1    COMPLETED
-711_1031    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  23996610     0.02   COMPLETED
-711_1031    s2    mubeam       s3_sim   TS_simulation        0       20000     1000000     10  24669508     0.02   COMPLETED
-#			       
-711_1032    gen   500_20000    s1_sim   PS                   0       20000       20000    500  24640496     1.1    COMPLETED
-711_1032    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  23996660     0.02   COMPLETED
-711_1032    s2    mubeam       s3_sim   TS_simulation        0       20000     1000000     10  24669653     0.02   COMPLETED
-			       
-711_1033    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25737749     0.02   SUBMITTED
-711_1033    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443939       0.02   SUBMITTED
+711_1009    gen   250_20000    s1_sim   PS                   0       20000       20000    250      24029339    ...............   1.1    COMPLETED
+711_1009    s1    mubeam       s2_sim   TS                   0       20000      500000     10      23532637    ...............   0.02   COMPLETED
+711_1010    gen   250_20000    s1_sim   PS                   0       20000       20000    250      24497122    ...............   1.1    COMPLETED
+711_1010    s1    mubeam       s2_sim   TS                   0       20000      500000     10      24534991    ...............   0.02   COMPLETED
+711_1010    s2    mubeam       s3_sim   DS                   0       20000     1000000      5      24557645    ...............   0.02   COMPLETED
+#			              							           
+711_1011    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17040813    ...............   1.1    COMPLETED
+711_1012    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17039568    ...............   1.1    COMPLETED
+711_1013    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17039491    ...............   1.1    COMPLETED
+711_1014    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17040933    ...............   1.1    COMPLETED
+711_1015    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17056270    ...............   1.1    COMPLETED
+711_1021    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17198986    ...............   1.1    COMPLETED
+711_1022    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17039439    ...............   1.1    COMPLETED
+711_1023    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17085512    ...............   1.1    COMPLETED
+711_1024    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17056405    ...............   1.1    COMPLETED
+711_1025    gen   250_20000    s1_sim   PS                   0       20000       20000    250      17056321    ...............   1.1    COMPLETED
+#			       								           
+711_1030    gen   500_20000    s1_sim   PS                   0       20000       20000    500      24602744    ...............   1.1    COMPLETED
+711_1030    s1    mubeam       s2_sim   TS                   0       20000      500000     20      23948333    ...............   0.02   COMPLETED
+711_1030    s2    mubeam       s3_sim   DS                   0       20000     1000000     10      24631706    ...............   0.02   COMPLETED
+#			       								           
+711_1031    gen   500_20000    s1_sim   PS                   0       20000       20000    500      23949908    ...............   1.1    COMPLETED
+711_1031    s1    mubeam       s2_sim   TS                   0       20000      500000     20      23996610    ...............   0.02   COMPLETED
+711_1031    s2    mubeam       s3_sim   DS                   0       20000     1000000     10      24669508    ...............   0.02   COMPLETED
+#			       								           
+711_1032    gen   500_20000    s1_sim   PS                   0       20000       20000    500      24640496    ...............   1.1    COMPLETED
+711_1032    s1    mubeam       s2_sim   TS                   0       20000      500000     20      23996660    ...............   0.02   COMPLETED
+711_1032    s2    mubeam       s3_sim   DS                   0       20000     1000000     10      24669653    ...............   0.02   COMPLETED
+			       								           
+711_1033    s1    mubeam       s2_sim   TS                   0       20000      500000     20      25737749    ...............   0.02   SUBMITTED
+711_1033    s2    mubeam       s3_sim   DS                   0      500000          20     20      443939      ...............   0.02   SUBMITTED
+											           
+711_1040    s1    mubeam       s2_sim   TS                   0       20000      500000     20      24376976    ...............   0.02   COMPLETED
+711_1040    s2    mubeam       s3_sim   DS                   0       20000      500000     20      25172989    ...............   0.02   COMPLETED
+711_1043    s1    mubeam       s2_sim   TS                   0       20000      500000     20      25128132    ...............   0.02   COMPLETED
+711_1043    s2    mubeam       s3_sim   DS                   0       20000      500000     20      25172999    ...............   0.02   COMPLETED
+711_1045    s1    mubeam       s2_sim   TS                   0       20000      500000     20      25128143    ...............   0.02   COMPLETED
+711_1045    s2    mubeam       s3_sim   DS                   0       20000      500000     20      25173006    ...............   0.02   COMPLETED
+711_1049    s1    mubeam       s2_sim   TS                   0       20000      500000     20      25128155    ...............   0.02   COMPLETED
+711_1049    s2    mubeam       s3_sim   DS                   0       20000      500000     20      25173010    ...............   0.02   COMPLETED
+											           
+711_1050    gen   500_20000_00 s1_sim   PS                   0       20000       20000   1000      24674849    ...............   1.1    COMPLETED
+711_1050    gen   500_20000_01 s1_sim   PS                   0       20000       20000   1000      24675990    ...............   1.1    COMPLETED 
+711_1050    gen   500_20000_02 s1_sim   PS                   0       20000       20000   1000      24676002    ...............   1.1    COMPLETED 
+711_1050    gen   500_20000_03 s1_sim   PS                   0       20000       20000   1000      24676017    ...............   1.1    COMPLETED
+711_1050    gen   500_20000_04 s1_sim   PS                   0       20000       20000   1000      25410107    ...............   1.1    COMPLETED
+711_1050    s1    mubeam       s2_sim   TS                   0      500000          20     20      24705124    ...............   0.02   COMPLETED
+					             					           
+711_1051    s1    mubeam       s2_sim   TS                   0      500000          20     20      24716394    ...............   0.02   COMPLETED
+711_1051    s2    mubeam       s3_sim   DS                   0      500000          20     20      25459295    ...............   0.02   COMPLETED
+											           
+711_1052    s1    mubeam       s2_sim   TS                   0      500000          20     20      25461533    ...............   0.02   COMPLETED
+711_1052    s2    mubeam       s3_sim   DS                   0      500000          20     20      25473921    ...............   0.02   COMPLETED
+											           
+711_1053    s1    mubeam       s2_sim   TS                   0      500000          20     20      24753425    ...............   0.02   COMPLETED
+711_1053    s2    mubeam       s3_sim   DS                   0      500000          20     20      24790855    ...............   0.02   COMPLETED
+											           
+711_1054    s1    mubeam       s2_sim   TS                   0      500000          20     20      24783345    ...............   0.02   SUBMITTED
+											           
+711_1060    gen   500_20000_00 s1_sim   PS                   0       20000       20000   1000      331984      ...............   1.1    SUBMITTED 
+711_1060    gen   500_20000_01 s1_sim   PS                   0       20000       20000   1000      332140      ...............   1.1    SUBMITTED
+711_1060    gen   500_20000_02 s1_sim   PS                   0       20000       20000   1000      339929      ...............   1.1    SUBMITTED
+711_1060    gen   500_20000_03 s1_sim   PS                   0       20000       20000   1000      346419      ...............   1.1    SUBMITTED
+711_1060    gen   500_20000_04 s1_sim   PS                   0       20000       20000   1000      347592      ...............   1.1    SUBMITTED
+											           
+711_1061    s1    mubeam       s2_sim   TS                   0      500000          20     20      416009      ...............   0.02   COMPLETED
+711_1061    s2    mubeam       s3_sim   DS                   0      500000          20     20      443987      ...............   0.02   SUBMITTED
 
-711_1040    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  24376976     0.02   COMPLETED
-711_1040    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25172989     0.02   COMPLETED
-711_1043    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25128132     0.02   COMPLETED
-711_1043    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25172999     0.02   COMPLETED
-711_1045    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25128143     0.02   COMPLETED
-711_1045    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25173006     0.02   COMPLETED
-711_1049    s1    mubeam       s2_sim   TS_simulation        0       20000      500000     20  25128155     0.02   COMPLETED
-711_1049    s2    mubeam       s3_sim   DS_simulation        0       20000      500000     20  25173010     0.02   COMPLETED
-
-711_1050    gen   500_20000_00 s1_sim   PS                   0       20000       20000   1000  24674849     1.1    COMPLETED
-711_1050    gen   500_20000_01 s1_sim   PS                   0       20000       20000   1000  24675990     1.1    COMPLETED 
-711_1050    gen   500_20000_02 s1_sim   PS                   0       20000       20000   1000  24676002     1.1    COMPLETED 
-711_1050    gen   500_20000_03 s1_sim   PS                   0       20000       20000   1000  24676017     1.1    COMPLETED
-711_1050    gen   500_20000_04 s1_sim   PS                   0       20000       20000   1000  25410107     1.1    COMPLETED
-711_1050    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24705124     0.02   COMPLETED
-
-711_1051    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24716394     0.02   COMPLETED
-711_1051    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  25459295     0.02   COMPLETED
-
-711_1052    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  25461533     0.02   COMPLETED
-711_1052    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  25473921     0.02   COMPLETED
-
-711_1053    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24753425     0.02   COMPLETED
-711_1053    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  24790855     0.02   COMPLETED
-
-711_1054    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  24783345     0.02   SUBMITTED
-
-711_1060    gen   500_20000_00 s1_sim   PS                   0       20000       20000   1000  331984       1.1    SUBMITTED 
-711_1060    gen   500_20000_01 s1_sim   PS                   0       20000       20000   1000  332140       1.1    SUBMITTED
-711_1060    gen   500_20000_02 s1_sim   PS                   0       20000       20000   1000  339929       1.1    SUBMITTED
-711_1060    gen   500_20000_03 s1_sim   PS                   0       20000       20000   1000  346419       1.1    SUBMITTED
-711_1060    gen   500_20000_04 s1_sim   PS                   0       20000       20000   1000  347592       1.1    SUBMITTED
-
-711_1061    s1    mubeam       s2_sim   TS_simulation        0      500000          20     20  416009       0.02   COMPLETED
-711_1061    s2    mubeam       s3_sim   TS_simulation        0      500000          20     20  443987       0.02   SUBMITTED
-
-# 711_2000    s1    vd91       s2_sim  TS_simulation_1      0       20000     1000000    100   24842872	    0.02  *failed*
-# 711_2001    s1    vd91       s2_sim  TS_simulation_1      0       20000   100000000    100   24843380     0.02  *failed*
-
-711_2000    s1    vd91         ts1_sim  TS_simulation_1      1      360000     4000000    485:100  24899282	    0.02   68/100
-711_2000    pbar  vd91_01      ts1_sim  TS_simulation_1      1      360000     4000000    100      25117009	    0.02   32/32
-711_2000    pbar  vd91_02      ts1_sim  TS_simulation_1      1      360000     4000000    100      25110139	    0.02   COMPLETED
-711_2000    pbar  vd91_03      ts1_sim  TS_simulation_1      1      360000     4000000    100      25137666	    0.02
-711_2000    pbar  vd91_04      ts1_sim  TS_simulation_1      1      360000     4000000    100      24396219	    0.02
-711_2000    pbar  vd91_05      ts1_sim  TS_simulation_1      1      360000     4000000    100      24396858	    0.02
-711_2000    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000     50      25189703	    0.02
-711_2000    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000     50      25419226	    0.02
-711_2000    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6      24693467	    0.02
-			       
-711_2001    s1    vd91         ts1_sim  TS_simulation_1      0       20000   100000000    100  24176321     0.02  80/100
-711_2001    pbar  vd91_01      ts1_sim  TS_simulation_1      0       20000     1000000     20  25117046	    0.02  18/20
-711_2001    pbar  vd91_02      ts1_sim  TS_simulation_1      0       20000   100000000    100  24367359     0.02
-711_2001    pbar  vd91_03      ts1_sim  TS_simulation_1      0       20000   100000000    100  25137688     0.02
-711_2001    pbar  vd91_04      ts1_sim  TS_simulation_1      0       20000   100000000    100  24396215     0.02
-711_2001    pbar  vd91_05      ts1_sim  TS_simulation_1      0       20000     1000000    100  24396866     0.02
-711_2001    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25189704	    0.02
-711_2001    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25419741     0.02  *first section crashed*
-711_2001    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  25228191     0.02
-			       
-711_2002    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25192166     0.02
-711_2002    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25420479     0.02  *first section crashed*
-711_2002    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  25228197     0.02
-			       
-711_2003    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25192174     0.02 
-711_2003    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25420629     0.02  *first section crashed*
-711_2003    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  25228204     0.02
-			       
-711_2005    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25192181     0.02
-711_2005    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25422362     0.02  *first section crashed*
-711_2005    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  25228221     0.02
-			       
-711_2007    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25192191     0.02
-711_2007    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25423773     0.02  *first section crashed*
-711_2007    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  25228332     0.02
-			       
-711_2010    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25192192     0.02
-711_2010    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25423798     0.02  *first section crashed*
-711_2010    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24445828     0.02
-			       
-711_2012    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25344930     0.02
-
-711_2013    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25746363     0.02   COMPLETED
-			       
-711_2020    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25361827     0.02
-711_2020    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25419786     0.02
-711_2020    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24709037     0.02
-
-711_2022    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  645754       0.02   SUBMITTED
-			       
-711_2030    pbar  vd91_01      ts1_sim  TS_simulation_1      0       20000   100000000    100  25378573     1.1    COMPLETED
-711_2030    pbar  vd91_02      ts1_sim  TS_simulation_1      0       20000   100000000    100  25378613     1.1    COMPLETED
-711_2030    pbar  vd91_03      ts1_sim  TS_simulation_1      0       20000   100000000    100  24667469     1.1    COMPLETED
-711_2030    pbar  vd91_04      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1  
-711_2030    pbar  vd91_05      ts1_sim  TS_simulation_1      0       20000   100000000    100               1.1  
-711_2030    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  24705190     0.02   COMPLETED
-
-711_2031    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  24716463     0.02   COMPLETED
-711_2031    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  25459271     0.02   COMPLETED
-711_2031    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24735026     0.02   COMPLETED
-
-711_2032    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25461540     0.02   COMPLETED
-711_2032    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6  24746505     0.02   COMPLETED
-711_2032    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6  24756502     0.02   COMPLETED
-
-711_2033    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  24751424     0.02   COMPLETED
-711_2033    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6               0.02   
-
-711_2055    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6  25498508     0.02   SUBMITTED
-
-711_2060    pbar  vd91_01      ts1_sim  TS                   1       20000   100000000    100  25525777     1.1    COMPLETED
-711_2060    pbar  vd91_02      ts1_sim  TS                   1       20000   100000000    100  25526449     1.1    COMPLETED
-711_2060    pbar  vd91_03      ts1_sim  TS                   1       20000   100000000    100  107433       1.1    COMPLETED  
-711_2060    pbar  vd91_04      ts1_sim  TS                   1       20000   100000000    100               1.1    
-711_2060    pbar  vd91_05      ts1_sim  TS                   1       20000   100000000    100               1.1    
-711_2060    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6  328708       0.02   
-
-711_2061    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6  416031       0.02   COMPLETED
-711_2061    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6  416031       0.02   COMPLETED
-
-711_2062    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6     645195       0.02   COMPLETED
-
-711_2063    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6     25991388     0.02   COMPLETED
-711_2063    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6     774174       0.02   COMPLETED
-711_2063    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6     1691034      0.02   COMPLETED
+711_1100    gen   pot          s1_sim   PS                   1      500000      500000     40      2113037     ...............   1.1   COMPLETED
+711_1100    s1    mubeam       s2_sim   Muons                5      500000      500000      1      2160847     tgtstop,ootstop   1.1   COMPLETED*
+711_1100    s2    tgtstops     s2_stn   g4s3_tgtstops_stn   10      500000      500000      1                  ...............   1.1   
+													       
+711_1101    gen   pot          s1_sim   PS_050               1      500000      500000     40      2113077     ...............   1.1   COMPLETED
+711_1101    s1    mubeam       s2_sim   Muons_050            5      500000      500000     40      2160864     tgtstop,ootstop   1.1   COMPLETED
+711_1101    s2    tgtstops     s2_stn   g4s3_tgtstops_stn   10      500000      500000      1                  ...............   1.1   
+													       
+711_1102    gen   pot          s1_sim   PS_100               1      500000      500000     40      2113170     ...............   1.1    COMPLETED
+711_1102    s1    mubeam       s2_sim   Muons_100            5      500000      500000     40      2160865     tgtstop,ootstop   1.1    *SUBMITTED*
+711_1102    s2    tgtstops     s2_stn   g4s3_tgtstops_stn   10      500000      500000      1                  ...............   1.1   
+#---------------------------------------------------------------------------------------------------------------------------
+711_2000    s1    vd91         ts1_sim  TS                   1      360000     4000000    485:100  24899282    mubeam            0.02   68/100
+711_2000    pbar  vd91_01      ts1_sim  TS                   1      360000     4000000    100      25117009    mubeam            0.02   32/32
+711_2000    pbar  vd91_02      ts1_sim  TS                   1      360000     4000000    100      25110139    mubeam            0.02   COMPLETED
+711_2000    pbar  vd91_03      ts1_sim  TS                   1      360000     4000000    100      25137666    mubeam            0.02
+711_2000    pbar  vd91_04      ts1_sim  TS                   1      360000     4000000    100      24396219    mubeam            0.02
+711_2000    pbar  vd91_05      ts1_sim  TS                   1      360000     4000000    100      24396858    mubeam            0.02
+711_2000    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000     50      25189703    mubeam            0.02
+711_2000    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000     50      25419226    mubeam            0.02
+711_2000    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      24693467    tgtstop,ootstop   0.02
+			       										       
+711_2001    s1    vd91         ts1_sim  TS                   0       20000   100000000    100      24176321    ...............   0.02  80/100
+711_2001    pbar  vd91_01      ts1_sim  TS                   0       20000     1000000     20      25117046    ...............	    0.02  18/20
+711_2001    pbar  vd91_02      ts1_sim  TS                   0       20000   100000000    100      24367359    ...............   0.02
+711_2001    pbar  vd91_03      ts1_sim  TS                   0       20000   100000000    100      25137688    ...............   0.02
+711_2001    pbar  vd91_04      ts1_sim  TS                   0       20000   100000000    100      24396215    ...............   0.02
+711_2001    pbar  vd91_05      ts1_sim  TS                   0       20000     1000000    100      24396866    ...............   0.02
+711_2001    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25189704    ...............   0.02
+711_2001    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25419741    ...............   0.02  *first section crashed*
+711_2001    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      25228191    ...............   0.02
+			       								           	       
+711_2002    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25192166    ...............   0.02
+711_2002    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25420479    ...............   0.02  *first section crashed*
+711_2002    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      25228197    ...............   0.02
+			       								           	       
+711_2003    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25192174    ...............   0.02 
+711_2003    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25420629    ...............   0.02  *first section crashed*
+711_2003    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      25228204    ...............   0.02
+			       								           	       
+711_2005    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25192181    ...............   0.02
+711_2005    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25422362    ...............   0.02  *first section crashed*
+711_2005    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      25228221    ...............   0.02
+			       								           	       
+711_2007    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25192191    ...............   0.02
+711_2007    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25423773    ...............   0.02  *first section crashed*
+711_2007    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      25228332    ...............   0.02
+			       								           	       
+711_2010    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25192192    ...............   0.02
+711_2010    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25423798    ...............   0.02  *first section crashed*
+711_2010    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      24445828    ...............   0.02
+			       								           	       
+711_2012    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25344930    ...............   0.02
+											           	       
+711_2013    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25746363    ...............   0.02   COMPLETED
+			       								           	       
+711_2020    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25361827    ...............   0.02
+711_2020    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25419786    ...............   0.02
+711_2020    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      24709037    ...............   0.02
+											           	       
+711_2022    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      645754      ...............   0.02   SUBMITTED
+			       								           	       
+711_2030    pbar  vd91_01      ts1_sim  TS                   0       20000   100000000    100      25378573    ...............   1.1    COMPLETED
+711_2030    pbar  vd91_02      ts1_sim  TS                   0       20000   100000000    100      25378613    ...............   1.1    COMPLETED
+711_2030    pbar  vd91_03      ts1_sim  TS                   0       20000   100000000    100      24667469    ...............   1.1    COMPLETED
+711_2030    pbar  vd91_04      ts1_sim  TS                   0       20000   100000000    100                     1.1  
+711_2030    pbar  vd91_05      ts1_sim  TS                   0       20000   100000000    100                  ...............   1.1  
+711_2030    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      24705190    ...............   0.02   COMPLETED
+											           	       
+711_2031    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      24716463    ...............   0.02   COMPLETED
+711_2031    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      25459271    ...............   0.02   COMPLETED
+711_2031    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      24735026    ...............   0.02   COMPLETED
+											           	       
+711_2032    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25461540    ...............   0.02   COMPLETED
+711_2032    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      24746505    ...............   0.02   COMPLETED
+711_2032    ts3   mubeam       s3_sim   DS                   0       20000     1000000      6      24756502    ...............   0.02   COMPLETED
+											           	       
+711_2033    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      24751424    ...............   0.02   COMPLETED
+711_2033    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6                  ...............   0.02   
+											           	       
+711_2055    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      25498508    ...............   0.02   SUBMITTED
+											           	       
+711_2060    pbar  vd91_01      ts1_sim  TS                   1       20000   100000000    100      25525777    ...............   1.1    COMPLETED
+711_2060    pbar  vd91_02      ts1_sim  TS                   1       20000   100000000    100      25526449    ...............   1.1    COMPLETED
+711_2060    pbar  vd91_03      ts1_sim  TS                   1       20000   100000000    100      107433      ...............   1.1    COMPLETED  
+711_2060    pbar  vd91_04      ts1_sim  TS                   1       20000   100000000    100                  ...............   1.1    
+711_2060    pbar  vd91_05      ts1_sim  TS                   1       20000   100000000    100                  ...............   1.1    
+711_2060    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      328708      ...............   0.02   
+											           	       
+711_2061    ts1   mubeam       ts2_sim  TS2                  0       20000     1000000      6      416031      ...............   0.02   COMPLETED
+711_2061    ts2   mubeam       ts3_sim  TS3                  0       20000     1000000      6      416031      ...............   0.02   COMPLETED
+													       
+711_2062    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6      645195      ...............   0.02   COMPLETED
+													       
+711_2063    ts1   mubeam       ts2_sim  TS_simulation_2      0       20000     1000000      6     25991388     ...............  0.02   COMPLETED
+711_2063    ts2   mubeam       ts3_sim  TS_simulation_3      0       20000     1000000      6     774174       ...............  0.02   COMPLETED
+711_2063    ts3   mubeam       s3_sim   DS_simulation        0       20000     1000000      6     1691034      ...............  0.02   COMPLETED
 #------------------------------------------------------------------------------------------------------------------------------
-711_2064    pbar  vd91         ts1_sim  TS_resample:r        1      360000     4000000    485:100 --------     1.1    
-711_2064    pbar  vd91_01      ts1_sim  TS_resample:r        1      360000     4000000    100     26030190     1.1    COMPLETED
-711_2064    pbar  vd91_02      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2064    pbar  vd91_03      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2064    pbar  vd91_04      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2064    pbar  vd91_05      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2064    ts1   mubeam       ts1_stn  g4ts1_mubeam_stn    50       20000     1000000      2     ........     0.02   
-
-711_2064    ts1   mubeam_01    ts2_sim  TS2                 25       20000     1000000      4     26564938     0.02   COMPLETED
-711_2064    ts1   mubeam_02    ts2_sim  TS2                 25       20000     1000000      6     ........     0.02   
-711_2064    ts1   mubeam_03    ts2_sim  TS2                 25       20000     1000000      6     ........     0.02   
-711_2064    ts1   mubeam_04    ts2_sim  TS2                 25       20000     1000000      6     ........     0.02   
-711_2064    ts1   mubeam_05    ts2_sim  TS2                 25       20000     1000000      6     ........     0.02   
-
-711_2064    ts2   mubeam_01    ts2_stn  g4ts2_mubeam_stn     1       20000     1000000      4     ........     0.02   
-
-711_2064    ts2   mubeam_01    ts3_sim  TS3                 20       20000     1000000      1     26581057     0.02   
-711_2064    ts2   mubeam_02    ts3_sim  TS3                  1       20000     1000000      4     ........     0.02   
-711_2064    ts2   mubeam_03    ts3_sim  TS3                  1       20000     1000000      4     ........     0.02   
-711_2064    ts2   mubeam_04    ts3_sim  TS3                  1       20000     1000000      4     ........     0.02   
-711_2064    ts2   mubeam_05    ts3_sim  TS3                  1       20000     1000000      4     ........     0.02   
-											        
-711_2064    ts3   mubeam_01    ts3_stn  g4ts3_mubeam_stn   100       20000     1000000      1     ........     0.02   
-
-711_2064    ts3   mubeam_01    s3_sim   DS                 100       20000     1000000      1     ........     0.02   
-711_2064    s3    tgtstops     s3_stn   g4s3_tgtstops_stn  100       20000     1000000      1     ........     0.02   
+711_2064    pbar  vd91         ts1_sim   TS_resample:r        1      360000     4000000    485:100 ........     ...............  1.1    
+711_2064    pbar  vd91_01      ts1_sim   TS_resample:r        1      360000     4000000    100     26030190     ...............  1.1    COMPLETED
+711_2064    pbar  vd91_02      ts1_sim   TS_resample:r        1      360000     4000000    100     ........     ...............  1.1    
+711_2064    pbar  vd91_03      ts1_sim   TS_resample:r        1      360000     4000000    100     ........     ...............  1.1    
+711_2064    pbar  vd91_04      ts1_sim   TS_resample:r        1      360000     4000000    100     ........     ...............  1.1    
+711_2064    pbar  vd91_05      ts1_sim   TS_resample:r        1      360000     4000000    100     ........     ...............  1.1    
+711_2064    ts1   mubeam       ts1_stn   g4ts1_mubeam_stn    50       20000     1000000      2     ........     ...............  0.02   
+					 								       
+711_2064    ts1   mubeam_01    ts2_sim   TS2                 25       20000     1000000      4     26564938     ...............  0.02   COMPLETED
+711_2064    ts1   mubeam_02    ts2_sim   TS2                 25       20000     1000000      6     ........     ...............  0.02   
+711_2064    ts1   mubeam_03    ts2_sim   TS2                 25       20000     1000000      6     ........     ...............  0.02   
+711_2064    ts1   mubeam_04    ts2_sim   TS2                 25       20000     1000000      6     ........     ...............  0.02   
+711_2064    ts1   mubeam_05    ts2_sim   TS2                 25       20000     1000000      6     ........     ...............  0.02   
+					 								       
+711_2064    ts2   mubeam_01    ts2_stn   g4ts2_mubeam_stn     1       20000     1000000      4     ........     ...............  0.02   
+					 
+711_2064    ts2   mubeam_01    ts3_sim   TS3                 20       20000     1000000      1     26581057     ...............  0.02   
+711_2064    ts2   mubeam_02    ts3_sim   TS3                  1       20000     1000000      4     ........     ...............  0.02   
+711_2064    ts2   mubeam_03    ts3_sim   TS3                  1       20000     1000000      4     ........     ...............  0.02   
+711_2064    ts2   mubeam_04    ts3_sim   TS3                  1       20000     1000000      4     ........     ...............  0.02   
+711_2064    ts2   mubeam_05    ts3_sim   TS3                  1       20000     1000000      4     ........     ...............  0.02   
+					 						        	       
+711_2064    ts3   mubeam_01    ts3_stn   g4ts3_mubeam_stn   100       20000     1000000      1     ........     ...............  0.02   
+					 								       
+711_2064    ts3   mubeam_01    s3_sim    DS                 100       20000     1000000      1     ........     ...............  0.02   COMPLETED
+711_2064    s3    tgtstops     s3_stn    g4s3_tgtstops_stn  100       20000     1000000      1     ........     ...............  0.02   COMPLETED
 #------------------------------------------------------------------------------------------------------------------------------
-711_2065    ts1   mubeam_01    ts2_sim  TS2                 25       20000     1000000      4     2056296      0.02   COMPLETED
-711_2065    ts2   mubeam_01    ts2_stn  g4ts2_mubeam_stn     1       20000     1000000      4     ........     0.02   
-711_2065    ts2   mubeam_01    ts3_sim  TS3                 20       20000     1000000      1     26595335     0.02   *SUBMITTED*
-711_2065    ts3   mubeam_01    ts3_stn  g4ts3_mubeam_stn   100       20000     1000000      1     ........     0.02   
-711_2065    ts3   mubeam_01    s3_sim   DS                 100       20000     1000000      1     ........     0.02   
-711_2065    s3    tgtstops     s3_stn   g4s3_tgtstops_stn  100       20000     1000000      1     ........     0.02   
+711_2065    ts1   mubeam_01    ts2_sim   TS2                 25       20000     1000000      4     2056296      ...............  0.02   COMPLETED
+711_2065    ts2   mubeam_01    ts2_stn   g4ts2_mubeam_stn     1       20000     1000000      4     ........     ...............  0.02   
+711_2065    ts2   mubeam_01    ts3_sim   TS3                 20       20000     1000000      1     26595335     ...............  0.02   COMPLETED
+711_2065    ts3   mubeam_01    ts3_stn   g4ts3_mubeam_stn   100       20000     1000000      1     ........     ...............  0.02   
+711_2065    ts3   mubeam_01    s3_sim    DS                 100       20000     1000000      1     ........     ...............  0.02   COMPLETED
+711_2065    s3    tgtstops     s3_stn    g4s3_tgtstops_stn  100       20000     1000000      1     ........     ...............  0.02   COMPLETED
 #------------------------------------------------------------------------------------------------------------------------------
-711_2100    pbar  vd91         ts1_sim  TS_resample:r        1      360000     4000000    485:100 --------     1.1    
-711_2100    pbar  vd91_01      ts1_sim  TS_resample:r        1      360000     4000000    100     26039035     1.1    COMPLETED
-711_2100    pbar  vd91_02      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2100    pbar  vd91_03      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2100    pbar  vd91_04      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2100    pbar  vd91_05      ts1_sim  TS_resample:r        1      360000     4000000    100          1.1    
-711_2100    ts1   mubeam       ts1_stn  g4ts1_mubeam_stn    50       20000     1000000      2     ........     0.02   
-711_2100    ts1   mubeam_01    ts2_sim  TS2                 25       20000     1000000      4     2041715      0.02   
+711_2100    pbar  vd91         ts1_sim   TS_resample:r        1      360000     4000000    485:100 --------     ...............    1.1    
+711_2100    pbar  vd91_01      ts1_sim   TS_resample:r        1      360000     4000000    100     26039035     ...............    1.1    COMPLETED
+711_2100    pbar  vd91_02      ts1_sim   TS_resample:r        1      360000     4000000    100     26198236     ...............    1.1    
+711_2100    pbar  vd91_03      ts1_sim   TS_resample:r        1      360000     4000000    100     26198271     ...............    1.1    
+711_2100    pbar  vd91_04      ts1_sim   TS_resample:r        1      360000     4000000    100     2160867      ...............    1.1    
+711_2100    pbar  vd91_05      ts1_sim   TS_resample:r        1      360000     4000000    100     2160947      ...............    1.1    
+711_2100    ts1   mubeam       ts1_stn   g4ts1_mubeam_stn    50       20000     1000000      2     ........     ...............    0.02   
+711_2100    ts1   mubeam_01    ts2_sim   TS2                 25       20000     1000000      4     2041715      ...............    0.02   
+					 
+711_2100    ts2   mubeam_01    ts2_stn   g4ts2_mubeam_stn     1       20000     1000000      4     ........     ...............    0.02   
+					 
+711_2100    ts2   mubeam_01    ts3_sim   TS3                 20       20000     1000000      1     26580946     ...............    0.02   
+					 
+711_2100    ts3   mubeam_01    ts3_stn   g4ts3_mubeam_stn     1       20000     1000000      1     ........     ...............    0.02   
 
-711_2100    ts2   mubeam_01    ts2_stn  g4ts2_mubeam_stn     1       20000     1000000      4     ........     0.02   
-
-711_2100    ts2   mubeam_01    ts3_sim  TS3                 20       20000     1000000      1     26580946     0.02   
-
-711_2100    ts3   mubeam_01    ts3_stn  g4ts3_mubeam_stn     1       20000     1000000      1     ........     0.02   
-
-711_2100    ts3   mubeam_01    s3_sim   DS                 100       20000     1000000      1     ........     0.02   
-
-711_2100    s3    tgtstops     s3_stn   g4s3_tgtstops_stn  100       20000     1000000      1     ........     0.02   
+711_2100    ts3   mubeam_01    s3_sim    DS                 100       20000     1000000      1     ........     ...............    0.02   COMPLETED
+711_2100    s3    tgtstops     s3_stn    g4s3_tgtstops_stn  100       20000     1000000      1     ........     ...............    0.02   COMPLETED
 #------------------------------------------------------------------------------------------------------------------------------
-714_0011    gen   flatphoton   s4_sim   DS_simdigi           0     1000000     1000000      1     xxxxxxxx     0.3    COMPLETED
+714_0011    gen   flatphoton   s4_sim    DS_simdigi           0     1000000     1000000      1     xxxxxxxx     ...............    0.3    COMPLETED
 #------------------------------------------------------------------------------------------------------------------------------
-714_0039    gen   50_20000     s4_sim   stopped_pbar         1       20000       20000     50     26541547     1.1    COMPLETED
-714_0039    s4    output       s4_stn   read_reco_stn        5       20000       20000     10     26595259     1.1    *SUBMITTED*
-#------------------------------------------------------------------------------------------------------------------------------
+714_0039    gen   50_20000     s4_sim    stopped_pbar         1       20000       20000     50     26541547     ...............    1.1    COMPLETED
+714_0039    s4    output       s4_stn    read_reco_stn        5       20000       20000     10     26595259     ...............    1.1    COMPLETED
+#-------------------------------------------------------------------------------------------------------------------------------------------------
+# DSID    istage   istream   job_type     base_fcl       N input   nev_per_f    nev per  ninput  grid_jobid      output_streams  sec/evt    status
+#                                         [:resample]     files     (est)       segment   files                                 (optional)
+#                                                        /segment                (est)    total                                  
+# ------------------------------------------------------------------------------------------------------------------------------------------------
+760_1000    pbar  vd91         ts1_sim   TS1_pbar             5      360000     2000000    485     31587345     mubeam             1.1    COMPLETED
+760_1900    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31822248     mubeam             1.1    COMPLETED
+760_1000    ts1   mubeam       ts2_sim   TS2_pbar            20       12000      731990    485      7182535     mubeam             ...    COMPLETED
+760_1000    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     25      7190748     mubeam             ...    COMPLETED
+760_1000    ts3   mubeam       ts4_sim   DS_pbar              3       12000      ......      3      7190748     ootstops,tgtstops  ...    
+760_1000    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     interactive  ...............    0.02   COMPLETED
+#
+760_1000    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31456254     mubeam             0.04   COMPLETED
+760_1000    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50      7191143     mubeam             0.04   COMPLETED
+760_1000    s2    mubeam       s3_sim    muon_s3              2       51093      xxxxxx      2     x.......     ootstops,tgtstops  0.04   COMPLETED
+#
+760_1000    s3    tgtstops     s3_stn   g4_s3_tgtstops_stn   50       20000     1000000      1     interactive  ...............    0.02   COMPLETED
+# -------------------------------------------------------------------------------------------------------------------------------------------------
+760_1100    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31861550     ...............    xx     COMPLETED
+760_1100    ts1   mubeam       ts2_sim   TS2_pbar            25       12000      731990    484     7276036     mubeam             ...     COMPLETED [2020-05-01 Fri]
+#
+760_1100    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31751309     ...............    0.04   COMPLETED
+# -------------------------------------------------------------------------------------------------------------------------------------------------
+760_1200    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485      7142797     mubeam             xxx    COMPLETED
+760_1200    ts1   mubeam       ts2_sim   TS2_pbar            25       12000      731990    484     32057990     mubeam             ...    COMPLETED [2020-05-01 Fri]
+#
+760_1200    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31751329     mubeam             0.04   COMPLETED
+# -------------------------------------------------------------------------------------------------------------------------------------------------
+760_2000    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31751122     mubeam             1.1    COMPLETED
+760_2000    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    480     32055291     mubeam             1.1    COMPLETED [2020-05-01 Fri]
+760_2000    ts2   mubeam       ts3_sim   TS3_pbar            10        7000      731990     20     x.......     mubeam             1.1    
+760_2000    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2     x.......     ootstops,tgtstops  xxx    
+#
+760_2000    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31621895     ...............    0.04   COMPLETED
+760_2000    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     31751280     ...............    0.04   COMPLETED
+760_2000    s2    mubeam       s3_sim    muon_s3              2       51093      xxxxxx      2     interactive  ...............    0.04   COMPLETED
+#
+760_2000    s3    tgtstops     s3_stn   g4_s3_tgtstops_stn   50       20000     1000000      1     ........     ...............    0.02   
+# -----------------------------------------------------------------------------------------------------------------------------------------------
+760_2100    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31676882     ...............    1.1    COMPLETED
+760_2100    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32056006     mubeam             1.1    *SUBMITTED* [2020-05-01 Fri]
+#
+760_2100    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31751332     ...............    0.04   COMPETED
+# -----------------------------------------------------------------------------------------------------------------------------------------------
+760_2200    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31690706     ...............    1.1    COMPLETED
+760_2200    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32056529     mubeam             1.1    *SUBMITTED* [2020-05-01 Fri]
+#
+760_2200    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     31751841     ...............    0.04   COMPLETED 
+# -------------------------------------------------------------------------------------------------------------------------------------------------

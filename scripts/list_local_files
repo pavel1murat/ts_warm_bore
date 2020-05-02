@@ -1,0 +1,128 @@
+#!/bin/bash 
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+
+      project=$1 # ts_warm_bore # this one is fixed
+         dsid=$2 # 711_0001
+     p_istage=$3 # gen:250_20000 ...
+   p_job_type=$4 # s1:sim or s1:stn etc
+         doit=$5
+
+prefix="echo executing: " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+ istage=`echo $p_istage | awk -F : '{print $1}'`
+istream=`echo $p_istage | awk -F : '{print $2}'`
+fileset=`echo $p_istage | awk -F : '{print $3}'`
+
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
+
+          stage=`echo $p_job_type | awk -F : '{print $1}'`
+        jobtype=`echo $p_job_type | awk -F : '{print $2}'`
+       job_type=${stage}_$jobtype
+#------------------------------------------------------------------------------
+# get_fcl $project/AAA_PROJECT.txt $dsid $istage $istub $job_type
+#------------------------------------------------------------------------------
+get_job_line() {
+    project_file=$1
+    cat $project_file | grep $2 | awk -v istage=$3 -v istub=$4 -v job_type=$5 '{if (($2 == istage) && ($3 == istub) && ($4 == job_type)) print  $0}'
+}
+
+get_fcl() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $5}' 
+}
+
+get_emerge() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $6}' 
+}
+
+get_nev_per_job() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $8}' 
+}
+
+get_segments() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $9}' 
+}
+
+get_grid_job_id() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $10}' 
+}
+
+get_output_streams() { 
+    get_job_line $1 $2 $3 $4 $5 | awk '{print $11}' 
+}
+#------------------------------------------------------------------------------
+# end of parsing function definition
+#------------------------------------------------------------------------------
+grid_jobid=`get_grid_job_id    $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
+   streams=`get_output_streams $project/AAA_PROJECT.txt $dsid $istage $istub $job_type`
+
+topdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage
+echo topdir=$topdir
+
+# outputdir=$project/catalogs/$dsid/$stage
+outputdir=$project/$dsid/catalog/$stage
+if [ ! -d $outputdir ] ; then mkdir -p $outputdir ; fi
+echo outputdir=$outputdir
+#------------------------------------------------------------------------------
+# catalog - so far, only .art files
+#------------------------------------------------------------------------------
+echo p_job_type=$p_job_type
+
+if [ .${streams:0:1} == ".." ] ; then
+    if   [ $p_job_type == "s3:sim"  ] ; then streams="beam crv tgtstops ootstops truncated"
+    elif [ $p_job_type == "s1:sim"  ] ; then streams="mubeam"
+    elif [ $p_job_type == "s2:sim"  ] ; then streams="mubeam"
+    elif [ $p_job_type == "s4:sim"  ] ; then streams="flatphoton"   # this was a mistake... should've been stoppedpbar
+    elif [ $p_job_type == "ts1:sim" ] ; then streams="mubeam"
+    elif [ $p_job_type == "ts2:sim" ] ; then streams="mubeam"
+    elif [ $p_job_type == "ts3:sim" ] ; then streams="mubeam"
+    fi
+else 
+    streams=`echo $streams | sed 's/,/ /'`
+fi
+
+for stream in $streams ; do
+    fn_stub=${stage}_$stream
+    catalog_fn=$outputdir/$project.${dsid}.$fn_stub.art.files
+
+    if [ ".$fileset" != "." ] ; then catalog_fn=$catalog_fn.$fileset ; fi
+
+    sdd1=$topdir/$stream
+    echo \$sdd1=$sdd1
+
+    if [ -e $sdd1 ] ; then 
+
+	echo $sdd1 exists, catalog_fn=$catalog_fn
+
+	if [ -f $catalog_fn ] ; then 
+	    echo $catalog_fn already exists, recreate
+	    rm -f $catalog_fn
+	    ${prefix}touch $catalog_fn
+	fi
+
+	#------------------------------------------------------------------------------
+	# skip subdirectories like 00148.915da673
+	#------------------------------------------------------------------------------
+	for f in `ls $sdd1/* | grep .art | grep -v .art.` ; do
+	    base=`basename $f` ;
+	    os=`echo $base | awk -F . '{print $3}'`
+	    #    echo base=$base os=$os
+	    if [ ."`echo $os | grep -i $stream`" != "." ] ; then
+		#	echo os=$os stream=$stream  adding file to catalog
+		echo $f >> $catalog_fn
+	    fi
+	done
+
+	echo catalog_fn=$catalog_fn
+	${prefix}cat $catalog_fn 
+
+	if [ ".$doit" != "." ] ; then 
+	    nfiles=`cat $catalog_fn | wc -l`
+	    echo nfiles = $nfiles
+	fi
+    else
+	echo directory $sdd1 doesn\'t exist !
+    fi
+done

@@ -1,0 +1,24 @@
+#------------------------------------------------------------------------------
+# output of g4s1 (Stage1 simulation) job for Bob's PBAR sample
+# job has 1 output streams : mubeam, all other are disabled
+# single input file , before resampling, had: 1e8 POT
+#------------------------------------------------------------------------------
+# :NPOT: 
+#------------------------------------------------------------------------------
+ local directory  : file:./
+ input            : file:../pbar/ts_warm_bore.760_2200.pbar_vd91.art.files
+ log files        : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_2200/ts1/log
+ job_timing       : file:../../../tmp_png/ts_warm_bore.760_2200.pbar_vd91.ts1_sim.totwall.png
+ output location  : 
+ check_grid_output: file:./ts_warm_bore.760_2200.pbar_vd91.ts1_sim.check_grid_output.log
+
+|--------------+-------------------------------------------------+-----------+--------------+-----------+------------------+------------------------|
+|              |                                                 |  N(input) | N(resampled) | N(output) | effective N(POT) |                        |
+|--------------+-------------------------------------------------+-----------+--------------+-----------+------------------+------------------------|
+| *mubeam*     | file:ts_warm_bore.760_2200.ts1_mubeam.art.files | 970000000 |              |   6612098 |                  | 485/485 files          |
+|--------------+-------------------------------------------------+-----------+--------------+-----------+------------------+------------------------|
+| *mubeam_stn* | file:ts_warm_bore.711_1900.ts1_mubeam.stn.files |   6612098 |              |           |                  | STNTUPLE of ts1_mubeam |
+|--------------+-------------------------------------------------+-----------+--------------+-----------+------------------+------------------------|
+
+* back to file:../ts_warm_bore.760_2200.org
+* *------------------------------------------------------------------------------*

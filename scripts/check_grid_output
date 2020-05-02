@@ -1,8 +1,11 @@
 #!/bin/bash
-
+#------------------------------------------------------------------------------
+# ts_warm_bore/scripts/check_grid_output ts_warm_bore 711_2064 pbar:vd91:01 ts1:sim . 
+# make sure that AAA_PROJECT.txt has the grid_jobid defined 
+#------------------------------------------------------------------------------
      project=$1   # ts_warm_bore
         dsid=$2   # 711_1010
-    p_istage=$3   # s1:mubeam  or gen:250_20000:03
+    p_istage=$3   # s1:mubeam  or gen:250_20000:03 or pbar:vd91 or pbar:vd91:01
   p_job_type=$4   # s1:sim or s2:stn
        order=$5
 
@@ -13,7 +16,9 @@
 istub=${istream};
 if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
 
-    job_type=`echo $p_job_type | sed 's/:/_/'`
+       stage=`echo $p_job_type | awk -F : '{print $1}'`
+       jtype=`echo $p_job_type | awk -F : '{print $2}'`
+    job_type=${stage}_${jtype}
 #------------------------------------------------------------------------------
 # get_fcl $project/AAA_PROJECT.txt $dsid $istage $istub $job_type
 #------------------------------------------------------------------------------
@@ -66,6 +71,12 @@ nfailed=0
 ntotal=0
 nsuccess=0
 
+ logdir=/mu2e/data/users/murat/subprojects/$project/$dsid/catalog/$stage
+script_logfile=$logdir/$project.$dsid.${istage}_${istream}.${job_type}.check_grid_output.log
+
+if [ ! -d $logdir ] ; then mkdir -p $logdir ; fi
+echo "#" >| $script_logfile
+
 list_of_subjobs=`ls $stage_dir`
 
 for subdir in $list_of_subjobs ; do
@@ -91,30 +102,30 @@ for subdir in $list_of_subjobs ; do
 #------------------------------------------------------------------------------
 # no return code - print warning, but dont assume the staging failure
 #------------------------------------------------------------------------------
-		printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host
+		printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host >> $script_logfile
 		# n_staging_failures=$((n_staging_failures+1))
 	    else
 		rc=`echo $x | awk '{print $4}'`
 		host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
 		   y=`cat $logfile | grep "TrigReport Events total"`
 		
-		printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc
+		printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc >> $script_logfile
 		
 		if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
 	    fi
 	    nsections=$((nsections+1))
 	else
-	    printf " %10s : GRID ERROR, job not completed\n" $d
+	    printf " %10s : GRID ERROR, job not completed\n" $d >> $script_logfile
 	fi
 	ntotal=$((ntotal+1))
     done
 done
-echo --------------------------------------------
-echo JOB SUMMARY:
-echo --------------------------------------------
-printf "submitted           : %5i sections\n" $nsubm_sections 
-printf "output checked      : %5i sections\n" $ntotal 
-printf "completed           : %5i sections\n" $nsections 
-printf "staging failures    : %5i sections\n" $n_staging_failures 
-printf "completed with rc=0 : %5i sections\n" $nsuccess 
-printf "mu2e job failed     : %5i sections\n" $nfailed  
+echo --------------------------------------------                  >> $script_logfile
+echo JOB SUMMARY:                                                  >> $script_logfile
+echo --------------------------------------------                  >> $script_logfile
+printf "submitted           : %5i sections\n" $nsubm_sections      >> $script_logfile
+printf "output checked      : %5i sections\n" $ntotal              >> $script_logfile
+printf "completed           : %5i sections\n" $nsections           >> $script_logfile
+printf "staging failures    : %5i sections\n" $n_staging_failures  >> $script_logfile
+printf "completed with rc=0 : %5i sections\n" $nsuccess            >> $script_logfile
+printf "mu2e job failed     : %5i sections\n" $nfailed             >> $script_logfile 

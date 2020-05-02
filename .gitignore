@@ -1,6 +1,8 @@
 *~
 \#*
+.#*
 *.save
 tmp_fcl
 tmp_code
+tmp_png
 catalogs

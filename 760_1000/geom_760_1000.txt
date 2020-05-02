@@ -1,0 +1,9 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_2019_PhaseI_hayman_v2.txt"
+#include "Mu2eG4/geom/TransportSolenoid_v05.txt"
+//
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

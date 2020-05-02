@@ -1,0 +1,21 @@
+#
+#include "JobConfig/beam/PS.fcl"
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/711_1100/geom_711_1100.txt"
+#------------------------------------------------------------------------------
+MuonSimulationEnergyCuts: {
+   type: intersection
+   pars: [ { type: kineticEnergy cut: 50.0 }, { type: pdgId pars: [ 11, -11, 22,  2112, 2212 ] }]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [
+	   @local::mu2eg4CutDeltaElectrons, // 8% speed up from killing electrons with Ek<1 MeV
+	   @local::MuonSimulationEnergyCuts,
+	   @local::dsRegionCuts,
+	   @local::extMonRegionCuts
+	  ]
+}
+
