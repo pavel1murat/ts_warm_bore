@@ -71,24 +71,32 @@ elif [ $p_job_type == "s2:sim"  ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts1:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts2:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts3:sim" ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts4:sim" ] ; then output_streams="ootstops tgtstops"
 fi
+
+setup ifdhc
+copy="ifdh cp"
 
 for stream in $output_streams ; do
     od=$output_dir/$stream ; if [ ! -d $od ] ; then $prefix mkdir -p $od ; fi
 
-    for f in `ls $input_dir/00/*/sim.murat.*-$stream.*.art` ; do 
-	${prefix} cp $f $od/.  
+    for f in `ls $input_dir/00/*/sim.murat.*.*.art | grep -i $stream` ; do 
+	bn=`basename $f`
+	${prefix} $copy $f $od/$bn 
     done
 
-    for f in `ls $input_dir/00/*/nts.murat.*.*${stream}*.*.stn` ; do 
-	${prefix} cp $f $od/. 
+    for f in `ls $input_dir/00/*/nts.murat.*.*.*.stn | grep -i $stream` ; do 
+	bn=`basename $f`
+	${prefix} $copy $f $od/`basename $f`
     done
 done
+
+copy="cp"
 
 od=$output_dir/hist ; if [ ! -d $od ] ; then $prefix mkdir -p $od ; fi
 
 for f in `ls $input_dir/00/*/nts.murat.*.root` ; do 
-    ${prefix} cp $f $od/. 
+    ${prefix} $copy $f $od/`basename $f`
 done
 #------------------------------------------------------------------------------
 # handle log files
@@ -96,12 +104,12 @@ done
 od=$output_dir/log ; if [ ! -d $od ] ; then $prefix mkdir -p $od ; fi
 
 for f in `ls $input_dir/00/*/log.*.log` ; do 
-    ${prefix} cp $f $od/. 
+    ${prefix} $copy $f $od/`basename $f`
 done
 
 if [ ".$prefix" == "." ] ; then
 #------------------------------------------------------------------------------
-# check if the jobs finished successfully
+# done with copying files, check if the jobs finished successfully
 #------------------------------------------------------------------------------
     for f in `ls $od/*.log` ; do 
 	x=`cat $f | grep "mu2egrid exit status"` ; 
@@ -132,6 +140,7 @@ if [ ".$prefix" == "." ] ; then
 #------------------------------------------------------------------------------
 # calculate number of output events in different output streams
 #------------------------------------------------------------------------------
+    echo $LINENO: output_streams=$output_streams
     for stream in $output_streams ; do
 	for f in `ls $od/*.log` ; do 
 	    grid=`cat $f | grep "mu2egrid exit status"`
@@ -140,7 +149,11 @@ if [ ".$prefix" == "." ] ; then
 		
 		output_path=$stream
 
-		if [ $stream == "mubeam" ] ; then output_path="mubeamout" ; fi
+		echo output_path=$stream
+
+		if [ $stream == "mubeam"   ] ; then output_path="mubeamout"     ; fi
+		if [ $stream == "ootstops" ] ; then output_path="ootStopOutput" ; fi
+		if [ $stream == "tgtstops" ] ; then output_path="tgtStopOutput" ; fi
 		
 		if [ .$x == ."0" ] ; then 
 		    cat $f | grep TrigReport | grep -i $output_path

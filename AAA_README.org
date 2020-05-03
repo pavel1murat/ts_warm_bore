@@ -112,6 +112,111 @@ Art has completed and will exit with status 0.
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
 * *WORK LOG*                                ** 
+** <2020-05-03 Sun> **     
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2100 s1:mubeam s2:sim .
+   
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1100 ts3:mubeam ts4:sim 5h xrootd .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1200 ts3:mubeam ts4:sim 5h xrootd .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2000 ts3:mubeam ts4:sim 5h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1100 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1100 s2:mubeam s3:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1200 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1200 s2:mubeam s3:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2100 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2100 s2:mubeam s3:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2200 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2200 s2:mubeam s3:sim 1h xrootd .
+   
+   
+** <2020-05-02 Sat> **     
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1100 ts2:mubeam ts3:sim .
+   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/760_1100.ts2_mubeam.ts3_sim/cnf.murat.ts_warm_bore.760_1100_ts2_mubeam_ts3_sim.001000_00000000.fcl -n 1000 &
+   murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/760_1100.ts2_mubeam.ts3_sim/cnf.murat.ts_warm_bore.760_1100_ts2_mubeam_ts3_sim.001000_00000000.fcl -n 10000 &
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1100 ts2:mubeam ts3:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1200 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1200 ts2:mubeam ts3:sim 2h xrootd .
+   ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 760_2100 ts1:mubeam ts2:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_3000 pbar:vd91  ts1:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_3000 pbar:vd91  ts1:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_3000 pbar:vd91  ts1:sim .
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_3000 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_3000 ts2:mubeam ts3:sim 3h xrootd .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1100 ts2:mubeam ts3:sim 10h xrootd .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1200 ts2:mubeam ts3:sim 10h xrootd .
+   
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2000 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2000 ts2:mubeam ts3:sim 10h xrootd .
+   
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 ts2:mubeam ts3:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1100 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 ts2:mubeam ts3:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1200 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2000 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2000 ts2:mubeam ts3:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2000 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2100 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2100 ts2:mubeam ts3:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2100 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2200 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2200 ts2:mubeam ts3:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_2200 ts2:mubeam ts3:sim .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1100 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1100 ts3:mubeam ts4:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1200 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1200 ts3:mubeam ts4:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2000 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2000 ts3:mubeam ts4:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2100 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2100 ts3:mubeam ts4:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2200 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2200 ts3:mubeam ts4:sim 1h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_3000 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_3000 ts2:mubeam ts3:sim 10h xrootd .
+
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1100 s1:mubeam s2:sim   10h xrootd .
+
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 gen:50_200000 s1:sim .
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1200 gen:50_200000 s1:sim 
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1200 gen:50_200000 s1:sim .
+   ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1200 s1:mubeam     s2:sim .
+   ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_1200 s1:mubeam     s2:sim   10h xrootd .
+
 ** <2020-05-01 Fri> **     
    ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_1200 pbar:vd91  ts1:sim
    ts_warm_bore/scripts/copy_log_files    ts_warm_bore 760_1200 ts1:mubeam ts2:sim
@@ -125,7 +230,7 @@ Art has completed and will exit with status 0.
    ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
    ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
 
-** <2020-04-29 Wed> **
+** <2020-04-29 Wed> **     
    *after a grid job finishes: save output and complete the cataloging*
 
    ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2100 gen:50_200000   s1:sim . 
@@ -162,7 +267,6 @@ ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_1000 s1:mubeam    s2:sim
 
 ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_1000 s2:mubeam  . s3:sim  .
 
-
 ** <2020-04-27 Mon> **                      
 gridexport -E $PWD/grid_export -A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt
 mv /mu2e/app/users/murat/beamline_prof/grid_export/tmp.uZyAMSKHlb/Code.tar.bz ts_warm_bore/tmp_code/ts_warm_bode.code.760_2100.tbz
@@ -183,7 +287,7 @@ ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 pbar:vd91       ts1
 
 ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1200 pbar:vd91       ts1:sim .
 
-** <2020-04-26 Sun> ** check_grid_output move_stage_output                            
+** <2020-04-26 Sun> ** check_grid_output move_stage_output                     
   *now check_grid_output creates the log file by default*
 ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim
 ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_2000 pbar:vd91       ts1:sim .
@@ -238,7 +342,7 @@ dsid=760_1000; ts_warm_bore/scripts/gen_fcl ts_warm_bore $dsid gen:50_200000 . s
 ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1000 gen:50_200000 s1:sim >| /mu2e/app/users/murat/tsud_bore_prof/ts_warm_bore/760_1000/catalog/s1/ts_warm_bore.760_1000.gen_50_200000.s1_sim.check_grid_output.log
 ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1000 gen:50_200000 s1:sim .
 
-** <2020-04-21 Tue> ** check_grid_output move_stage_output     
+** <2020-04-21 Tue> ** check_grid_output move_stage_output                     
    ts_warm_bore/scripts/check_grid_output ts_warm_bore $dsid pbar:vd91 ts1:sim  >| ts_warm_bore/catalogs/$dsid/ts1/ts_warm_bore.$dsid.pbar_vd91_ts1_sim.check_grid_output.log
    ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1000 pbar:vd91 ts1:sim .
 
@@ -251,7 +355,7 @@ mv 000 /mu2e/app/users/murat/beamline_prof/ts_warm_bore/tmp_fcl/760_1000.pbar_vd
 CMD: cp -f ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz
 WARNING: tarfile /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.fcl.tbz already exists, OVERWRITING !
 
-** <2020-04-17 Fri> ** validation:
+** <2020-04-17 Fri> ** validation:                                             
    hard cutoff: 
    xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxx
    soft cutoff:

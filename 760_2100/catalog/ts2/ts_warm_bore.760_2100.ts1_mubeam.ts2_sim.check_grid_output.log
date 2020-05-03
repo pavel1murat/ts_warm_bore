@@ -18,12 +18,13 @@
     16 : section 00010  was running on murat-32056006-10-fnpc8008.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 271506 passed = 257100 failed = 14406
     17 : section 00003  was running on murat-32056006-3-fnpc8008.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 273309 passed = 258995 failed = 14314
     18 : section 00017  was running on murat-32056006-17-fnpc9066.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 275330 passed = 260636 failed = 14694
+    19 : section 00014  was running on murat-32056006-13-fnpc8208.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 276030 passed = 261260 failed = 14770
 --------------------------------------------
 JOB SUMMARY:
 --------------------------------------------
 submitted           :   485 sections
-output checked      :    19 sections
-completed           :    19 sections
+output checked      :    20 sections
+completed           :    20 sections
 staging failures    :     0 sections
-completed with rc=0 :    19 sections
+completed with rc=0 :    20 sections
 mu2e job failed     :     0 sections

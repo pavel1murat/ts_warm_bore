@@ -57,7 +57,8 @@ physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "res
 #------------------------------------------------------------------------------
 # physics.producers.g4run.compressPVmuonBeam.particleInputs               : [ "resamplingMixer" ]
 
-physics.filters.ParticleFilter : { @table::StepPointMCFilter 
+physics.filters.ParticleFilter : { 
+    module_type : StepPointMCFilter 
     spmcCollTag : "muonBeamFilter:Coll31OutRecord"
     pdgCodes    : [ -2212 ]  # pbar
     debugLevel  : 1

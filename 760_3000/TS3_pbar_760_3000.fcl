@@ -43,7 +43,8 @@ physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
 
 physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:DSVacuum" ]
 
-physics.filters.ParticleFilter : { @table::StepPointMCFilter 
+physics.filters.ParticleFilter : { 
+    module_type : StepPointMCFilter 
     spmcCollTag : "muonBeamFilter:Coll32InRecord"
     pdgCodes    : [ -2212, -211 ]  # pbar's and pi-'s
     debugLevel  : 0

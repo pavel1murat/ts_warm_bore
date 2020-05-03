@@ -6,9 +6,9 @@
         project=$1 # ts_warm_bore # $1 # ts_inner_bore
            dsid=$2 # 711_0001
        p_istage=$3 # s1:mubeam ... or gen:250_20000 ; 
-            ids=$4 # if not ".", then catalog of the input dataset with a list of files in it
-     p_job_type=$5 # s1:sim, s2:sim, or s3:stn ...
-           doit=$6
+#             ids=$4 # if not ".", then catalog of the input dataset with a list of files in it
+     p_job_type=$4 # s1:sim, s2:sim, or s3:stn ...
+           doit=$5
 
       istage=`echo $p_istage | awk -F : '{print $1}'`;
      istream=`echo $p_istage | awk -F : '{print $2}'`;
@@ -24,14 +24,7 @@ fss="files" ; if [ ".$fileset" != "." ] ; then fss=$fss.$fileset ; fi
 #------------------------------------------------------------------------------
 inputs=""
 if [ ."$istage" != ".gen" ] ; then
-    if [ $ids != "." ] ; then
-	ds=`echo $ids | awk -F : '{print $1}'`;
-	if [ $ds == "." ] ; then inputs=$project/$dsid/catalog/$istage/$project.${dsid}.${istage}_$istream.art.$fss
-	else                     inputs=$ds.$fss
-	fi
-    else 
-	inputs=$project/$dsid/catalog/$istage/$project.${dsid}.${istage}_$istream.art.$fss
-    fi
+    inputs=$project/$dsid/catalog/$istage/$project.${dsid}.${istage}_$istream.art.$fss
 fi
 
   stage=`echo $p_job_type | awk -F : '{print $1}'`

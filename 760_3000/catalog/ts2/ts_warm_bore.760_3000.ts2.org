@@ -17,9 +17,9 @@ check_grid_output     : file:../../../760_3000/catalog/ts1/ts_warm_bore.760_3000
 |              | effective N(POT) |                                                        | N(input) | N(resampled) | N(output) | N(files)               |
 |--------------+------------------+--------------------------------------------------------+----------+--------------+-----------+------------------------|
 | *ts1_mubeam* |                  | file:../ts1/ts_warm_bore.760_3000.ts1_mubeam.art.files |          |              |           |                        |
-| *mubeam*     |                  | file:ts_warm_bore.760_3000.ts2_mubeam.art.files        |  4715470 |              |   4418455 | 24 files               |
+| *mubeam*     |                  | file:ts_warm_bore.760_3000.ts2_mubeam.art.files        |          |              |           |                        |
 |--------------+------------------+--------------------------------------------------------+----------+--------------+-----------+------------------------|
-| *mubeam_stn* |                  | file:ts_warm_bore.711_1900.ts2_mubeam.stn.files        |  4418455 |              |           | STNTUPLE of ts1_mubeam |
+| *mubeam_stn* |                  | file:ts_warm_bore.711_1900.ts2_mubeam.stn.files        |          |              |           | STNTUPLE of ts1_mubeam |
 |--------------+------------------+--------------------------------------------------------+----------+--------------+-----------+------------------------|
 
-* back to project catalog: file:../ts_warm_bore.760_3000.org
+* back to project catalog: file:../../ts_warm_bore.760_3000.org

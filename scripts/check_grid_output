@@ -7,7 +7,7 @@
         dsid=$2   # 711_1010
     p_istage=$3   # s1:mubeam  or gen:250_20000:03 or pbar:vd91 or pbar:vd91:01
   p_job_type=$4   # s1:sim or s2:stn
-       order=$5
+#       order=$5
 
       istage=`echo $p_istage | awk -F : '{print $1}'`
      istream=`echo $p_istage | awk -F : '{print $2}'`
@@ -61,7 +61,7 @@ echo grid_jobid=$grid_jobid  grid_dsid=$grid_dsid
 echo topdir=$topdir
 stage_dir=$topdir/$grid_jobid;
 
-echo ">>> job output directory:" $stage_dir; 
+echo "# job output directory:" $stage_dir; 
 
 # exit
 
@@ -75,18 +75,19 @@ nsuccess=0
 script_logfile=$logdir/$project.$dsid.${istage}_${istream}.${job_type}.check_grid_output.log
 
 if [ ! -d $logdir ] ; then mkdir -p $logdir ; fi
-echo "#" >| $script_logfile
+echo "#" `date`>| $script_logfile
+echo "# job output directory:" $stage_dir >> $script_logfile
 
 list_of_subjobs=`ls $stage_dir`
 
 for subdir in $list_of_subjobs ; do
 
     sdir=$stage_dir/$subdir
-    echo ">>> subdirectory        :" $sdir; 
+    echo "# subdirectory        :" $sdir; 
+    echo "# subdirectory        :" $sdir >> $script_logfile
 
-    if [ ".$order" == "." ] ; then list_of_sections=`ls     $sdir`
-    else                           list_of_sections=`ls -tr $sdir`
-    fi
+    list_of_sections=`ls $sdir`
+#    if [ ".$order" != "." ] ; then list_of_sections=`ls -tr $sdir` ; fi
 
     for d in $list_of_sections ; do 
 #    echo $d
