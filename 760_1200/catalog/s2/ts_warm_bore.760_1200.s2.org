@@ -5,10 +5,10 @@
 #------------------------------------------------------------------------------
 # :NPOT: 4960000
 #------------------------------------------------------------------------------
- local directory  : file:./
- input            : none
- log files        : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1200/s2/log
- output location  : 
+local directory  : file:./
+input            : none
+log files        : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1200/s2/log
+output location  : 
 
 |--------------+------------------------------------------------+--------+---------+--------------------|
 | DSID         | catalog                                        | Ninput | Noutput | comments           |

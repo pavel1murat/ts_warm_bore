@@ -1,4 +1,4 @@
-#
+# -*- mode:org -*-
 geometry:  
   version of geom_2019_PhaseI_hayman_v2.txt #97ae56c5 used for 760_1000 
   included Mu2eG4/geom/TransportSolenoid_v05.txt 0c87d89b with 0.508 mm Be window at TS3 and 6 strip TS3 wedge
@@ -11,69 +11,62 @@ submitted jobs : file:../AAA_SUBMITTED_JOBS
 output_location: file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000
 stages         :
 
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| stage and date   | step                     | status    | N(events) |    N(files) | org file                                                                                                      |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| s1_sim           | catalog                  |           |           |             | file:catalog/s1/ts_warm_bore.760_1000.s1.org                                                                  |
-| [2020-05-03 Sun] | input_dataset            | COMPLETED |  10000000 |             | none                                                                                                          |
-|                  | grid_job                 | COMPLETED |           |    31456254 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.gen_50_200000.s1_sim/outstage/31456254/00/ |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s1                                                 |
-|                  | output_dataset.mubeam    | COMPLETED |    291263 |             | file:catalog/s1/ts_warm_bore.760_1000.s1_mubeam.art.files                                                     |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| s2_sim           | catalog                  |           |           |             | file:catalog/s2/ts_warm_bore.760_1000.s2.org                                                                  |
-|                  | input_dataset            | COMPLETED |    291263 |             | file:catalog/s1/ts_warm_bore.760_1000.s1_mubeam.art.files                                                     |
-|                  | grid_job.id              | COMPLETED |           |             | 7191143                                                                                                       |
-|                  | grid_job.output_location | COMPLETED |           |             | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.s1_mubeam.s3_sim/outstage/7191143/00/      |
-|                  | output.log               | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s2/log                                             |
-|                  | output.location.disk     | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s2                                                 |
-|                  | output_dataset.mubeam    | COMPLETED |     51093 |             | file:catalog/s2/ts_warm_bore.760_1000.s2_mubeam.art.files                                                     |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| s3_sim           | catalog                  | COMPLETED |           |             | file:catalog/s3/ts_warm_bore.760_1000.s3.org                                                                  |
-|                  | input_dataset            | COMPLETED |     51093 |             | file:catalog/s2/ts_warm_bore.760_1000.s2_mubeam.art.files                                                     |
-|                  | grid_job                 | COMPLETED |           | interactive |                                                                                                               |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s3                                                 |
-|                  | output_dataset.ootstops  | COMPLETED |     34772 |           1 | file:catalog/s3/ts_warm_bore.760_1000.s3_ootstops.art.files                                                   |
-|                  | output_dataset.tgtstops  | COMPLETED |     14275 |           1 | file:catalog/s3/ts_warm_bore.760_1000.s3_tgtstops.art.files                                                   |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| s3_stn_tgtstops  | catalog                  | COMPLETED |           |             | file:catalog/s3/ts_warm_bore.760_1000.s3.org                                                                  |
-|                  | input_dataset            | COMPLETED |     14275 |             | file:catalog/s2/ts_warm_bore.760_1000.s3_tgtstops.art.files                                                   |
-|                  | fcl_tarball              | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.s3_tgtstops.s3_stn.fcl.tbz                                              |
-|                  | grid_job                 | COMPLETED |           | interactive | **                                                                                                            |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s3_tgtstops_stn                                    |
-|                  | output_dataset.stn       | COMPLETED |     14275 |             | file:catalog/s3/ts_warm_bore.760_1000.s3_tgtstops.stn.files                                                   |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| ts1_sim          | catalog                  |           |           |             | file:catalog/ts1/ts_warm_bore.760_1000.ts1.org                                                                |
-|                  | input_dataset            | COMPLETED | 968000000 |             | file:pbar/ts_warm_bore.760_1000.pbar_vd91.art.files                                                           |
-|                  | grid_job                 | COMPLETED |           |    31861550 |                                                                                                               |
-|                  | grid_job.plot_totwal     | COMPLETED |           |             | file:../tmp_png/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.totwal.png                                            |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts1                                                |
-|                  | output_dataset.mubeam    | COMPLETED |   4715470 |             | file:catalog/ts1/ts_warm_bore.760_1000.ts1_mubeam.art.files                                                   |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| ts2)sim          | catalog                  |           |           |             | file:catalog/ts2/ts_warm_bore.760_1000.ts2.org                                                                |
-|                  | input_dataset            | COMPLETED |   4715470 |             | file:catalog/ts1/ts_warm_bore.760_1000.ts1_mubeam.art.files                                                   |
-|                  | grid_job                 | COMPLETED |           |     7182535 |                                                                                                               |
-|                  | grid_job.plot_totwal     | COMPLETED |           |             | file:../tmp_png/ts_warm_bore.760_1000.ts1_mubeam.ts2_sim.totwal.png                                           |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts2                                                |
-|                  | output_dataset.mubeam    | COMPLETED |   4418455 |             | file:catalog/ts2/ts_warm_bore.760_1000.ts2_mubeam.art.files                                                   |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| ts3_sim          | catalog                  | COMPLETED |           |             | file:catalog/ts3/ts_warm_bore.760_1000.ts3.org                                                                |
-|                  | input_dataset            | COMPLETED |   4418455 |             | file:catalog/ts2/ts_warm_bore.760_1000.ts2_mubeam.art.files                                                   |
-|                  | fcl_tarball              | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts2_mubeam.ts3_sim.fcl.tbz                                              |
-|                  | grid_job                 | COMPLETED |           |     7190748 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.ts2_mubeam.ts3_sim/outstage/7190748/00     |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts3                                                |
-|                  | output_dataset.mubeam    | COMPLETED |     39896 |             | file:catalog/ts3/ts_warm_bore.760_1000.ts3_mubeam.art.files                                                   |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| ts4_sim          | catalog                  | COMPLETED |           |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4.org                                                                |
-|                  | fcl_tarball              | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts3_mubeam.ts4_sim.fcl.tbz                                              |
-|                  | grid_job                 | COMPLETED |           | interactive | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.ts3_mubeam.ts4_sim/outstage                |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts4                                                |
-|                  | output_dataset.ootstops  | COMPLETED |     36443 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_ootstops.art.files                                                 |
-|                  | output_dataset.tgtstops  | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_ootstops.art.files                                                 |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
-| ts4_stn_tgtstops | catalog                  | COMPLETED |           |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4.org                                                                |
-|                  | input_dataset            | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_tgtstops.art.files                                                 |
-|                  | fcl_tarball              |           |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts4_tgtstops.ts4_stn.fcl.tbz                                            |
-|                  | grid_job                 |           |           | interactive | **                                                                                                            |
-|                  | output_location          | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts4_tgtstops_stn                                   |
-|                  | output_dataset.stn       | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts3_tgtstops.stn.files                                                 |
-|------------------+--------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| stage and date   | step                    | status    | N(events) |    N(files) | org file                                                                                                      |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/s1/ts_warm_bore.760_1000.s1.org][s1_sim]]           | input_dataset           | COMPLETED |  10000000 |             | none                                                                                                          |
+|                  | fcl_tarball             | COMPLETED |           |          50 | file:../tmp_fcl/ts_warm_bore.760_1000.gen_50_200000.s1_sim.fcl.tbz                                            |
+| [2020-05-03 Sun] | grid_job                | 31456254  |  10000000 |          50 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.gen_50_200000.s1_sim/outstage/31456254/00/ |
+| [[file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s1][output_location]]  | output_dataset.mubeam   | completed |    291263 |          50 | file:catalog/s1/ts_warm_bore.760_1000.s1_mubeam.art.files                                                     |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/s2/ts_warm_bore.760_1000.s2.org][s2_sim]]           | input_dataset           | COMPLETED |    291263 |          50 | file:catalog/s1/ts_warm_bore.760_1000.s1_mubeam.art.files                                                     |
+|                  | grid_job                | COMPLETED |           |     7191143 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.s1_mubeam.s3_sim/outstage/7191143/00/      |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s2                                                 |
+|                  | output_dataset.mubeam   | COMPLETED |     51093 |           2 | file:catalog/s2/ts_warm_bore.760_1000.s2_mubeam.art.files                                                     |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/s3/ts_warm_bore.760_1000.s3.org][s3_sim]]           | input_dataset           | COMPLETED |     51093 |           2 | file:catalog/s2/ts_warm_bore.760_1000.s2_mubeam.art.files                                                     |
+|                  | grid_job                | COMPLETED |           | interactive |                                                                                                               |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s3                                                 |
+|                  | output_dataset.ootstops | COMPLETED |     34772 |           1 | file:catalog/s3/ts_warm_bore.760_1000.s3_ootstops.art.files                                                   |
+|                  | output_dataset.tgtstops | COMPLETED |     14275 |           1 | file:catalog/s3/ts_warm_bore.760_1000.s3_tgtstops.art.files                                                   |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/s3/ts_warm_bore.760_1000.s3.org][s3_stn_tgtstops]]  | input_dataset           | COMPLETED |     14275 |             | file:catalog/s3/ts_warm_bore.760_1000.s3_tgtstops.art.files                                                   |
+|                  | fcl_tarball             | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.s3_tgtstops.s3_stn.fcl.tbz                                              |
+|                  | grid_job                | COMPLETED |           | interactive | **                                                                                                            |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/s3_tgtstops_stn                                    |
+|                  | output_dataset.stn      | COMPLETED |     14275 |           1 | file:catalog/s3/ts_warm_bore.760_1000.s3_tgtstops.stn.files                                                   |
+|                  | stntuple_catalog        | COMPLETED |     14275 |             | file:/publicweb/m/murat/cafdfc/ts_warm_bore/760_1000_s3_tgtstops                                              |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts1/ts_warm_bore.760_1000.ts1.org][ts1_sim]]          | input_dataset           | COMPLETED | 970000000 |         485 | file:pbar/ts_warm_bore.760_1000.pbar_vd91.art.files                                                           |
+|                  | grid_job                | 31861550  |           |         484 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.pbar_vd91.ts1_sim/outstage/31861550/00     |
+|                  | grid_output_check       | completed |           |         484 | file:catalog/ts1/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.check_grid_output.log                                |
+| [[file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts1][output_location]]  | output_dataset.mubeam   | COMPLETED |   4715470 |         484 | file:catalog/ts1/ts_warm_bore.760_1000.ts1_mubeam.art.files                                                   |
+|                  | grid_job.plot_totwal    | COMPLETED |           |             | file:../tmp_png/ts_warm_bore.760_1000.pbar_vd91.ts1_sim.totwal.png                                            |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts2/ts_warm_bore.760_1000.ts2.org][ts2_sim]]          | input_dataset           | completed |   4715470 |         484 | file:catalog/ts1/ts_warm_bore.760_1000.ts1_mubeam.art.files                                                   |
+|                  | fcl_tarball             | completed |           |          25 | file:../tmp_fcl/ts_warm_bore.760_1000.ts1_mubeam.ts2_sim.fcl.tbz                                              |
+|                  | grid_job                | 7182535   |           |             | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.ts1_mubeam.ts2_sim/outstage/7182535/00     |
+|                  | grid_output_check       | completed |           |          25 | file:catalog/ts2/ts_warm_bore.760_1000.ts1_mubeam.ts2_sim.check_grid_output.log                               |
+| [[file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts2][output_location]]  | output_dataset.mubeam   | completed |   4418455 |          25 | file:catalog/ts2/ts_warm_bore.760_1000.ts2_mubeam.art.files                                                   |
+|                  | grid_job.plot_totwal    | completed |           |          25 | file:../tmp_png/ts_warm_bore.760_1000.ts1_mubeam.ts2_sim.totwal.png                                           |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts3/ts_warm_bore.760_1000.ts3.org][ts3_sim]]          | input_dataset           | COMPLETED |   4418455 |             | file:catalog/ts2/ts_warm_bore.760_1000.ts2_mubeam.art.files                                                   |
+|                  | fcl_tarball             | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts2_mubeam.ts3_sim.fcl.tbz                                              |
+|                  | grid_job                | COMPLETED |           |     7190748 | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.ts2_mubeam.ts3_sim/outstage/7190748/00     |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts3                                                |
+|                  | output_dataset.mubeam   | COMPLETED |     39896 |             | file:catalog/ts3/ts_warm_bore.760_1000.ts3_mubeam.art.files                                                   |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts4/ts_warm_bore.760_1000.ts4.org][ts4_sim]]          | input_dataset           | COMPLETED |     39896 |             | file:catalog/ts3/ts_warm_bore.760_1000.ts3_mubeam.art.files                                                   |
+|                  | fcl_tarball             | COMPLETED |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts3_mubeam.ts4_sim.fcl.tbz                                              |
+|                  | grid_job                | COMPLETED |           | interactive | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1000.ts3_mubeam.ts4_sim/outstage                |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts4                                                |
+|                  | output_dataset.ootstops | COMPLETED |     36443 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_ootstops.art.files                                                 |
+|                  | output_dataset.tgtstops | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_ootstops.art.files                                                 |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts4/ts_warm_bore.760_1000.ts4.org][ts4_stn_tgtstops]] | input_dataset           | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts4_tgtstops.art.files                                                 |
+|                  | fcl_tarball             |           |           |             | file:../tmp_fcl/ts_warm_bore.760_1000.ts4_tgtstops.ts4_stn.fcl.tbz                                            |
+|                  | grid_job                |           |           | interactive | **                                                                                                            |
+|                  | output_location         | COMPLETED |           |             | file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1000/ts4_tgtstops_stn                                   |
+|                  | output_dataset.stn      | COMPLETED |      1048 |             | file:catalog/ts4/ts_warm_bore.760_1000.ts3_tgtstops.stn.files                                                 |
+|                  | stntuple_catalog        | COMPLETED |           |             | file:/publicweb/m/murat/cafdfc/ts_warm_bore/760_1000_ts4_tgtstops                                             |
+|------------------+-------------------------+-----------+-----------+-------------+---------------------------------------------------------------------------------------------------------------|

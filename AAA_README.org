@@ -31,10 +31,10 @@
   fcl, geom : for tests, templates...
   tmp_code  : stores tarballs
   tmp_fcl   : stores FCL files produced with generate_fcl
-* *reference numbers*
+* *reference numbers* 
   for default geometry, the number of muons in the end of Stage1 is about 1.3% of the number of generated events
 
-* weighting:
+* weighting:  
 
   s0 (sum of all weights) = N(generated)*sigma/(2*Pmax)
 
@@ -112,6 +112,75 @@ Art has completed and will exit with status 0.
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
 * *WORK LOG*                                ** 
+** <2020-05-09 Sat> **     
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1100 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_1100 s3:tgtstops s3:stn . &
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1200 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_1200 s3:tgtstops s3:stn . &
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_2200 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_2200 s3:tgtstops s3:stn . &
+   ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 760_3000 s2:mubeam  s3:sim .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_3000 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_3000 s3:tgtstops s3:stn . &
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_3100 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_3100 s3:tgtstops s3:stn . &
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_3200 s3:tgtstops  s3:stn .
+   ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_3200 s3:tgtstops s3:stn . &
+   kinit
+   Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d 760_1100_s3_tgtstops -p \.stn -D /mu2e/data/users/murat/datasets/ts_warm_bore/760_2100/s3_stn_tgtstops -install /publicweb/m/murat/cafdfc
+   Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d 760_1100_s3_tgtstops -p \.stn -D /mu2e/data/users/murat/datasets/ts_warm_bore/760_2100/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d 760_1100_s3_tgtstops -p \.stn -D /mu2e/data/users/murat/datasets/ts_warm_bore/760_1100/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   dsid=760_1200; Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p \.stn -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   dsid=760_2200; Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p \.stn -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   dsid=760_3000; Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   dsid=760_3100; Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+   dsid=760_3200; Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install /publicweb/m/murat/cafdfc
+
+** <2020-05-08 Fri> **     
+   ts_warm_bore/scripts/list_pnfs_files           ts_warm_bore 760_1100 ts3:tgtstops   ts4:sim .
+   ts_warm_bore/scripts/list_pnfs_files           ts_warm_bore 760_1200 ts3:tgtstops   ts4:sim .
+   ts_warm_bore/scripts/list_pnfs_files           ts_warm_bore 760_1100 s2:mubeam      s3:sim .
+   ts_warm_bore/scripts/list_pnfs_files           ts_warm_bore 760_1200 s2:mubeam      s3:sim .
+
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1100 s1:mubeam s2:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1200 s1:mubeam s2:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_2200 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_2200 s1:mubeam s2:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1100 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1100 ts1:mubeam ts2:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1200 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1200 ts1:mubeam ts2:sim 2h xrootd .
+   ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_2200 ts1:mubeam ts2:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_2200 ts1:mubeam ts2:sim 2h xrootd .
+
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1100 s1:mubeam s2:sim .
+   ts_warm_bore/scripts/list_pnfs_files ts_warm_bore 760_1100 s1:mubeam s2:sim .
+
+
+** <2020-05-05 Tue> **     
+   ts_warm_bore/scripts/gen_fcl    ts_warm_bore 760_1001 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1001 s2:mubeam s3:sim  2h xrootd .
+   ts_warm_bore/scripts/gen_fcl    ts_warm_bore 760_1001 ts3:mubeam ts4:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1001 ts3:mubeam ts4:sim  5h xrootd .
+   ts_warm_bore/scripts/gen_fcl    ts_warm_bore 760_3100 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_3100 s2:mubeam s3:sim  1h xrootd .
+  
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_3100 ts2:mubeam ts3:sim  6h xrootd .
+   ts_warm_bore/scripts/gen_fcl    ts_warm_bore 760_3200 s2:mubeam s3:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_3200 s2:mubeam s3:sim  2h xrootd .
+   ts_warm_bore/scripts/gen_fcl    ts_warm_bore 760_3200 ts2:mubeam ts3:sim .
+   ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_3200 ts2:mubeam ts3:sim  6h xrootd .
+   ts_warm_bore/scripts/grid_job.py --project=ts_warm_bore --dsid=760_3100 --stage=ts2_sim --job=submit_grid_job
+ 
+** <2020-05-04 Mon> **     
+   ts_warm_bore/scripts/check_grid_output ts_warm_bore 760_3000 gen:50_200000 s1:sim .
+   ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_3000 gen:50_200000 s1:sim .
+   ts_warm_bore/scripts/list_pnfs_files   ts_warm_bore 760_3000 gen:50_200000 s1:sim .
+   ts_warm_bore/scripts/parse_grid_logs.rb -p ts_warm_bore -d 760_3000 -s s1_sim
+
 ** <2020-05-03 Sun> **     
 
    ts_warm_bore/scripts/move_stage_output ts_warm_bore 760_1100 s1:mubeam s2:sim .
@@ -145,8 +214,7 @@ Art has completed and will exit with status 0.
 
    ts_warm_bore/scripts/gen_fcl           ts_warm_bore 760_2200 s2:mubeam s3:sim .
    ts_warm_bore/scripts/submit_grid_job   ts_warm_bore 760_2200 s2:mubeam s3:sim 1h xrootd .
-   
-   
+
 ** <2020-05-02 Sat> **     
    ts_warm_bore/scripts/gen_fcl ts_warm_bore 760_1100 ts2:mubeam ts3:sim .
    murat/scripts/submit_mu2e_job -c ts_warm_bore/tmp_fcl/760_1100.ts2_mubeam.ts3_sim/cnf.murat.ts_warm_bore.760_1100_ts2_mubeam_ts3_sim.001000_00000000.fcl -n 1000 &

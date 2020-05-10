@@ -69,11 +69,16 @@ echo outputdir=$outputdir
 
 if [ ! -d $outputdir/log ] ; then mkdir -p $outputdir/log ; fi
 
+bad_file=/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_3100.pbar_vd91.ts1_sim/outstage/31896363/00/00084/log.murat.ts_warm_bore.ts_warm_bore_760_3100_pbar_vd91_ts1_sim.001000_00000084.log
+
 echo .\$doit=.$doit
 if [ ".$doit" != "." ] ; then 
     # skip log file copy (assume that move_stage_output was ran before
     for f in `ls $topdir/*/*/log.*.log` ; do 
-	cp -vp $f $outputdir/log/.
+
+	if [ $f != $bad_file ] ; then
+	    cp -vp $f $outputdir/log/.
+	fi
     done
 fi
 #------------------------------------------------------------------------------
@@ -103,20 +108,28 @@ fi
 
 echo outputdir=$outputdir
 
+tmp_log=".copy_log_files.xxx.tmp"
+
+if [ -f $tmp_log ] ; then rm $tmp_log ; fi
+touch $tmp_log
+
 for f in `ls $outputdir/log/*.log` ; do 
+    #  echo $scriptname:$LINENO: \$f = $f
     grid=`cat $f | grep "mu2egrid exit status"`
     if [ ".$grid" != "." ] ; then
 	x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
 
 	if [ .$x == ."0" ] ; then 
-	    cat $f | grep "TrigReport Events total"
+	    cat $f | grep "TrigReport Events total" >> $tmp_log
 	fi
     else
 	echo WARNING: file $f doesnt have mu2egrid exit status
-	cat $f | grep "TrigReport Events total"
+	# cat $f | grep "TrigReport Events total"
     fi 
-done  | awk '{n+=$5} END{printf "INPUT:            nevents=%10i\n",n}'
+done  
 
+cat $tmp_log | awk 'BEGIN{n=0} {n+=$5} END{printf "INPUT:            nevents=%10i\n",n}'
+rm $tmp_log
 
 for stream in $output_streams ; do
     #    echo $scriptname:$LINENO: \$stream = $stream
@@ -126,6 +139,11 @@ for stream in $output_streams ; do
     if [ $stream == "tgtstops" ] ; then output_path="tgtStopOutput" ; fi
     if [ $stream == "ootstops" ] ; then output_path="ootStopOutput" ; fi
     
+    tmp_log=".copy_log_files.xxx.tmp."$stream
+
+    if [ -f $tmp_log ] ; then rm $tmp_log ; fi
+    touch $tmp_log
+
     for f in `ls $outputdir/log/*.log` ; do 
 	#	echo $scriptname:$LINENO: \$f = $f
 
@@ -134,11 +152,13 @@ for stream in $output_streams ; do
 	    x=`cat $f | grep "mu2egrid exit status" | awk '{print $4}'` ;
 		
 	    if [ .$x == ."0" ] ; then 
-		cat $f | grep TrigReport | grep -i $output_path
+		cat $f | grep TrigReport | grep -i $output_path >> $tmp_log
 	    fi
 	else
-	    # echo WARNING: file $f doesnt have mu2egrid exit status
-	    cat $f | grep TrigReport | grep -i $output_path
+	    echo WARNING: file $f doesnt have mu2egrid exit status
+	    # cat $f | grep TrigReport | grep -i $output_path
 	fi 
-    done  | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
+    done  
+    cat $tmp_log | awk -v s=$stream '{n+=$5} END{printf "stream=%-10s nevents=%10i\n",s,n}'
+    rm  $tmp_log
 done

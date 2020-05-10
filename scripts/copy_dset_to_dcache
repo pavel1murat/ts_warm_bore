@@ -1,0 +1,49 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# example: ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
+#------------------------------------------------------------------------------
+scriptname="$(basename $0)"
+
+      project=$1  # ts_warm_bore
+         dsid=$2  # 711_0001
+      p_stage=$3  # s1:mubeam 
+         doit=$4
+
+prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+
+  stage=`echo $p_stage | awk -F : '{print $1}'`
+ stream=`echo $p_stage | awk -F : '{print $2}'`
+
+#------------------------------------------------------------------------------
+# copy dataset to a location with fixed name
+#------------------------------------------------------------------------------
+idir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/$stream
+echo idir=$idir
+	
+
+odir=/pnfs/mu2e/scratch/users/murat/datasets/$project/$dsid/$stage/$stream
+echo odir=$odir
+
+if [ ! -d $odir ] ; then mkdir -p $odir ; fi
+
+setup ifdhc
+
+for f in `ls $idir/* | grep \.art` ; do
+    bn=`basename $f`
+    echo ---\> executing: ifdh cp  $idir/$bn $odir/$bn  
+
+#    dccp $idir/$bn dcap://fndca1.fnal.gov:24136$odir/$bn 
+    ifdh cp  $idir/$bn $odir/$bn 
+done
+
+nfiles=`ls -al $odir/* | grep \.art | wc -l`
+
+echo [copy_dset_to_dcache]:$LINENO: copied $nfiles files
+#------------------------------------------------------------------------------
+# and write catalog into the right place
+#------------------------------------------------------------------------------
+ cdir=/mu2e/data/users/murat/subprojects/$project/$dsid/catalog/$stage
+cfile=$cdir/$project.$dsid.${stage}_${stream}.art.files
+
+ls $odir/* >| $cfile

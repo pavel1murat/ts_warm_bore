@@ -91,4 +91,16 @@ clone() {
 	    cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
 	done
     done
+#------------------------------------------------------------------------------
+# 3. config: copy config files
+#------------------------------------------------------------------------------
+    cdir1=$project/$dsid1/config
+    cdir2=$project/$dsid2/config
+
+    if [ ! -d $cdir2 ] ; then mkdir -p $cdir2 ; fi
+
+    for f in `ls $cdir1/*` ; do 
+	f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
+	cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
+    done
 }

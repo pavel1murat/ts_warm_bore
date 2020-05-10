@@ -50,12 +50,17 @@ end
 def run(dsid)
 
 # puts "input_fn=#{input_fn}"
-  dir = "/mu2e/data/users/"+ENV["USER"]+"/datasets/"+$project+"/"+$dsid+"/"+$stage ;
+  dir = "/mu2e/data/users/"+ENV["USER"]+"/datasets/"+$project+"/"+$dsid+"/"+$stage.split('_')[0] ;
   #  puts "dir = #{dir}"
+#------------------------------------------------------------------------------
+# oen output file
+#------------------------------------------------------------------------------
+  ofn = $project+'/timing_data/'+$project+'.'+$dsid+'.'+$stage+'.txt';
+  of  = File.open(ofn,'w');
 #------------------------------------------------------------------------------
 # write ntuple format string
 #------------------------------------------------------------------------------
-  printf ("jobid/I:node_name/C:cpu_id/C:bogomips/F:dsid/C:vmpeak/F:vmhwm/F:tstage/I:totcpu/I:totwall/I:tfull/F:tistn/F:tkffpar/F:tkffdar/F\n");
+  of.printf ("jobid/I:node_name/C:cpu_id/C:bogomips/F:dsid/C:vmpeak/F:vmhwm/F:tstage/I:totcpu/I:totwall/I:tfull/F:tistn/F:tkffpar/F:tkffdar/F\n");
 
   for fn in Dir.glob("#{dir}/log/*.log") do
     #    puts "-----------------"+fn
@@ -123,13 +128,15 @@ def run(dsid)
 
 #    puts "stage_in_time: #{stage_in_time}", cpu_time, wall_time, full_evt_time, kffpar_time, kffdar_time, init_stn_time;
 
-    printf(" %11s %-19s %-12s %8s %9s %9.3f %9.3f %6i %8.0f %8.0f %8.4f %8.4f %8.4f %8.4f\n",
-           job_id, node_name, vendor_id, bogomips, dsid, 
-           vmpeak, vmhwm, 
-           stage_in_time, cpu_time, wall_time, full_evt_time, init_stn_time, kffpar_time, kffdar_time );
+    of.printf(" %11s %-19s %-12s %8s %9s %9.3f %9.3f %6i %8.0f %8.0f %8.4f %8.4f %8.4f %8.4f\n",
+              job_id, node_name, vendor_id, bogomips, dsid, 
+              vmpeak, vmhwm, 
+              stage_in_time, cpu_time, wall_time, full_evt_time, init_stn_time, kffpar_time, kffdar_time );
 
     f.close
   end
+
+  of.close();
 end
 
 

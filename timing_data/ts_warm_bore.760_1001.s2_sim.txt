@@ -1,0 +1,3 @@
+jobid/I:node_name/C:cpu_id/C:bogomips/F:dsid/C:vmpeak/F:vmhwm/F:tstage/I:totcpu/I:totwall/I:tfull/F:tistn/F:tkffpar/F:tkffdar/F
+    32169605 fnpc9039.fnal.gov   GenuineIntel  4799.72  760_1001  2328.260  1580.170     -1      516     1215  -1.0000  -1.0000  -1.0000  -1.0000
+    32169605 fnpc9047.fnal.gov   GenuineIntel  4799.72  760_1001  2327.230  1579.620     -1      536      869  -1.0000  -1.0000  -1.0000  -1.0000

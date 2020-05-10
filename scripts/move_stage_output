@@ -103,8 +103,12 @@ done
 #------------------------------------------------------------------------------
 od=$output_dir/log ; if [ ! -d $od ] ; then $prefix mkdir -p $od ; fi
 
+bad_file=/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_3100.pbar_vd91.ts1_sim/outstage/31896363/00/00084/log.murat.ts_warm_bore.ts_warm_bore_760_3100_pbar_vd91_ts1_sim.001000_00000084.log
+
 for f in `ls $input_dir/00/*/log.*.log` ; do 
-    ${prefix} $copy $f $od/`basename $f`
+    if [ $f != $bad_file ] ; then
+	${prefix} $copy $f $od/`basename $f`
+    fi
 done
 
 if [ ".$prefix" == "." ] ; then

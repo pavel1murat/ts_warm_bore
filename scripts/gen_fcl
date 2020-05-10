@@ -62,18 +62,18 @@ get_segments() {
 aaa_project_file=$project/AAA_PROJECT.txt
               bf=`get_fcl $aaa_project_file $dsid $istage $istub $job_type`
 
-	base_fcl=`echo $bf | awk -F : '{print $1}'`
+	base_fcl=`echo $bf | awk -F : '{print $1}'`  ; echo $LINENO: base_fcl:$base_fcl
       resampling=`echo $bf | awk -F : '{print $2}'`
       if [ ".$resampling" == "." ] ; then resampling="no" ; fi
 
            merge=`get_emerge      $aaa_project_file $dsid $istage $istub $job_type`
-     nev_per_job=`get_nev_per_job $aaa_project_file $dsid $istage $istub $job_type`
+     nev_per_job=`get_nev_per_job $aaa_project_file $dsid $istage $istub $job_type` ; echo $LINENO : nev_per_job:$nev_per_job
 #------------------------------------------------------------------------------
 # determine the total number of serments and the max number of segments per job
 #------------------------------------------------------------------------------
      segments=`get_segments $aaa_project_file $dsid $istage $istub $job_type`
 
-# echo segments:$segments
+echo segments:$segments
 
 	nsegtot=`echo $segments | awk -F : '{print $1}'`
 max_seg_per_job=`echo $segments | awk -F : '{print $2}'`

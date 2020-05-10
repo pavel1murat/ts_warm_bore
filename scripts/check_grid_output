@@ -7,7 +7,7 @@
         dsid=$2   # 711_1010
     p_istage=$3   # s1:mubeam  or gen:250_20000:03 or pbar:vd91 or pbar:vd91:01
   p_job_type=$4   # s1:sim or s2:stn
-#       order=$5
+       local=$5   # local : check local log files, default : ''
 
       istage=`echo $p_istage | awk -F : '{print $1}'`
      istream=`echo $p_istage | awk -F : '{print $2}'`
@@ -75,52 +75,83 @@ nsuccess=0
 script_logfile=$logdir/$project.$dsid.${istage}_${istream}.${job_type}.check_grid_output.log
 
 if [ ! -d $logdir ] ; then mkdir -p $logdir ; fi
-echo "#" `date`>| $script_logfile
-echo "# job output directory:" $stage_dir >> $script_logfile
 
-list_of_subjobs=`ls $stage_dir`
+echo "#" `date`                                              >| $script_logfile
+echo "# job output directory:" $stage_dir                    >> $script_logfile
 
-for subdir in $list_of_subjobs ; do
 
-    sdir=$stage_dir/$subdir
-    echo "# subdirectory        :" $sdir; 
-    echo "# subdirectory        :" $sdir >> $script_logfile
+if [ ".$local" != ".local" ] ; then
+    # parse logfiles from  /pnfs staging area
+    list_of_subjobs=`ls $stage_dir`
 
-    list_of_sections=`ls $sdir`
-#    if [ ".$order" != "." ] ; then list_of_sections=`ls -tr $sdir` ; fi
+    for subdir in $list_of_subjobs ; do
 
-    for d in $list_of_sections ; do 
-#    echo $d
-#------------------------------------------------------------------------------
-# skip directories corresponding to non-completed sections like '00015.wuue'
-# now they contain just one .log file per subdirectory
-#------------------------------------------------------------------------------
-	nf=`echo $d | awk -F . '{print NF}'` 
-	if [ $nf == 1 ] ; then
-	    logfile=`ls $sdir/$d/*.log` ;
-	    x=`cat $logfile | grep "mu2egrid exit status"`; 
-	    if [ ."$x" == "." ] ; then
-#------------------------------------------------------------------------------
-# no return code - print warning, but dont assume the staging failure
-#------------------------------------------------------------------------------
-		printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host >> $script_logfile
-		# n_staging_failures=$((n_staging_failures+1))
+	sdir=$stage_dir/$subdir
+	echo "# subdirectory        :" $sdir; 
+	echo "# subdirectory        :" $sdir >> $script_logfile
+
+	list_of_sections=`ls $sdir`
+	#    if [ ".$order" != "." ] ; then list_of_sections=`ls -tr $sdir` ; fi
+
+	for d in $list_of_sections ; do 
+	    #    echo $d
+	    #------------------------------------------------------------------------------
+	    # skip directories corresponding to non-completed sections like '00015.wuue'
+	    # now they contain just one .log file per subdirectory
+	    #------------------------------------------------------------------------------
+	    nf=`echo $d | awk -F . '{print NF}'` 
+	    if [ $nf == 1 ] ; then
+		logfile=`ls $sdir/$d/*.log` ;
+		x=`cat $logfile | grep "mu2egrid exit status"`; 
+		if [ ."$x" == "." ] ; then
+		    #------------------------------------------------------------------------------
+		    # no return code - print warning, but dont assume the staging failure
+		    #------------------------------------------------------------------------------
+		    printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host >> $script_logfile
+		    # n_staging_failures=$((n_staging_failures+1))
+		else
+		    rc=`echo $x | awk '{print $4}'`
+		    host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
+		    y=`cat $logfile | grep "TrigReport Events total"`
+		    
+		    printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc >> $script_logfile
+		    
+		    if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
+		fi
+		nsections=$((nsections+1))
 	    else
-		rc=`echo $x | awk '{print $4}'`
-		host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
-		   y=`cat $logfile | grep "TrigReport Events total"`
-		
-		printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc >> $script_logfile
-		
-		if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
+		printf " %10s : GRID ERROR, job not completed\n" $d >> $script_logfile
 	    fi
-	    nsections=$((nsections+1))
-	else
-	    printf " %10s : GRID ERROR, job not completed\n" $d >> $script_logfile
-	fi
-	ntotal=$((ntotal+1))
+	    ntotal=$((ntotal+1))
+	done
     done
-done
+else
+    # parse logfiles from the local directory
+    logdir=/mu2e/data/users/murat/datasets/$project/$dsid/$stage/log
+    echo logdir=$logdir
+
+    for logfile in `ls $logdir/*.log` ; do 
+	x=`cat $logfile | grep "mu2egrid exit status"`; 
+	if [ ."$x" == "." ] ; then
+	    #------------------------------------------------------------------------------
+	    # no return code - print warning, but dont assume the staging failure
+	    #------------------------------------------------------------------------------
+	    printf " %5s : section %-6s was running on %-40s , NO mu2egrid exit status %3i\n" $nsections $d $host >> $script_logfile
+	    # n_staging_failures=$((n_staging_failures+1))
+	else
+	    rc=`echo $x | awk '{print $4}'`
+	    host=`cat $logfile | grep "Starting on host" | awk '{print $5}'`;
+	    y=`cat $logfile | grep "TrigReport Events total"`
+	    
+	    printf " %5s : section %-6s was running on %-40s , mu2egrid exit status: %3i $y\n" $nsections $d $host $rc >> $script_logfile
+	    
+	    if [ $rc != 0 ] ; then nfailed=$((nfailed+1)) ; else nsuccess=$((nsuccess+1)) ; fi
+	fi
+	nsections=$((nsections+1))
+    done
+ 
+fi
+
 echo --------------------------------------------                  >> $script_logfile
 echo JOB SUMMARY:                                                  >> $script_logfile
 echo --------------------------------------------                  >> $script_logfile
@@ -130,3 +161,6 @@ printf "completed           : %5i sections\n" $nsections           >> $script_lo
 printf "staging failures    : %5i sections\n" $n_staging_failures  >> $script_logfile
 printf "completed with rc=0 : %5i sections\n" $nsuccess            >> $script_logfile
 printf "mu2e job failed     : %5i sections\n" $nfailed             >> $script_logfile 
+
+echo printing logfile: $script_logfile
+cat $script_logfile

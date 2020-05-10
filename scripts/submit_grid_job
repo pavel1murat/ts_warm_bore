@@ -8,23 +8,20 @@
 #           ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2060 ts1:mubeam   ts2:sim 10h xrootd .
 #------------------------------------------------------------------------------
         project=$1 # ts_warm_bore
-         p_dsid=$2 # 711_0001
+	   dsid=$2 # 760_2000
             ist=$3 # s1:mubeam[:01] ... or gen:250_20000:[:01] ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
      p_job_type=$4 # 's1:sim' or 's1:stn' , for example
            time=$5 # 
 	 xrootd=$6 # xrootd or ifdh
            doit=$7 # "." or ""
-
-        dsid=`echo $p_dsid | awk -F : '{print $1}'`
-        fclt=`echo $p_dsid | awk -F : '{print $2}'`
-
+	   
  input_stage=`echo $ist | awk -F : '{print $1}'`;
 input_stream=`echo $ist | awk -F : '{print $2}'`;
      fileset=`echo $ist | awk -F : '{print $3}'`;
 
   input_stub=`echo $ist | sed 's/:/_/g'`;
 
-    job_type=`echo $p_job_type | sed 's/:/_/'`
+    sub_stub=`echo $p_job_type | sed 's/:/_/'`
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
@@ -39,13 +36,15 @@ dsconf=${dsid}_${input_stub}
 
 code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
 
- fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.$input_stub.$job_type.fcl.tbz
+ fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.$input_stub.$sub_stub.fcl.tbz
 if [ ".$fclt" != "." ] ; then fcl_tarball=$fclt ; fi
 
-dataset_conf=${project}_${dsid}_${input_stub}_$job_type
-work_project=${project}.${dsid}.${input_stub}.$job_type
+dataset_conf=${project}_${dsid}_${input_stub}_$sub_stub
+work_project=${project}.${dsid}.${input_stub}.$sub_stub
 
 parameters="--code=$code_tarball --fcllist=$fcl_tarball --dsconf=$dataset_conf --wfproject=$work_project --transfer-all-files --expected-lifetime=$time"
 if [ $xrootd == "xrootd" ] ; then parameters=$parameters" --xrootd" ; fi
 
-$prefix mu2eprodsys $parameters
+$prefix date ; time mu2eprodsys $parameters
+
+echo \* \<`date +%Y-%m-%d\ %a`\> *xxxxxxxx SUBMITTED* : $project.$dsid.$input_stub.$sub_stub          $time:$xrootd 

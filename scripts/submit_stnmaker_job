@@ -1,0 +1,37 @@
+#!/bin/bash
+#------------------------------------------------------------------------------
+# moves into the proper output directory
+# example: ts_warm_bore/scripts/submit_stnmaker_job ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
+#------------------------------------------------------------------------------
+scriptname="$(basename $0)"
+
+      project=$1  # ts_warm_bore
+         dsid=$2  # 711_0001
+     p_istage=$3  # gen:250_20000 .... or s1:mubeam
+   p_job_type=$4  # s1:sim , s2:stn , etc
+         doit=$5
+
+prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+
+ istage=`echo $p_istage | awk -F : '{print $1}'`
+istream=`echo $p_istage | awk -F : '{print $2}'`
+
+istub=${istream};
+if [ ".$fileset" != "." ] ; then istub=${istub}_${fileset} ; fi
+
+           stage=`echo $p_job_type | awk -F : '{print $1}'`
+         jobtype=`echo $p_job_type | awk -F : '{print $2}'`
+        job_type=`echo $p_job_type | sed 's/:/_/g'`
+
+  input_stub=`echo $p_istage | sed 's/:/_/g'`;   echo $LINENO input_stub=$input_stub
+dsconf=${dsid}_${input_stub}
+
+#fcl_file=$project/tmp_fcl/$dsid.$input_stub.$stage/cnf.murat.$project
+
+tcl_dir=$project/tmp_fcl/$dsid.$input_stub.$job_type
+echo $LINENO: tcl_dir=$tcl_dir
+
+for fcl in `ls $tcl_dir/*.fcl` ; do
+    ${prefix}murat/scripts/submit_mu2e_job -c  $fcl -o /mu2e/data/users/murat/datasets/$project/$dsid/${job_type}_$istream
+done
