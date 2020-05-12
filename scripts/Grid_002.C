@@ -167,7 +167,7 @@ void TJobSub::ExecuteCommand(const char* Cmd, int PrintOnly) {
   printf(">> TJobSub::ExecuteCommand : executing cmd: %s\n",Cmd);
 
   if (PrintOnly != 1) {
-    char buf[512];
+    char buf[10001];
     FILE* pipe = gSystem->OpenPipe(Cmd,"r");
     while (fgets(buf,10000,pipe)) { printf("%s",buf); }
     gSystem->ClosePipe(pipe);
