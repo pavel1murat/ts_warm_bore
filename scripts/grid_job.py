@@ -3,7 +3,7 @@
 # call: grid_submit.py --project=ts_warm_bore --dsid=760_3000 --stage=ts1_sim  -step=gen_fcl 
 #-------------------------------------------------------------------------------------------------
 
-import configparser, subprocess
+import configparser, subprocess, shutil
 import sys, string, getopt, glob, os, time, re, array
 
 
@@ -11,15 +11,16 @@ import sys, string, getopt, glob, os, time, re, array
 class GridSubmit:
 
     def __init__(self):
-        self.fProject   = None
-        self.fDsid      = None
-        self.fDoit      = 1
-        self.fJob       = None
-        self.fStage     = None
-        self.fIStage    = None;
-        self.fIStream   = None;
-        self.fUser      = 'murat'
-        self.fGridJobID = None;
+        self.fProject       = None
+        self.fProjectDir    = None
+        self.fDsid          = None
+        self.fDoit          = 1
+        self.fJob           = None
+        self.fStage         = None
+        self.fIStage        = None;
+        self.fIStream       = None;
+        self.fUser          = 'murat'
+        self.fGridJobID     = None;
 
         self.fOutputPath    = {}
         self.fOutputStreams = None
@@ -52,6 +53,7 @@ class GridSubmit:
         try:
             optlist, args = getopt.getopt(sys.argv[1:], '',
                      ['project=', 'verbose=', 'job=', 'doit=', 'dsid=', 'stage=' ] )
+ 
         except getopt.GetoptError:
             self.Print(name,0,'%s' % sys.argv)
             self.Print(name,0,'Errors arguments did not parse')
@@ -210,27 +212,32 @@ class GridSubmit:
     def BuildTarball(self):
         name = 'BuildTarball'
 
-        process = subprocess.run(['gridexport' ,'-E '+os.getenv('PWD')+'/grid_export', '-A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt'], 
-                                 capture_output=True,
-                                 universal_newlines=True)
+        cmd_pars = ['gridexport' ,'-E '+os.getenv('PWD')+'/grid_export', '-A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt'];
+
+        print(">>> [BuildTarball] executing :"," ".join(cmd_pars));
+
+        process = subprocess.run(cmd_pars,capture_output=True,universal_newlines=True)
+
+        print(">>> [BuildTarball] done executing");
 
         if (process.returncode == 0):
-            lines       = process.stdou.split('\n')
+            lines       = process.stdout.split('\n')
 
             for line in lines: print(line)
 
             word        = lines[2].split();
-            tmp_dir     = word[3]
             tarball     = word[4]
+            tmp_dir     = os.path.dirname(tarball)
             new_tarball = self.fProject+'/tmp_code/'+self.fProject+'.code.'+self.fDsid+'.tbz'
 
-            if os.path.exists(new_tarball): 
-                os.remove(new_tarball);
+            if os.path.exists(new_tarball): os.remove(new_tarball);
             
-            os.rename(tarball,new_tarball);
+            shutil.copy(tarball,new_tarball);
+            os.remove(tarball);
 
             # remove old directory
-            os.rmdir('./grid_export/'+tmp_dir);
+            os.rmdir(tmp_dir);
+
             # copy tarball to /pnfs
             grid_tarball = '/pnfs/mu2e/resilient/users/murat/'+self.fProject+'.code.tbz'
             if os.path.exists(grid_tarball):

@@ -1,0 +1,25 @@
+#------------------------------------------------------------------------------
+# output of g4s1 (Stage1 simulation) job for Bob's PBAR sample
+# job has 1 output streams : mubeam, all other are disabled
+#
+#------------------------------------------------------------------------------
+# :NPOT: 
+#------------------------------------------------------------------------------
+local_directory          : file:./
+job_log_files            : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1013/ts4/log
+job_timing               : file:../../../tmp_png/ts_warm_bore.760_1013.ts3_mubeam.ts4_sim.totwall.png
+check_grid_output        : file:ts_warm_bore.760_1013.ts2_mubeam.ts3_sim.check_grid_output.log
+output_location          : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1013/ts4/
+grid_job.output_location : file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1013.ts3_mubeam.ts4_sim
+
+|--------------+------------------+--------------------------------------------------------+-----------+----------+---------------|
+|              | effective N(POT) |                                                        | N(events) | N(files) | comments      |
+|--------------+------------------+--------------------------------------------------------+-----------+----------+---------------|
+| *ts3_mubeam* |                  | file:../ts3/ts_warm_bore.760_1013.ts3_mubeam.art.files |     39896 |        3 | input dataset |
+| *ootstops*   |                  | file:ts_warm_bore.760_1013.ts4_ootstops.art.files      |     36443 |        1 |               |
+| *tgtstops*   |                  | file:ts_warm_bore.760_1013.ts4_tgtstops.art.files      |      1048 |        1 |               |
+|--------------+------------------+--------------------------------------------------------+-----------+----------+---------------|
+| *mubeam_stn* |                  | file:ts_warm_bore.711_1900.ts4_tgtstops.stn.files      |           |          |               |
+|--------------+------------------+--------------------------------------------------------+-----------+----------+---------------|
+
+* back to project catalog: file:../../ts_warm_bore.760_1013.org

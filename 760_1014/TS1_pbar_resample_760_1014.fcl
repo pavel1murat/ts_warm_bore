@@ -1,0 +1,87 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's from VD91 to the from TS3u coll
+# do not trace e+-, mu+-, photons, neutrons, protons, and pi+ below 200 MeV/c 
+#------------------------------------------------------------------------------
+#include "Filters/fcl/prolog.fcl"
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS1PbarResample
+
+source : { module_type  : EmptyEvent
+  firstRun     :  1000
+  maxEvents    : -1
+}
+
+PbarSimulationEnergyCuts: {
+   type: intersection
+   pars: [ { type: kineticEnergy cut: 200.0 }, { type: pdgId pars: [ 11, -11, 13, -13, 22, 211, 2112, 2212 ] }]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::PbarSimulationEnergyCuts,
+	    { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord } ]
+}
+
+# physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll31OutRecord" ]
+#------------------------------------------------------------------------------
+# define resampler, a list of fileNames has to be defined via post-processing
+#------------------------------------------------------------------------------
+physics.filters.resamplingMixer : { 
+    module_type  : ResamplingMixer
+    fileNames    : []                 # 
+    readMode     : "sequential"  #  "sequential" or "randomNoReplace"
+    wrapFiles    : true
+    
+    mu2e: {
+	nSecondaries : 1
+	products: {
+	    genParticleMixer: { mixingMap: [ [ "generate", "" ] ] }
+	    simParticleMixer: { mixingMap: [ [ "g4filter", "" ] ] }
+	    stepPointMCMixer: { mixingMap: [ [ "g4filter:virtualdetector", ":" ], ["g4filter:VirtualDetectorPSPbarIn", ":"] ] }
+	}
+    }
+}
+#------------------------------------------------------------------------------
+# resampling redefines the input object names, G4 uses the redefined ones
+#------------------------------------------------------------------------------
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "resamplingMixer"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # was "compressPV"
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "resamplingMixer:VirtualDetectorPSPbarIn" ]
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "resamplingMixer:virtualdetector" ]
+#------------------------------------------------------------------------------
+# paths: there are two paths using g4run, insert resamplingMixer in front of both...
+#------------------------------------------------------------------------------
+# physics.producers.g4run.compressPVmuonBeam.particleInputs               : [ "resamplingMixer" ]
+
+physics.filters.ParticleFilter : { @table::StepPointMCFilter 
+    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+    pdgCodes    : [ -2212 ]  # pbar
+    debugLevel  : 1
+}
+
+physics.trigmubeam     : [resamplingMixer, g4run, g4consistent, muonBeamFilter ] # , compressPVmuonBeam]
+physics.g4StatusFilter : [resamplingMixer, g4run, "!g4status" ] # , compressPVFull ]
+
+#------------------------------------------------------------------------------
+# write out only the beam, but don't require at least one antiproton to reach the destination volume(s)
+#-----------------------------------------------------------------------------------------
+physics.trigger_paths             : [ trigmubeam, g4StatusFilter ]
+physics.outputs                   : [ mubeamout ]
+physics.end_paths                 : [ outputs   ] # , an ]
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+    outputCommands:   [ "drop *_*_*_*",
+			"keep mu2e::GenParticles_*_*_*",
+			"keep mu2e::StatusG4_*_*_*",
+			"keep *_muonBeamFilter_*_TS1PbarResample"
+			# 		       "keep *_compressPVmuonBeam_*_TS1PbarResample"
+		       ]
+}
+
+services.scheduler.wantSummary    : true
+services.GeometryService.inputFile: "ts_warm_bore/760_1014/geom_760_1014.txt"
+#------------------------------------------------------------------------------ END

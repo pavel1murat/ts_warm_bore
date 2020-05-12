@@ -5,9 +5,9 @@
 //-----------------------------------------------------------------------------
 // TS1 pbar absorber: 250 um Al window             (default)
 // TS1 pbar collar  : short, 120 deg               (default) 
-// TS3 Pbar Absorber: 50  um Ti window, no wedge
+// TS3 Pbar Absorber: 100  um Ti window, no wedge
 //-----------------------------------------------------------------------------
-double pbar.halfLength                    = 0.0254;   // 50 um thick
+double pbar.halfLength                    = 0.050;   // 100 um thick
 string pbar.materialName                  = "G4_Ti";
 string pbar.Type                          = "disk";   // "wedge";
 

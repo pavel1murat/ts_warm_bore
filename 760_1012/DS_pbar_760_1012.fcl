@@ -1,0 +1,28 @@
+# -*- mode:tcl -*-
+#include "JobConfig/beam/DS.fcl"
+
+# physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/760_1012/geom_760_1012.txt"
+
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 400000
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # "compressPVmuonBeam"
+
+physics.producers.stoppedMuonFinder.particleTypes                       : [ 13, -13, -211, 211, -2212 ]
+physics.producers.stoppedMuonFinder.particleOffsetThreshold             : 400000
+
+physics.producers.outOfTargetMuonFinder.particleTypes                   : [ 13, -13, -211, 211, -2212 ]
+physics.producers.outOfTargetMuonFinder.particleOffsetThreshold         : 400000
+
+
+#------------------------------------------------------------------------------
+# take out volume info
+#------------------------------------------------------------------------------
+physics.tgtFilter      : [ g4run, g4consistent, stoppedMuonFinder    , tgtStopFilter] # , compressPVTGTStops]
+physics.ootFilter      : [ g4run, g4consistent, outOfTargetMuonFinder, ootStopFilter] # , compressPVOOTStops]
+physics.g4StatusFilter : [ g4run, "!g4status"]                                        # , compressPVFull ]
+
+# trigger_paths  : [motherFilter, trigCRV, tgtFilter, ootFilter, g4StatusFilter]
+physics.trigger_paths  : [ tgtFilter, ootFilter, g4StatusFilter]
+
+physics.out            : [ tgtStopOutput, ootStopOutput]
+physics.end_paths      : [ out ]                                                        # , gcl]

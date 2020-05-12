@@ -112,37 +112,37 @@
 
 class TJobSub {
 
-private:
+public:
 
   TGMainFrame*        fMainFrame;
 
   struct Gui_t {
-    TGTextEntry*   fProject;
-    TGTextEntry*   fDsid;
     TGTextEntry*   fInputStage;
     TGTextEntry*   fStage;
     TGTextEntry*   fTime;
     TGTextEntry*   fExtraParameters;
   } fGui;
 
+  TString   fProject;
+  TString   fDsid;
 
-
-
-public:
-  TJobSub(const TGWindow *p, UInt_t w, UInt_t h);
+  TJobSub(const char* Project, const char* Dsid, const TGWindow *p, UInt_t w, UInt_t h);
 
   virtual ~TJobSub();
 
   void     BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height);
-  void     ExecuteCommand(const char* Cmd);
+  void     ExecuteCommand(const char* Cmd, int PrintOnly = 0);
 
   void     gridexport();
 
-  void     CheckGridOutput();
+  void     check_grid_output  ();
+  void     list_pnfs_files    ();
+  void     move_stage_output  ();
+  void     move_dset_to_dcache();
 
-  void     list_pnfs_files();
+  void     submit_stnmaker_job();
+  void     catalog_stntuples  ();
 
-  void     move_stage_output();
   void     gen_fcl();
   void     submit_grid_job();
   void     jobsub_q();
@@ -151,7 +151,9 @@ public:
 };
 
 //-----------------------------------------------------------------------------
-TJobSub::TJobSub(const TGWindow *p, UInt_t w, UInt_t h) {
+TJobSub::TJobSub(const char* Project, const char* Dsid, const TGWindow *p, UInt_t w, UInt_t h) {
+  fProject = Project;
+  fDsid    = Dsid;
   BuildGui(p, w, h);
 }
 
@@ -161,12 +163,15 @@ TJobSub::~TJobSub() {
 }
 
 //-----------------------------------------------------------------------------
-void TJobSub::ExecuteCommand(const char* Cmd) {
+void TJobSub::ExecuteCommand(const char* Cmd, int PrintOnly) {
   printf(">> TJobSub::ExecuteCommand : executing cmd: %s\n",Cmd);
-  char buf[512];
-  FILE* pipe = gSystem->OpenPipe(Cmd,"r");
-  while (fgets(buf,10000,pipe)) { printf("%s",buf); }
-  gSystem->ClosePipe(pipe);
+
+  if (PrintOnly != 1) {
+    char buf[512];
+    FILE* pipe = gSystem->OpenPipe(Cmd,"r");
+    while (fgets(buf,10000,pipe)) { printf("%s",buf); }
+    gSystem->ClosePipe(pipe);
+  }
 
   printf(">> TJobSub::ExecuteCommand : DONE\n");
 }
@@ -176,9 +181,9 @@ void TJobSub::move_stage_output() {
   TString cmd;
 
   cmd = Form("%s/scripts/move_stage_output %s %s %s %s .",
-	     fGui.fProject->GetText(),
-	     fGui.fProject->GetText(),
-	     fGui.fDsid->GetText(),
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
 	     fGui.fInputStage->GetText(),
 	     fGui.fStage->GetText());
 
@@ -186,15 +191,30 @@ void TJobSub::move_stage_output() {
 }
 
 //-----------------------------------------------------------------------------
+void TJobSub::move_dset_to_dcache() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/move_dset_to_dcache %s %s %s %s .: NOT IMPLEMENTED YET!",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fGui.fInputStage->GetText(),
+	     fGui.fStage->GetText());
+
+  int print_only = 1;
+  ExecuteCommand(cmd.Data(),print_only);
+}
+
+//-----------------------------------------------------------------------------
 // check grid output
 //-----------------------------------------------------------------------------
-void TJobSub::CheckGridOutput() {
+void TJobSub::check_grid_output() {
   TString cmd;
 
   cmd = Form("%s/scripts/check_grid_output %s %s %s %s %s",
-	     fGui.fProject->GetText(),
-	     fGui.fProject->GetText(),
-	     fGui.fDsid->GetText(),
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
 	     fGui.fInputStage->GetText(),
 	     fGui.fStage->GetText(),
 	     fGui.fExtraParameters->GetText());
@@ -209,9 +229,9 @@ void TJobSub::list_pnfs_files() {
   TString cmd;
 
   cmd = Form("%s/scripts/list_pnfs_files %s %s %s %s %s",
-	     fGui.fProject->GetText(),
-	     fGui.fProject->GetText(),
-	     fGui.fDsid->GetText(),
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
 	     fGui.fInputStage->GetText(),
 	     fGui.fStage->GetText(),
 	     fGui.fExtraParameters->GetText());
@@ -237,9 +257,9 @@ void TJobSub::gen_fcl() {
   TString cmd;
 
   cmd = Form("%s/scripts/gen_fcl %s %s %s %s .",
-	     fGui.fProject->GetText(),
-	     fGui.fProject->GetText(),
-	     fGui.fDsid->GetText(),
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
 	     fGui.fInputStage->GetText(),
 	     fGui.fStage->GetText());
 
@@ -248,18 +268,82 @@ void TJobSub::gen_fcl() {
 
 //-----------------------------------------------------------------------------
 void TJobSub::submit_grid_job() {
-  // printf("TJobSub::submit_grid_job(): about to call submit_grid_job project=%s dsid=%s\n",fProject->GetText(),fDsid->GetText());
   TString cmd;
 
   cmd = Form("%s/scripts/submit_grid_job %s %s %s %s %s .",
-	     fGui.fProject->GetText(),
-	     fGui.fProject->GetText(),
-	     fGui.fDsid->GetText(),
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
 	     fGui.fInputStage->GetText(),
 	     fGui.fStage->GetText(),
 	     fGui.fTime->GetText());
 
+  TDatime x;
+  TString istage = fGui.fInputStage->GetText();
+  TString jstage = fGui.fStage->GetText();
+  TString time   = fGui.fTime->GetText();
+
+  istage.ReplaceAll(':','_');
+  jstage.ReplaceAll(':','_');
+
+  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fGui.fTime->GetText());
   ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// so far, assume running interactively, otherwise - submit grid job 
+//-----------------------------------------------------------------------------
+void TJobSub::submit_stnmaker_job() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/submit_stnmaker_job %s %s %s %s .",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fGui.fInputStage->GetText(),
+	     fGui.fStage->GetText());
+
+  // TDatime x;
+  // TString istage = fGui.fInputStage->GetText();
+  // TString jstage = fGui.fStage->GetText();
+
+  // istage.ReplaceAll(':','_');
+  // jstage.ReplaceAll(':','_');
+  //
+  //  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fGui.fTime->GetText());
+  // int print_only = 1; // debug first !
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// so far, always an interactive command
+//-----------------------------------------------------------------------------
+void TJobSub::catalog_stntuples() {
+  TString cmd;
+
+
+  //  Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install  ;
+
+  TString istage = fGui.fInputStage->GetText();
+  istage.ReplaceAll(':','_');
+
+  TObjArray* ist = istage.Tokenize(":");
+  TObjString* input_stage = (TObjString*) ist->At(0);
+
+  TString jstage = fGui.fStage->GetText();
+  jstage.ReplaceAll(':','_');
+
+  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s_%s -p nts.murat -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s --install %s",
+	     fProject.Data(),
+	     fDsid.Data(),istage.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     input_stage->GetString().Data(),
+	     jstage.Data(),
+	     "/publicweb/m/murat/cafdfc");
+
+  int print_only = 1; // debug first !
+  ExecuteCommand(cmd.Data(),print_only);
 }
 
 //-----------------------------------------------------------------------------
@@ -274,50 +358,36 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 // left subframe - labels and text entries
 //-----------------------------------------------------------------------------
    // "fGroupFrameParameters" group frame
-   TGGroupFrame *fGroupFrameParameters = new TGGroupFrame(fMainFrame,"Parameters");
+   TGGroupFrame *fGroupFrameParameters = new TGGroupFrame(fMainFrame,Form("%s:%s",fProject.Data(),fDsid.Data()));
    fGroupFrameParameters->SetLayoutBroken(kTRUE);
-
-   TGLabel *fLabel1910 = new TGLabel(fGroupFrameParameters,"Project");
-   fLabel1910->SetTextJustify(36);
-   fLabel1910->SetMargins(0,0,0,0);
-   fLabel1910->SetWrapLength(-1);
-   fGroupFrameParameters->AddFrame(fLabel1910, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel1910->MoveResize(24,32,72,30);
-
-   TGLabel *fLabel1933 = new TGLabel(fGroupFrameParameters,"DsID");
-   fLabel1933->SetTextJustify(36);
-   fLabel1933->SetMargins(0,0,0,0);
-   fLabel1933->SetWrapLength(-1);
-   fGroupFrameParameters->AddFrame(fLabel1933, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel1933->MoveResize(16,80,80,30);
-
-   TGLabel *fLabel1948 = new TGLabel(fGroupFrameParameters,"Input Stage");
-   fLabel1948->SetTextJustify(36);
-   fLabel1948->SetMargins(0,0,0,0);
-   fLabel1948->SetWrapLength(-1);
-   fGroupFrameParameters->AddFrame(fLabel1948, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel1948->MoveResize(32,140,64,25);
 
    TGLabel *fLabel1955 = new TGLabel(fGroupFrameParameters,"Stage");
    fLabel1955->SetTextJustify(36);
    fLabel1955->SetMargins(0,0,0,0);
    fLabel1955->SetWrapLength(-1);
    fGroupFrameParameters->AddFrame(fLabel1955, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel1955->MoveResize(32,200,72,24);
+   fLabel1955->MoveResize(10,20,80,24);
+
+   TGLabel *fLabel1948 = new TGLabel(fGroupFrameParameters,"Input Stage");
+   fLabel1948->SetTextJustify(36);
+   fLabel1948->SetMargins(0,0,0,0);
+   fLabel1948->SetWrapLength(-1);
+   fGroupFrameParameters->AddFrame(fLabel1948, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fLabel1948->MoveResize(10,50,80,24);
 
    TGLabel *fLabel1962 = new TGLabel(fGroupFrameParameters,"Time/xrootd");
    fLabel1962->SetTextJustify(36);
    fLabel1962->SetMargins(0,0,0,0);
    fLabel1962->SetWrapLength(-1);
    fGroupFrameParameters->AddFrame(fLabel1962, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel1962->MoveResize(17,240,88,20);
+   fLabel1962->MoveResize(10,80,80,24);
 
-   TGLabel *fLabel2027 = new TGLabel(fGroupFrameParameters,"Extra Parameters");
+   TGLabel *fLabel2027 = new TGLabel(fGroupFrameParameters,"Extra Pars");
    fLabel2027->SetTextJustify(36);
    fLabel2027->SetMargins(0,0,0,0);
    fLabel2027->SetWrapLength(-1);
    fGroupFrameParameters->AddFrame(fLabel2027, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fLabel2027->MoveResize(24,288,88,24);
+   fLabel2027->MoveResize(10,110,80,24);
 //-----------------------------------------------------------------------------
 // text entries
 //-----------------------------------------------------------------------------
@@ -336,28 +406,12 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    valEntry_uGC.fGraphicsExposures = kFALSE;
    uGC = gClient->GetGC(&valEntry_uGC, kTRUE);
 
-   fGui.fProject = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
-   fGui.fProject->SetMaxLength(4096);
-   fGui.fProject->SetAlignment(kTextLeft);
-   fGui.fProject->SetText("ts_warm_bore");
-   fGui.fProject->Resize(104,fGui.fProject->GetDefaultHeight());
-   fGroupFrameParameters->AddFrame(fGui.fProject, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGui.fProject->MoveResize(120,32,112,22);
-
-   fGui.fDsid = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
-   fGui.fDsid->SetMaxLength(4096);
-   fGui.fDsid->SetAlignment(kTextLeft);
-   fGui.fDsid->SetText("760_1000");
-   fGui.fDsid->Resize(112,fGui.fDsid->GetDefaultHeight());
-   fGroupFrameParameters->AddFrame(fGui.fDsid, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGui.fDsid->MoveResize(120,80,112,22);
-
    fGui.fInputStage = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
    fGui.fInputStage->SetMaxLength(4096);
    fGui.fInputStage->SetAlignment(kTextLeft);
    fGui.fInputStage->SetText("s1:mubeam");
    fGui.fInputStage->Resize(112,fGui.fInputStage->GetDefaultHeight());
-   fGui.fInputStage->MoveResize(120,140,112,22);
+   fGui.fInputStage->MoveResize(120,20,110,24);
    fGroupFrameParameters->AddFrame(fGui.fInputStage, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
 
    fGui.fStage = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
@@ -366,15 +420,15 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fGui.fStage->SetText("s2:sim");
    fGui.fStage->Resize(112,fGui.fStage->GetDefaultHeight());
    fGroupFrameParameters->AddFrame(fGui.fStage, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGui.fStage->MoveResize(120,200,112,22);
+   fGui.fStage->MoveResize(120,50,110,24);
 
    fGui.fTime = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
    fGui.fTime->SetMaxLength(4096);
    fGui.fTime->SetAlignment(kTextLeft);
-   fGui.fTime->SetText("3h xrootd");
+   fGui.fTime->SetText("3h:xrootd");
    fGui.fTime->Resize(112,fGui.fTime->GetDefaultHeight());
    fGroupFrameParameters->AddFrame(fGui.fTime, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGui.fTime->MoveResize(120,240,112,22);
+   fGui.fTime->MoveResize(120,80,110,24);
 
    fGui.fExtraParameters = new TGTextEntry(fGroupFrameParameters, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
    fGui.fExtraParameters->SetMaxLength(4096);
@@ -382,24 +436,23 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fGui.fExtraParameters->SetText(".");
    fGui.fExtraParameters->Resize(104,fGui.fExtraParameters->GetDefaultHeight());
    fGroupFrameParameters->AddFrame(fGui.fExtraParameters, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGui.fExtraParameters->MoveResize(128,288,104,22);
+   fGui.fExtraParameters->MoveResize(120,110,110,24);
 
-   TGHorizontal3DLine *fHorizontal3DLine2566 = new TGHorizontal3DLine(fGroupFrameParameters,208,1);
-   fGroupFrameParameters->AddFrame(fHorizontal3DLine2566, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fHorizontal3DLine2566->MoveResize(24,64,208,1);
+   // TGHorizontal3DLine *fHorizontal3DLine2566 = new TGHorizontal3DLine(fGroupFrameParameters,208,1);
+   // fGroupFrameParameters->AddFrame(fHorizontal3DLine2566, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   // fHorizontal3DLine2566->MoveResize(24,64,208,1);
 
-   TGHorizontal3DLine *fHorizontal3DLine2579 = new TGHorizontal3DLine(fGroupFrameParameters,200,1);
-   fGroupFrameParameters->AddFrame(fHorizontal3DLine2579, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fHorizontal3DLine2579->MoveResize(24,120,200,1);
+   // TGHorizontal3DLine *fHorizontal3DLine2579 = new TGHorizontal3DLine(fGroupFrameParameters,200,1);
+   // fGroupFrameParameters->AddFrame(fHorizontal3DLine2579, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   // fHorizontal3DLine2579->MoveResize(24,120,200,1);
 
-   TGHorizontal3DLine *fHorizontal3DLine2704 = new TGHorizontal3DLine(fGroupFrameParameters,208,8);
-   fGroupFrameParameters->AddFrame(fHorizontal3DLine2704, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fHorizontal3DLine2704->MoveResize(24,184,208,8);
+   // TGHorizontal3DLine *fHorizontal3DLine2704 = new TGHorizontal3DLine(fGroupFrameParameters,208,8);
+   // fGroupFrameParameters->AddFrame(fHorizontal3DLine2704, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   // fHorizontal3DLine2704->MoveResize(24,184,208,8);
 
    fGroupFrameParameters->SetLayoutManager(new TGVerticalLayout(fGroupFrameParameters));
-   fGroupFrameParameters->Resize(250,360);
    fMainFrame->AddFrame(fGroupFrameParameters, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fGroupFrameParameters->MoveResize(30,20,250,360);
+   fGroupFrameParameters->MoveResize(10,15,250,150);
 
 //-----------------------------------------------------------------------------
 // central text entry group frame
@@ -539,8 +592,8 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->Resize(208,24);
-   fTextButton->MoveResize(24,32,208,24);
+   // fTextButton->Resize(200,24);
+   fTextButton->MoveResize(10,20,200,24);
    fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fTextButton->Connect("Pressed()", "TJobSub", this, "gen_fcl()");
 
@@ -548,67 +601,77 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->Resize(200,24);
-   fTextButton->MoveResize(24,72,200,24);
+   //   fTextButton->Resize(200,24);
+   fTextButton->MoveResize(10,50,200,24);
    fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fTextButton->Connect("Pressed()", "TJobSub", this, "submit_grid_job()");
 
-   TGTextButton *fTextButton2072 = new TGTextButton(fButtons,"move_dset_to_dcache",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
-   fTextButton2072->SetTextJustify(36);
-   fTextButton2072->SetMargins(0,0,0,0);
-   fTextButton2072->SetWrapLength(-1);
-   fTextButton2072->Resize(200,24);
-   fButtons->AddFrame(fTextButton2072, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton2072->MoveResize(24,112,200,24);
+   fTextButton = new TGTextButton(fButtons,"move_dset_to_dcache",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->MoveResize(10,80,200,24);
+   fTextButton->Connect("Pressed()", "TJobSub", this, "move_dset_to_dcache()");
 
-   TGTextButton *fTextButton2079 = new TGTextButton(fButtons,"check_grid_output",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
-   fTextButton2079->SetTextJustify(36);
-   fTextButton2079->SetMargins(0,0,0,0);
-   fTextButton2079->SetWrapLength(-1);
-   fTextButton2079->Resize(216,24);
-   fButtons->AddFrame(fTextButton2079, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton2079->MoveResize(16,152,216,24);
-   fTextButton2079->Connect("Pressed()", "TJobSub", this, "CheckGridOutput()");
+   fTextButton = new TGTextButton(fButtons,"check_grid_output",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->MoveResize(10,110,200,24);
+   fTextButton->Connect("Pressed()", "TJobSub", this, "check_grid_output()");
 
-   TGTextButton *fTextButton2086 = new TGTextButton(fButtons,"move_stage_output",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
-   fTextButton2086->SetTextJustify(36);
-   fTextButton2086->SetMargins(0,0,0,0);
-   fTextButton2086->SetWrapLength(-1);
-   fTextButton2086->Resize(208,24);
-   fButtons->AddFrame(fTextButton2086, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton2086->MoveResize(16,192,208,24);
-   fTextButton2086->Connect("Pressed()", "TJobSub", this, "move_stage_output()");
+   fTextButton = new TGTextButton(fButtons,"move_stage_output",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->MoveResize(10,140,200,24);
+   fTextButton->Connect("Pressed()", "TJobSub", this, "move_stage_output()");
    
    fTextButton = new TGTextButton(fButtons,"copy_log_files",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->Resize(208,24);
-   fTextButton->MoveResize(16,240,208,24);
+   fTextButton->MoveResize(10,170,200,24);
    fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
 
    fTextButton = new TGTextButton(fButtons,"list_pnfs_files",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->Resize(208,24);
-   fTextButton->MoveResize(16,280,208,24);
+   fTextButton->MoveResize(10,200,200,24);
    fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fTextButton->Connect("Pressed()", "TJobSub", this, "list_pnfs_files()");
+
+   fTextButton = new TGTextButton(fButtons,"submit_stnmaker_job",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fTextButton->MoveResize(10,230,200,24);
+   fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->Connect("Pressed()", "TJobSub", this, "submit_stnmaker_job()");
+
+   fTextButton = new TGTextButton(fButtons,"catalog_stntuples",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fTextButton->MoveResize(10,260,200,24);
+   fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->Connect("Pressed()", "TJobSub", this, "catalog_stntuples()");
 
    fTextButton = new TGTextButton(fButtons,"jobsub_q",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->Resize(216,24);
    fButtons->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->MoveResize(16,312,216,24);
+   fTextButton->MoveResize(10,290,200,24);
    fTextButton->Connect("Pressed()", "TJobSub", this, "jobsub_q()");
 
    fButtons->SetLayoutManager(new TGVerticalLayout(fButtons));
-   fButtons->Resize(250,360);
    fMainFrame->AddFrame(fButtons, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fButtons->MoveResize(320,20,250,360);
+   fButtons->MoveResize(280,20,220,330);
 
    fMainFrame->SetMWMHints(kMWMDecorAll,
                         kMWMFuncAll,
@@ -617,12 +680,13 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 
    fMainFrame->Resize(fMainFrame->GetDefaultSize());
    fMainFrame->MapWindow();
-   fMainFrame->Resize(939,446);
+   fMainFrame->Resize(510,360);
+   //   fMainFrame->GetMainFrame()->SetName("emoe");
 }  
 
 
 //-----------------------------------------------------------------------------
-void Grid_002() {
-  TJobSub* x = new TJobSub(gClient->GetRoot(),150,300);
+void Grid_002(const char* DsID) {
+  TJobSub* x = new TJobSub("ts_warm_bore",DsID,gClient->GetRoot(),150,300);
 }
 

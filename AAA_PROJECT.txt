@@ -77,8 +77,8 @@
 #
 760_2100    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     31751332     mubeam             1.1    COMPLETED
 760_2100    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485      7609644     mubeam             1.1    completed [2020-05-10 Sun]
-760_2100    ts2   mubeam       ts3_sim   TS3_pbar            10      *12000      ......     20      7623562     mubeam             ...    *submitted* [2020-05-10 Sun]
-760_2100    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2     *xxxxxx*     ootstops,tgtstops  ...    
+760_2100    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20      7623562     mubeam             ...    completed [2020-05-10 Sun]
+760_2100    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2      7632977     ootstops,tgtstops  ...    completed [2020-05-10 Sun]
 #
 760_2100    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     *intractv*   tgtstops           0.02   
 #
@@ -145,15 +145,80 @@
 #                                                        /segment                (est)    total                                  
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 760_1010    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   
-760_1010    s1    mubeam       s2_sim    muon_s2             25       *5000      125000     50      7626177     mubeam             0.04   *submitted* [2020-05-10 Sun]
-760_1010    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     *xxxxxx*     ootstops,tgtstops  0.04   
+760_1010    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50      7631277     mubeam             0.04   completed [2020-05-10 Sun]
+760_1010    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2      7633839     ootstops,tgtstops  0.04   completed [2020-05-10 Sun]
 #
-760_1010    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     *xxxxxx*     mubeam             1.1    
-760_1010    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     *xxxxxx*     mubeam             1.1    
-760_1010    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     *xxxxxx*     mubeam             ...    
-760_1010    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2     *xxxxxx*     ootstops,tgtstops  ...    
+760_1010    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1010    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32538200     mubeam             1.1    completed [2020-05-10 Sun]
+760_1010    ts2   mubeam       ts3_sim   TS3_pbar             1      *12000      ......     20     7681182     mubeam             ...     *submitted* [2020-05-10 Sun]
+760_1010    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2                 ootstops,tgtstops  ...    
 #
 760_1010    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   
 #
 760_1010    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+760_1011    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   completed
+760_1011    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     32385018     mubeam             0.04   completed [2020-05-10 Sun]
+760_1011    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     32540774     ootstops,tgtstops  0.04   completed [2020-05-11 Mon]
+#
+760_1011    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1011    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32389692     mubeam             1.1    completed [2020-05-10 Sun]
+760_1011    ts2   mubeam       ts3_sim   TS3_pbar             1      *12000      ......     20      7681486     mubeam             ...    *submitted* [2020-05-12 Tue]
+760_1011    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2     *xxxxxx*     ootstops,tgtstops  ...    
+#
+760_1011    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
+#
+760_1011    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+760_1012    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   completed
+760_1012    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     32386432     mubeam             0.04   completed [2020-05-10 Sun]
+760_1012    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     32540776     ootstops,tgtstops  0.04   completed [2020-05-11 Mon]
+#
+760_1012    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1012    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32389890     mubeam             1.1    completed [2020-05-10 Sun]
+760_1012    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     32543649     mubeam             ...    completed [2020-05-11 Mon]
+760_1012    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2     32613969     ootstops,tgtstops  ...    
+#
+760_1012    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
+#
+760_1012    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     32613969     tgtstops           0.02   completed [2020-05-11 Mon]
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+760_1013    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   completed
+760_1013    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     32387298     mubeam             0.04   completed [2020-05-10 Sun]
+760_1013    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     32542446     ootstops,tgtstops  0.04   completed [2020-05-11 Mon]
+#
+760_1013    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1013    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32389945     mubeam             1.1    completed [2020-05-10 Sun]
+760_1013    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     32542644     mubeam             ...    completed [2020-05-11 Mon]
+760_1013    ts3   mubeam       ts4_sim   DS_pbar              2       12000      ......      2      32613602    ootstops,tgtstops  ...    completed [2020-05-11 Mon]
+#
+760_1013    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
+#
+760_1013    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+760_1014    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   completed
+760_1014    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     32388358     mubeam             0.04   completed [2020-05-10 Sun]
+760_1014    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     32541749     ootstops,tgtstops  0.04   completed [2020-05-11 Mon]
+#
+760_1014    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1014    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32390115     mubeam             1.1    completed [2020-05-10 Sun]
+760_1014    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20      7647613     mubeam             ...    completed [2020-05-11 Mon]
+760_1014    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2     32615180     ootstops,tgtstops  ...    completed [2020-05-11 Mon]
+#
+760_1014    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     intractv     tgtstops           0.02   
+#
+760_1014    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      2     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+760_1015    gen   50_200000    s1_sim    muon_s1              0           0      200000     50     760_1000     mubeam             0.04   completed
+760_1015    s1    mubeam       s2_sim    muon_s2             25        5000      125000     50     32388743     mubeam             0.04   completed [2020-05-10 Sun]
+760_1015    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     32542607     ootstops,tgtstops  0.04   completed [2020-05-11 Mon]
+#
+760_1015    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    completed
+760_1015    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32390173     mubeam             1.1    completed [2020-05-10 Sun]
+760_1015    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     32591938     mubeam             ...    completed [2020-05-11 Mon]
+760_1015    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2     32618234     ootstops,tgtstops  ...    completed [2020-05-11 Mon]
+#
+760_1015    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
+#
+760_1015    ts4   tgtstops     ts4_stn   g4_ts4_tgtstops_stn 50       20000     1000000      1     intractv     tgtstops           0.02   completed [2020-05-11 Mon]
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------
