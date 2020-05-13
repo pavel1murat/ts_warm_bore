@@ -115,6 +115,14 @@ public:
     TString fStage;
     TString fInputDs;
     TString fTime;
+    TString fXRootd;
+    TString fExtras;
+  };
+
+  struct MyTabElement_t {
+    TGCompositeFrame*   fFrame;
+    TGTextEntry*        fTime;
+    TGTextEntry*        fExtras;
   };
 
   TGMainFrame*        fMainFrame;
@@ -125,42 +133,69 @@ public:
 
   TString             fStage;
   TString             fIStage;
+  TString             fTime;
+  TString             fExtraParameters;
 
-  TGCompositeFrame*   fFrame[100];
   TGTabElement*       fActiveTab;
 
-  Pixel_t             fYellow;
-  Pixel_t             fTabColor;
+  MyTabElement_t      fTabElement[100];
+  int                 fNTabElements;
 
-  StageData_t         fStageData[9];
+  Pixel_t             fYellow;		// active tab tip
+  Pixel_t             fTabColor;	// non-active tab tip
+
+  StageData_t         fStageData[100];
   StageData_t*        fActiveStage;
+
+  int                 fDebugLevel;
   
-  TestTabbed(const TGWindow *p, UInt_t w, UInt_t h);
+  TestTabbed(const char* Dsid, const TGWindow *p, UInt_t w, UInt_t h, int DebugLevel = 0);
   virtual ~TestTabbed();
 
-  void     DoTab(Int_t id);
+  void     DoTab          (Int_t id);
+  void     BuildTabElement(TGTab*& Tab, MyTabElement_t& TabElement, StageData_t* StageData);
+  void     BuildGui       (const TGWindow *Parent, UInt_t Width, UInt_t Height);
 
-  void     BuildTabElement(TGTab*& Tab, TGCompositeFrame*& TabElement, StageData_t* StageData);
+  void     ExecuteCommand(const char* Cmd, int PrintOnly = 0);
 
-  void     BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height);
+  void     build_tarball      ();
+  void     check_grid_output  ();
+  void     list_pnfs_files    ();
+  void     move_stage_output  ();
+  void     move_dset_to_dcache();
+
+  void     submit_stnmaker_job();
+  void     catalog_stntuples  ();
+
+  void     gen_fcl();
+  void     submit_grid_job();
+  void     jobsub_q();
 
 }; 
 
+
 //-----------------------------------------------------------------------------
-TestTabbed::TestTabbed(const TGWindow *p, UInt_t w, UInt_t h) {
-  fProject = "ts_warm_bore";
-  fDsid    = "760_1000";
+// initialization with the project data - in its rudimentary form
+//-----------------------------------------------------------------------------
+TestTabbed::TestTabbed(const char* Dsid, const TGWindow *p, UInt_t w, UInt_t h, int DebugLevel) {
 
-  fStageData[0] = StageData_t{"s1:sim" ,"gen:50_20000","10h"};
-  fStageData[1] = StageData_t{"s2:sim" ,"s1:mubeam"   ,"10h"};
-  fStageData[2] = StageData_t{"s3:sim" ,"s2:mubeam"   ,"10h"};
-  fStageData[3] = StageData_t{"s3:stn" ,"s3:tgtstops" ,"10h"};
+  fProject      = "ts_warm_bore";
+  fDsid         = Dsid;
+  fDebugLevel   = DebugLevel;
 
-  fStageData[4] = StageData_t{"ts1:sim","pbar:vd91"   ,"10h"};
-  fStageData[5] = StageData_t{"ts2:sim","ts1:mubeam"  ,"10h"};
-  fStageData[6] = StageData_t{"ts3:sim","ts2:mubeam"  ,"10h"};
-  fStageData[7] = StageData_t{"ts4:sim","ts3:mubeam"  ,"10h"};
-  fStageData[8] = StageData_t{"ts4:stn","ts4:tgtstops","10h"};
+  fStageData[0] = StageData_t{"s1:sim" ,"gen:50_20000","10h","xrootd","."};
+  fStageData[1] = StageData_t{"s2:sim" ,"s1:mubeam"   ,"10h","xrootd","."};
+  fStageData[2] = StageData_t{"s3:sim" ,"s2:mubeam"   ,"10h","xrootd","."};
+  fStageData[3] = StageData_t{"s3:stn" ,"s3:tgtstops" ,"10h","xrootd","."};
+
+  fStageData[4] = StageData_t{"ts1:sim","pbar:vd91"   ,"10h","xrootd","."};
+  fStageData[5] = StageData_t{"ts2:sim","ts1:mubeam"  ,"10h","xrootd","."};
+  fStageData[6] = StageData_t{"ts3:sim","ts2:mubeam"  ,"10h","xrootd","."};
+  fStageData[7] = StageData_t{"ts3:stn","ts3:mubeam"  ,"10h","xrootd","."};
+  fStageData[8] = StageData_t{"ts4:sim","ts3:mubeam"  ,"10h","xrootd","."};
+  fStageData[9] = StageData_t{"ts4:stn","ts4:tgtstops","10h","xrootd","."};
+
+  fNTabElements = 10;  // 0:9
 
   BuildGui(p,w,h);
 }
@@ -170,6 +205,219 @@ TestTabbed::~TestTabbed() {
    fMainFrame->Cleanup();
 }
 
+
+//-----------------------------------------------------------------------------
+void TestTabbed::ExecuteCommand(const char* Cmd, int PrintOnly) {
+  printf(">> TestTabbed::ExecuteCommand : executing cmd: %s\n",Cmd);
+
+  if (PrintOnly != 1) {
+    char buf[10001];
+    FILE* pipe = gSystem->OpenPipe(Cmd,"r");
+    while (fgets(buf,10000,pipe)) { printf("%s",buf); }
+    gSystem->ClosePipe(pipe);
+  }
+
+  printf(">> TestTabbed::ExecuteCommand : DONE\n");
+}
+
+//-----------------------------------------------------------------------------
+void TestTabbed::build_tarball() {
+  TString cmd;
+
+  // ts_warm_bore/scripts/grid_job.py --verbose=1 --project=ts_warm_bore --dsid=760_1022 --stage=ts2_sim  --job=build_tarball
+
+
+  cmd = Form("%s/scripts/grid_job.py --verbose=1 --project=%s --dsid=%s --stage=%s --job=build_tarball",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fStage.Data());
+
+  int print_only=1;                           // start from debugging
+  ExecuteCommand(cmd.Data(),print_only);
+}
+
+//-----------------------------------------------------------------------------
+void TestTabbed::move_stage_output() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/move_stage_output %s %s %s %s .",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data());
+
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+void TestTabbed::move_dset_to_dcache() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/move_dset_to_dcache %s %s %s %s .: NOT IMPLEMENTED YET!",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data());
+
+  int print_only = 1;
+  ExecuteCommand(cmd.Data(),print_only);
+}
+
+//-----------------------------------------------------------------------------
+// check grid output
+//-----------------------------------------------------------------------------
+void TestTabbed::check_grid_output() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/check_grid_output %s %s %s %s %s",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data(),
+	     fExtraParameters.Data());
+
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// check grid output
+//-----------------------------------------------------------------------------
+void TestTabbed::list_pnfs_files() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/list_pnfs_files %s %s %s %s %s",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data(),
+	     fExtraParameters.Data());
+
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// check grid output
+//-----------------------------------------------------------------------------
+void TestTabbed::jobsub_q() {
+  TString cmd;
+
+  cmd = Form("date; time jobsub_q --user murat");
+
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// generate fcl
+//-----------------------------------------------------------------------------
+void TestTabbed::gen_fcl() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/gen_fcl %s %s %s %s .",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data());
+
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+void TestTabbed::submit_grid_job() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/submit_grid_job %s %s %s %s %s .",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data(),
+	     fTime.Data());
+
+  TDatime x;
+  TString istage = fIStage.Data();
+  TString jstage = fStage.Data();
+  TString time   = fTime.Data();
+
+  istage.ReplaceAll(':','_');
+  jstage.ReplaceAll(':','_');
+
+  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fTime.Data());
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// so far, assume running interactively, otherwise - submit grid job 
+//-----------------------------------------------------------------------------
+void TestTabbed::submit_stnmaker_job() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/submit_stnmaker_job %s %s %s %s .",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fIStage.Data(),
+	     fStage.Data());
+
+  // TDatime x;
+  // TString istage = fGui.fInputStage->GetText();
+  // TString jstage = fGui.fStage->GetText();
+
+  // istage.ReplaceAll(':','_');
+  // jstage.ReplaceAll(':','_');
+  //
+  //  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fGui.fTime->GetText());
+  // int print_only = 1; // debug first !
+  ExecuteCommand(cmd.Data());
+}
+
+//-----------------------------------------------------------------------------
+// so far, always an interactive command
+//-----------------------------------------------------------------------------
+void TestTabbed::catalog_stntuples() {
+  TString cmd;
+
+
+  //  Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install  ;
+
+  TString istage = fStage.Data();
+  istage.ReplaceAll(':','_');
+
+  TObjArray* ist           = istage.Tokenize("_");
+  TString    input_stage   = ((TObjString*) ist->At(0))->GetString().Data();
+  TString    input_dataset = ((TObjString*) ist->At(1))->GetString().Data();
+
+  TString jstage = fStage.Data();
+  jstage.ReplaceAll(':','_');
+
+  TObjArray* jst       = jstage.Tokenize("_");
+  TString    job_stage = ((TObjString*) jst->At(0))->GetString().Data();
+  TString    job_type  = ((TObjString*) jst->At(1))->GetString().Data();
+
+  printf("input_stage: %s input_dataset: %s job_stage: %s job_type: %s\n",
+	 input_stage.Data(),input_dataset.Data(),
+	 job_stage.Data(),job_type.Data());
+	 
+
+  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s_%s -p nts.murat -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s_%s --install %s",
+	     fProject.Data(),
+	     fDsid.Data(),
+	     istage.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     job_stage.Data(),
+	     job_type.Data(),
+	     input_dataset.Data(),
+	     "/publicweb/m/murat/cafdfc");
+
+  int print_only = 0; // debug first !
+  ExecuteCommand(cmd.Data(),print_only);
+}
 
 //-----------------------------------------------------------------------------
 // set new active tab
@@ -185,38 +433,87 @@ void TestTabbed::DoTab(Int_t id) {
   }
 
   fActiveStage = &fStageData[id];
-  printf("Tab ID: %3i stage: %s  istage: %s title: %s\n",
+
+  printf("Tab ID: %3i stage: %-15s istage: %-15s time: %-15s extras: %-15s title: %-15s\n",
 	 id,
 	 fActiveStage->fStage.Data(),
 	 fActiveStage->fInputDs.Data(),
+	 fTabElement[id].fTime->GetText(),
+	 fTabElement[id].fExtras->GetText(),
 	 fActiveTab->GetText()->Data());
 }
 
 
 //-----------------------------------------------------------------------------
-void TestTabbed::BuildTabElement(TGTab*& Tab, TGCompositeFrame*& TabElement, StageData_t* StageData) {
+void TestTabbed::BuildTabElement(TGTab*& Tab, MyTabElement_t& TabElement, StageData_t* StageData) {
 
   const char* title=StageData->fStage.Data();
   const char* input=StageData->fInputDs.Data();
 
-  printf("[TestTabbed::BuildTabElement] title: %s\n",title);
+  //  printf("[TestTabbed::BuildTabElement] title: %s\n",title);
 
-  TabElement = Tab->AddTab(title);
-  TabElement->SetLayoutManager(new TGVerticalLayout(TabElement));
-  TabElement->SetLayoutBroken(kTRUE);
+  TabElement.fFrame = Tab->AddTab(title);
+  TabElement.fFrame->SetLayoutManager(new TGVerticalLayout(TabElement.fFrame));
+  TabElement.fFrame->SetLayoutBroken(kTRUE);
 
-  TGGroupFrame* group = new TGGroupFrame(TabElement,Form("%s:%s stage: %s",fProject.Data(),fDsid.Data(),title));
+  TGGroupFrame* group = new TGGroupFrame(TabElement.fFrame,Form("%s:%s stage: %s %s parameters",fProject.Data(),fDsid.Data(),title,input));
   //  group->SetLayoutManager(new TGVerticalLayout(group));
   group->SetLayoutBroken(kTRUE);
-  
-  TGLabel* label = new TGLabel(group,Form("%s:%s    %s   %s",fProject.Data(),fDsid.Data(),title,input));
-  label->SetTextJustify(16);
+//-----------------------------------------------------------------------------
+// "time:xrootd" label
+//-----------------------------------------------------------------------------
+  TGLabel* label = new TGLabel(group,Form("time:xrootd"));
+  label->SetTextJustify(1);
   label->SetMargins(0,0,0,0);
   label->SetWrapLength(-1);
   group->AddFrame(label, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-  label->MoveResize(20,20,380,24);
+  label->MoveResize(20,25,60,25);
+//-----------------------------------------------------------------------------
+// "time:xrootd" text entry
+//-----------------------------------------------------------------------------
+  TGFont *ufont;         // will reflect user font changes
+  ufont = gClient->GetFont("-*-helvetica-medium-r-*-*-12-*-*-*-*-*-iso8859-1");
+
+  TGGC   *uGC;                          // will reflect user GC changes
+
+					// graphics context changes
+  GCValues_t valEntry_uGC;
+  valEntry_uGC.fMask = kGCForeground | kGCBackground | kGCFillStyle | kGCFont | kGCGraphicsExposures;
+  gClient->GetColorByName("#000000",valEntry_uGC.fForeground);
+  gClient->GetColorByName("#e8e8e8",valEntry_uGC.fBackground);
+  valEntry_uGC.fFillStyle = kFillSolid;
+  valEntry_uGC.fFont = ufont->GetFontHandle();
+  valEntry_uGC.fGraphicsExposures = kFALSE;
+  uGC = gClient->GetGC(&valEntry_uGC, kTRUE);
   
-  TabElement->AddFrame(group, new TGLayoutHints(kLHintsNormal));
+  TabElement.fTime = new TGTextEntry(group, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
+  TabElement.fTime->SetMaxLength(4096);
+  TabElement.fTime->SetAlignment(kTextLeft);
+  TabElement.fTime->SetText("3h:xrootd");
+  TabElement.fTime->Resize(112,TabElement.fTime->GetDefaultHeight());
+  group->AddFrame(TabElement.fTime, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+  TabElement.fTime->MoveResize(90,25,70,25);
+//-----------------------------------------------------------------------------
+// "extras" label and text entry
+//-----------------------------------------------------------------------------
+  label = new TGLabel(group,Form("extras"));
+  label->SetTextJustify(1);
+  label->SetMargins(0,0,0,0);
+  label->SetWrapLength(-1);
+  group->AddFrame(label, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+  label->MoveResize(180,25,60,25);
+
+  TabElement.fExtras = new TGTextEntry(group, new TGTextBuffer(14),-1,uGC->GetGC(),ufont->GetFontStruct(),kSunkenFrame | kOwnBackground);
+  TabElement.fExtras->SetMaxLength(4096);
+  TabElement.fExtras->SetAlignment(kTextLeft);
+  TabElement.fExtras->SetText(" . ");
+  TabElement.fExtras->Resize(112,TabElement.fExtras->GetDefaultHeight());
+  group->AddFrame(TabElement.fExtras, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+  TabElement.fExtras->MoveResize(250,25,70,25);
+//-----------------------------------------------------------------------------
+// finish composition of the tab element
+//-----------------------------------------------------------------------------
+  TabElement.fFrame->AddFrame(group, new TGLayoutHints(kLHintsNormal));
   group->MoveResize(10,10,445,70);
 }
 
@@ -226,24 +523,18 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 // main frame
 //-----------------------------------------------------------------------------
    fMainFrame = new TGMainFrame(gClient->GetRoot(),Width,Height,kMainFrame | kVerticalFrame);
-   fMainFrame->SetName("MainFrame");
    fMainFrame->SetLayoutBroken(kTRUE);
+   fMainFrame->SetWindowName(Form("%s:%s",fProject.Data(),fDsid.Data()));
+   fMainFrame->SetName("MainFrame");
 //-----------------------------------------------------------------------------
-// add multiple tabs widget
+// add tab holder and multiple tabs (tab elements) 
 //-----------------------------------------------------------------------------
    fTab = new TGTab(fMainFrame,320,40);
    fMainFrame->AddFrame(fTab, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
 
-   BuildTabElement(fTab,fFrame[0],&fStageData[0]);
-   BuildTabElement(fTab,fFrame[1],&fStageData[1]);
-   BuildTabElement(fTab,fFrame[2],&fStageData[2]);
-   BuildTabElement(fTab,fFrame[3],&fStageData[3]);
-
-   BuildTabElement(fTab,fFrame[4],&fStageData[4]);
-   BuildTabElement(fTab,fFrame[5],&fStageData[5]);
-   BuildTabElement(fTab,fFrame[6],&fStageData[6]);
-   BuildTabElement(fTab,fFrame[7],&fStageData[7]);
-   BuildTabElement(fTab,fFrame[8],&fStageData[8]);
+   for (int i=0; i<fNTabElements; i++) {
+     BuildTabElement(fTab,fTabElement[i],&fStageData[i]);
+   }
 
    fTab->MoveResize(10,10,470,110);
    fTab->Connect("Selected(Int_t)", "TestTabbed", this, "DoTab(Int_t)");
@@ -251,25 +542,43 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 // buttons - common , they do not change
 //-----------------------------------------------------------------------------
    int y0        = 125;
+   int button_dx = 150;
+   int button_sx = 150+10;
    int button_sy =  30;
 //-----------------------------------------------------------------------------
 // gen_fcl and submit_grid_job
 //-----------------------------------------------------------------------------
-   TGTextButton* fTextButton = new TGTextButton(fMainFrame,"gen_fcl",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   TGTextButton* fTextButton = new TGTextButton(fMainFrame,"build_tarball",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(10,y0,150,25);
+   fTextButton->MoveResize(10,y0,button_dx,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "gen_fcl()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "build_tarball()");
+
+   fTextButton = new TGTextButton(fMainFrame,"gen_fcl",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fTextButton->MoveResize(10,y0+button_sy,button_dx,25);
+   fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "gen_fcl()");
 
    fTextButton = new TGTextButton(fMainFrame,"submit_grid_job",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(10,y0+1*button_sy,150,25);
+   fTextButton->MoveResize(10,y0+2*button_sy,button_dx,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "submit_grid_job()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "submit_grid_job()");
+
+   fTextButton = new TGTextButton(fMainFrame,"jobsub_q",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fTextButton->MoveResize(10,y0+button_sy*3,button_dx,25);
+   fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "jobsub_q()");  
 //-----------------------------------------------------------------------------
 // check_grid_output etc
 //-----------------------------------------------------------------------------
@@ -277,33 +586,25 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(170,y0,150,25);
+   fTextButton->MoveResize(10+button_sx,y0,button_dx,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "check_grid_output()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "check_grid_output()");
 
    fTextButton = new TGTextButton(fMainFrame,"move_stage_output",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(170,y0+button_sy,150,25);
+   fTextButton->MoveResize(10+button_sx,y0+button_sy,150,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "move_stage_output()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "move_stage_output()");
 
    fTextButton = new TGTextButton(fMainFrame,"list_pnfs_files",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(170,y0+button_sy*2,150,25);
+   fTextButton->MoveResize(10+button_sx,y0+button_sy*2,150,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "list_pnfs_files()");
-
-   fTextButton = new TGTextButton(fMainFrame,"jobsub_q",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
-   fTextButton->SetTextJustify(36);
-   fTextButton->SetMargins(0,0,0,0);
-   fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(170,y0+button_sy*3,150,25);
-   fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "jobsub_q()");  
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "list_pnfs_files()");
 //-----------------------------------------------------------------------------
 // submit_stnmaker_job and catalog_stntuples
 //-----------------------------------------------------------------------------
@@ -311,17 +612,17 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(330,y0,150,25);
+   fTextButton->MoveResize(10+2*button_sx,y0,150,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "submit_stnmaker_job()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "submit_stnmaker_job()");
 
    fTextButton = new TGTextButton(fMainFrame,"catalog_stntuples",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
    fTextButton->SetTextJustify(36);
    fTextButton->SetMargins(0,0,0,0);
    fTextButton->SetWrapLength(-1);
-   fTextButton->MoveResize(330,y0+button_sy,150,25);
+   fTextButton->MoveResize(10+2*button_sx,y0+button_sy,150,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
-   fTextButton->Connect("Pressed()", "TJobSub", this, "catalog_stntuples()");
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "catalog_stntuples()");
 //-----------------------------------------------------------------------------
 // set active tab
 //-----------------------------------------------------------------------------
@@ -344,6 +645,6 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 
 
 //-----------------------------------------------------------------------------
-void test_tabbed() {
-  TestTabbed* x = new TestTabbed(gClient->GetRoot(),150,300);
+void test_tabbed(const char* Dsid) {
+  TestTabbed* x = new TestTabbed(Dsid,gClient->GetRoot(),150,300);
 }  

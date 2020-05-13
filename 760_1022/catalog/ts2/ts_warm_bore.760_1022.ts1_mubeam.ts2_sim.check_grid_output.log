@@ -1,0 +1,32 @@
+# Wed May 13 15:23:30 CDT 2020
+# job output directory: /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1022.ts1_mubeam.ts2_sim/outstage/32567273
+# subdirectory        : /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1022.ts1_mubeam.ts2_sim/outstage/32567273/00
+     0 : section 00000  was running on                                          , NO mu2egrid exit status   0
+     1 : section 00001  was running on                                          , NO mu2egrid exit status   0
+     2 : section 00002  was running on                                          , NO mu2egrid exit status   0
+     3 : section 00003  was running on                                          , NO mu2egrid exit status   0
+     4 : section 00004  was running on                                          , NO mu2egrid exit status   0
+     5 : section 00005  was running on                                          , NO mu2egrid exit status   0
+     6 : section 00006  was running on                                          , NO mu2egrid exit status   0
+     7 : section 00007  was running on                                          , NO mu2egrid exit status   0
+     8 : section 00008  was running on                                          , NO mu2egrid exit status   0
+     9 : section 00009  was running on                                          , NO mu2egrid exit status   0
+    10 : section 00010  was running on                                          , NO mu2egrid exit status   0
+    11 : section 00011  was running on                                          , NO mu2egrid exit status   0
+    12 : section 00012  was running on                                          , NO mu2egrid exit status   0
+    13 : section 00013  was running on                                          , NO mu2egrid exit status   0
+    14 : section 00014  was running on                                          , NO mu2egrid exit status   0
+    15 : section 00015  was running on                                          , NO mu2egrid exit status   0
+    16 : section 00016  was running on                                          , NO mu2egrid exit status   0
+    17 : section 00017  was running on                                          , NO mu2egrid exit status   0
+    18 : section 00018  was running on                                          , NO mu2egrid exit status   0
+    19 : section 00019  was running on                                          , NO mu2egrid exit status   0
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :   485 sections
+output checked      :    20 sections
+completed           :    20 sections
+staging failures    :     0 sections
+completed with rc=0 :     0 sections
+mu2e job failed     :     0 sections

@@ -57,6 +57,12 @@
 |                  | job_output_check | completed    |   4414934 |        2 | file:catalog/ts3/ts_warm_bore.760_1012.ts2_mubeam.ts3_sim.check_grid_output.log                              |
 | [[file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1012/ts3][output_location]]  | output_dataset   | ts3_mubeam   |     42401 |        2 | file:catalog/ts3/ts_warm_bore.760_1012.ts3_mubeam.art.files                                                  |
 |------------------+------------------+--------------+-----------+----------+--------------------------------------------------------------------------------------------------------------|
+| [[file:catalog/ts4/ts_warm_bore.760_1012.ts.org][ts3_stn_mubeam]]   | input_dataset    | ts3_mubeam   |     42401 |        2 | file:catalog/ts3/ts_warm_bore.760_1012.ts3_mubeam.art.files                                                  |
+|                  | fcl_tarball      | completed    |     42401 |        1 | file:../tmp_fcl/ts_warm_bore.760_1012.ts3_mubeam.ts3_stn.fcl.tbz                                             |
+|                  | grid_job         | intractv     |           |          |                                                                                                              |
+| [[file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1012/ts3_stn_mubeam][output_location]]  | output_dataset   | stn          |     42401 |        1 | file:catalog/ts3/ts_warm_bore.760_1012.ts3_mubeam.stn.files                                                  |
+|                  | stntuple_catalog | ts3_mubeam   |     42401 |        1 | file:/publicweb/m/murat/cafdfc/ts_warm_bore/760_1012_ts3_mubeam                                              |
+|------------------+------------------+--------------+-----------+----------+--------------------------------------------------------------------------------------------------------------|
 | [[file:catalog/ts4/ts_warm_bore.760_1012.ts4.org][ts4_sim]]          | input_dataset    | ts3_mubeam   |     42401 |        2 | file:catalog/ts3/ts_warm_bore.760_1012.ts3_mubeam.art.files                                                  |
 |                  | fcl_tarball      | completed    |     42401 |        1 | file:../tmp_fcl/ts_warm_bore.760_1012.ts3_mubeam.ts4_sim.fcl.tbz                                             |
 |                  | grid_job         | 32613969     |           |          | file:/pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1012.ts3_mubeam.ts4_sim/outstage/ /00          |

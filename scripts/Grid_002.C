@@ -327,22 +327,34 @@ void TJobSub::catalog_stntuples() {
   TString istage = fGui.fInputStage->GetText();
   istage.ReplaceAll(':','_');
 
-  TObjArray* ist = istage.Tokenize(":");
-  TObjString* input_stage = (TObjString*) ist->At(0);
+  TObjArray* ist           = istage.Tokenize("_");
+  TString    input_stage   = ((TObjString*) ist->At(0))->GetString().Data();
+  TString    input_dataset = ((TObjString*) ist->At(1))->GetString().Data();
 
   TString jstage = fGui.fStage->GetText();
   jstage.ReplaceAll(':','_');
 
-  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s_%s -p nts.murat -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s --install %s",
-	     fProject.Data(),
-	     fDsid.Data(),istage.Data(),
+  TObjArray* jst       = jstage.Tokenize("_");
+  TString    job_stage = ((TObjString*) jst->At(0))->GetString().Data();
+  TString    job_type  = ((TObjString*) jst->At(1))->GetString().Data();
+
+  printf("input_stage: %s input_dataset: %s job_stage: %s job_type: %s\n",
+	 input_stage.Data(),input_dataset.Data(),
+	 job_stage.Data(),job_type.Data());
+	 
+
+  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s_%s -p nts.murat -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s_%s --install %s",
 	     fProject.Data(),
 	     fDsid.Data(),
-	     input_stage->GetString().Data(),
-	     jstage.Data(),
+	     istage.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     job_stage.Data(),
+	     job_type.Data(),
+	     input_dataset.Data(),
 	     "/publicweb/m/murat/cafdfc");
 
-  int print_only = 1; // debug first !
+  int print_only = 0; // debug first !
   ExecuteCommand(cmd.Data(),print_only);
 }
 
@@ -361,14 +373,14 @@ void TJobSub::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    TGGroupFrame *fGroupFrameParameters = new TGGroupFrame(fMainFrame,Form("%s:%s",fProject.Data(),fDsid.Data()));
    fGroupFrameParameters->SetLayoutBroken(kTRUE);
 
-   TGLabel *fLabel1955 = new TGLabel(fGroupFrameParameters,"Stage");
+   TGLabel *fLabel1955 = new TGLabel(fGroupFrameParameters,"Input Stage");
    fLabel1955->SetTextJustify(36);
    fLabel1955->SetMargins(0,0,0,0);
    fLabel1955->SetWrapLength(-1);
    fGroupFrameParameters->AddFrame(fLabel1955, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fLabel1955->MoveResize(10,20,80,24);
 
-   TGLabel *fLabel1948 = new TGLabel(fGroupFrameParameters,"Input Stage");
+   TGLabel *fLabel1948 = new TGLabel(fGroupFrameParameters,"Stage");
    fLabel1948->SetTextJustify(36);
    fLabel1948->SetMargins(0,0,0,0);
    fLabel1948->SetWrapLength(-1);

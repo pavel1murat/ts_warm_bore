@@ -13,6 +13,7 @@
 > grid output     : file:/pnfs/mu2e/scratch/users/murat/workflow
 > output_location : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_3000
 > summary         : file:../ts_warm_bore_summary.org
+> C-c C-x C-v     : (org-toggle-inline-images)
 # ----------------------------------------------------------------------------------------------------
 |------------------+-----------------------+--------------+-----------+----------+--------------------------------------------------------------------------------------------------------------|
 | stage            | step                  | status       | N(events) | N(files) | org file                                                                                                     |

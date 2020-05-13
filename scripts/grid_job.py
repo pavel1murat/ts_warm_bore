@@ -13,7 +13,7 @@ class GridSubmit:
     def __init__(self):
         self.fProject       = None
         self.fProjectDir    = None
-        self.fDsid          = None
+        self.fDsid          = xxx_xxxx # just to make up 
         self.fDoit          = 1
         self.fJob           = None
         self.fStage         = None
