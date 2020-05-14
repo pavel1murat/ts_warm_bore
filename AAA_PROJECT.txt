@@ -232,8 +232,8 @@
 760_1022    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     *xxxxxx*     ootstops,tgtstops  0.04   
 #
 760_1022    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     760_1900     mubeam             1.1    
-760_1022    ts1   mubeam       ts2_sim   TS2_pbar            25       *7000      731990    485     32718577     mubeam             1.1    *submitted* [2020-05-13 Wed]
-760_1022    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     *xxxxxx*     mubeam             ...    
+760_1022    ts1   mubeam       ts2_sim   TS2_pbar            25        7000      731990    485     32727735     mubeam             1.1    completed [2020-05-13 Wed]
+760_1022    ts2   mubeam       ts3_sim   TS3_pbar             2      *12000      ......     20     32730815     mubeam             ...    *submitted* [2020-05-13 Wed]
 760_1022    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2     *xxxxxx*     ootstops,tgtstops  ...    
 #
 760_1022    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   
@@ -246,8 +246,8 @@
 760_3022    s2    mubeam       s3_sim    muon_s3              2       50000      xxxxxx      2     *xxxxxx*     ootstops,tgtstops  0.04   
 #
 760_3022    pbar  vd91         ts1_sim   TS1_pbar_resample:r  1      360000     2000000    485     *xxxxxx*     mubeam             1.1    
-760_3022    ts1   mubeam       ts2_sim   TS2_pbar            25       *7000      731990    485     32718661     mubeam             1.1    *submitted* [2020-05-13 Wed]
-760_3022    ts2   mubeam       ts3_sim   TS3_pbar            10       12000      ......     20     *xxxxxx*     mubeam             ...    
+760_3022    ts1   mubeam       ts2_sim   TS2_pbar            25       *7000      731990    485     32727929     mubeam             1.1    *submitted* [2020-05-13 Wed]
+760_3022    ts2   mubeam       ts3_sim   TS3_pbar             2       12000      ......     20     *xxxxxx*     mubeam             ...    
 760_3022    ts3   mubeam       ts4_sim   DS_pbar              1       12000      ......      2     *xxxxxx*     ootstops,tgtstops  ...    
 #
 760_3022    s3    tgtstops     s3_stn    g4_s3_tgtstops_stn  50       20000     1000000      1     *xxxxxx*     tgtstops           0.02   

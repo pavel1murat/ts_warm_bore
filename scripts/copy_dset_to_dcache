@@ -1,6 +1,6 @@
 #!/bin/bash
 #------------------------------------------------------------------------------
-# example: ts_warm_bore/scripts/copy_log_files ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
+# example: ts_warm_bore/scripts/copy_dset_to_dcache ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
 #------------------------------------------------------------------------------
 scriptname="$(basename $0)"
 

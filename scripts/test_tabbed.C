@@ -140,6 +140,7 @@ public:
 
   MyTabElement_t      fTabElement[100];
   int                 fNTabElements;
+  int                 fActiveTabID;
 
   Pixel_t             fYellow;		// active tab tip
   Pixel_t             fTabColor;	// non-active tab tip
@@ -238,20 +239,6 @@ void TestTabbed::build_tarball() {
 }
 
 //-----------------------------------------------------------------------------
-void TestTabbed::move_stage_output() {
-  TString cmd;
-
-  cmd = Form("%s/scripts/move_stage_output %s %s %s %s .",
-	     fProject.Data(),
-	     fProject.Data(),
-	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data());
-
-  ExecuteCommand(cmd.Data());
-}
-
-//-----------------------------------------------------------------------------
 void TestTabbed::move_dset_to_dcache() {
   TString cmd;
 
@@ -272,32 +259,53 @@ void TestTabbed::move_dset_to_dcache() {
 void TestTabbed::check_grid_output() {
   TString cmd;
 
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
+  
   cmd = Form("%s/scripts/check_grid_output %s %s %s %s %s",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data(),
-	     fExtraParameters.Data());
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data(),
+	     tab->fExtras->GetText());
 
-  ExecuteCommand(cmd.Data());
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
-// check grid output
+void TestTabbed::move_stage_output() {
+  TString cmd;
+
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
+
+  cmd = Form("%s/scripts/move_stage_output %s %s %s %s %s",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data(),
+	     tab->fExtras->GetText());
+
+  ExecuteCommand(cmd.Data(),fDebugLevel);
+}
+
+//-----------------------------------------------------------------------------
+// list PNFS files
 //-----------------------------------------------------------------------------
 void TestTabbed::list_pnfs_files() {
   TString cmd;
+
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
 
   cmd = Form("%s/scripts/list_pnfs_files %s %s %s %s %s",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data(),
-	     fExtraParameters.Data());
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data(),
+	     tab->fExtras->GetText());
 
-  ExecuteCommand(cmd.Data());
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -308,7 +316,7 @@ void TestTabbed::jobsub_q() {
 
   cmd = Form("date; time jobsub_q --user murat");
 
-  ExecuteCommand(cmd.Data());
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -317,27 +325,31 @@ void TestTabbed::jobsub_q() {
 void TestTabbed::gen_fcl() {
   TString cmd;
 
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
+
   cmd = Form("%s/scripts/gen_fcl %s %s %s %s .",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data());
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data());
 
-  ExecuteCommand(cmd.Data());
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
 void TestTabbed::submit_grid_job() {
   TString cmd;
 
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
+
   cmd = Form("%s/scripts/submit_grid_job %s %s %s %s %s .",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data(),
-	     fTime.Data());
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data(),
+	     tab->fTime->GetText());
 
   TDatime x;
   TString istage = fIStage.Data();
@@ -347,8 +359,9 @@ void TestTabbed::submit_grid_job() {
   istage.ReplaceAll(':','_');
   jstage.ReplaceAll(':','_');
 
-  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fTime.Data());
-  ExecuteCommand(cmd.Data());
+  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),fActiveStage->fInputDs.Data(),fActiveStage->fStage.Data(),tab->fTime->GetText());
+
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -372,7 +385,7 @@ void TestTabbed::submit_stnmaker_job() {
   // jstage.ReplaceAll(':','_');
   //
   //  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fGui.fTime->GetText());
-  // int print_only = 1; // debug first !
+
   ExecuteCommand(cmd.Data());
 }
 
@@ -424,15 +437,20 @@ void TestTabbed::catalog_stntuples() {
 //-----------------------------------------------------------------------------
 void TestTabbed::DoTab(Int_t id) {
 
-  TGTabElement *tabel = fTab->GetTabTab(id);
 
-  if (fActiveTab != tabel) {
-    fActiveTab->ChangeBackground(fTabColor);
-    tabel->ChangeBackground(fYellow);
-    fActiveTab = tabel;
+  if (id != fActiveTabID) {
+
+    TGTabElement *tabel = fTab->GetTabTab(id);
+
+    if (fActiveTab != tabel) {
+      fActiveTab->ChangeBackground(fTabColor);
+      tabel->ChangeBackground(fYellow);
+      fActiveTab = tabel;
+    }
+
+    fActiveTabID = id;
+    fActiveStage = &fStageData[id];
   }
-
-  fActiveStage = &fStageData[id];
 
   printf("Tab ID: %3i stage: %-15s istage: %-15s time: %-15s extras: %-15s title: %-15s\n",
 	 id,
@@ -626,8 +644,10 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 //-----------------------------------------------------------------------------
 // set active tab
 //-----------------------------------------------------------------------------
-   fTab->SetTab(0);
-   fActiveTab = fTab->GetTabTab(0);
+   fActiveTabID = 0;
+   fTab->SetTab(fActiveTabID);
+
+   fActiveTab = (TGTabElement*) fTabElement[fActiveTabID].fFrame; // fTab->GetTabTab(0);
    fTabColor  = fActiveTab->GetBackground();
 
    gClient->GetColorByName("yellow", fYellow);
@@ -645,6 +665,6 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 
 
 //-----------------------------------------------------------------------------
-void test_tabbed(const char* Dsid) {
-  TestTabbed* x = new TestTabbed(Dsid,gClient->GetRoot(),150,300);
+void test_tabbed(const char* Dsid, int DebugLevel = 0) {
+  TestTabbed* x = new TestTabbed(Dsid,gClient->GetRoot(),150,300,DebugLevel);
 }  
