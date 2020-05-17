@@ -1,0 +1,9 @@
+#include "JobConfig/beam/DS.fcl"
+
+# physics.producers.g4run.physics.physicsListName     : "QGSP_BERT"
+services.GeometryService.inputFile                    : "ts_warm_bore/760_4022/geom_760_4022.txt"
+
+physics.producers.stoppedMuonFinder.particleTypes     : [ 13, -13, 211, -211, -2212 ] // mu-, mu+, pi+, pi-, pbar
+physics.producers.outOfTargetMuonFinder.particleTypes : [ 13, -13, 211, -211, -2212 ] // mu-, mu+, pi+, pi-, pbar
+
+physics.out                                           : [ tgtStopOutput, ootStopOutput ]

@@ -1,0 +1,35 @@
+#!/bin/bash
+# -*- mode: bash -*- 
+
+# 7961894.1@jobsub03.fnal.gov           murat           05/16 16:47   0+03:00:12 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.2@jobsub03.fnal.gov           murat           05/16 16:47   0+03:00:08 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.5@jobsub03.fnal.gov           murat           05/16 16:47   0+03:00:09 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.11@jobsub03.fnal.gov          murat           05/16 16:47   0+03:00:05 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.20@jobsub03.fnal.gov          murat           05/16 16:47   0+03:00:07 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.39@jobsub03.fnal.gov          murat           05/16 16:47   0+03:00:05 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+# 7961894.45@jobsub03.fnal.gov          murat           05/16 16:47   0+03:00:07 H   0   1.7 mu2eprodsys.sh_20200516_164720_4028941_0_1_wrap.sh 
+
+failed_section_list="1 2 5 11 20 39 45"
+
+project=ts_warm_bore
+dsid=760_4022
+stage=s1_sim
+istage=gen_50_200000
+
+dir=$project/tmp_fcl/$dsid.$istage.$stage
+
+olddir=`pwd`
+cd $dir
+
+for section in $failed_section_list ; do
+  fn=cnf.murat.$project.${dsid}_${istage}_$stage.001000_`printf "%08i" $section`.fcl
+  # echo `printf "%05i" $section` " " $fn
+  # ls -al $fn
+  echo $fn" "
+done >| fcllist.txt
+
+tar -cjf ../$project.$dsid.$istage.$stage.fcl.r01.tbz `cat fcllist.txt`
+
+
+cd $olddir
+

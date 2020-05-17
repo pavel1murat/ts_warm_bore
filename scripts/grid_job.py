@@ -13,7 +13,7 @@ class GridSubmit:
     def __init__(self):
         self.fProject       = None
         self.fProjectDir    = None
-        self.fDsid          = xxx_xxxx # just to make up 
+        self.fDsid          = 'xxx_xxxx' # just to make up 
         self.fDoit          = 1
         self.fJob           = None
         self.fStage         = None
@@ -101,7 +101,7 @@ class GridSubmit:
         # read project config file
         #------------------------------------------------------------------------------
         config_dir = self.fProjectDir+'/config'
-        name_stub  = self.fProject+'.'+self.fDsid+'.'+self.fStage;
+        name_stub  = self.fProject+'.'+self.fDsid+'.'+self.fStage.replace(':','_');
 
         fn = config_dir+'/'+name_stub+'.cfg';
 
@@ -244,6 +244,21 @@ class GridSubmit:
                 os.remove(grid_tarball)
             shutil.copy(new_tarball,grid_tarball);
             
+#--------------------------------------------------------------------------------------------------------
+# set 'completed' status to a given job stage
+# current implementation will evolve, for now it is writing a 'completed' string into a stage status file
+#--------------------------------------------------------------------------------------------------------
+    def SetStageOK(self):
+        name = 'SetStageOK'
+
+        fn = self.fProject+'/'+self.fDsid+'/status/'+self.fConfig['job']['stage']+'_'+self.fConfig['job']['type']
+
+        if os.path.exists(fn): os.remove(fn);
+            
+        f = open(fn,'w');
+        f.write("completed")
+        f.close()
+            
 #------------------------------------------------------------------------------
 # check log files. asume they are copied into the output area
 #------------------------------------------------------------------------------
@@ -315,6 +330,7 @@ if (__name__ == '__main__'):
     if (gs.fJob == 'check_output'   ) : gs.CheckOutput()
     if (gs.fJob == 'build_tarball'  ) : gs.BuildTarball()
     if (gs.fJob == 'submit_grid_job') : gs.SubmitGridJob()
+    if (gs.fJob == 'set_stage_ok'   ) : gs.SetStageOK()
 
 
 #    gs.PrintConfFile(1)

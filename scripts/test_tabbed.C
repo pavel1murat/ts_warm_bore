@@ -100,8 +100,17 @@
 #ifndef ROOT_TGToolBar
 #include "TGToolBar.h"
 #endif
+
 #ifndef ROOT_TGuiBldDragManager
 #include "TGuiBldDragManager.h"
+#endif
+
+#ifndef ROOT_TSystem
+#include "TSystem.h"
+#endif
+
+#ifndef ROOT_TDatime
+#include "TDatime.h"
 #endif
 
 #include "Riostream.h"
@@ -111,8 +120,13 @@ class TestTabbed {
   // RQ_OBJECT("TestTabbed")
 public: 
 
+  enum { 
+    kIN_PROGRESS = 0,
+    kCOMPLETED   = 1
+  };
+
   struct StageData_t {
-    TString fStage;
+    TString fStage;       // 
     TString fInputDs;
     TString fTime;
     TString fXRootd;
@@ -123,6 +137,9 @@ public:
     TGCompositeFrame*   fFrame;
     TGTextEntry*        fTime;
     TGTextEntry*        fExtras;
+    TGTabElement*       fTab;
+    int                 fStatus;
+    Pixel_t             fColor;
   };
 
   TGMainFrame*        fMainFrame;
@@ -142,6 +159,7 @@ public:
   int                 fNTabElements;
   int                 fActiveTabID;
 
+  Pixel_t             fGreen;		// completed stage tab tip
   Pixel_t             fYellow;		// active tab tip
   Pixel_t             fTabColor;	// non-active tab tip
 
@@ -167,6 +185,7 @@ public:
 
   void     submit_stnmaker_job();
   void     catalog_stntuples  ();
+  void     set_stage_ok       ();
 
   void     gen_fcl();
   void     submit_grid_job();
@@ -184,17 +203,17 @@ TestTabbed::TestTabbed(const char* Dsid, const TGWindow *p, UInt_t w, UInt_t h, 
   fDsid         = Dsid;
   fDebugLevel   = DebugLevel;
 
-  fStageData[0] = StageData_t{"s1:sim" ,"gen:50_20000","10h","xrootd","."};
-  fStageData[1] = StageData_t{"s2:sim" ,"s1:mubeam"   ,"10h","xrootd","."};
-  fStageData[2] = StageData_t{"s3:sim" ,"s2:mubeam"   ,"10h","xrootd","."};
-  fStageData[3] = StageData_t{"s3:stn" ,"s3:tgtstops" ,"10h","xrootd","."};
+  fStageData[0] = StageData_t{"s1:sim" ,"gen:50_200000","10h","xrootd","."};
+  fStageData[1] = StageData_t{"s2:sim" ,"s1:mubeam"    ,"10h","xrootd","."};
+  fStageData[2] = StageData_t{"s3:sim" ,"s2:mubeam"    ,"10h","xrootd","."};
+  fStageData[3] = StageData_t{"s3:stn" ,"s3:tgtstops"  ,"10h","xrootd","."};
 
-  fStageData[4] = StageData_t{"ts1:sim","pbar:vd91"   ,"10h","xrootd","."};
-  fStageData[5] = StageData_t{"ts2:sim","ts1:mubeam"  ,"10h","xrootd","."};
-  fStageData[6] = StageData_t{"ts3:sim","ts2:mubeam"  ,"10h","xrootd","."};
-  fStageData[7] = StageData_t{"ts3:stn","ts3:mubeam"  ,"10h","xrootd","."};
-  fStageData[8] = StageData_t{"ts4:sim","ts3:mubeam"  ,"10h","xrootd","."};
-  fStageData[9] = StageData_t{"ts4:stn","ts4:tgtstops","10h","xrootd","."};
+  fStageData[4] = StageData_t{"ts1:sim","pbar:vd91"    ,"12h","ifdh"  ,"."};
+  fStageData[5] = StageData_t{"ts2:sim","ts1:mubeam"   ,"10h","xrootd","."};
+  fStageData[6] = StageData_t{"ts3:sim","ts2:mubeam"   ,"10h","xrootd","."};
+  fStageData[7] = StageData_t{"ts3:stn","ts3:mubeam"   ,"10h","xrootd","."};
+  fStageData[8] = StageData_t{"ts4:sim","ts3:mubeam"   ,"10h","xrootd","."};
+  fStageData[9] = StageData_t{"ts4:stn","ts4:tgtstops" ,"10h","xrootd","."};
 
   fNTabElements = 10;  // 0:9
 
@@ -209,7 +228,10 @@ TestTabbed::~TestTabbed() {
 
 //-----------------------------------------------------------------------------
 void TestTabbed::ExecuteCommand(const char* Cmd, int PrintOnly) {
-  printf(">> TestTabbed::ExecuteCommand : executing cmd: %s\n",Cmd);
+
+  TDatime x1;
+  printf("# %s : TestTabbed::ExecuteCommand : executing cmd: %s\n",x1.AsSQLString(),Cmd);
+
 
   if (PrintOnly != 1) {
     char buf[10001];
@@ -218,7 +240,8 @@ void TestTabbed::ExecuteCommand(const char* Cmd, int PrintOnly) {
     gSystem->ClosePipe(pipe);
   }
 
-  printf(">> TestTabbed::ExecuteCommand : DONE\n");
+  TDatime x2;
+  printf("# %s : TestTabbed::ExecuteCommand : DONE\n",x2.AsSQLString());
 }
 
 //-----------------------------------------------------------------------------
@@ -227,15 +250,17 @@ void TestTabbed::build_tarball() {
 
   // ts_warm_bore/scripts/grid_job.py --verbose=1 --project=ts_warm_bore --dsid=760_1022 --stage=ts2_sim  --job=build_tarball
 
+  TString stage = fActiveStage->fStage.Data();
 
-  cmd = Form("%s/scripts/grid_job.py --verbose=1 --project=%s --dsid=%s --stage=%s --job=build_tarball",
+  stage.ReplaceAll(':','_');
+
+  cmd = Form("setup gridexport; %s/scripts/grid_job.py --verbose=1 --project=%s --dsid=%s --stage=%s --job=build_tarball",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fStage.Data());
+	     stage.Data());
 
-  int print_only=1;                           // start from debugging
-  ExecuteCommand(cmd.Data(),print_only);
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -249,8 +274,7 @@ void TestTabbed::move_dset_to_dcache() {
 	     fIStage.Data(),
 	     fStage.Data());
 
-  int print_only = 1;
-  ExecuteCommand(cmd.Data(),print_only);
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -314,7 +338,7 @@ void TestTabbed::list_pnfs_files() {
 void TestTabbed::jobsub_q() {
   TString cmd;
 
-  cmd = Form("date; time jobsub_q --user murat");
+  cmd = Form("time jobsub_q --user murat");
 
   ExecuteCommand(cmd.Data(),fDebugLevel);
 }
@@ -327,12 +351,15 @@ void TestTabbed::gen_fcl() {
 
   MyTabElement_t* tab = fTabElement+fActiveTabID;
 
+  TString p_stage = fActiveStage->fStage.Data();
+  p_stage.ReplaceAll("_",":");
+
   cmd = Form("%s/scripts/gen_fcl %s %s %s %s .",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
 	     fActiveStage->fInputDs.Data(),
-	     fActiveStage->fStage.Data());
+	     p_stage.Data());
 
   ExecuteCommand(cmd.Data(),fDebugLevel);
 }
@@ -352,12 +379,13 @@ void TestTabbed::submit_grid_job() {
 	     tab->fTime->GetText());
 
   TDatime x;
-  TString istage = fIStage.Data();
-  TString jstage = fStage.Data();
-  TString time   = fTime.Data();
 
-  istage.ReplaceAll(':','_');
-  jstage.ReplaceAll(':','_');
+  // TString istage = fIStage.Data();
+  // TString jstage = fStage.Data();
+  // TString time   = fTime.Data();
+
+  // istage.ReplaceAll(':','_');
+  // jstage.ReplaceAll(':','_');
 
   printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),fActiveStage->fInputDs.Data(),fActiveStage->fStage.Data(),tab->fTime->GetText());
 
@@ -370,12 +398,12 @@ void TestTabbed::submit_grid_job() {
 void TestTabbed::submit_stnmaker_job() {
   TString cmd;
 
-  cmd = Form("%s/scripts/submit_stnmaker_job %s %s %s %s .",
+  cmd = Form("%s/scripts/submit_stnmaker_job %s %s %s %s . &",
 	     fProject.Data(),
 	     fProject.Data(),
 	     fDsid.Data(),
-	     fIStage.Data(),
-	     fStage.Data());
+	     fActiveStage->fInputDs.Data(),
+	     fActiveStage->fStage.Data());
 
   // TDatime x;
   // TString istage = fGui.fInputStage->GetText();
@@ -386,7 +414,7 @@ void TestTabbed::submit_stnmaker_job() {
   //
   //  printf("* <%s> * SUBMITTED* : %s.%s.%s.%s      %s \n",x.AsSQLString(),fProject.Data(),fDsid.Data(),istage.Data(),jstage.Data(),fGui.fTime->GetText());
 
-  ExecuteCommand(cmd.Data());
+  ExecuteCommand(cmd.Data(),fDebugLevel);
 }
 
 //-----------------------------------------------------------------------------
@@ -398,14 +426,17 @@ void TestTabbed::catalog_stntuples() {
 
   //  Stntuple/scripts/catalog_stntuples --bluearc -b ts_warm_bore -d ${dsid}_s3_tgtstops -p .nts.murat -D /mu2e/data/users/murat/datasets/ts_warm_bore/$dsid/s3_stn_tgtstops --install  ;
 
-  TString istage = fStage.Data();
+  MyTabElement_t* tab = fTabElement+fActiveTabID;
+
+
+  TString istage = fActiveStage->fInputDs.Data();
   istage.ReplaceAll(':','_');
 
   TObjArray* ist           = istage.Tokenize("_");
   TString    input_stage   = ((TObjString*) ist->At(0))->GetString().Data();
   TString    input_dataset = ((TObjString*) ist->At(1))->GetString().Data();
 
-  TString jstage = fStage.Data();
+  TString jstage = fActiveStage->fStage.Data();
   jstage.ReplaceAll(':','_');
 
   TObjArray* jst       = jstage.Tokenize("_");
@@ -428,8 +459,27 @@ void TestTabbed::catalog_stntuples() {
 	     input_dataset.Data(),
 	     "/publicweb/m/murat/cafdfc");
 
-  int print_only = 0; // debug first !
-  ExecuteCommand(cmd.Data(),print_only);
+  ExecuteCommand(cmd.Data(),fDebugLevel);
+}
+
+//-----------------------------------------------------------------------------
+// so far, assume running interactively, otherwise - submit grid job 
+//-----------------------------------------------------------------------------
+void TestTabbed::set_stage_ok() {
+  TString cmd;
+
+  cmd = Form("%s/scripts/grid_job.py --verbose=1 --project=%s --dsid=%s --stage=%s --job=set_stage_ok",
+	     fProject.Data(),
+	     fProject.Data(),
+	     fDsid.Data(),
+	     fActiveStage->fStage.Data());
+
+  ExecuteCommand(cmd.Data(),fDebugLevel);
+
+  fTabElement[fActiveTabID].fStatus = kCOMPLETED;
+  fTabElement[fActiveTabID].fColor  = fGreen;
+  fTabElement[fActiveTabID].fTab->ChangeBackground(fGreen);
+
 }
 
 //-----------------------------------------------------------------------------
@@ -439,12 +489,15 @@ void TestTabbed::DoTab(Int_t id) {
 
 
   if (id != fActiveTabID) {
+    int old_active = fActiveTabID;
 
     TGTabElement *tabel = fTab->GetTabTab(id);
 
     if (fActiveTab != tabel) {
-      fActiveTab->ChangeBackground(fTabColor);
-      tabel->ChangeBackground(fYellow);
+      if (fTabElement[id].fStatus != kCOMPLETED) {
+	tabel->ChangeBackground(fYellow);
+      }
+      fActiveTab->ChangeBackground(fTabElement[old_active].fColor);
       fActiveTab = tabel;
     }
 
@@ -471,11 +524,12 @@ void TestTabbed::BuildTabElement(TGTab*& Tab, MyTabElement_t& TabElement, StageD
   //  printf("[TestTabbed::BuildTabElement] title: %s\n",title);
 
   TabElement.fFrame = Tab->AddTab(title);
+  int ntabs = Tab->GetNumberOfTabs();
   TabElement.fFrame->SetLayoutManager(new TGVerticalLayout(TabElement.fFrame));
-  TabElement.fFrame->SetLayoutBroken(kTRUE);
+  TabElement.fTab  = Tab->GetTabTab(ntabs-1);
+  TabElement.fColor = TabElement.fTab->GetBackground();
 
   TGGroupFrame* group = new TGGroupFrame(TabElement.fFrame,Form("%s:%s stage: %s %s parameters",fProject.Data(),fDsid.Data(),title,input));
-  //  group->SetLayoutManager(new TGVerticalLayout(group));
   group->SetLayoutBroken(kTRUE);
 //-----------------------------------------------------------------------------
 // "time:xrootd" label
@@ -529,6 +583,25 @@ void TestTabbed::BuildTabElement(TGTab*& Tab, MyTabElement_t& TabElement, StageD
   group->AddFrame(TabElement.fExtras, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
   TabElement.fExtras->MoveResize(250,25,70,25);
 //-----------------------------------------------------------------------------
+// determine the color 
+//-----------------------------------------------------------------------------
+  TabElement.fStatus = kIN_PROGRESS; // in progress
+
+  TString fn = fProject+"/"+fDsid+"/status/"+StageData->fStage.ReplaceAll(":","_");
+  FILE* f = fopen(fn.Data(),"r");
+  if (f) {
+					// status file exists, read it
+    char buf[100];
+    fscanf(f,"%s" ,buf);
+    TString status = buf;
+    status.ToUpper();
+    if (status == "COMPLETED") {
+      TabElement.fStatus = kCOMPLETED;
+      TabElement.fColor  = fGreen;
+      TabElement.fTab->ChangeBackground(fGreen);
+    }
+  }
+//-----------------------------------------------------------------------------
 // finish composition of the tab element
 //-----------------------------------------------------------------------------
   TabElement.fFrame->AddFrame(group, new TGLayoutHints(kLHintsNormal));
@@ -544,6 +617,11 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fMainFrame->SetLayoutBroken(kTRUE);
    fMainFrame->SetWindowName(Form("%s:%s",fProject.Data(),fDsid.Data()));
    fMainFrame->SetName("MainFrame");
+
+
+   gClient->GetColorByName("yellow", fYellow);
+   gClient->GetColorByName("green", fGreen);
+
 //-----------------------------------------------------------------------------
 // add tab holder and multiple tabs (tab elements) 
 //-----------------------------------------------------------------------------
@@ -641,16 +719,23 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
    fTextButton->MoveResize(10+2*button_sx,y0+button_sy,150,25);
    fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
    fTextButton->Connect("Pressed()", "TestTabbed", this, "catalog_stntuples()");
+
+   fTextButton = new TGTextButton(fMainFrame,"ok",-1,TGTextButton::GetDefaultGC()(),TGTextButton::GetDefaultFontStruct(),kRaisedFrame);
+   fTextButton->SetTextJustify(36);
+   fTextButton->SetMargins(0,0,0,0);
+   fTextButton->SetWrapLength(-1);
+   fTextButton->MoveResize(10+2*button_sx,y0+2*button_sy,150,25);
+   fMainFrame->AddFrame(fTextButton, new TGLayoutHints(kLHintsLeft | kLHintsTop,2,2,2,2));
+   fTextButton->Connect("Pressed()", "TestTabbed", this, "set_stage_ok()");
 //-----------------------------------------------------------------------------
 // set active tab
 //-----------------------------------------------------------------------------
    fActiveTabID = 0;
    fTab->SetTab(fActiveTabID);
 
-   fActiveTab = (TGTabElement*) fTabElement[fActiveTabID].fFrame; // fTab->GetTabTab(0);
+   fActiveTab = fTabElement[fActiveTabID].fTab; // fTab->GetTabTab(0);
    fTabColor  = fActiveTab->GetBackground();
 
-   gClient->GetColorByName("yellow", fYellow);
    fActiveTab->ChangeBackground(fYellow);
 
    fMainFrame->SetMWMHints(kMWMDecorAll,
@@ -667,4 +752,5 @@ void TestTabbed::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 //-----------------------------------------------------------------------------
 void test_tabbed(const char* Dsid, int DebugLevel = 0) {
   TestTabbed* x = new TestTabbed(Dsid,gClient->GetRoot(),150,300,DebugLevel);
+  //  return x;
 }  

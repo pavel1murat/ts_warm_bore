@@ -10,19 +10,24 @@
         project=$1 # ts_warm_bore
 	   dsid=$2 # 760_2000
             ist=$3 # s1:mubeam[:01] ... or gen:250_20000:[:01] ; if 'gen', '250_20000' means 'njobs_neventsPerJob'
-     p_job_type=$4 # 's1:sim' or 's1:stn' , for example
+     p_job_type=$4 # 's1:sim' or 's1:stn' , for example  or s1:sim:r01
   p_time_xrootd=$5 # '5h:xrootd' or '16h:ifdh'
            doit=$6 # "." or ""
 	   
- input_stage=`echo $ist | awk -F : '{print $1}'`;
-input_stream=`echo $ist | awk -F : '{print $2}'`;
-     fileset=`echo $ist | awk -F : '{print $3}'`;
+  input_stage=`echo $ist | awk -F : '{print $1}'`;
+ input_stream=`echo $ist | awk -F : '{print $2}'`;
+      fileset=`echo $ist | awk -F : '{print $3}'`;
 
-        time=`echo $p_time_xrootd | awk -F : '{print $1}'`;
-      xrootd=`echo $p_time_xrootd | awk -F : '{print $2}'`;
+         time=`echo $p_time_xrootd | awk -F : '{print $1}'`;
+       xrootd=`echo $p_time_xrootd | awk -F : '{print $2}'`;
 
-  input_stub=`echo $ist | sed 's/:/_/g'`;
-    sub_stub=`echo $p_job_type | sed 's/:/_/'`
+   input_stub=`echo $ist | sed 's/:/_/g'`;
+
+        stage=`echo $p_job_type | awk -F : '{print $1}'`
+        jtype=`echo $p_job_type | awk -F : '{print $2}'`
+
+     sub_stub=${stage}_${jtype}
+recovery_stub=`echo $p_job_type | awk -F : '{print $3}'`
 
 prefix='echo ' ; if [ ".$doit" != "." ] ; then prefix='' ; fi
 
@@ -38,7 +43,10 @@ dsconf=${dsid}_${input_stub}
 code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
 
  fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.$input_stub.$sub_stub.fcl.tbz
-if [ ".$fclt" != "." ] ; then fcl_tarball=$fclt ; fi
+# if [ ".$fclt" != "." ] ; then fcl_tarball=$fclt ; fi
+if [ ".$recovery_stub" != "." ] ; then 
+    fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.$input_stub.$sub_stub.$recovery_stub.fcl.tbz
+fi
 
 dataset_conf=${project}_${dsid}_${input_stub}_$sub_stub
 work_project=${project}.${dsid}.${input_stub}.$sub_stub
@@ -48,4 +56,6 @@ if [ $xrootd == "xrootd" ] ; then parameters=$parameters" --xrootd" ; fi
 
 # echo \* \<`date +%Y-%m-%d\ %a`\> *xxxxxxxx SUBMITTED* : $project.$dsid.$input_stub.$sub_stub          $p_time_xrootd 
 
-$prefix date ; time mu2eprodsys $parameters
+if [ ".$doit" == ".d" ] ; then parameters=$parameters" --dry-run" ; fi
+
+$prefix date ; $prefix time mu2eprodsys $parameters

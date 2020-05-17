@@ -60,6 +60,8 @@ get_segments() {
 # end of parsing function definition
 #------------------------------------------------------------------------------
 aaa_project_file=$project/AAA_PROJECT.txt
+echo [gen_fcl:$LINENO]: 
+ls -al $aaa_project_file
               bf=`get_fcl $aaa_project_file $dsid $istage $istub $job_type`
 
 	base_fcl=`echo $bf | awk -F : '{print $1}'`  ; echo $LINENO: base_fcl:$base_fcl
@@ -73,7 +75,7 @@ aaa_project_file=$project/AAA_PROJECT.txt
 #------------------------------------------------------------------------------
      segments=`get_segments $aaa_project_file $dsid $istage $istub $job_type`
 
-echo segments:$segments
+echo [gen_fcl:$LINENO] segments:$segments
 
 	nsegtot=`echo $segments | awk -F : '{print $1}'`
 max_seg_per_job=`echo $segments | awk -F : '{print $2}'`

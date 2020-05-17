@@ -42,6 +42,27 @@
 
   sigma / (2*Pmax) = s0/N(generated) = 37.95
 
+* *mu2eprodsys* 
+# it looks at the user fcl tarball, calculates some hash and counts the number fo fcl files in there
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_4022.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => 88Vy6QWX5y
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_4022_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 0
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 4h \
+--group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 
+-e EXPERIMENT -e MU2EGRID_MU2ESETUP \
+-e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP \ 
+-e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 485 -f dropbox:///tmp/6OAZbVbhAh file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+
 * *------------------------------------------------------------------------------*
 * directory: file:./
 * *------------------------------------------------------------------------------*
@@ -55,7 +76,7 @@
   physics.producers.outOfTargetMuonFinder.particleTypes : [ 13 , -13 ]   # both mu- and mu+
   
 * *------------------------------------------------------------------------------*
-* *file firmats* 
+* *file formats* 
 * *------------------------------------------------------------------------------*
 * *stage2 mubeam*                                                              
 murat@mu2ebuild01:/mu2e/app/users/murat/tsud_bore_prof>mu2e -c Print/fcl/dumpDataProducts.fcl -s results/2019-09-27-12-31.TS_711_2000.mu2egpvm06.23149/sim.owner.TS-mubeam.version.sequencer.art 
