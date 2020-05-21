@@ -1,0 +1,88 @@
+# -*- mode:tcl -*-
+#------------------------------------------------------------------------------
+# generate 105 MeV/c electrons
+# make STNTUPLE in one go, without creating an intermediate file
+# for 105 MeV/c electron : E = 105.00124           MeV
+# for 105 MeV/c muon     : E = 148.9584269653785   MeV
+#------------------------------------------------------------------------------
+BEGIN_PROLOG
+
+  TIME_MAPS        @protect_ignore: [ ]
+  TIME_OFFSET_MAPS @protect_ignore: { inputs : @local::TIME_MAPS }
+
+END_PROLOG
+
+#include "Stntuple/fcl/templates.fcl"
+
+process_name : G4TS1MubeamStn
+
+source       : { module_type : RootInput 
+# use one of the concatenated Stage1 files 
+    fileNames : ["/pnfs/mu2e/tape/phy-sim/sim/mu2e/cd3-beam-cs1-mubeam/0506a/art/00/01/sim.mu2e.cd3-beam-cs1-mubeam.0506a.001002_00488421.art"]
+}
+
+outputs      : { @table::Stntuple.outputs   }
+producers    : { @table::Stntuple.producers }
+filters      : { @table::Stntuple.filters   }
+analyzers    : { @table::Stntuple.analyzers }
+paths        : { @table::Stntuple.paths     }
+
+physics : {
+    producers: { @table::producers 
+	generate                 : { @table::producers.egun }
+# for CE, not old background mixing - default: 'compressPVDetector'
+	CaloShowerStepFromStepPt : { @table::producers.CaloShowerStepFromStepPt  physVolInfoInput: "g4run" }
+    }
+    
+    filters  : { @table::filters 
+	StntupleMaker: { @table::filters.StntupleMaker
+#------------------------------------------------------------------------------
+# disable everything, enable StepPointMC
+# VDET block is just yet another step point MC block
+#------------------------------------------------------------------------------
+	    makeClusters     : 0
+	    makeCrvClusters  : 0  # default: 1
+	    makePid          : 0
+	    makeSimp         : 1
+	    makeTracks       : 0
+	    makeStepPointMC  : 1
+
+	    genpCollTag      : "ResamplingMixer"
+	    simpCollTag      : "muonBeamFilter"
+
+	    spmcBlockName    : ["SpmcBlock"                     , "VDetBlock"                      ]
+	    spmcCollTag      : ["muonBeamFilter:Coll31OutRecord", "muonBeamFilter:virtualdetector" ]
+	    statusG4Tag      : [ "g4run"                        , "g4run"                          ]
+	}
+	InitStntuple : { @table::filters.InitStntuple histFileName : "nts.murat.xxx_xxxx.g4ts1_mubeam.000001.stn" }
+    }
+
+    analyzers : { @table::analyzers }
+
+    @table::paths
+
+    p1            : [ @sequence::stnmaker_seq ]
+    trigger_paths : [ p1 ]
+    #    out : [ detectorOutput ]  # detectorOutput is defined in Stntuple/fcl/templates.fcl
+    out           : [  ]
+    #    end_paths     : [ gcl, out ]
+    end_paths     : [ out ]                # GenCountLogger fails in case of regsampling
+}
+
+services.TFileService.fileName            : "nts.murat.xxx_xxxx.g4ts1_mubeam_hist.000001.root"
+services.GeometryService.inputFile        : "ts_warm_bore/760_1300/geom_760_1300.txt"
+#------------------------------------------------------------------------------
+# uncomment the next 2 lines if you want the DST file to be written out
+#-----------------------------------------------------------------------------
+# physics.out                               : [ detectorOutput ]
+# outputs.detectorOutput.SelectEvents       : [ path_gen_digi_reco_stn_dem_dmm ]
+outputs.detectorOutput.fileName           : "sim.murat.xxx_xxxx.g4ts1_mubeam_filter.000001.art"
+#------------------------------------------------------------------------------
+# debugging
+#------------------------------------------------------------------------------
+# physics.producers.CalPatRecDem.diagLevel : 1
+# physics.producers.CalPatRecDmm.diagLevel : 1
+# physics.producers.AvikPID.debugLevel     : 100
+#------------------------------------------------------------------------------
+# everything below is appended by murat/scripts/submit_mu2e_job
+#------------------------------------------------------------------------------

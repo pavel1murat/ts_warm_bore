@@ -1,15 +1,16 @@
 #!/bin/bash
-#------------------------------------------------------------------------------
-# example: ts_warm_bore/scripts/copy_dset_to_dcache ts_warm_bore 760_1900 pbar:vd91 ts1:sim [.]
-#------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------
+# example: ts_warm_bore/scripts/copy_dset_to_dcache ts_warm_bore 760_1900 s1:mubeam
+#--------------------------------------------------------------------------------------
 scriptname="$(basename $0)"
 
       project=$1  # ts_warm_bore
          dsid=$2  # 711_0001
       p_stage=$3  # s1:mubeam 
-         doit=$4
 
-prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
+
+#          doit=$4
+# prefix="echo " ; if [ ".$doit" != "." ] ; then prefix="" ; fi
 
 
   stage=`echo $p_stage | awk -F : '{print $1}'`

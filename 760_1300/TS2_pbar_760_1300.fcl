@@ -1,0 +1,78 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's through the TS3 PBAR window(+wedge), 
+# don't use PbarFilter in physics.trigmubeam for final state study of pbar-induced RPC 
+#------------------------------------------------------------------------------
+#include "Filters/fcl/prolog.fcl"
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS2
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "muonBeamFilter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "" # "compressPVmuonBeam"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "muonBeamFilter:Coll31OutRecord" ]
+physics.producers.g4run.MultiStageParameters.simParticleNumberOffset    : 200000
+
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "muonBeamFilter:virtualdetector" ]
+# physics.producers.g4run.doWriteLegacyPhysVolumeInfo                     : false
+
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "muonBeamFilter" ]
+
+PbarSimulationEnergyCuts: {
+   type: intersection
+   pars: [ { type: kineticEnergy cut: 80.0 }, { type: pdgId pars: [ 11, -11, 13, -13, 22, 2112, 2212 ] }]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ @local::mu2eg4CutDeltaElectrons,
+	    
+	    @local::PbarSimulationEnergyCuts,
+
+	    { type  : inVolume 	pars  : [ Coll32InRecord ] write: Coll32InRecord }
+
+	   ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll32InRecord" ]
+
+physics.filters.ParticleFilter : { 
+    module_type : StepPointMCFilter 
+    spmcCollTag : "muonBeamFilter:Coll31OutRecord"
+    pdgCodes    : [ -2212, -211 ]  # pbar and pi-
+    debugLevel  : 0
+}
+
+#------------------------------------------------------------------------------
+# don't use particle filtering at stage TS2
+#------------------------------------------------------------------------------
+# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, ParticleFilter, compressPVmuonBeam]
+# physics.trigmubeam : [g4run, g4consistent, muonBeamFilter, compressPVmuonBeam]
+
+physics.trigmubeam     : [ g4run, g4consistent, muonBeamFilter, ParticleFilter]         # , compressPVmuonBeam ]
+physics.g4StatusFilter : [ g4run, "!g4status" ]                                         # , compressPVFull ]
+
+#------------------------------------------------------------------------------
+# write out only the beam - need to redefine the output structure - note the process name ....
+#------------------------------------------------------------------------------
+physics.trigger_paths  : [ trigmubeam, g4StatusFilter ]
+physics.outputs        : [ mubeamout ]
+physics.end_paths      : [ outputs   ] # , an ]
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_TS2",
+         "keep *_compressPVmuonBeam_*_TS2"
+      ]    
+}
+
+services.scheduler.wantSummary    : true
+
+services.GeometryService.inputFile: "ts_warm_bore/760_1300/geom_760_1300.txt"
+

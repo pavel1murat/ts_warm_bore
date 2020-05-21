@@ -1,0 +1,32 @@
+# Tue May 19 00:07:22 CDT 2020
+# job output directory: /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim/outstage/32952415
+# subdirectory        : /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim/outstage/32952415/00
+     0 : section 00000  was running on murat-32952415-0-fnpc9078.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 485333 passed = 457205 failed = 28128
+     1 : section 00001  was running on murat-32952415-1-fnpc9067.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 488232 passed = 460193 failed = 28039
+     2 : section 00002  was running on murat-32952415-2-fnpc8028.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 483874 passed = 455910 failed = 27964
+     3 : section 00003  was running on murat-32952415-3-fnpc7009.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 486207 passed = 458126 failed = 28081
+     4 : section 00004  was running on murat-32952415-4-fnpc9038.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 486947 passed = 458858 failed = 28089
+     5 : section 00005  was running on murat-32952415-5-fnpc9109.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 487622 passed = 459578 failed = 28044
+     6 : section 00006  was running on murat-32952415-6-fnpc9054.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 486526 passed = 458275 failed = 28251
+     7 : section 00007  was running on murat-32952415-7-fnpc9110.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 487791 passed = 459584 failed = 28207
+     8 : section 00008  was running on murat-32952415-8-fnpc19137.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 487979 passed = 459800 failed = 28179
+     9 : section 00009  was running on murat-32952415-9-fnpc19129.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 487594 passed = 459622 failed = 27972
+    10 : section 00010  was running on murat-32952415-10-fnpc19109.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 486537 passed = 458431 failed = 28106
+    11 : section 00011  was running on murat-32952415-11-fnpc19104.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 486623 passed = 458432 failed = 28191
+    12 : section 00012  was running on murat-32952415-12-fnpc9054.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 486879 passed = 458874 failed = 28005
+    13 : section 00013  was running on murat-32952415-13-fnpc19104.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 486359 passed = 458145 failed = 28214
+    14 : section 00014  was running on murat-32952415-14-fnpc19137.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 490866 passed = 462499 failed = 28367
+    15 : section 00015  was running on murat-32952415-15-fnpc19109.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 488931 passed = 460788 failed = 28143
+    16 : section 00016  was running on murat-32952415-16-fnpc19129.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 487512 passed = 459544 failed = 27968
+    17 : section 00017  was running on murat-32952415-17-fnpc19104.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 489850 passed = 461689 failed = 28161
+    18 : section 00018  was running on murat-32952415-18-fnpc19109.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 488038 passed = 459722 failed = 28316
+    19 : section 00019  was running on murat-32952415-19-fnpc19129.fnal.gov     , mu2egrid exit status:   0 TrigReport Events total = 194712 passed = 183439 failed = 11273
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :   485 sections
+output checked      :    20 sections
+completed           :    20 sections
+staging failures    :     0 sections
+completed with rc=0 :    20 sections
+mu2e job failed     :     0 sections

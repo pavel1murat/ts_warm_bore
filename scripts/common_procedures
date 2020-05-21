@@ -103,4 +103,11 @@ clone() {
 	f1=`echo $f | sed "s/$dsid1/$dsid2/g"`; 
 	cat $f | sed "s/$dsid1/$dsid2/g" >| $f1 ; 
     done
+#------------------------------------------------------------------------------
+# 4. create status subdirectory for status files
+#------------------------------------------------------------------------------
+    cdir2=$project/$dsid2/status
+    echo creating status subdirectory : $cdir2
+    mkdir $cdir2
+
 }

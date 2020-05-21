@@ -242,7 +242,9 @@ class GridSubmit:
             grid_tarball = '/pnfs/mu2e/resilient/users/murat/'+self.fProject+'.code.tbz'
             if os.path.exists(grid_tarball):
                 os.remove(grid_tarball)
+
             shutil.copy(new_tarball,grid_tarball);
+            print(">>> [BuildTarball] : done copying the tarball to ",grid_tarball);
             
 #--------------------------------------------------------------------------------------------------------
 # set 'completed' status to a given job stage

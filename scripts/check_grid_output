@@ -56,7 +56,12 @@ aaa_project_file=$project/AAA_PROJECT.txt
 
 grid_dsid=$project.$dsid.${istage}_${istub}.${job_type}
 
+x=`get_job_line $aaa_project_file $dsid $istage $istub $job_type`
+echo debugging: line:$x
+
 echo grid_jobid=$grid_jobid  grid_dsid=$grid_dsid
+
+
       topdir=/pnfs/mu2e/scratch/users/$USER/workflow/$grid_dsid/outstage
 echo topdir=$topdir
 stage_dir=$topdir/$grid_jobid;

@@ -1,0 +1,7 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace only pions and muons , but not electrons - it is a matter to saving time
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/PS.fcl"
+
+services.GeometryService.inputFile: "ts_warm_bore/760_1300/geom_760_1300.txt"

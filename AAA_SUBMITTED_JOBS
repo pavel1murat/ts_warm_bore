@@ -10,7 +10,1482 @@
 * ---------------------------------------------------------------------
 * *my PNFS staging area*: file:/pnfs/mu2e/scratch/users/murat/workflow 
 * -----------------------------------------------------------------------------------------------------*
-* <2020-05-16 Sat>      *7979431  SUBMITTED* : ts_warm_bore.760_4022.gen_50_200000.s1:sim:r01 10h:ifdh   
+* <2020-05-20 16:53:11> *32828524 SUBMITTED* : ts_warm_bore.760_1037.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-20 16:53:11 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1037 ts3:mubeam ts4:sim 10h:xrootd .
+Wed May 20 16:53:11 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1037.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => n4hHiEuIgq
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1037_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/n4hHiEuIgq file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_165327.001766_6508
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_165327.001766_6508/mu2eprodsys.sh_20200520_165328_3720892_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32828524.
+
+JobsubJobId of first job: 32828524.0@jobsub01.fnal.gov
+
+Use job id 32828524.0@jobsub01.fnal.gov to retrieve output
+
+0.78user 0.62system 0:17.14elapsed 8%CPU (0avgtext+0avgdata 24488maxresident)k
+56888inputs+40outputs (160major+198587minor)pagefaults 0swaps
+# 2020-05-20 16:53:28 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 15:51:24>  33003886 COMPLETED  : ts_warm_bore.760_1037.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-20 15:51:24 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1037 s2:mubeam s3:sim 3h:xrootd .
+Wed May 20 15:51:25 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1037.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => 9hx9wK0pPs
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1037_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/9hx9wK0pPs file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_155127.705778_7115
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_155127.705778_7115/mu2eprodsys.sh_20200520_155129_1568171_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 33003886.
+
+JobsubJobId of first job: 33003886.0@jobsub02.fnal.gov
+
+Use job id 33003886.0@jobsub02.fnal.gov to retrieve output
+
+0.76user 0.64system 0:04.42elapsed 31%CPU (0avgtext+0avgdata 24652maxresident)k
+56888inputs+40outputs (160major+198697minor)pagefaults 0swaps
+# 2020-05-20 15:51:29 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 15:48:39>  33003867 COMPLETED  : ts_warm_bore.760_1037.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-20 15:48:39 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1037 ts2:mubeam ts3:sim 6h:xrootd .
+Wed May 20 15:48:40 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts2_mubeam.ts3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts2_mubeam.ts3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1037.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => JsVgNm5GtR
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1037_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/JsVgNm5GtR file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_154842.866690_5406
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_154842.866690_5406/mu2eprodsys.sh_20200520_154843_1516149_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 33003867.
+
+JobsubJobId of first job: 33003867.0@jobsub02.fnal.gov
+
+Use job id 33003867.0@jobsub02.fnal.gov to retrieve output
+
+0.77user 0.66system 0:03.75elapsed 38%CPU (0avgtext+0avgdata 24660maxresident)k
+59976inputs+40outputs (176major+198995minor)pagefaults 0swaps
+# 2020-05-20 15:48:43 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 15:12:56>  33003171 COMPLETED  : ts_warm_bore.760_1037.s1:mubeam.s2_sim         10h:xrootd 
+# 2020-05-20 15:12:56 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1037 s1:mubeam s2:sim 10h:xrootd .
+Wed May 20 15:12:56 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1037.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => C6s8eLVUMd
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1037_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/C6s8eLVUMd file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_151301.506373_4603
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_151301.506373_4603/mu2eprodsys.sh_20200520_151319_1212306_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 33003171.
+
+JobsubJobId of first job: 33003171.0@jobsub02.fnal.gov
+
+Use job id 33003171.0@jobsub02.fnal.gov to retrieve output
+
+0.78user 0.67system 0:23.18elapsed 6%CPU (0avgtext+0avgdata 24672maxresident)k
+56888inputs+48outputs (160major+198880minor)pagefaults 0swaps
+# 2020-05-20 15:13:19 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 13:46:57>  33003155 COMPLETED  : ts_warm_bore.760_1037.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-20 13:46:57 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1037 ts1:mubeam ts2:sim 6h:xrootd .
+Wed May 20 13:46:58 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1037.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1037.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => ZI9OUKQwpb
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1037_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/ZI9OUKQwpb file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_134713.912975_9171
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_134713.912975_9171/mu2eprodsys.sh_20200520_134714_1157569_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 33003155.
+
+JobsubJobId of first job: 33003155.0@jobsub02.fnal.gov
+
+Use job id 33003155.0@jobsub02.fnal.gov to retrieve output
+
+0.81user 0.66system 0:19.51elapsed 7%CPU (0avgtext+0avgdata 24484maxresident)k
+64176inputs+48outputs (185major+198864minor)pagefaults 0swaps
+# 2020-05-20 13:47:17 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 08:27:52>  33002708 COMPLETED  : ts_warm_bore.760_1027.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-20 08:27:52 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 ts3:mubeam ts4:sim 10h:xrootd .
+Wed May 20 08:27:52 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => n_4uCKb4ty
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/n_4uCKb4ty file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_082758.592719_2760
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_082758.592719_2760/mu2eprodsys.sh_20200520_082759_3344462_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 33002708.
+
+JobsubJobId of first job: 33002708.0@jobsub02.fnal.gov
+
+Use job id 33002708.0@jobsub02.fnal.gov to retrieve output
+
+0.82user 0.72system 0:06.76elapsed 22%CPU (0avgtext+0avgdata 24656maxresident)k
+56888inputs+40outputs (160major+198856minor)pagefaults 0swaps
+# 2020-05-20 08:27:59 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 07:30:44>  32826369 COMPLETED  : ts_warm_bore.760_1027.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-20 07:30:44 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 ts2:mubeam ts3:sim 6h:xrootd .
+Wed May 20 07:30:45 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts2_mubeam.ts3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts2_mubeam.ts3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => fIRKbhszj9
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/fIRKbhszj9 file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_073050.831262_229
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_073050.831262_229/mu2eprodsys.sh_20200520_073052_1340485_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32826369.
+
+JobsubJobId of first job: 32826369.0@jobsub01.fnal.gov
+
+Use job id 32826369.0@jobsub01.fnal.gov to retrieve output
+
+0.80user 0.69system 0:07.57elapsed 19%CPU (0avgtext+0avgdata 24668maxresident)k
+60296inputs+40outputs (180major+198934minor)pagefaults 0swaps
+# 2020-05-20 07:30:52 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 01:34:18>  8110305  COMPLETED  : ts_warm_bore.760_1027.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-20 01:34:18 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 s2:mubeam s3:sim 3h:xrootd .
+Wed May 20 01:34:19 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => Nnz4rmRFRS
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/Nnz4rmRFRS file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_013422.345932_465
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_013422.345932_465/mu2eprodsys.sh_20200520_013424_4006029_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 8110305.
+
+JobsubJobId of first job: 8110305.0@jobsub03.fnal.gov
+
+Use job id 8110305.0@jobsub03.fnal.gov to retrieve output
+
+0.83user 0.72system 0:04.99elapsed 31%CPU (0avgtext+0avgdata 24656maxresident)k
+56888inputs+40outputs (160major+198502minor)pagefaults 0swaps
+# 2020-05-20 01:34:24 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 01:08:04>  8109873  COMPLETED  : ts_warm_bore.760_1027.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-20 01:08:04 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 ts1:mubeam ts2:sim 6h:xrootd .
+Wed May 20 01:08:04 CDT 2020
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => xR79F8zdrt
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/xR79F8zdrt file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_010807.432802_3446
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_010807.432802_3446/mu2eprodsys.sh_20200520_010809_3514135_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 8109873.
+
+JobsubJobId of first job: 8109873.0@jobsub03.fnal.gov
+
+Use job id 8109873.0@jobsub03.fnal.gov to retrieve output
+
+0.81user 0.72system 0:04.91elapsed 31%CPU (0avgtext+0avgdata 24656maxresident)k
+56880inputs+40outputs (160major+198758minor)pagefaults 0swaps
+# 2020-05-20 01:08:09 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-20 01:05:10>  8109644  COMPLETED  : ts_warm_bore.760_1027.s1:mubeam.s2_sim         10h:xrootd 
+# 2020-05-20 01:05:10 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 s1:mubeam s2:sim 10h:xrootd .
+Wed May 20 01:05:10 CDT 2020
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => fyyUjS8FXn
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/fyyUjS8FXn file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_010517.579281_9103
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-20_010517.579281_9103/mu2eprodsys.sh_20200520_010521_3379305_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 8109644.
+
+JobsubJobId of first job: 8109644.0@jobsub03.fnal.gov
+
+Use job id 8109644.0@jobsub03.fnal.gov to retrieve output
+
+0.80user 0.72system 0:10.36elapsed 14%CPU (0avgtext+0avgdata 24644maxresident)k
+56920inputs+40outputs (161major+198437minor)pagefaults 0swaps
+# 2020-05-20 01:05:21 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 22:36:23>  8106956  FAILED     : ts_warm_bore.760_1027.ts1:mubeam.ts2_sim        6h:xrootd 
+# forgot to rebuild the tarball
+# 2020-05-19 22:36:23 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 ts1:mubeam ts2:sim 6h:xrootd .
+Tue May 19 22:36:24 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => A6q_4i6F9e
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/A6q_4i6F9e file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_223628.531734_7345
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_223628.531734_7345/mu2eprodsys.sh_20200519_223630_120115_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 8106956.
+
+JobsubJobId of first job: 8106956.0@jobsub03.fnal.gov
+
+Use job id 8106956.0@jobsub03.fnal.gov to retrieve output
+
+0.77user 0.76system 0:06.54elapsed 23%CPU (0avgtext+0avgdata 24644maxresident)k
+56888inputs+40outputs (160major+198587minor)pagefaults 0swaps
+# 2020-05-19 22:36:30 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+
+* <2020-05-19 22:32:20>  8106935  FAILED     : ts_warm_bore.760_1027.s1:mubeam.s2_sim         10h:xrootd 
+# forgot to rebuild the tarball
+# 2020-05-19 22:32:20 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1027 s1:mubeam s2:sim 10h:xrootd .
+Tue May 19 22:32:21 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1027.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1027.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => tMd9bHWJVT
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1027_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/tMd9bHWJVT file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_223227.078457_7097
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_223227.078457_7097/mu2eprodsys.sh_20200519_223229_108234_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 8106935.
+
+JobsubJobId of first job: 8106935.0@jobsub03.fnal.gov
+
+Use job id 8106935.0@jobsub03.fnal.gov to retrieve output
+
+0.82user 0.69system 0:08.16elapsed 18%CPU (0avgtext+0avgdata 24644maxresident)k
+57096inputs+40outputs (160major+198297minor)pagefaults 0swaps
+# 2020-05-19 22:32:29 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 20:19:38>  8090618  COMPLETED  : ts_warm_bore.760_1017.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-19 20:19:38 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1017 ts3:mubeam ts4:sim 10h:xrootd .
+Tue May 19 20:19:39 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1017.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => o2uP1U7s6k
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1017_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/o2uP1U7s6k file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_201941.906448_7392
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_201941.906448_7392/mu2eprodsys.sh_20200519_201943_3686731_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 8090618.
+
+JobsubJobId of first job: 8090618.0@jobsub03.fnal.gov
+
+Use job id 8090618.0@jobsub03.fnal.gov to retrieve output
+
+0.81user 0.72system 0:04.55elapsed 33%CPU (0avgtext+0avgdata 24644maxresident)k
+57008inputs+40outputs (160major+198594minor)pagefaults 0swaps
+# 2020-05-19 20:19:43 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 20:05:36>  8090129  COMPLETED  : ts_warm_bore.760_1300.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-19 20:05:36 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 s2:mubeam s3:sim 3h:xrootd .
+Tue May 19 20:05:36 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => hJe_p4oUST
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/hJe_p4oUST file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_200542.365009_1555
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_200542.365009_1555/mu2eprodsys.sh_20200519_200555_2999985_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 8090129.
+
+JobsubJobId of first job: 8090129.0@jobsub03.fnal.gov
+
+Use job id 8090129.0@jobsub03.fnal.gov to retrieve output
+
+0.80user 0.74system 0:18.71elapsed 8%CPU (0avgtext+0avgdata 24660maxresident)k
+57624inputs+40outputs (160major+198583minor)pagefaults 0swaps
+# 2020-05-19 20:05:55 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 14:28:35>  32779432 SUBMITTED  : ts_warm_bore.760_1300.s1:mubeam.s2_sim         10h:xrootd 
+# 2020-05-19 14:28:35 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 s1:mubeam s2:sim 10h:xrootd .
+Tue May 19 14:28:35 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => jr4Dc_H1d3
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/jr4Dc_H1d3 file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_142839.187871_6046
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_142839.187871_6046/mu2eprodsys.sh_20200519_142840_2662206_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 32779432.
+
+JobsubJobId of first job: 32779432.0@jobsub01.fnal.gov
+
+Use job id 32779432.0@jobsub01.fnal.gov to retrieve output
+
+0.80user 0.73system 0:04.82elapsed 31%CPU (0avgtext+0avgdata 24652maxresident)k
+56888inputs+40outputs (160major+198406minor)pagefaults 0swaps
+# 2020-05-19 14:28:40 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 13:57:03>  32774919 COMPLETED  : ts_warm_bore.760_1017.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-19 13:57:03 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1017 ts2:mubeam ts3:sim 6h:xrootd .
+Tue May 19 13:57:04 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts2_mubeam.ts3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts2_mubeam.ts3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1017.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => lmuGQwBW2d
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1017_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/lmuGQwBW2d file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_135707.772597_1561
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_135707.772597_1561/mu2eprodsys.sh_20200519_135709_1135477_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32774919.
+
+JobsubJobId of first job: 32774919.0@jobsub01.fnal.gov
+
+Use job id 32774919.0@jobsub01.fnal.gov to retrieve output
+
+0.84user 0.73system 0:07.06elapsed 22%CPU (0avgtext+0avgdata 24636maxresident)k
+60040inputs+40outputs (176major+198373minor)pagefaults 0swaps
+# 2020-05-19 13:57:11 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 13:44:16>  32774820 COMPLETED  : ts_warm_bore.760_1017.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-19 13:44:16 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1017 s2:mubeam s3:sim 3h:xrootd .
+Tue May 19 13:44:17 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1017.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => nN6Dse_CjI
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1017_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/nN6Dse_CjI file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_134423.169814_7940
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_134423.169814_7940/mu2eprodsys.sh_20200519_134424_1121268_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 32774820.
+
+JobsubJobId of first job: 32774820.0@jobsub01.fnal.gov
+
+Use job id 32774820.0@jobsub01.fnal.gov to retrieve output
+
+0.84user 0.75system 0:07.22elapsed 22%CPU (0avgtext+0avgdata 24660maxresident)k
+57032inputs+40outputs (166major+198404minor)pagefaults 0swaps
+# 2020-05-19 13:44:24 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 12:19:31>  32977242 COMPLETED  : ts_warm_bore.760_1017.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-19 12:19:31 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1017 ts1:mubeam ts2:sim 6h:xrootd .
+Tue May 19 12:19:31 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1017.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => P7ekQFNgxl
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1017_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/P7ekQFNgxl file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_121938.307252_7579
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_121938.307252_7579/mu2eprodsys.sh_20200519_121939_2888216_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 32977242.
+
+JobsubJobId of first job: 32977242.0@jobsub02.fnal.gov
+
+Use job id 32977242.0@jobsub02.fnal.gov to retrieve output
+
+0.80user 0.72system 0:08.09elapsed 18%CPU (0avgtext+0avgdata 24652maxresident)k
+56888inputs+40outputs (160major+198711minor)pagefaults 0swaps
+# 2020-05-19 12:19:40 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 09:53:07>  32964113 COMPLETED  : ts_warm_bore.760_1017.s1:mubeam.s2_sim         10h:xrootd 
+# 2020-05-19 09:53:07 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1017 s1:mubeam s2:sim 10h:xrootd .
+Tue May 19 09:53:08 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1017.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1017.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => mB2KLngRPi
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1017_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/mB2KLngRPi file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_095311.671615_2648
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_095311.671615_2648/mu2eprodsys.sh_20200519_095313_2372729_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 32964113.
+
+JobsubJobId of first job: 32964113.0@jobsub02.fnal.gov
+
+Use job id 32964113.0@jobsub02.fnal.gov to retrieve output
+
+0.82user 0.72system 0:05.34elapsed 28%CPU (0avgtext+0avgdata 24652maxresident)k
+56888inputs+40outputs (160major+198428minor)pagefaults 0swaps
+# 2020-05-19 09:53:13 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 09:06:17>  32963530 COMPLETED  : ts_warm_bore.760_1216.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-19 09:06:17 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1216 ts3:mubeam ts4:sim 10h:xrootd .
+Tue May 19 09:06:17 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1216.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => puqokcphQU
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1216_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/puqokcphQU file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_090626.114160_8319
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_090626.114160_8319/mu2eprodsys.sh_20200519_090628_1970525_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32963530.
+
+JobsubJobId of first job: 32963530.0@jobsub02.fnal.gov
+
+Use job id 32963530.0@jobsub02.fnal.gov to retrieve output
+
+0.84user 0.80system 0:10.42elapsed 15%CPU (0avgtext+0avgdata 24644maxresident)k
+56888inputs+40outputs (160major+198480minor)pagefaults 0swaps
+# 2020-05-19 09:06:28 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 07:59:01>  8056571  COMPLETED  : ts_warm_bore.760_1313.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-19 07:59:01 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1313 s2:mubeam s3:sim 3h:xrootd .
+Tue May 19 07:59:02 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1313.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => 64_8BNrgXQ
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1313_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/64_8BNrgXQ file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_075908.908979_2336
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_075908.908979_2336/mu2eprodsys.sh_20200519_075910_517655_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 8056571.
+
+JobsubJobId of first job: 8056571.0@jobsub03.fnal.gov
+
+Use job id 8056571.0@jobsub03.fnal.gov to retrieve output
+
+0.85user 0.72system 0:08.70elapsed 18%CPU (0avgtext+0avgdata 24644maxresident)k
+56888inputs+40outputs (160major+198257minor)pagefaults 0swaps
+# 2020-05-19 07:59:10 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 07:41:35>  32957218 COMPLETED  : ts_warm_bore.760_1313.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-19 07:41:35 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1313 ts3:mubeam ts4:sim 10h:xrootd .
+Tue May 19 07:41:36 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1313.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => n1YwekR0mb
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1313_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/n1YwekR0mb file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_074139.307970_871
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_074139.307970_871/mu2eprodsys.sh_20200519_074140_664123_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32957218.
+
+JobsubJobId of first job: 32957218.0@jobsub02.fnal.gov
+
+Use job id 32957218.0@jobsub02.fnal.gov to retrieve output
+
+0.85user 0.73system 0:04.34elapsed 36%CPU (0avgtext+0avgdata 24664maxresident)k
+56888inputs+40outputs (160major+198429minor)pagefaults 0swaps
+* <2020-05-19 07:31:45>  32956167 COMPLETED  : ts_warm_bore.760_1216.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-19 07:31:45 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1216 ts2:mubeam ts3:sim 6h:xrootd .
+Tue May 19 07:31:45 CDT 2020
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1216.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => p00Bii3dHT
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1216_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/p00Bii3dHT file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_073148.896530_8166
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_073148.896530_8166/mu2eprodsys.sh_20200519_073150_477972_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32956167.
+
+JobsubJobId of first job: 32956167.0@jobsub02.fnal.gov
+
+Use job id 32956167.0@jobsub02.fnal.gov to retrieve output
+
+0.81user 0.72system 0:04.49elapsed 34%CPU (0avgtext+0avgdata 24656maxresident)k
+56888inputs+40outputs (160major+198408minor)pagefaults 0swaps
+# 2020-05-19 07:31:50 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 07:19:10>  32956139 COMPLETED  : ts_warm_bore.760_1313.s1:mubeam.s2_sim         10h:xrootd 
+# 2020-05-19 07:19:10 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1313 s1:mubeam s2:sim 10h:xrootd .
+Tue May 19 07:19:10 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1313.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => HiPWAEEwJ6
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1313_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/HiPWAEEwJ6 file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_071913.219456_1212
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_071913.219456_1212/mu2eprodsys.sh_20200519_071915_241576_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 32956139.
+
+JobsubJobId of first job: 32956139.0@jobsub02.fnal.gov
+
+Use job id 32956139.0@jobsub02.fnal.gov to retrieve output
+
+0.79user 0.76system 0:04.63elapsed 33%CPU (0avgtext+0avgdata 24648maxresident)k
+56888inputs+40outputs (160major+198407minor)pagefaults 0swaps
+# 2020-05-19 07:19:15 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 06:47:12>  32956080 COMPLETED  : ts_warm_bore.760_1300.ts3:mubeam.ts4_sim       10h:xrootd 
+# 2020-05-19 06:47:12 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 ts3:mubeam ts4:sim 10h:xrootd .
+Tue May 19 06:47:12 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts3_mubeam.ts4_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts3_mubeam.ts4_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts3_mubeam.ts4_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts3_mubeam.ts4_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.ts3_mubeam.ts4_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => TakqJxlSdu
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_ts3_mubeam_ts4_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 10h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/TakqJxlSdu file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_064718.317513_6150
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_064718.317513_6150/mu2eprodsys.sh_20200519_064719_3869580_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32956080.
+
+JobsubJobId of first job: 32956080.0@jobsub02.fnal.gov
+
+Use job id 32956080.0@jobsub02.fnal.gov to retrieve output
+
+0.81user 0.75system 0:07.51elapsed 20%CPU (0avgtext+0avgdata 24644maxresident)k
+56896inputs+40outputs (160major+198643minor)pagefaults 0swaps
+# 2020-05-19 06:47:20 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-19 00:15:15>  32954765 COMPLETED  : ts_warm_bore.760_1313.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-19 00:15:15 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1313 ts2:mubeam ts3:sim 6h:xrootd .
+Tue May 19 00:15:15 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts2_mubeam.ts3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts2_mubeam.ts3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1313.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => f5_tGnPnCF
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1313_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/f5_tGnPnCF file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_001518.309857_6713
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_001518.309857_6713/mu2eprodsys.sh_20200519_001519_3498451_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32954765.
+
+JobsubJobId of first job: 32954765.0@jobsub02.fnal.gov
+
+Use job id 32954765.0@jobsub02.fnal.gov to retrieve output
+
+0.79user 0.74system 0:04.17elapsed 37%CPU (0avgtext+0avgdata 24664maxresident)k
+57960inputs+40outputs (170major+198424minor)pagefaults 0swaps
+# 2020-05-19 00:15:19 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-19 00:04:15>  32953702 COMPLETED  : ts_warm_bore.760_1216.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-19 00:04:15 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1216 s2:mubeam s3:sim 3h:xrootd .
+Tue May 19 00:04:15 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1216.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => WYGLGphEzk
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1216_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/WYGLGphEzk file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_000418.139391_5643
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-19_000418.139391_5643/mu2eprodsys.sh_20200519_000419_3472172_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 32953702.
+
+JobsubJobId of first job: 32953702.0@jobsub02.fnal.gov
+
+Use job id 32953702.0@jobsub02.fnal.gov to retrieve output
+
+0.85user 0.70system 0:03.79elapsed 41%CPU (0avgtext+0avgdata 24644maxresident)k
+56888inputs+40outputs (160major+198334minor)pagefaults 0swaps
+# 2020-05-19 00:04:19 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-18 23:43:02>  32953557 COMPLETED  : ts_warm_bore.760_1300.ts2:mubeam.ts3_sim        6h:xrootd 
+# 2020-05-18 23:43:02 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 ts2:mubeam ts3:sim 6h:xrootd .
+Mon May 18 23:43:02 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts2_mubeam.ts3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts2_mubeam.ts3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts2_mubeam.ts3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts2_mubeam.ts3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.ts2_mubeam.ts3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => lDyrpGzEqW
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_ts2_mubeam_ts3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 10 -f dropbox:///tmp/lDyrpGzEqW file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_234306.101020_5175
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_234306.101020_5175/mu2eprodsys.sh_20200518_234307_3432483_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..........
+
+10 job(s) submitted to cluster 32953557.
+
+JobsubJobId of first job: 32953557.0@jobsub02.fnal.gov
+
+Use job id 32953557.0@jobsub02.fnal.gov to retrieve output
+
+0.81user 0.73system 0:05.03elapsed 30%CPU (0avgtext+0avgdata 24644maxresident)k
+57584inputs+40outputs (170major+198559minor)pagefaults 0swaps
+# 2020-05-18 23:43:07 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-18 23:34:15>  32953486 COMPLETED  : ts_warm_bore.760_1216.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-18 23:34:15 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1216 ts1:mubeam ts2:sim 6h:xrootd .
+Mon May 18 23:34:15 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1216.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => fSw9XMCSIM
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1216_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/fSw9XMCSIM file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_233418.619864_1617
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_233418.619864_1617/mu2eprodsys.sh_20200518_233419_3412233_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 32953486.
+
+JobsubJobId of first job: 32953486.0@jobsub02.fnal.gov
+
+Use job id 32953486.0@jobsub02.fnal.gov to retrieve output
+
+0.82user 0.72system 0:04.16elapsed 37%CPU (0avgtext+0avgdata 24660maxresident)k
+56888inputs+40outputs (160major+198762minor)pagefaults 0swaps
+# 2020-05-18 23:34:19 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-18 23:28:28>  32953443 COMPLETED  : ts_warm_bore.760_1216.s1:mubeam.s2_sim          6h:xrootd 
+# 2020-05-18 23:28:28 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1216 s1:mubeam s2:sim 6h:xrootd .
+Mon May 18 23:28:28 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1216.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1216.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => _e_7MCiBvZ
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1216_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/_e_7MCiBvZ file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_232835.758584_6780
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_232835.758584_6780/mu2eprodsys.sh_20200518_232836_3397215_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 32953443.
+
+JobsubJobId of first job: 32953443.0@jobsub02.fnal.gov
+
+Use job id 32953443.0@jobsub02.fnal.gov to retrieve output
+
+1.03user 0.72system 0:08.14elapsed 21%CPU (0avgtext+0avgdata 24644maxresident)k
+56888inputs+64outputs (160major+199284minor)pagefaults 0swaps
+# 2020-05-18 23:28:36 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-18 21:51:23>  32952415 COMPLETED  : ts_warm_bore.760_1313.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-18 21:51:23 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1313 ts1:mubeam ts2:sim 6h:xrootd .
+Mon May 18 21:51:23 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1313.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => bTJ3JWCUGb
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1313_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/bTJ3JWCUGb file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_215130.864101_3885
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_215130.864101_3885/mu2eprodsys.sh_20200518_215132_3122316_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 32952415.
+
+JobsubJobId of first job: 32952415.0@jobsub02.fnal.gov
+
+Use job id 32952415.0@jobsub02.fnal.gov to retrieve output
+
+0.97user 0.74system 0:08.68elapsed 19%CPU (0avgtext+0avgdata 24660maxresident)k
+60632inputs+80outputs (174major+210027minor)pagefaults 0swaps
+# 2020-05-18 21:51:32 : -------------- TestTabbed::ExecuteCommand : DONE -------------------
+* <2020-05-18 20:11:23>  32949637 COMPLETED  : ts_warm_bore.760_1300.gen:50_200000.s1_sim     12h:xrootd 
+# 2020-05-18 20:11:23 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 gen:50_200000 s1:sim 12h:xrootd .
+Mon May 18 20:11:23 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.gen_50_200000.s1_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.gen_50_200000.s1_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.gen_50_200000.s1_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.gen_50_200000.s1_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.gen_50_200000.s1_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => zn5i7bmUMS
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_gen_50_200000_s1_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 12h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 50 -f dropbox:///tmp/zn5i7bmUMS file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_201126.896877_4278
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_201126.896877_4278/mu2eprodsys.sh_20200518_201128_563596_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..................................................
+
+50 job(s) submitted to cluster 32949637.
+
+JobsubJobId of first job: 32949637.0@jobsub02.fnal.gov
+
+Use job id 32949637.0@jobsub02.fnal.gov to retrieve output
+
+0.80user 0.73system 0:04.62elapsed 33%CPU (0avgtext+0avgdata 24500maxresident)k
+56888inputs+40outputs (160major+198793minor)pagefaults 0swaps
+# 2020-05-18 20:11:28 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-18 20:08:28>  32949525 COMPLETED  : ts_warm_bore.760_1300.ts1:mubeam.ts2_sim        6h:xrootd 
+# 2020-05-18 20:08:28 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 ts1:mubeam ts2:sim 6h:xrootd .
+Mon May 18 20:08:29 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts1_mubeam.ts2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts1_mubeam.ts2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts1_mubeam.ts2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.ts1_mubeam.ts2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.ts1_mubeam.ts2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => _17cZlUb4r
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_ts1_mubeam_ts2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 6h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 20 -f dropbox:///tmp/_17cZlUb4r file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_200837.576814_1951
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_200837.576814_1951/mu2eprodsys.sh_20200518_200838_509088_0_1_.cmd
+
+submitting....
+
+Submitting job(s)....................
+
+20 job(s) submitted to cluster 32949525.
+
+JobsubJobId of first job: 32949525.0@jobsub02.fnal.gov
+
+Use job id 32949525.0@jobsub02.fnal.gov to retrieve output
+
+0.84user 0.75system 0:10.13elapsed 15%CPU (0avgtext+0avgdata 24496maxresident)k
+61512inputs+48outputs (165major+198864minor)pagefaults 0swaps
+# 2020-05-18 20:08:39 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-18 07:55:14>  32918356 COMPLETED  : ts_warm_bore.760_1300.pbar:vd91.ts1_sim        12h:ifdh   
+# 2020-05-18 07:55:14 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 pbar:vd91 ts1:sim 12h:ifdh .
+Mon May 18 07:55:15 CDT 2020
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.pbar_vd91.ts1_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => kPCdtyLjzN
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_pbar_vd91_ts1_sim
+Using: MU2EGRID_XROOTD => 0
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 12h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 485 -f dropbox:///tmp/kPCdtyLjzN file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_075518.476979_4534
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_075518.476979_4534/mu2eprodsys.sh_20200518_075519_3932264_0_1_.cmd
+
+submitting....
+
+Submitting job(s).....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+
+485 job(s) submitted to cluster 32918356.
+
+JobsubJobId of first job: 32918356.0@jobsub02.fnal.gov
+
+Use job id 32918356.0@jobsub02.fnal.gov to retrieve output
+
+0.86user 0.76system 0:06.01elapsed 27%CPU (0avgtext+0avgdata 24480maxresident)k
+56880inputs+104outputs (160major+200434minor)pagefaults 0swaps
+# 2020-05-18 07:55:21 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-18 00:32:09>  32917350 FAILED     : ts_warm_bore.760_1300.pbar:vd91.ts1_sim         3h:xrootd 
+# too small time request, rerun
+# 2020-05-18 00:32:09 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_1300 pbar:vd91 ts1:sim 3h:xrootd .
+Mon May 18 00:32:10 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1300.pbar_vd91.ts1_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_1300.pbar_vd91.ts1_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1800
+Using: MU2EGRID_INPUTLIST => 7tKELMSi4V
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_1300_pbar_vd91_ts1_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 485 -f dropbox:///tmp/7tKELMSi4V file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_003217.351726_8476
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-18_003217.351726_8476/mu2eprodsys.sh_20200518_003219_3543192_0_1_.cmd
+
+submitting....
+
+Submitting job(s).....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+
+485 job(s) submitted to cluster 32917350.
+
+JobsubJobId of first job: 32917350.0@jobsub02.fnal.gov
+
+Use job id 32917350.0@jobsub02.fnal.gov to retrieve output
+
+0.91user 0.81system 0:11.26elapsed 15%CPU (0avgtext+0avgdata 24452maxresident)k
+56928inputs+112outputs (160major+200387minor)pagefaults 0swaps
+# 2020-05-18 00:32:21 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-17 16:57:02>  32703444 COMPLETED  : ts_warm_bore.760_4022.s2:mubeam.s3_sim          3h:xrootd 
+# 2020-05-17 16:57:02 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_4022 s2:mubeam s3:sim 3h:xrootd .
+Sun May 17 16:57:02 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s2_mubeam.s3_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s2_mubeam.s3_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s2_mubeam.s3_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s2_mubeam.s3_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_4022.s2_mubeam.s3_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => zJgVLEIVe6
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_4022_s2_mubeam_s3_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 1 -f dropbox:///tmp/zJgVLEIVe6 file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-17_165708.403498_2131
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-17_165708.403498_2131/mu2eprodsys.sh_20200517_165709_2465117_0_1_.cmd
+
+submitting....
+
+Submitting job(s).
+
+1 job(s) submitted to cluster 32703444.
+
+JobsubJobId of first job: 32703444.0@jobsub01.fnal.gov
+
+Use job id 32703444.0@jobsub01.fnal.gov to retrieve output
+
+0.81user 0.73system 0:08.12elapsed 19%CPU (0avgtext+0avgdata 24488maxresident)k
+56888inputs+40outputs (160major+198171minor)pagefaults 0swaps
+# 2020-05-17 16:57:10 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-17 16:19:38>  32915021 COMPLETED  : ts_warm_bore.760_4022.s1:mubeam.s2_sim          3h:xrootd 
+# 2020-05-17 16:19:38 : -------------- TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_4022 s1:mubeam s2:sim 3h:xrootd .
+Sun May 17 16:19:38 CDT 2020
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s1_mubeam.s2_sim
+mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s1_mubeam.s2_sim/outstage
+Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s1_mubeam.s2_sim/outstage
+Will use ifdh version "v2_4_5" 
+WARNING: Can not determine mu2ebintools version at submission time when --code is used.
+Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
+Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
+Using: IFDH_VERSION => "v2_4_5" 
+Using: MU2EGRID_WFOUTSTAGE => /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.s1_mubeam.s2_sim/outstage
+Using: MU2EGRID_FCLTAR => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.760_4022.s1_mubeam.s2_sim.fcl.tbz
+Using: MU2EGRID_ERRORDELAY => 1
+Using: MU2EGRID_INPUTLIST => slNlsr4nS0
+Using: MU2EGRID_DSCONF => ts_warm_bore_760_4022_s1_mubeam_s2_sim
+Using: MU2EGRID_XROOTD => 1
+Using: MU2EGRID_DIR => /cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00
+Using: MU2EGRID_USERSETUP => Code/setup.sh
+Using: MU2EGRID_DSOWNER => murat
+Using: MU2EGRID_TRANSFER_ALL => 1
+Command:  jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATED --expected-lifetime 3h --group mu2e --memory 2000MB --jobsub-server https://fifebatch.fnal.gov:8443 --OS SL7 -l priority=0 -e EXPERIMENT -e MU2EGRID_MU2ESETUP -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 2 -f dropbox:///tmp/slNlsr4nS0 file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
+Submitting....
+/fife/local/scratch/uploads/mu2e/murat/2020-05-17_161944.611720_9283
+
+/fife/local/scratch/uploads/mu2e/murat/2020-05-17_161944.611720_9283/mu2eprodsys.sh_20200517_161945_2523225_0_1_.cmd
+
+submitting....
+
+Submitting job(s)..
+
+2 job(s) submitted to cluster 32915021.
+
+JobsubJobId of first job: 32915021.0@jobsub02.fnal.gov
+
+Use job id 32915021.0@jobsub02.fnal.gov to retrieve output
+
+0.80user 0.72system 0:06.96elapsed 21%CPU (0avgtext+0avgdata 24520maxresident)k
+57600inputs+40outputs (162major+198530minor)pagefaults 0swaps
+# 2020-05-17 16:19:45 : -------------- TestTabbed::ExecuteCommand : DONE
+* <2020-05-16 Sat>       7979431  COMPLETED  : ts_warm_bore.760_4022.gen_50_200000.s1:sim:r01 10h:ifdh   
 murat@mu2ebuild01:/mu2e/app/users/murat/beamline_prof>ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_4022 gen:50_200000 s1:sim:r01 10h:ifdh .
 Sat May 16 20:05:26 CDT 2020
 Will use the outstage directory = /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.gen_50_200000.s1_sim/outstage
@@ -48,7 +1523,7 @@ Use job id 7979431.0@jobsub03.fnal.gov to retrieve output
 1.48user 0.89system 0:08.95elapsed 26%CPU (0avgtext+0avgdata 24560maxresident)k
 51688inputs+32outputs (158major+176600minor)pagefaults 0swaps
 
-* <2020-05-16 17:47:28> *7972649 SUBMITTED*  : ts_warm_bore.760_4022.ts3:mubeam.ts4:sim        3h:xrootd 
+* <2020-05-16 17:47:28>  7972649  COMPLETED  : ts_warm_bore.760_4022.ts3:mubeam.ts4:sim        3h:xrootd 
 # >> TestTabbed::ExecuteCommand : executing cmd: ts_warm_bore/scripts/submit_grid_job ts_warm_bore 760_4022 ts3:mubeam ts4:sim 3h:xrootd .
 Sat May 16 17:47:28 CDT 2020
 mkdir /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_4022.ts3_mubeam.ts4_sim

@@ -1,0 +1,34 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_2019_PhaseI_hayman_v2.txt"
+#include "Mu2eG4/geom/TransportSolenoid_v05.txt"
+//-----------------------------------------------------------------------------
+// TS1 pbar window: 50 um Al window       
+//-----------------------------------------------------------------------------
+bool   pbar.coll1In.build                 = true;
+double pbar.coll1In.halfLength            = 0.025;
+//-----------------------------------------------------------------------------
+// TS1 pbar collar  : standard
+//-----------------------------------------------------------------------------
+// bool   pbar.coll1Out.build                = true;
+//-----------------------------------------------------------------------------
+// TS3 : TransportSolenoid_v05, this doesn't matter as use this DSID 
+//       only to generate S1 and TS1
+//-----------------------------------------------------------------------------
+// string pbar.materialName                  = "G4_Ti";
+// double pbar.halfLength                    = 0.155;   // 200 um thick
+//-----------------------------------------------------------------------------
+// TS3 pbar wedge : TransportSolenoid_v05
+//-----------------------------------------------------------------------------
+// string pbar.Type                          = "wedge";
+// string pbar.Type                          = "disk" ;
+
+// int    pbarwedge.nStrips                  = 1;
+// vector<double> pbarwedge.stripThicknesses = { 0.127 }; // mm
+// vector<double> pbarwedge.stripHeights     = { 90.0  }; // mm
+
+
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:

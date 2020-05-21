@@ -4,7 +4,7 @@ project         : file:../AAA_PROJECT.txt
 submitted jobs  : file:../AAA_SUBMITTED_JOBS
 output_location : file:/mu2e/data/users/murat/datasets/ts_warm_bore/760_1200
 geom_file       : file:./geom_760_1200.txt
- stages         :
+stages          :
 
 |------------------+-------------------------+-----------+-----------+----------+--------------------------------------------------------------------------------------------------------------|
 | stage            | step                    | status    | N(events) | N(files) | org file                                                                                                     |

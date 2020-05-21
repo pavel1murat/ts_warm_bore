@@ -1,0 +1,49 @@
+# -*- mode: tcl -*-
+#------------------------------------------------------------------------------
+# trace pbar's from VD91 to the from TS3u coll
+#------------------------------------------------------------------------------
+#include "JobConfig/beam/TS.fcl"
+
+process_name: TS1Pbar
+
+physics.producers.g4run.MultiStageParameters.inputSimParticles          : "g4filter"
+physics.producers.g4run.MultiStageParameters.inputPhysVolumeMultiInfo   : "compressPV"
+
+physics.producers.g4run.MultiStageParameters.genInputHits               : [ "g4filter:VirtualDetectorPSPbarIn" ]
+physics.producers.g4run.SDConfig.preSimulatedHits                       : [ "g4filter:virtualdetector" ]
+physics.producers.compressPVmuonBeam.particleInputs                     : [ "g4filter" ]
+
+CutEPPhN : {
+    type : intersection
+    pars : [ { type: kineticEnergy cut: 100.0 },
+             { type: pdgId pars: [ 11, -11, 22, 2112 ] } ]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut: {
+    type: union
+    pars: [ 
+ 	   @local::mu2eg4CutDeltaElectrons,
+#	   @local::CutEPPhN,
+	   { type  : inVolume 	pars  : [Coll31OutRecord ] write: Coll31OutRecord }
+	  ]
+}
+
+physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+
+physics.filters.muonBeamFilter.mainHitInputs : [ "g4run:Coll31OutRecord" ]
+
+# write out only the 'mubeam'
+
+outputs.mubeamout : { @table::outputs.mubeamout 
+      outputCommands:   [ "drop *_*_*_*",
+         "keep mu2e::GenParticles_*_*_*",
+         "keep mu2e::GenEventCount_*_*_*",
+         "keep mu2e::StatusG4_*_*_*",
+         "keep *_muonBeamFilter_*_TS1Pbar",
+         "keep *_compressPVmuonBeam_*_TS1Pbar"
+      ]  
+}
+
+physics.outputs : [ mubeamout ]
+
+services.GeometryService.inputFile    : "ts_warm_bore/760_1313/geom_760_1313.txt"
