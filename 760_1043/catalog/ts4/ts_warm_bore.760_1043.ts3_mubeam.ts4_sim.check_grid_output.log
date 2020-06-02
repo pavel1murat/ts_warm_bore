@@ -1,0 +1,22 @@
+# Sun May 31 22:09:42 CDT 2020
+# job output directory: /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1043.ts3_mubeam.ts4_sim/outstage/33537112
+# subdirectory        : /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_1043.ts3_mubeam.ts4_sim/outstage/33537112/00
+     0 : section 00000  was running on murat-33537112-0-fnpc5006.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 4091 passed = 3872 failed = 219
+     1 : section 00001  was running on murat-33537112-1-fnpc6028.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 4036 passed = 3767 failed = 269
+     2 : section 00002  was running on murat-33537112-2-fnpc19137.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 4017 passed = 3753 failed = 264
+     3 : section 00003  was running on murat-33537112-3-fnpc19126.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 4117 passed = 3864 failed = 253
+     4 : section 00004  was running on murat-33537112-4-fnpc19121.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 3937 passed = 3688 failed = 249
+     5 : section 00005  was running on murat-33537112-5-fnpc19142.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 4124 passed = 3858 failed = 266
+     6 : section 00006  was running on murat-33537112-6-fnpc19105.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 4029 passed = 3775 failed = 254
+     7 : section 00007  was running on murat-33537112-7-fnpc9043.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 4082 passed = 3820 failed = 262
+     8 : section 00008  was running on murat-33537112-8-fnpc19134.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 4060 passed = 3816 failed = 244
+     9 : section 00009  was running on murat-33537112-9-fnpc7001.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 2839 passed = 2672 failed = 167
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :     2 sections
+output checked      :    10 sections
+completed           :    10 sections
+staging failures    :     0 sections
+completed with rc=0 :    10 sections
+mu2e job failed     :     0 sections

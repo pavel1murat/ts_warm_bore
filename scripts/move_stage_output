@@ -70,6 +70,7 @@ elif [ $p_job_type == "s1:sim"  ] ; then output_streams="mubeam"
 elif [ $p_job_type == "s2:sim"  ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts1:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts2:sim" ] ; then output_streams="mubeam"
+elif [ $p_job_type == "ts2:stn" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts3:sim" ] ; then output_streams="mubeam"
 elif [ $p_job_type == "ts4:sim" ] ; then output_streams="ootstops tgtstops"
 fi

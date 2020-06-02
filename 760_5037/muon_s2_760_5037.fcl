@@ -1,0 +1,27 @@
+# -*- mode: tcl -*-
+#include "JobConfig/beam/TS.fcl"
+
+# physics.producers.g4run.physics.physicsListName : "QGSP_BERT"
+services.GeometryService.inputFile: "ts_warm_bore/760_5037/geom_760_5037.txt"
+
+// Energy cuts on electrons, positrons, photons, and neutrons.
+
+CutEPPhN : {
+    type : intersection
+    pars : [ { type: kineticEnergy cut: 100.0 },
+             { type: pdgId pars: [ 11, -11, 22, 2112 ] } ]
+}
+
+physics.producers.g4run.Mu2eG4CommonCut : {
+    type : union
+    pars : [
+    	    @local::CutEPPhN,
+	    {
+		type: inVolume
+		pars: [TS5Vacuum, DS1Vacuum, DS2Vacuum, DS3Vacuum ]
+		write: DSVacuum
+	    }
+	   ]
+}
+
+physics.outputs : [ mubeamout ]

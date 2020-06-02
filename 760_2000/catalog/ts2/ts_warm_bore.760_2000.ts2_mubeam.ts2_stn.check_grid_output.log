@@ -1,0 +1,16 @@
+# Wed May 27 20:48:10 CDT 2020
+# job output directory: /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_2000.ts2_mubeam.ts2_stn/outstage/33379699
+# subdirectory        : /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.760_2000.ts2_mubeam.ts2_stn/outstage/33379699/00
+     0 : section 00000  was running on murat-33379699-0-fnpc9004.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 967718 passed = 967718 failed = 0
+     1 : section 00001  was running on murat-33379699-1-fnpc9103.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 966032 passed = 966032 failed = 0
+     2 : section 00002  was running on murat-33379699-2-fnpc7017.fnal.gov       , mu2egrid exit status:   0 TrigReport Events total = 969375 passed = 969375 failed = 0
+     3 : section 00003  was running on murat-33379699-3-fnpc19104.fnal.gov      , mu2egrid exit status:   0 TrigReport Events total = 813463 passed = 813463 failed = 0
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :     1 sections
+output checked      :     4 sections
+completed           :     4 sections
+staging failures    :     0 sections
+completed with rc=0 :     4 sections
+mu2e job failed     :     0 sections
