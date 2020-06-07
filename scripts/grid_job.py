@@ -212,7 +212,9 @@ class GridSubmit:
     def BuildTarball(self):
         name = 'BuildTarball'
 
-        cmd_pars = ['gridexport' ,'-E '+os.getenv('PWD')+'/grid_export', '-A ts_warm_bore/AAA_GRIDEXPORT_EXCLUDE.txt'];
+        offline_ver  = self.fDsid.split('_')[0];
+        exclude_file = self.fProject+'/AAA_GRIDEXPORT_EXCLUDE_'+offline_ver+'.txt';
+        cmd_pars = ['gridexport' ,'-E '+os.getenv('PWD')+'/grid_export', '-A '+exclude_file];
 
         print(">>> [BuildTarball] executing :"," ".join(cmd_pars));
 
@@ -239,7 +241,7 @@ class GridSubmit:
             os.rmdir(tmp_dir);
 
             # copy tarball to /pnfs
-            grid_tarball = '/pnfs/mu2e/resilient/users/murat/'+self.fProject+'.code.tbz'
+            grid_tarball = '/pnfs/mu2e/resilient/users/murat/'+self.fProject+'.'+offline_ver+'.code.tbz'
             if os.path.exists(grid_tarball):
                 os.remove(grid_tarball)
 

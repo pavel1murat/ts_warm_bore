@@ -6,6 +6,8 @@
 # examples:
 #           ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2060 pbar:vd91:03 ts1:sim 24h:ifdh   .
 #           ts_warm_bore/scripts/submit_grid_job ts_warm_bore 711_2060 ts1:mubeam   ts2:sim 10h:xrootd .
+#
+# it is assumed that dsid = ${offline_version}_${some_id}
 #------------------------------------------------------------------------------
         project=$1 # ts_warm_bore
 	   dsid=$2 # 760_2000
@@ -40,7 +42,8 @@ setup mu2egrid
 
 dsconf=${dsid}_${input_stub}
 
-code_tarball=/pnfs/mu2e/resilient/users/murat/$project.code.tbz
+offline_ver=`echo $dsid | awk -F _ '{print $1}'`
+code_tarball=/pnfs/mu2e/resilient/users/murat/$project.$offline_ver.code.tbz
 
  fcl_tarball=/pnfs/mu2e/resilient/users/murat/$project.$dsid.$input_stub.$sub_stub.fcl.tbz
 # if [ ".$fclt" != "." ] ; then fcl_tarball=$fclt ; fi
@@ -58,4 +61,4 @@ if [ $xrootd == "xrootd" ] ; then parameters=$parameters" --xrootd" ; fi
 
 if [ ".$doit" == ".d" ] ; then parameters=$parameters" --dry-run" ; fi
 
-$prefix date ; $prefix time mu2eprodsys $parameters
+$prefix date ; $prefix mu2eprodsys $parameters

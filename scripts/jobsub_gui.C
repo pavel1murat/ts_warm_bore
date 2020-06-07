@@ -456,7 +456,7 @@ void JobSubGui::catalog_stntuples() {
 	 job_stage.Data(),job_type.Data());
 	 
 
-  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s_%s -p nts.%s -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s_%s --install %s",
+  cmd = Form("Stntuple/scripts/catalog_stntuples --bluearc -b %s -d %s.%s -p nts.%s -D /mu2e/data/users/murat/datasets/%s/%s/%s_%s_%s --install %s",
 	     fProject.Data(),
 	     fDsid.Data(),
 	     istage.Data(),
@@ -762,6 +762,7 @@ void JobSubGui::BuildGui(const TGWindow *Parent, UInt_t Width, UInt_t Height) {
 // set active tab
 //-----------------------------------------------------------------------------
    fActiveTabID = 0;
+   fActiveStage = &fStageData[0];
    fTab->SetTab(fActiveTabID);
 
    fActiveTab = fTabElement[fActiveTabID].fTab; // fTab->GetTabTab(0);
