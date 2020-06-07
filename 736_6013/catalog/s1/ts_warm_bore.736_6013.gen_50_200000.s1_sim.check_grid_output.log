@@ -1,0 +1,62 @@
+# Sun Jun 7 07:00:03 CDT 2020
+# job output directory: /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.736_6013.gen_50_200000.s1_sim/outstage/8860435
+# subdirectory        : /pnfs/mu2e/scratch/users/murat/workflow/ts_warm_bore.736_6013.gen_50_200000.s1_sim/outstage/8860435/00
+     0 : section 00000  was running on                                          , NO mu2egrid exit status   0
+     1 : section 00001  was running on                                          , NO mu2egrid exit status   0
+     2 : section 00002  was running on                                          , NO mu2egrid exit status   0
+     3 : section 00003  was running on                                          , NO mu2egrid exit status   0
+     4 : section 00004  was running on                                          , NO mu2egrid exit status   0
+     5 : section 00005  was running on                                          , NO mu2egrid exit status   0
+     6 : section 00006  was running on                                          , NO mu2egrid exit status   0
+     7 : section 00007  was running on                                          , NO mu2egrid exit status   0
+     8 : section 00008  was running on                                          , NO mu2egrid exit status   0
+     9 : section 00009  was running on                                          , NO mu2egrid exit status   0
+    10 : section 00010  was running on                                          , NO mu2egrid exit status   0
+    11 : section 00011  was running on                                          , NO mu2egrid exit status   0
+    12 : section 00012  was running on                                          , NO mu2egrid exit status   0
+    13 : section 00013  was running on                                          , NO mu2egrid exit status   0
+    14 : section 00014  was running on                                          , NO mu2egrid exit status   0
+    15 : section 00015  was running on                                          , NO mu2egrid exit status   0
+    16 : section 00016  was running on                                          , NO mu2egrid exit status   0
+    17 : section 00017  was running on                                          , NO mu2egrid exit status   0
+    18 : section 00018  was running on                                          , NO mu2egrid exit status   0
+    19 : section 00019  was running on                                          , NO mu2egrid exit status   0
+    20 : section 00020  was running on                                          , NO mu2egrid exit status   0
+    21 : section 00021  was running on                                          , NO mu2egrid exit status   0
+    22 : section 00022  was running on                                          , NO mu2egrid exit status   0
+    23 : section 00023  was running on                                          , NO mu2egrid exit status   0
+    24 : section 00024  was running on                                          , NO mu2egrid exit status   0
+    25 : section 00025  was running on                                          , NO mu2egrid exit status   0
+    26 : section 00026  was running on                                          , NO mu2egrid exit status   0
+    27 : section 00027  was running on                                          , NO mu2egrid exit status   0
+    28 : section 00028  was running on                                          , NO mu2egrid exit status   0
+    29 : section 00029  was running on                                          , NO mu2egrid exit status   0
+    30 : section 00030  was running on                                          , NO mu2egrid exit status   0
+    31 : section 00031  was running on                                          , NO mu2egrid exit status   0
+    32 : section 00032  was running on                                          , NO mu2egrid exit status   0
+    33 : section 00033  was running on                                          , NO mu2egrid exit status   0
+    34 : section 00034  was running on                                          , NO mu2egrid exit status   0
+    35 : section 00035  was running on                                          , NO mu2egrid exit status   0
+    36 : section 00036  was running on                                          , NO mu2egrid exit status   0
+    37 : section 00037  was running on                                          , NO mu2egrid exit status   0
+    38 : section 00038  was running on                                          , NO mu2egrid exit status   0
+    39 : section 00039  was running on                                          , NO mu2egrid exit status   0
+    40 : section 00040  was running on                                          , NO mu2egrid exit status   0
+    41 : section 00041  was running on                                          , NO mu2egrid exit status   0
+    42 : section 00042  was running on                                          , NO mu2egrid exit status   0
+    43 : section 00043  was running on                                          , NO mu2egrid exit status   0
+    44 : section 00044  was running on                                          , NO mu2egrid exit status   0
+    45 : section 00045  was running on                                          , NO mu2egrid exit status   0
+    46 : section 00046  was running on                                          , NO mu2egrid exit status   0
+    47 : section 00047  was running on                                          , NO mu2egrid exit status   0
+    48 : section 00048  was running on                                          , NO mu2egrid exit status   0
+    49 : section 00049  was running on                                          , NO mu2egrid exit status   0
+--------------------------------------------
+JOB SUMMARY:
+--------------------------------------------
+submitted           :    50 sections
+output checked      :    50 sections
+completed           :    50 sections
+staging failures    :     0 sections
+completed with rc=0 :     0 sections
+mu2e job failed     :     0 sections

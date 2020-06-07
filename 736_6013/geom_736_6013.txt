@@ -1,0 +1,31 @@
+// -*- mode: c++ -*-
+// 
+#include "Mu2eG4/geom/geom_common_current.txt"
+//-----------------------------------------------------------------------------
+// TS1 pbar absorber: 250 um Al window             (default)
+// TS1 pbar collar  : short, 90 deg, rin = 100 mm
+//-----------------------------------------------------------------------------
+double pbar.coll1Out.rIn      = 120.0;                       // *DEFAULT* : 120.0
+double pbar.coll1Out.phiBegin = 210.0;                       // *DEFAULT* : 210.0
+double pbar.coll1Out.phiDelta = 120.0;                       // *DEFAULT* : 120.0
+//-----------------------------------------------------------------------------
+// TS3 Pbar Absorber: 300 um Ti window, no wedge
+//-----------------------------------------------------------------------------
+double pbar.halfLength                    = 0.150;      // 150 um thick
+string pbar.materialName                  = "G4_Ti";
+string pbar.Type                          = "disk";   // default: "wedge" ... "disk"
+
+string pbarwedge.wedgeMaterial            = "A1100";
+// int    pbarwedge.nStrips                  = 4;
+// vector<double> pbarwedge.stripThicknesses = {  0.127,  0.127,   0.127,   0.127 }; // mm
+// vector<double> pbarwedge.stripHeights     = { 48.0  , 88.0  , 128.0  , 168.0   }; // mm
+
+int    pbarwedge.nStrips                  = 2;
+vector<double> pbarwedge.stripThicknesses = { 0.127, 0.127 }; // mm
+vector<double> pbarwedge.stripHeights     = {  90.0, 140.0 }; // mm
+
+
+// This tells emacs to view this file in c++ mode.
+// Local Variables:
+// mode:c++
+// End:
