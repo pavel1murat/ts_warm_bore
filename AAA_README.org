@@ -1,7 +1,24 @@
-# ts_warm_bore/AAA_README.org
-
-
-
+#+startup:fold  ts_warm_bore/AAA_README.org
+* *------------------------------------------------------------------------------*
+* directory: file:./
+* *------------------------------------------------------------------------------*
+* Fermilab TM-1380:                                                            
+  file:./1991_Fermilab-TM-1380.pdf
+  go to https://lss.fnal.gov/ and search
+* window geometry (George) : file:./2020-04-09-george.png
+* different window configurations and pressure:                                
+root [21] .L ../subprojects/ts_warm_bore/scripts/ts3_window.C
+root [22] ts3_window()
+# -- 250 um Al window at 1.2 psi: x =    2.930605e+01  stress =    1.181925e+04 Fu*0.5 =    1.200000e+04 Fy*0.9 =    1.980000e+04
+# --  50 um Ti window at 1.2 psi: x =    2.122078e+02  stress =    3.757027e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 100 um Ti window at 1.2 psi: x =    8.420787e+01  stress =    2.417501e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 150 um Ti window at 1.2 psi: x =    4.903236e+01  stress =    1.890575e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 150 um Ti window at 12  psi: x =    1.056606e+02  stress =    8.502923e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 200 um Ti window at 1.0 atm: x =    7.703413e+01  stress =    8.119006e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 250 um Ti window at 1.2 psi: x =    2.479281e+01  stress =    1.419771e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 250 um Ti window at 1.0 atm: x =    5.720437e+01  stress =    7.088038e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+# -- 300 um Ti window at 1.5 atm: x =    5.134870e+01  stress =    8.271711e+04 Fu*0.5 =    8.500000e+04 Fy*0.9 =    1.440000e+05
+* work                                                                         
   *src* : file:src
 
 
@@ -28,13 +45,13 @@
   4) *pbars* : see file:/mu2e/app/users/murat/tsud_bore_prof/catalogs/antiprotons_cs1VD91.170829/sim.mu2e.antiprotons_cs1VD91.170829.org
 
   5) 
-  fcl, geom : for tests, templates...
+  fcl, geom : for tests, templates
   tmp_code  : stores tarballs
   tmp_fcl   : stores FCL files produced with generate_fcl
-* *reference numbers* 
+* *reference numbers*                                                          
   for default geometry, the number of muons in the end of Stage1 is about 1.3% of the number of generated events
 
-* weighting:  
+* weighting:                                                                   
 
   s0 (sum of all weights) = N(generated)*sigma/(2*Pmax)
 
@@ -42,7 +59,7 @@
 
   sigma / (2*Pmax) = s0/N(generated) = 37.95
 
-* *mu2eprodsys* 
+* *mu2eprodsys*                                                                
 # it looks at the user fcl tarball, calculates some hash and counts the number fo fcl files in there
 Using: MU2EGRID_MU2ESETUP => /cvmfs/mu2e.opensciencegrid.org/setupmu2e-art.sh
 Using: MU2EGRID_CODE => /pnfs/mu2e/resilient/users/murat/ts_warm_bore.code.tbz
@@ -63,10 +80,7 @@ jobsub_submit --disk 30GB --resource-provides usage_model=OPPORTUNISTIC,DEDICATE
 -e MU2EGRID_CODE -e IFDH_VERSION -e MU2EGRID_WFOUTSTAGE -e MU2EGRID_FCLTAR -e MU2EGRID_ERRORDELAY -e MU2EGRID_INPUTLIST -e MU2EGRID_DSCONF -e MU2EGRID_XROOTD -e MU2EGRID_DIR -e MU2EGRID_USERSETUP \ 
 -e MU2EGRID_DSOWNER -e MU2EGRID_TRANSFER_ALL -N 485 -f dropbox:///tmp/6OAZbVbhAh file:///cvmfs/mu2e.opensciencegrid.org/artexternals/mu2egrid/v6_04_00/bin/impl/mu2eprodsys.sh
 
-* *------------------------------------------------------------------------------*
-* directory: file:./
-* *------------------------------------------------------------------------------*
-* *COMMENTS*                                                              
+* *COMMENTS*                                                                   
   
   *why Dave calls stage3 mothers bin ?*
 
@@ -132,7 +146,7 @@ Art has completed and will exit with status 0.
 * 711_0000: default geometry
 * 711_0001: "worst case" : misaligned bore geometry with perfect TS3 ends positioning
 * *------------------------------------------------------------------------------*
-* *WORK LOG*                                ** 
+* *WORK LOG*                                **                                 
 ** <2020-05-18 Mon> **     
 samweb prestage-dataset --parallel=10 --defname=sim.mu2e.antiprotons_cs1VD91.170829.art
 
@@ -1538,3 +1552,4 @@ ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 mubeam    12309083 .
 ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 crv       12309083 .
 ts_warm_bore/scripts/list_pnfs_files 711_1006 s1 mubeam s2 truncated 12309083 .
 
+* ------------------------------------------------------------------------------

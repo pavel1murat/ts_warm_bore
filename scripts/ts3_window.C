@@ -2,8 +2,15 @@
 // calculation for 250 um Al window: mu2e-20278 (Dave Pushka)
 // underlying documents:
 // - Fermilab guidelines document: https://lss.fnal.gov/archive/tm/TM-1380.pdf
+//   local: file:./https://lss.fnal.gov/archive/tm/TM-1380.pdf
 //   - there is a typo in the formula for circular rigid windows:
 //     eq. 5.1b there should read qa^4/Et^4, not qa^4/Et^2 (it is dimensionless)
+// from George:
+// > Hi Pasha:
+// >     The following are values that Dave is using for grade 5 titanium in this context:
+// > Young's modulus   1.64x10^7 psi   (instead of 1.65x10^7 psi)
+// > Ultimate stress   1.3x10^5  psi   (instead of 1.7x10^5 psi)
+// > Yield stress      1.2x10^5 psi    (instead of 1.6x10^5 psi)
 //
 // - 2002 Roarks formulas for stress and strain 7th edition, formulas 11.11-1 and 11.11-2
 //
@@ -58,8 +65,8 @@ struct Material_t {
 };
 
 struct TS3Window_t {
-  double      D;           // diameter
-  double      t;           // thickness
+  double      D;           // diameter, in
+  double      t;           // thickness, in
   Material_t* Material;
 };
 
@@ -170,7 +177,7 @@ void check_win(TS3Window_t& Win, double Pressure) {
 //-----------------------------------------------------------------------------
   double s = E/(y*y)*(k3*x+k4*x*x);
 
-  printf("x = %15.6e  s = %15.6e Fu*0.5 = %15.6e Fy*0.9 = %15.6e\n",
+  printf("x = %15.6e  stress = %15.6e Fu*0.5 = %15.6e Fy*0.9 = %15.6e\n",
 	 x,s,Win.Material->Fu*0.5,Win.Material->Fy*0.9);
 }
 
@@ -179,26 +186,59 @@ void check_win(TS3Window_t& Win, double Pressure) {
   // double psi   = 453.59237/(2.54*2.54)*g;
 
 //-----------------------------------------------------------------------------
-void ts3_window() {
+//              name     Fu       Fy       E    nu
+//-----------------------------------------------------------------------------
+Material_t mAl   { "Al",  24000.,  22000., 1.0e7 , 0.33};  // Al
+Material_t mTi   { "Ti", 170000., 160000., 1.65e7, 0.33};  // Ti grade 5
+Material_t mTi_DP{ "Ti", 130000., 120000., 1.64e7, 0.33};  // Ti grade 5, parameters used by Dave Pushka's (according to George)
 
-  //              name     Fu       Fy       E    nu
-  Material_t mAl { "Al",  24000.,  22000., 1.0e7 , 0.33};  // Al
-  Material_t mTi { "Ti", 170000., 160000., 1.65e7, 0.33};  // Ti grade 5
+//-----------------------------------------------------------------------------
+void ts3_window() {
 
   double  p;
   
-  printf("# ---------------------------checking 250 um Al window for 1.2 psi :\n");
+  printf("# -- 250 um Al window at 1.2 psi: ");
   //              45cm  254um 
   TS3Window_t w1{ 17.7, 0.01, &mAl}; p = 1.2;  
   check_win(w1,p);
   
-  printf("# ---------------------------checking 250 um Ti window at 1.2 psi:\n");
+  printf("# --  50 um Ti window at 1.2 psi: ");
+  //              45cm     ~50um 
+  TS3Window_t w11{ 17.7, 0.002 , &mTi}; p = 1.2;
+  check_win(w11,p);
+
+  printf("# -- 100 um Ti window at 1.2 psi: ");
+  //              45cm     4mil ~100um 
+  TS3Window_t w12{ 17.7, 0.004 , &mTi}; p = 1.2;
+  check_win(w12,p);
+
+  printf("# -- 150 um Ti window at 1.2 psi: ");
+  //              45cm  ~150um 
+  TS3Window_t w3{ 17.7, 0.006 , &mTi}; p = 1.2;
+  check_win(w3,p);
+
+  printf("# -- 150 um Ti window at 12  psi: ");
+  //              45cm  ~150um 
+  TS3Window_t w31{ 17.7, 0.006 , &mTi}; p = 12.;
+  check_win(w31,p);
+
+  printf("# -- 200 um Ti window at 1.0 atm: ");
+  //              45cm  ~150um 
+  TS3Window_t w32{ 17.7, 0.008 , &mTi}; p = 14.7;
+  check_win(w32,p);
+
+  printf("# -- 250 um Ti window at 1.2 psi: ");
   //              45cm  254um 
   TS3Window_t w2{ 17.7, 0.01 , &mTi}; p = 1.2;
   check_win(w2,p);
 
-  printf("# ---------------------------checking 300 um Ti window at 1 atm:\n");
+  printf("# -- 250 um Ti window at 1.0 atm: ");
+  //              45cm  254um 
+  TS3Window_t w21{ 17.7, 0.01 , &mTi}; p = 14.7;
+  check_win(w21,p);
+
+  printf("# -- 300 um Ti window at 1.5 atm: ");
     //              45cm  ~300 um
-  TS3Window_t w3{ 17.7, 0.012, &mTi};  p = 14.7*1.5 ; 
-  check_win(w3,p);
+  TS3Window_t w4{ 17.7, 0.012, &mTi};  p = 14.7*1.5 ; 
+  check_win(w4,p);
 }
